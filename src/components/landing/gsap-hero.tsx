@@ -190,7 +190,7 @@ export function GsapHero() {
     if (autoplayTweenRef.current) {
       autoplayTweenRef.current.kill();
     }
-    autoplayTweenRef.current = gsap.delayedCall(10, () => {
+    autoplayTweenRef.current = gsap.delayedCall(15, () => {
       nextSlide(true);
     });
   };
@@ -857,12 +857,12 @@ export function GsapHero() {
         .gsap-hero-container .details .title-2 {
           font-weight: 800;
           text-transform: uppercase;
-          line-height: 1.0;
+          line-height: 1.15;
         }
         .gsap-hero-container .details .title-box-1,
         .gsap-hero-container .details .title-box-2 {
           margin-top: 4px;
-          height: 1.15em;
+          height: 1.3em;
           overflow: hidden;
         }
         .gsap-hero-container .details > .desc {
@@ -993,10 +993,10 @@ export function GsapHero() {
             <div className="content-place text-zinc-300 font-mono text-[9px] font-bold tracking-widest">
               {slide.place}
             </div>
-            <div className="content-title-1 font-bold text-white text-[12px]">
+            <div className="content-title-1 font-bold text-white text-[12px] font-heading">
               {slide.title}
             </div>
-            <div className="content-title-2 font-bold text-white text-[12px]">
+            <div className="content-title-2 font-bold text-white text-[12px] font-heading">
               {slide.title2}
             </div>
           </div>
@@ -1009,10 +1009,10 @@ export function GsapHero() {
           <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
         </div>
         <div className="title-box-1 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase leading-none text-white font-sans whitespace-nowrap"></div>
+          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
         </div>
         <div className="title-box-2 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase leading-none text-white font-sans whitespace-nowrap"></div>
+          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
         </div>
         <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
         <div className="cta flex gap-4 mt-6">
@@ -1027,10 +1027,10 @@ export function GsapHero() {
           <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
         </div>
         <div className="title-box-1 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase leading-none text-white font-sans whitespace-nowrap"></div>
+          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
         </div>
         <div className="title-box-2 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase leading-none text-white font-sans whitespace-nowrap"></div>
+          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
         </div>
         <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
         <div className="cta flex gap-4 mt-6">
