@@ -56,7 +56,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full min-h-[75vh] flex items-center justify-center py-16 px-6 bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
+    <div className="w-full min-h-[75vh] flex items-center justify-center pt-32 pb-16 px-6 bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
       <Card className="w-full max-w-[420px] shadow-xl p-8 bg-pure-surface dark:bg-zinc-900 border border-whisper-border dark:border-zinc-800">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold tracking-tighter text-black dark:text-white mb-2">

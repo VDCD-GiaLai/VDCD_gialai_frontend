@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { GsapHero } from "@/components/landing/gsap-hero";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -35,65 +36,8 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      {/* Hero Section */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[85vh]">
-        <motion.div
-          className="lg:col-span-6 flex flex-col justify-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUpVariants}
-        >
-          <div className="font-mono-label text-xs font-bold text-accent-red mb-4 tracking-widest uppercase">
-            Kiến tạo tương lai số
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-black dark:text-white mb-6 leading-none">
-            Chuyển đổi số & <br />
-            Đổi mới sáng tạo tại Gia Lai.
-          </h1>
-          <p className="text-secondary dark:text-zinc-400 text-body-md max-w-xl mb-8 leading-relaxed">
-            VDCD Group là hạt nhân thúc đẩy hệ sinh thái khởi nghiệp sáng tạo,
-            ứng dụng công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, kiến
-            tạo nền tảng vững chắc cho sự phát triển bền vững của địa phương và
-            khu vực.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button
-              color="primary"
-              className="bg-accent-red hover:bg-accent-red-hover text-white px-8 py-6 rounded-full font-bold shadow-sm"
-              trailingIcon={<FiArrowRight />}
-            >
-              Hồ sơ năng lực
-            </Button>
-            <a href="#about">
-              <Button
-                variant="bordered"
-                className="border-whisper-border dark:border-zinc-800 text-secondary dark:text-zinc-300 px-8 py-6 rounded-full font-bold"
-              >
-                Tìm hiểu thêm
-              </Button>
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="lg:col-span-6 h-[350px] md:h-[550px] relative w-full rounded-2xl overflow-hidden shadow-xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Image
-            alt="Gia Lai landscape"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-transform duration-700 hover:scale-105"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3DOpcyE9BZOHevHJfT4F5aKDVphR1D3fi9Que-63ykBqf1G5f1c2nPaxwqdY4pLLiCOdXqULetKFJq_3wzdU96PLc_dXoyy_jq4flbdj1yzrNqqYdL9p9CjiZAkP-L0PSnA3rLknBlAqRJZaIAVNQe7IkUb0v3okyrOBtaJhjhPz04W1ZeehVAD5Cy1DmutEEUMcUw2AZrqFtnByCfLXFTfB5ENucxMa6_-2yr311orj5W9no9NjrzlpcG62-VFsddSuEKEU42XU"
-          />
-        </motion.div>
-      </section>
+    <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
+      <GsapHero />
 
       {/* Introduction Section */}
       <section
@@ -113,7 +57,7 @@ export default function LandingPage() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXu8Kuj2LeKN1tbje6yuZDp0afhxjl4_FcZ4GT_J9qSakmTq8ZAbD7_xuLDs4L7M_kKj1PXM3tyv3b7aiO2l3iZUVKZmP2yD56v_zMBQd3T7YaaKfcd1473OcUefPLZ69crYl0mujWY_OLKnlPX9r0nLu7JLACsm1ZfrglLqBDA_TFGfIzKWI_L_w-Rtco7RpcF3_NWvMH2tQi0ip3zpFR33Pm71VdhooqFHdldPpmKwGlrI1FUqywzs0bfaYKCsAb0pZeiO8H2dKLk"
+              src="/innovation_center.png"
             />
           </motion.div>
 
