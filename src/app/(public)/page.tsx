@@ -23,6 +23,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { GsapHero } from "@/components/landing/gsap-hero";
+import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -339,78 +340,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Network Map & Stats */}
-      <section className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white mb-4">
-              Mạng lưới kết nối toàn diện
-            </h2>
-            <p className="text-secondary dark:text-zinc-400 text-body-md max-w-lg mx-auto">
-              Hệ thống trung tâm hỗ trợ và hạ tầng kết nối các tỉnh thành phục
-              vụ chuyển đổi số doanh nghiệp.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <motion.div
-              className="lg:col-span-8 h-[400px] md:h-[550px] relative rounded-2xl overflow-hidden border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 flex items-center justify-center shadow-inner"
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Image
-                alt="Vietnam Map Network"
-                fill
-                sizes="(max-width: 768px) 100vw, 66vw"
-                className="object-contain p-4 dark:invert-[0.9] dark:hue-rotate-180"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2HqScy0l6RwWUnMEDk3JGfEpp9gOEXNd3Bg4wCzEWsqZ5LQcADVlgrzoWoDHTq93KxTzShmOoZSQMIRfX_a3vkrKbrSyJusKISD957DYOFPV6jWiDWfMP9i3KFI9N0Oqfy9Dh67PSw4YbMDAD3DFkW055tugolR3_78Z9kOEH1NHts76SiDjVDfcfdw_-zC1a4FAHrmy57tkJJAW37DnwwAL6jY86R83LQ6tjDxAGg8TicLyXWb9-Z9vugbY7hVdTDG9KbslB6tg"
-              />
-            </motion.div>
-
-            <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
-              {[
-                {
-                  value: "63+",
-                  label: "Tỉnh thành kết nối",
-                  icon: <FiGlobe />,
-                },
-                {
-                  value: "15+",
-                  label: "Trung tâm vệ tinh",
-                  icon: <FiDatabase />,
-                },
-                {
-                  value: "500+",
-                  label: "Dự án hoàn tất",
-                  icon: <FiCheckCircle />,
-                },
-                { value: "24/7", label: "Hỗ trợ kỹ thuật", icon: <FiClock /> },
-              ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  className="border-l-3 border-accent-red pl-6 py-2"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <div className="flex items-center gap-2 text-secondary dark:text-zinc-400 mb-1">
-                    <span className="text-accent-red text-lg">{stat.icon}</span>
-                    <span className="font-mono-label text-[10px] uppercase tracking-wider">
-                      {stat.label}
-                    </span>
-                  </div>
-                  <div className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white">
-                    {stat.value}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <VietnamMapSection />
 
       {/* Featured Projects */}
       <section
