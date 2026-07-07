@@ -1,0 +1,21 @@
+name: Check Branch Name
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name format
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          # Regex to check if the branch name starts with 'feature/'
+          REGEX="^feature/.*$"
+          
+          if [[ ! $BRANCH_NAME =~ $REGEX ]]; then
+            echo "::error::Source branch name '$BRANCH_NAME' is invalid. It must start with 'feature/'. Example: feature/task-name"
+            exit 1
+          fi
+          echo "Branch name '$BRANCH_NAME' is valid."

@@ -6,6 +6,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --font-sans: var(--font-be-vietnam-pro), sans-serif;
+  --font-heading: var(--font-montserrat), sans-serif;
+
   --color-accent-red: #e80002;
   --color-accent-red-hover: #c80018;
   --color-whisper-border: rgba(226, 232, 240, 0.5);
@@ -74,6 +77,17 @@ body {
   background-color: var(--color-canvas-white);
   color: var(--color-on-surface);
   overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading,
+.font-mono-label {
+  font-family: var(--font-heading);
 }
 
 .dark body {
