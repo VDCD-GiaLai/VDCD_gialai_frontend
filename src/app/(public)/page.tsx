@@ -53,7 +53,7 @@ export default function LandingPage() {
         id="about"
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
           {/* Header Zone */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
             <motion.div
@@ -108,6 +108,7 @@ export default function LandingPage() {
                     src="/images/home/innovation_center.png"
                     alt="Hạ tầng công nghệ"
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover"
                   />
                 </div>
@@ -200,6 +201,7 @@ export default function LandingPage() {
                     src="/images/home/farm_area_drone_view.jpg"
                     alt="Quy trình vận hành"
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover"
                   />
                 </div>
@@ -274,6 +276,7 @@ export default function LandingPage() {
                     src="/images/home/data_center.jpg"
                     alt="Tiêu chuẩn an toàn"
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover"
                   />
                 </div>
@@ -347,7 +350,7 @@ export default function LandingPage() {
         id="projects"
         className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-900/10 transition-colors duration-300"
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
             <div>
               <div className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase">
@@ -416,7 +419,7 @@ export default function LandingPage() {
         id="contact"
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
           {/* Partners */}
           <div className="mb-24">
             <div className="font-mono-label text-xs text-secondary dark:text-zinc-400 text-center mb-10 uppercase tracking-widest">

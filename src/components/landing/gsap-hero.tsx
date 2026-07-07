@@ -1211,7 +1211,7 @@ export function GsapHero() {
       ))}
       {/* Details Box - Twin Buffers for text animations, wrapped in layout container */}
       <div className="absolute inset-0 z-22 pointer-events-none flex items-center">
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative h-full">
+        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
           <div className="details" id="details-even">
             <div className="place-box">
               <div className="text font-bold text-accent-red uppercase tracking-wider"></div>

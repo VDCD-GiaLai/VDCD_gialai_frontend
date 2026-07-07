@@ -4,8 +4,8 @@ import { APP_ROUTES } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="bg-pure-surface dark:bg-zinc-900/50 text-secondary border-t border-whisper-border/50 py-16 px-6 md:px-12 transition-colors duration-300">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <footer className="bg-pure-surface dark:bg-zinc-900/50 text-secondary border-t border-whisper-border/50 py-16 px-4 md:px-8 transition-colors duration-300">
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         <div className="col-span-1">
           <div className="font-bold text-2xl tracking-tighter text-black dark:text-white mb-4">
             VDCD <span className="text-accent-red">Group</span>
@@ -89,7 +89,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto border-t border-whisper-border/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-80">
+      <div className="max-w-[1600px] mx-auto border-t border-whisper-border/30 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-80">
         <p>© {new Date().getFullYear()} VDCD Group. All rights reserved.</p>
         <p className="mt-2 md:mt-0 font-mono-label text-[10px]">
           Thiết kế bởi Vanguard UI Architect

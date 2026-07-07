@@ -61,7 +61,7 @@ export function Header() {
           : "bg-transparent backdrop-blur-[5px] border-b border-white/10"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto flex justify-between items-center h-full px-6 md:px-12">
+      <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
         <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
           <div className="relative w-32 h-12">
             <Image

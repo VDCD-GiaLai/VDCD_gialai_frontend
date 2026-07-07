@@ -1105,7 +1105,7 @@ export function VietnamMapSection() {
       ref={sectionRef}
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
         {/* Header */}
         <motion.div
           className="mb-12"
