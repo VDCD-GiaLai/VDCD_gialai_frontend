@@ -57,7 +57,7 @@ export default function LandingPage() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
-              src="/innovation_center.png"
+              src="/images/home/innovation_center.png"
             />
           </motion.div>
 
