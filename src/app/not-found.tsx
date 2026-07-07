@@ -19,14 +19,14 @@ export default function NotFound() {
         Đường dẫn bạn yêu cầu không tồn tại hoặc đã bị di dời. Vui lòng kiểm tra
         lại địa chỉ URL.
       </p>
-      <Link href={APP_ROUTES.HOME} passHref legacyBehavior>
+      <Link href={APP_ROUTES.HOME}>
         <Button
           color="success"
           className="font-mono-label text-sm uppercase tracking-wide px-8 py-6 rounded-full"
         >
           Quay lại Trang Chủ
         </Button>
-      </Link>
+      </Link>{" "}
     </div>
   );
 }

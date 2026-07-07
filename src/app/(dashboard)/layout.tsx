@@ -93,23 +93,21 @@ export default function DashboardLayout({
       {/* Nav Menu */}
       <nav className="flex-1 px-4 py-6 space-y-2">
         {menuItems.map((item) => (
-          <Link key={item.label} href={item.path} passHref legacyBehavior>
-            <a
-              className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 font-mono-label text-xs uppercase tracking-wider text-secondary hover:text-accent-red hover:bg-secondary/5 dark:hover:bg-zinc-900/50",
-                pathname === item.path &&
-                  "bg-success/5 text-accent-red dark:bg-zinc-900",
-              )}
-            >
-              {item.icon}
-              <span
-                className={cn("transition-opacity", !isOpen && "md:hidden")}
-              >
-                {item.label}
-              </span>
-            </a>
+          <Link
+            key={item.label}
+            href={item.path}
+            className={cn(
+              "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 font-mono-label text-xs uppercase tracking-wider text-secondary hover:text-accent-red hover:bg-secondary/5 dark:hover:bg-zinc-900/50",
+              pathname === item.path &&
+                "bg-success/5 text-accent-red dark:bg-zinc-900",
+            )}
+          >
+            {item.icon}
+            <span className={cn("transition-opacity", !isOpen && "md:hidden")}>
+              {item.label}
+            </span>
           </Link>
-        ))}
+        ))}{" "}
       </nav>
 
       {/* Sidebar Footer */}

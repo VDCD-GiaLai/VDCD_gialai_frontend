@@ -11,35 +11,35 @@ const slides = [
     title: "KIẾN TẠO",
     title2: "HỆ SINH THÁI SỐ",
     desc: "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
-    image: "/innovation_center.png",
+    image: "/images/home/innovation_center.png",
   },
   {
     place: "NÔNG NGHIỆP CÔNG NGHỆ CAO",
     title: "NÔNG NGHIỆP",
     title2: "THÔNG MINH",
     desc: "Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.",
-    image: "/farm_area_drone_view.jpg",
+    image: "/images/home/farm_area_drone_view.jpg",
   },
   {
     place: "QUẢN LÝ ĐÔ THỊ THÔNG MINH",
     title: "HỆ THỐNG",
     title2: "ĐÔ THỊ SỐ",
     desc: "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
-    image: "/quynhon_citynightview.webp",
+    image: "/images/home/quynhon_citynightview.webp",
   },
   {
     place: "HẠ TẦNG KỸ THUẬT SỐ",
     title: "TRUNG TÂM",
     title2: "DỮ LIỆU VÙNG",
     desc: "Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.",
-    image: "/data_center.jpg",
+    image: "/images/home/data_center.jpg",
   },
   {
     place: "HỆ SINH THÁI VDCD GROUP",
     title: "LIÊN KẾT",
     title2: "PHÁT TRIỂN",
     desc: "Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.",
-    image: "/quynhon_herobanner.jpg",
+    image: "/images/home/quynhon_herobanner.jpg",
   },
 ];
 
@@ -70,12 +70,12 @@ export function GsapHero() {
     const width = window.innerWidth;
 
     if (width < 768) {
-      // Mobile offsets
-      offsetTopVal.current = height - 260;
-      offsetLeftVal.current = 24;
-      cardWidthVal.current = 100;
-      cardHeightVal.current = 140;
-      gapVal.current = 12;
+      // Mobile offsets - optimized to fit screen
+      offsetTopVal.current = height - 210;
+      offsetLeftVal.current = 20;
+      cardWidthVal.current = 80;
+      cardHeightVal.current = 120;
+      gapVal.current = 10;
     } else if (width < 1024) {
       // Tablet offsets
       offsetTopVal.current = height - 320;
@@ -120,7 +120,7 @@ export function GsapHero() {
       gsap.set(contentActive, { x: 0, y: 0, opacity: 0 });
     }
 
-    // Rest of cards
+    // Rest of cards positioned normally
     rest.forEach((i, index) => {
       const cardI = getCard(i);
       const contentI = getCardContent(i);
@@ -574,6 +574,206 @@ export function GsapHero() {
     });
   };
 
+  const jumpTo = (targetIdx: number) => {
+    return new Promise<void>((resolve) => {
+      if (!containerRef.current) return resolve();
+
+      const oldOrder = [...orderRef.current];
+      const oldActive = oldOrder[0];
+      const clicked = targetIdx;
+
+      const remaining = oldOrder.filter(
+        (x) => x !== oldActive && x !== clicked,
+      );
+      const newOrder = [clicked, ...remaining, oldActive];
+      orderRef.current = newOrder;
+
+      detailsEvenRef.current = !detailsEvenRef.current;
+      const detailsActive = detailsEvenRef.current
+        ? "#details-even"
+        : "#details-odd";
+      const detailsInactive = detailsEvenRef.current
+        ? "#details-odd"
+        : "#details-even";
+
+      const activeSlide = slides[clicked];
+
+      const activeEl = containerRef.current.querySelector(detailsActive);
+      const inactiveEl = containerRef.current.querySelector(detailsInactive);
+
+      if (activeEl) {
+        const textEl = activeEl.querySelector(".text");
+        const title1El = activeEl.querySelector(".title-1");
+        const title2El = activeEl.querySelector(".title-2");
+        const descEl = activeEl.querySelector(".desc");
+
+        if (textEl) textEl.textContent = activeSlide.place;
+        if (title1El) title1El.textContent = activeSlide.title;
+        if (title2El) title2El.textContent = activeSlide.title2;
+        if (descEl) descEl.textContent = activeSlide.desc;
+
+        gsap.killTweensOf([activeEl, textEl, title1El, title2El, descEl]);
+
+        gsap.set(activeEl, { zIndex: 22, opacity: 0, pointerEvents: "auto" });
+        gsap.set([textEl, title1El, title2El], { yPercent: 100 });
+        gsap.set(descEl, { yPercent: 50 });
+
+        gsap.to(activeEl, {
+          opacity: 1,
+          duration: 0.6,
+          ease: "sine.inOut",
+          delay: 0.2,
+        });
+        gsap.to(textEl, {
+          yPercent: 0,
+          duration: 0.7,
+          ease: "sine.inOut",
+          delay: 0.1,
+        });
+        gsap.to(title1El, {
+          yPercent: 0,
+          duration: 0.7,
+          ease: "sine.inOut",
+          delay: 0.15,
+        });
+        gsap.to(title2El, {
+          yPercent: 0,
+          duration: 0.7,
+          ease: "sine.inOut",
+          delay: 0.15,
+        });
+        gsap.to(descEl, {
+          yPercent: 0,
+          duration: 0.6,
+          ease: "sine.inOut",
+          delay: 0.3,
+        });
+      }
+
+      if (inactiveEl) {
+        gsap.killTweensOf(inactiveEl);
+        gsap.set(inactiveEl, { zIndex: 12, pointerEvents: "none" });
+        gsap.to(inactiveEl, { opacity: 0, duration: 0.4, ease: "sine.inOut" });
+      }
+
+      const cardPrv = getCard(oldActive);
+      const cardActive = getCard(clicked);
+
+      if (cardPrv) {
+        gsap.killTweensOf(cardPrv);
+        gsap.set(cardPrv, { zIndex: 10 });
+        gsap.to(cardPrv, { scale: 1.3, duration: 1.2, ease: "sine.inOut" });
+      }
+
+      if (cardActive) {
+        gsap.killTweensOf(cardActive);
+        gsap.set(cardActive, { zIndex: 20 });
+      }
+
+      const activeContent = getCardContent(clicked);
+      if (activeContent) {
+        gsap.killTweensOf(activeContent);
+        gsap.to(activeContent, {
+          opacity: 0,
+          y: offsetTopVal.current + cardHeightVal.current - 10,
+          duration: 0.3,
+          ease: "sine.inOut",
+        });
+      }
+
+      if (cardActive) {
+        gsap.to(cardActive, {
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          borderRadius: 0,
+          duration: 1.2,
+          ease: "sine.inOut",
+          onComplete: () => {
+            const xNew =
+              offsetLeftVal.current +
+              (newOrder.length - 2) * (cardWidthVal.current + gapVal.current);
+            if (cardPrv) {
+              gsap.set(cardPrv, {
+                x: xNew,
+                y: offsetTopVal.current,
+                width: cardWidthVal.current,
+                height: cardHeightVal.current,
+                zIndex: 30,
+                borderRadius: 12,
+                scale: 1,
+              });
+            }
+
+            const contentPrv = getCardContent(oldActive);
+            if (contentPrv) {
+              gsap.set(contentPrv, {
+                x: xNew,
+                y: offsetTopVal.current + cardHeightVal.current - 90,
+                width: cardWidthVal.current,
+                opacity: 1,
+                zIndex: 40,
+              });
+            }
+
+            resolve();
+          },
+        });
+      }
+
+      // Animating the rest of the thumbnails leftward
+      const rest = newOrder.slice(1);
+      rest.forEach((i, index) => {
+        if (i !== oldActive) {
+          const xNew =
+            offsetLeftVal.current +
+            index * (cardWidthVal.current + gapVal.current);
+          const cardI = getCard(i);
+          const contentI = getCardContent(i);
+
+          if (cardI) {
+            gsap.killTweensOf(cardI);
+            gsap.set(cardI, { zIndex: 30 });
+            gsap.to(cardI, {
+              x: xNew,
+              y: offsetTopVal.current,
+              width: cardWidthVal.current,
+              height: cardHeightVal.current,
+              duration: 1.0,
+              ease: "sine.inOut",
+              delay: 0.05 * (index + 1),
+            });
+          }
+
+          if (contentI) {
+            gsap.killTweensOf(contentI);
+            gsap.to(contentI, {
+              x: xNew,
+              y: offsetTopVal.current + cardHeightVal.current - 90,
+              width: cardWidthVal.current,
+              opacity: 1,
+              zIndex: 40,
+              duration: 1.0,
+              ease: "sine.inOut",
+              delay: 0.05 * (index + 1),
+            });
+          }
+        }
+      });
+    });
+  };
+
+  const selectSlide = async (targetIdx: number) => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+
+    stopAutoplayLoop();
+    await jumpTo(targetIdx);
+    isAnimatingRef.current = false;
+    startAutoplayLoop();
+  };
+
   const nextSlide = async (isAutoplay = false) => {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
@@ -825,11 +1025,12 @@ export function GsapHero() {
           z-index: 22;
           position: absolute;
           top: 35%;
-          left: 6%;
+          left: 0;
           max-width: 650px;
           transform-origin: left center;
           pointer-events: none;
         }
+
         .gsap-hero-container .details .place-box {
           height: 40px;
           overflow: hidden;
@@ -945,17 +1146,26 @@ export function GsapHero() {
         }
         @media (max-width: 767px) {
           .gsap-hero-container .card:not(.active-bg) {
-            opacity: 0 !important;
-            pointer-events: none !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
           }
           .gsap-hero-container .card-content {
             display: none !important;
           }
           .gsap-hero-container .details {
-            top: 25%;
-            left: 20px;
-            right: 20px;
-            max-width: 100%;
+            top: 15% !important;
+            left: 0 !important;
+            right: 0 !important;
+            max-width: 100% !important;
+          }
+
+          .gsap-hero-container .details .place-box {
+            height: 48px !important;
+          }
+          .gsap-hero-container .details .place-box .text {
+            font-size: 10px !important;
+            padding-top: 8px !important;
+            letter-spacing: 0.12em !important;
           }
           .gsap-hero-container .pagination {
             left: 20px !important;
@@ -978,12 +1188,9 @@ export function GsapHero() {
             id={`card-${idx}`}
             style={{ backgroundImage: `url(${slide.image})` }}
             onClick={() => {
-              // If user clicks a thumbnail card, go to it!
+              // If user clicks a thumbnail card, go directly to it!
               if (!isAnimatingRef.current && orderRef.current[0] !== idx) {
-                const distance = orderRef.current.indexOf(idx);
-                if (distance > 0) {
-                  nextSlide(false);
-                }
+                selectSlide(idx);
               }
             }}
           />
@@ -1002,41 +1209,44 @@ export function GsapHero() {
           </div>
         </React.Fragment>
       ))}
+      {/* Details Box - Twin Buffers for text animations, wrapped in layout container */}
+      <div className="absolute inset-0 z-22 pointer-events-none flex items-center">
+        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
+          <div className="details" id="details-even">
+            <div className="place-box">
+              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
+            </div>
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
+            <div className="cta flex gap-4 mt-6">
+              <a href="#about" className="discover pointer-events-auto">
+                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
 
-      {/* Details Box - Twin Buffers for text animations */}
-      <div className="details" id="details-even">
-        <div className="place-box">
-          <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-        </div>
-        <div className="title-box-1 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="title-box-2 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-        <div className="cta flex gap-4 mt-6">
-          <a href="#about" className="discover">
-            Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
-
-      <div className="details" id="details-odd" style={{ opacity: 0 }}>
-        <div className="place-box">
-          <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-        </div>
-        <div className="title-box-1 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="title-box-2 text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-        <div className="cta flex gap-4 mt-6">
-          <a href="#about" className="discover">
-            Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-          </a>
+          <div className="details" id="details-odd" style={{ opacity: 0 }}>
+            <div className="place-box">
+              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
+            </div>
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
+            <div className="cta flex gap-4 mt-6">
+              <a href="#about" className="discover pointer-events-auto">
+                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
