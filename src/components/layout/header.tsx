@@ -129,10 +129,9 @@ export function Header() {
               )}
             </Button>
           )}
-
           {/* Auth State Button */}
           {isAuthenticated ? (
-            <Link href={APP_ROUTES.DASHBOARD} passHref legacyBehavior>
+            <Link href={APP_ROUTES.DASHBOARD}>
               <Button
                 color="primary"
                 variant="flat"
@@ -143,7 +142,7 @@ export function Header() {
               </Button>
             </Link>
           ) : (
-            <Link href={APP_ROUTES.LOGIN} passHref legacyBehavior>
+            <Link href={APP_ROUTES.LOGIN}>
               <Button
                 color="primary"
                 className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold"
@@ -152,7 +151,7 @@ export function Header() {
                 Đăng nhập
               </Button>
             </Link>
-          )}
+          )}{" "}
         </div>
       </div>
     </header>

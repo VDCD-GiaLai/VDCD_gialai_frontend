@@ -1025,11 +1025,12 @@ export function GsapHero() {
           z-index: 22;
           position: absolute;
           top: 35%;
-          left: 6%;
+          left: 0;
           max-width: 650px;
           transform-origin: left center;
           pointer-events: none;
         }
+
         .gsap-hero-container .details .place-box {
           height: 40px;
           overflow: hidden;
@@ -1153,10 +1154,11 @@ export function GsapHero() {
           }
           .gsap-hero-container .details {
             top: 15% !important;
-            left: 20px !important;
-            right: 20px !important;
-            max-width: calc(100% - 40px) !important;
+            left: 0 !important;
+            right: 0 !important;
+            max-width: 100% !important;
           }
+
           .gsap-hero-container .details .place-box {
             height: 48px !important;
           }
@@ -1207,41 +1209,44 @@ export function GsapHero() {
           </div>
         </React.Fragment>
       ))}
+      {/* Details Box - Twin Buffers for text animations, wrapped in layout container */}
+      <div className="absolute inset-0 z-22 pointer-events-none flex items-center">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative h-full">
+          <div className="details" id="details-even">
+            <div className="place-box">
+              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
+            </div>
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
+            <div className="cta flex gap-4 mt-6">
+              <a href="#about" className="discover pointer-events-auto">
+                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
 
-      {/* Details Box - Twin Buffers for text animations */}
-      <div className="details" id="details-even">
-        <div className="place-box">
-          <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-        </div>
-        <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-        <div className="cta flex gap-4 mt-6">
-          <a href="#about" className="discover">
-            Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
-
-      <div className="details" id="details-odd" style={{ opacity: 0 }}>
-        <div className="place-box">
-          <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-        </div>
-        <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl">
-          <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-        </div>
-        <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-        <div className="cta flex gap-4 mt-6">
-          <a href="#about" className="discover">
-            Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-          </a>
+          <div className="details" id="details-odd" style={{ opacity: 0 }}>
+            <div className="place-box">
+              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
+            </div>
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
+              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            </div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
+            <div className="cta flex gap-4 mt-6">
+              <a href="#about" className="discover pointer-events-auto">
+                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
