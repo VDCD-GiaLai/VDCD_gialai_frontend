@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { GsapHero } from "@/components/landing/gsap-hero";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -36,129 +37,7 @@ export default function LandingPage() {
 
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-screen flex items-center overflow-hidden bg-zinc-950">
-        {/* Full-bleed Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            alt="Gia Lai landscape"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center transition-transform duration-1000 scale-102"
-            src="/quynhon_herobanner.jpg"
-          />
-          {/* Gradients and overlays to make text stand out */}
-          <div className="absolute inset-0 bg-black/10 dark:bg-black/20 transition-colors duration-300" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
-        </div>
-
-        {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-32 pb-16 flex flex-col justify-between min-h-screen">
-          {/* Main Content Area: Asymmetric, left-heavy */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end my-auto w-full">
-            <motion.div
-              className="lg:col-span-8 flex flex-col justify-center"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUpVariants}
-            >
-              <div className="font-mono-label text-xs font-bold text-accent-red mb-4 tracking-widest uppercase">
-                Kiến tạo tương lai số
-              </div>
-              <h1 className="text-4xl md:text-7xl font-bold tracking-tighter text-white mb-6 leading-none select-none">
-                Chuyển đổi số & <br />
-                Đổi mới sáng tạo tại Gia Lai.
-              </h1>
-
-              {/* Divider Line above description */}
-              <div className="w-full border-t border-white/20 my-6"></div>
-
-              {/* Description & Secondary CTA */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <p className="text-zinc-300 text-body-md max-w-xl leading-relaxed">
-                  VDCD Group là hạt nhân thúc đẩy hệ sinh thái khởi nghiệp sáng
-                  tạo, ứng dụng công nghệ lõi và xây dựng hạ tầng kỹ thuật số
-                  đồng bộ, kiến tạo nền tảng vững chắc cho sự phát triển bền
-                  vững của địa phương và khu vực.
-                </p>
-                <div className="flex-shrink-0">
-                  <a href="#about">
-                    <Button
-                      variant="bordered"
-                      className="border-white/20 hover:border-white/50 text-white px-8 py-6 rounded-full font-bold transition-all"
-                    >
-                      Tìm hiểu thêm
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Side: Decorative line with square block */}
-            <div className="hidden lg:col-span-4 lg:flex items-center justify-end pb-8">
-              <motion.div
-                className="flex items-center gap-3"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="w-2.5 h-2.5 bg-accent-red rounded-sm" />
-                <div className="h-[1px] bg-white/20 w-48 xl:w-64" />
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Bottom Area: Full-width divider + CTA Card */}
-          <div className="w-full">
-            {/* Bottom Full-width divider line */}
-            <div className="w-full border-t border-white/10 my-6"></div>
-
-            {/* Bottom Left CTA Card */}
-            <motion.div
-              className="flex justify-start"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="group relative flex items-center gap-4 bg-transparent backdrop-blur-[5px] border border-whisper-border/30 dark:border-white/10 hover:border-white/30 rounded-2xl p-4 max-w-md w-full shadow-lg transition-all duration-300 hover:translate-y-[-2px]">
-                {/* Small Thumbnail Image */}
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-zinc-800 border border-white/10">
-                  <Image
-                    alt="Innovation Center thumbnail"
-                    fill
-                    sizes="64px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXu8Kuj2LeKN1tbje6yuZDp0afhxjl4_FcZ4GT_J9qSakmTq8ZAbD7_xuLDs4L7M_kKj1PXM3tyv3b7aiO2l3iZUVKZmP2yD56v_zMBQd3T7YaaKfcd1473OcUefPLZ69crYl0mujWY_OLKnlPX9r0nLu7JLACsm1ZfrglLqBDA_TFGfIzKWI_L_w-Rtco7RpcF3_NWvMH2tQi0ip3zpFR33Pm71VdhooqFHdldPpmKwGlrI1FUqywzs0bfaYKCsAb0pZeiO8H2dKLk"
-                  />
-                </div>
-
-                {/* Card Info & CTA Button */}
-                <div className="flex-grow flex flex-col justify-between py-0.5">
-                  <div className="text-white text-sm font-bold tracking-tight line-clamp-1 mb-1.5">
-                    Hồ sơ năng lực VDCD Group
-                  </div>
-                  <div className="flex items-center">
-                    <Button
-                      color="primary"
-                      className="bg-accent-red hover:bg-accent-red-hover text-white text-xs px-5 py-2.5 rounded-full font-bold shadow-sm flex items-center gap-1.5"
-                      trailingIcon={
-                        <FiArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      }
-                    >
-                      Hồ sơ năng lực
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <GsapHero />
 
       {/* Introduction Section */}
       <section
@@ -178,7 +57,7 @@ export default function LandingPage() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXu8Kuj2LeKN1tbje6yuZDp0afhxjl4_FcZ4GT_J9qSakmTq8ZAbD7_xuLDs4L7M_kKj1PXM3tyv3b7aiO2l3iZUVKZmP2yD56v_zMBQd3T7YaaKfcd1473OcUefPLZ69crYl0mujWY_OLKnlPX9r0nLu7JLACsm1ZfrglLqBDA_TFGfIzKWI_L_w-Rtco7RpcF3_NWvMH2tQi0ip3zpFR33Pm71VdhooqFHdldPpmKwGlrI1FUqywzs0bfaYKCsAb0pZeiO8H2dKLk"
+              src="/innovation_center.png"
             />
           </motion.div>
 
