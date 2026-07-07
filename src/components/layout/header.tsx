@@ -61,7 +61,7 @@ export function Header() {
           : "bg-transparent backdrop-blur-[5px] border-b border-white/10"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto flex justify-between items-center h-full px-6 md:px-12">
+      <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
         <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
           <div className="relative w-32 h-12">
             <Image
@@ -129,10 +129,9 @@ export function Header() {
               )}
             </Button>
           )}
-
           {/* Auth State Button */}
           {isAuthenticated ? (
-            <Link href={APP_ROUTES.DASHBOARD} passHref legacyBehavior>
+            <Link href={APP_ROUTES.DASHBOARD}>
               <Button
                 color="primary"
                 variant="flat"
@@ -143,7 +142,7 @@ export function Header() {
               </Button>
             </Link>
           ) : (
-            <Link href={APP_ROUTES.LOGIN} passHref legacyBehavior>
+            <Link href={APP_ROUTES.LOGIN}>
               <Button
                 color="primary"
                 className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold"
@@ -152,7 +151,7 @@ export function Header() {
                 Đăng nhập
               </Button>
             </Link>
-          )}
+          )}{" "}
         </div>
       </div>
     </header>
