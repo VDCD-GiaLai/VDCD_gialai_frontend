@@ -508,3 +508,350 @@ export const REGION_STATS = {
   Trung: PROVINCES.filter((p) => p.region === "Trung"),
   Nam: PROVINCES.filter((p) => p.region === "Nam"),
 };
+
+export interface ProvinceDetail {
+  image: string;
+  description: string;
+  population: string;
+  area: string;
+}
+
+export const GEONAME_TO_PROVINCE_ID: Record<string, string> = {
+  "An Giang": "an-giang",
+  "Ba Ria - Vung Tau": "ho-chi-minh",
+  "Bac Giang": "bac-ninh",
+  "Bac Kan": "thai-nguyen",
+  "Bac Lieu": "ca-mau",
+  "Bac Ninh": "bac-ninh",
+  "Ben Tre": "vinh-long",
+  "Binh Dinh": "gia-lai",
+  "Binh Duong": "ho-chi-minh",
+  "Binh Phuoc": "dong-nai",
+  "Binh Thuan": "lam-dong",
+  "Ca Mau": "ca-mau",
+  "Can Tho city": "can-tho",
+  "Cao Bang": "cao-bang",
+  "Dak Lak": "dak-lak",
+  "Dak Nong": "lam-dong",
+  "Dien Bien": "dien-bien",
+  "Dong Nai": "dong-nai",
+  "Dong Thap": "dong-thap",
+  "Gia Lai": "gia-lai",
+  "Ha Giang": "tuyen-quang",
+  "Ha Nam": "ninh-binh",
+  "Ha Noi city": "ha-noi",
+  "Ha Tinh": "ha-tinh",
+  "Hai Duong": "hai-phong",
+  "Hai Phong city": "hai-phong",
+  "Hau Giang": "can-tho",
+  "Hoa Binh": "phu-tho",
+  "Hung Yen": "hung-yen",
+  "Kien Giang": "an-giang",
+  "Kon Tum": "quang-ngai",
+  "Lai Chau": "lai-chau",
+  "Lam Dong": "lam-dong",
+  "Lang Son": "lang-son",
+  "Lao Cai": "lao-cai",
+  "Long An": "tay-ninh",
+  "Nam Dinh": "ninh-binh",
+  "Nghe An": "nghe-an",
+  "Ninh Binh": "ninh-binh",
+  "Ninh Thuan": "khanh-hoa",
+  "Phu Tho": "phu-tho",
+  "Phu Yen": "dak-lak",
+  "Quang Binh": "quang-tri",
+  "Quang Nam": "da-nang",
+  "Quang Ngai": "quang-ngai",
+  "Quang Ninh": "quang-ninh",
+  "Quang Tri": "quang-tri",
+  "Soc Trang": "can-tho",
+  "Son La": "son-la",
+  "Tay Ninh": "tay-ninh",
+  "Thai Binh": "hung-yen",
+  "Thai Nguyen": "thai-nguyen",
+  "Thanh Hoa": "thanh-hoa",
+  "Thua Thien - Hue": "thua-thien-hue",
+  "Tien Giang": "dong-thap",
+  "Ho Chi Minh city": "ho-chi-minh",
+  "Tra Vinh": "vinh-long",
+  "Tuyen Quang": "tuyen-quang",
+  "Vinh Long": "vinh-long",
+  "Vinh Phuc": "phu-tho",
+  "Yen Bai": "lao-cai",
+  "Da Nang city": "da-nang",
+  "Khanh Hoa": "khanh-hoa",
+};
+
+export const PROVINCE_DETAILS: Record<string, ProvinceDetail> = {
+  "ha-noi": {
+    image:
+      "https://images.unsplash.com/photo-1509060464153-4466739f78d0?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thủ đô ngàn năm văn hiến với nét đẹp cổ kính của Hồ Gươm và 36 phố phường nhộn nhịp.",
+    population: "8.5 triệu người",
+    area: "3,359 km²",
+  },
+  "cao-bang": {
+    image:
+      "https://images.unsplash.com/photo-1627626775846-122b778965ae?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Mảnh đất biên cương địa đầu Tổ quốc sở hữu Thác Bản Giốc hùng vĩ và di tích lịch sử Pác Bó.",
+    population: "540,000 người",
+    area: "6,700 km²",
+  },
+  "dien-bien": {
+    image:
+      "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Vùng đất lịch sử oai hùng gắn liền với chiến thắng Điện Biên Phủ lừng lẫy năm châu.",
+    population: "620,000 người",
+    area: "9,541 km²",
+  },
+  "lai-chau": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Địa đầu Tây Bắc hùng vĩ với đỉnh Putaleng kỳ vĩ và những cung đường đèo quanh co.",
+    population: "480,000 người",
+    area: "9,068 km²",
+  },
+  "lang-son": {
+    image:
+      "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Cửa ngõ biên mậu phía Bắc sầm uất với danh thắng Động Nhị Thanh và Ải Chi Lăng.",
+    population: "790,000 người",
+    area: "8,310 km²",
+  },
+  "quang-ninh": {
+    image:
+      "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Di sản Thiên nhiên Thế giới Vịnh Hạ Long huyền ảo và quần thể tâm linh Yên Tử uy nghiêm.",
+    population: "1.4 triệu người",
+    area: "6,178 km²",
+  },
+  "son-la": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thảo nguyên Mộc Châu bốn mùa hoa nở và Nhà máy Thủy điện Sơn La lớn nhất Đông Nam Á.",
+    population: "1.3 triệu người",
+    area: "14,125 km²",
+  },
+  "tuyen-quang": {
+    image:
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thủ đô kháng chiến xưa hòa cùng Cao nguyên đá Đồng Văn hùng vĩ và đèo Mã Pí Lèng.",
+    population: "1.7 triệu người",
+    area: "13,700 km²",
+  },
+  "lao-cai": {
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Sa Pa sương mù bồng bềnh và ruộng bậc thang vàng óng kỳ vĩ của Yên Bái.",
+    population: "1.6 triệu người",
+    area: "13,200 km²",
+  },
+  "thai-nguyen": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Đất trà đệ nhất danh trà Thái Nguyên hòa cùng danh lam Hồ Ba Bể hoang sơ của Bắc Kạn.",
+    population: "1.6 triệu người",
+    area: "8,400 km²",
+  },
+  "phu-tho": {
+    image:
+      "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Vùng đất Tổ linh thiêng, thị trấn mờ sương Tam Đảo và thung lũng Mai Châu thơ mộng.",
+    population: "3.4 triệu người",
+    area: "10,700 km²",
+  },
+  "bac-ninh": {
+    image:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Cội nguồn văn hóa Kinh Bắc đặc sắc với những làn điệu Quan họ đằm thắm và chùa Dâu cổ kính.",
+    population: "3.3 triệu người",
+    area: "4,700 km²",
+  },
+  "hung-yen": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thương cảng Phố Hiến sầm uất xưa kia kết hợp với vựa lúa trĩu hạt quê hương Thái Bình.",
+    population: "3.2 triệu người",
+    area: "2,500 km²",
+  },
+  "hai-phong": {
+    image:
+      "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thành phố cảng hoa phượng đỏ hiện đại kết hợp quần đảo Cát Bà hoang sơ, thơ mộng.",
+    population: "4.1 triệu người",
+    area: "3,200 km²",
+  },
+  "ninh-binh": {
+    image:
+      "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Quần thể danh thắng Tràng An non nước hữu tình được UNESCO công nhận là di sản kép thế giới.",
+    population: "3.0 triệu người",
+    area: "4,600 km²",
+  },
+  "thanh-hoa": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Bãi biển Sầm Sơn cát mịn sóng vỗ dạt dào và Di sản Văn hóa Thế giới Thành nhà Hồ độc đáo.",
+    population: "3.7 triệu người",
+    area: "11,116 km²",
+  },
+  "nghe-an": {
+    image:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Quê hương Chủ tịch Hồ Chí Minh kính yêu, mảnh đất hiếu học và bãi biển Cửa Lò rộng lớn.",
+    population: "3.4 triệu người",
+    area: "16,481 km²",
+  },
+  "ha-tinh": {
+    image:
+      "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Danh thắng Hồ Kẻ Gỗ thơ mộng, bãi biển Thiên Cầm xanh ngắt và di tích Ngã ba Đồng Lộc lịch sử.",
+    population: "1.3 triệu người",
+    area: "5,998 km²",
+  },
+  "thua-thien-hue": {
+    image:
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Cố đô Huế trầm mặc, thơ mộng với những di sản cung đình cổ kính bên bờ sông Hương.",
+    population: "1.2 triệu người",
+    area: "5,033 km²",
+  },
+  "quang-tri": {
+    image:
+      "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Mảnh đất vĩ tuyến 17 chia cắt xưa kết hợp kỳ quan động Phong Nha - Kẻ Bàng kỳ vĩ của Quảng Bình.",
+    population: "1.6 triệu người",
+    area: "12,700 km²",
+  },
+  "da-nang": {
+    image:
+      "https://images.unsplash.com/photo-1559592442-7484a223a3c2?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thành phố đáng sống với Cầu Rồng biểu tượng hòa cùng nét cổ kính rêu phong của phố cổ Hội An.",
+    population: "2.8 triệu người",
+    area: "11,800 km²",
+  },
+  "quang-ngai": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Đảo ngọc Lý Sơn được bao bọc bởi đại dương xanh ngắt và cao nguyên Măng Đen mát mẻ ôn hòa.",
+    population: "1.8 triệu người",
+    area: "14,800 km²",
+  },
+  "gia-lai": {
+    image: "/images/home/quynhon_herobanner.jpg",
+    description:
+      "Biển Quy Nhơn lộng gió hòa cùng đất đỏ đại ngàn Gia Lai, tạo nên nét đẹp hùng vĩ độc đáo.",
+    population: "3.2 triệu người",
+    area: "21,600 km²",
+  },
+  "khanh-hoa": {
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Vịnh Nha Trang lộng lẫy cát trắng nắng vàng hòa cùng vẻ đẹp đồi cát đầy gió Nam Cương Ninh Thuận.",
+    population: "1.9 triệu người",
+    area: "8,500 km²",
+  },
+  "lam-dong": {
+    image:
+      "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Đà Lạt mộng mơ ngập tràn sương khói kết hợp đồi cát Mũi Né lộng gió và hồ Tà Đùng hoang sơ.",
+    population: "3.3 triệu người",
+    area: "24,300 km²",
+  },
+  "dak-lak": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thủ phủ cà phê Buôn Ma Thuột đại ngàn kết hợp Ghềnh Đá Đĩa độc nhất vô nhị xứ Nẫu Phú Yên.",
+    population: "3.0 triệu người",
+    area: "18,100 km²",
+  },
+  "ho-chi-minh": {
+    image:
+      "https://images.unsplash.com/photo-1546874177-9e664107314e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Siêu đô thị sôi động nhất nước với Landmark 81 sừng sững, phố biển Vũng Tàu và KCN Bình Dương sầm uất.",
+    population: "12.5 triệu người",
+    area: "5,100 km²",
+  },
+  "dong-nai": {
+    image:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Trung tâm công nghiệp Biên Hòa hiện đại cùng rừng cao su bạt ngàn của đất đỏ Bình Phước.",
+    population: "4.2 triệu người",
+    area: "12,700 km²",
+  },
+  "tay-ninh": {
+    image:
+      "https://images.unsplash.com/photo-1605538032432-a9f0c8d9baac?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Tòa thánh Cao Đài uy nghiêm, núi Bà Đen linh thiêng và cảnh đẹp sông nước thanh bình Long An.",
+    population: "2.7 triệu người",
+    area: "8,500 km²",
+  },
+  "can-tho": {
+    image:
+      "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Thủ phủ miền Tây với chợ nổi Cái Răng tấp nập, những miệt vườn cây trái sum suê trĩu quả.",
+    population: "3.2 triệu người",
+    area: "9,600 km²",
+  },
+  "vinh-long": {
+    image:
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Xứ sở dừa Bến Tre xanh ngát trải dài dọc bờ sông Tiền hiền hòa và văn hóa Trà Vinh đa dạng.",
+    population: "3.1 triệu người",
+    area: "5,800 km²",
+  },
+  "dong-thap": {
+    image:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Vương quốc hoa Sa Đéc và những cánh đồng sen hồng tỏa hương thơm ngát đặc trưng của miền Tây.",
+    population: "2.7 triệu người",
+    area: "5,900 km²",
+  },
+  "ca-mau": {
+    image:
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Mảnh đất cực Nam thiêng liêng rợp bóng rừng ngập mặn cùng cánh đồng điện gió Bạc Liêu ven biển.",
+    population: "2.2 triệu người",
+    area: "7,800 km²",
+  },
+  "an-giang": {
+    image:
+      "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Rừng tràm Trà Sư thanh bình yên ả, đất Thất Sơn kỳ vĩ kết hợp thiên đường đảo ngọc Phú Quốc.",
+    population: "3.6 triệu người",
+    area: "8,400 km²",
+  },
+};
