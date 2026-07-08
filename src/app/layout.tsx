@@ -46,6 +46,7 @@ export default function RootLayout({
     <html
       lang="vi"
       className={`${beVietnamPro.variable} ${montserrat.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="font-sans antialiased">
