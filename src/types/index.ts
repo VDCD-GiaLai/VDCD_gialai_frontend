@@ -45,3 +45,11 @@ export interface SolutionItem {
   iconUrl: string;
   description: string;
 }
+
+export interface GsapHeroSlide {
+  place: string;
+  title: string;
+  title2: string;
+  desc: string;
+  image: string;
+}
