@@ -44,24 +44,24 @@ export function Footer() {
           <h4 className="font-bold text-black dark:text-white text-sm uppercase tracking-wider mb-2">
             Giải pháp
           </h4>
-          <a
-            href="#solutions"
+          <Link
+            href="/solution"
             className="hover:text-accent-red text-sm transition-colors"
           >
             Chuyển đổi số
-          </a>
-          <a
-            href="#solutions"
+          </Link>
+          <Link
+            href="/solution"
             className="hover:text-accent-red text-sm transition-colors"
           >
             Nông nghiệp thông minh
-          </a>
-          <a
-            href="#solutions"
+          </Link>
+          <Link
+            href="/solution"
             className="hover:text-accent-red text-sm transition-colors"
           >
             Đô thị số
-          </a>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-3">

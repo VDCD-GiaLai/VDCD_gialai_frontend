@@ -86,12 +86,12 @@ export function Header() {
           <a href="#about" className="hover:text-accent-red transition-colors">
             Về chúng tôi
           </a>
-          <a
-            href="#solutions"
+          <Link
+            href="/solution"
             className="hover:text-accent-red transition-colors"
           >
             Giải pháp
-          </a>
+          </Link>
           <a
             href="#projects"
             className="hover:text-accent-red transition-colors"
