@@ -1,56 +1,22 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { FiArrowRight } from "react-icons/fi";
+import { GsapHeroSlide } from "@/types";
 
-const slides = [
-  {
-    place: "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI",
-    title: "KIẾN TẠO",
-    title2: "HỆ SINH THÁI SỐ",
-    desc: "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
-    image: "/images/home/innovation_center.png",
-  },
-  {
-    place: "NÔNG NGHIỆP CÔNG NGHỆ CAO",
-    title: "NÔNG NGHIỆP",
-    title2: "THÔNG MINH",
-    desc: "Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.",
-    image: "/images/home/farm_area_drone_view.jpg",
-  },
-  {
-    place: "QUẢN LÝ ĐÔ THỊ THÔNG MINH",
-    title: "HỆ THỐNG",
-    title2: "ĐÔ THỊ SỐ",
-    desc: "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
-    image: "/images/home/quynhon_citynightview.webp",
-  },
-  {
-    place: "HẠ TẦNG KỸ THUẬT SỐ",
-    title: "TRUNG TÂM",
-    title2: "DỮ LIỆU VÙNG",
-    desc: "Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.",
-    image: "/images/home/data_center.jpg",
-  },
-  {
-    place: "HỆ SINH THÁI VDCD GROUP",
-    title: "LIÊN KẾT",
-    title2: "PHÁT TRIỂN",
-    desc: "Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.",
-    image: "/images/home/quynhon_herobanner.jpg",
-  },
-];
-
-export function GsapHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
+export function useGsapHero(
+  containerRef: React.RefObject<HTMLDivElement | null>,
+  slides: GsapHeroSlide[],
+) {
   // Keep order and buffer state in refs so they are stable across clicks
   const orderRef = useRef([0, 1, 2, 3, 4]);
   const detailsEvenRef = useRef(true);
   const isAnimatingRef = useRef(false);
   const autoplayTweenRef = useRef<any>(null);
+
+  // React state to reflect the active slide in the UI (specifically for class toggle like active-bg)
+  const [activeIdx, setActiveIdx] = useState(0);
 
   // Layout parameters refs for resize handling
   const offsetTopVal = useRef(200);
@@ -218,8 +184,11 @@ export function GsapHero() {
         ? "#details-odd"
         : "#details-even";
 
-      const activeIdx = order[0];
-      const activeSlide = slides[activeIdx];
+      const activeIdxVal = order[0];
+      const activeSlide = slides[activeIdxVal];
+
+      // Update React state for index (affects active-bg class)
+      setActiveIdx(activeIdxVal);
 
       const activeEl = containerRef.current.querySelector(detailsActive);
       const inactiveEl = containerRef.current.querySelector(detailsInactive);
@@ -405,8 +374,11 @@ export function GsapHero() {
         ? "#details-odd"
         : "#details-even";
 
-      const activeIdx = order[0];
-      const activeSlide = slides[activeIdx];
+      const activeIdxVal = order[0];
+      const activeSlide = slides[activeIdxVal];
+
+      // Update React state for index (affects active-bg class)
+      setActiveIdx(activeIdxVal);
 
       const activeEl = containerRef.current.querySelector(detailsActive);
       const inactiveEl = containerRef.current.querySelector(detailsInactive);
@@ -597,6 +569,9 @@ export function GsapHero() {
         : "#details-even";
 
       const activeSlide = slides[clicked];
+
+      // Update React state for index (affects active-bg class)
+      setActiveIdx(clicked);
 
       const activeEl = containerRef.current.querySelector(detailsActive);
       const inactiveEl = containerRef.current.querySelector(detailsInactive);
@@ -968,336 +943,12 @@ export function GsapHero() {
     };
   }, []);
 
-  return (
-    <div
-      ref={containerRef}
-      className="gsap-hero-container w-full min-h-[100dvh] relative bg-zinc-950 text-white select-none overflow-hidden"
-    >
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        .gsap-hero-container .card {
-          position: absolute;
-          left: 0;
-          top: 0;
-          background-position: center;
-          background-size: cover;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-          overflow: hidden;
-          transition: border-radius 0.3s ease;
-        }
-        .gsap-hero-container .card::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to right, rgba(9, 9, 11, 0.85) 0%, rgba(9, 9, 11, 0.4) 50%, rgba(9, 9, 11, 0.1) 100%);
-          z-index: 1;
-        }
-        .gsap-hero-container .card-content {
-          position: absolute;
-          left: 0;
-          top: 0;
-          color: #ffffff;
-          padding-left: 16px;
-          padding-right: 16px;
-          pointer-events: none;
-          z-index: 40;
-        }
-        .gsap-hero-container .content-place {
-          margin-top: 6px;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-        }
-        .gsap-hero-container .content-title-1,
-        .gsap-hero-container .content-title-2 {
-          font-weight: 800;
-          font-size: 16px;
-          line-height: 1.1;
-        }
-        .gsap-hero-container .content-start {
-          width: 20px;
-          height: 3px;
-          border-radius: 99px;
-        }
-        .gsap-hero-container .details {
-          z-index: 22;
-          position: absolute;
-          top: 35%;
-          left: 0;
-          max-width: 650px;
-          transform-origin: left center;
-          pointer-events: none;
-        }
-
-        .gsap-hero-container .details .place-box {
-          height: 40px;
-          overflow: hidden;
-          position: relative;
-        }
-        .gsap-hero-container .details .place-box .text {
-          padding-top: 14px;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: #e80002;
-        }
-        .gsap-hero-container .details .place-box .text:before {
-          top: 0;
-          left: 0;
-          position: absolute;
-          content: "";
-          width: 24px;
-          height: 3px;
-          border-radius: 99px;
-          background-color: #e80002;
-        }
-        .gsap-hero-container .details .title-1,
-        .gsap-hero-container .details .title-2 {
-          font-weight: 800;
-          text-transform: uppercase;
-          line-height: 1.15;
-        }
-        .gsap-hero-container .details .title-box-1,
-        .gsap-hero-container .details .title-box-2 {
-          margin-top: 4px;
-          height: 1.3em;
-          overflow: hidden;
-        }
-        .gsap-hero-container .details > .desc {
-          margin-top: 20px;
-          font-size: 14px;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.7);
-        }
-        .gsap-hero-container .details > .cta {
-          margin-top: 28px;
-        }
-        .gsap-hero-container .details > .cta > .discover {
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          background-color: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-          height: 42px;
-          border-radius: 99px;
-          color: #ffffff;
-          padding: 8px 32px;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          transition: all 0.3s ease;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .gsap-hero-container .details > .cta > .discover:hover {
-          border-color: #e80002;
-          background-color: #e80002;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(232, 0, 2, 0.3);
-        }
-        .gsap-hero-container .pagination {
-          position: absolute;
-          z-index: 45;
-          display: inline-flex;
-          align-items: center;
-        }
-        .gsap-hero-container .pagination > .arrow {
-          width: 44px;
-          height: 44px;
-          border-radius: 999px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          background-color: rgba(9, 9, 11, 0.4);
-          backdrop-filter: blur(8px);
-          display: grid;
-          place-items: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .gsap-hero-container .pagination > .arrow:hover {
-          border-color: #e80002;
-          background-color: rgba(232, 0, 2, 0.1);
-          transform: scale(1.05);
-        }
-        .gsap-hero-container .pagination > .arrow svg {
-          width: 16px;
-          height: 16px;
-          color: #ffffff;
-          transition: transform 0.2s ease;
-        }
-        .gsap-hero-container .pagination > .arrow-left:hover svg {
-          transform: translateX(-3px);
-        }
-        .gsap-hero-container .pagination > .arrow-right:hover svg {
-          transform: translateX(3px);
-        }
-        .gsap-hero-container .cover {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-color: #09090b;
-          z-index: 100;
-          pointer-events: none;
-        }
-        @media (max-width: 767px) {
-          .gsap-hero-container .card:not(.active-bg) {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-          }
-          .gsap-hero-container .card-content {
-            display: none !important;
-          }
-          .gsap-hero-container .details {
-            top: 15% !important;
-            left: 0 !important;
-            right: 0 !important;
-            max-width: 100% !important;
-          }
-
-          .gsap-hero-container .details .place-box {
-            height: 48px !important;
-          }
-          .gsap-hero-container .details .place-box .text {
-            font-size: 10px !important;
-            padding-top: 8px !important;
-            letter-spacing: 0.12em !important;
-          }
-          .gsap-hero-container .pagination {
-            left: 20px !important;
-            right: 20px !important;
-          }
-          .gsap-hero-container .pagination .progress-sub-container {
-            width: 100px;
-            margin-left: 12px;
-          }
-        }
-      `,
-        }}
-      />
-
-      {/* Slide Cards */}
-      {slides.map((slide, idx) => (
-        <React.Fragment key={idx}>
-          <div
-            className={`card cursor-pointer ${orderRef.current[0] === idx ? "active-bg" : ""}`}
-            id={`card-${idx}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
-            onClick={() => {
-              // If user clicks a thumbnail card, go directly to it!
-              if (!isAnimatingRef.current && orderRef.current[0] !== idx) {
-                selectSlide(idx);
-              }
-            }}
-          />
-          {/* Card Content Overlay */}
-          <div className="card-content" id={`card-content-${idx}`}>
-            <div className="content-start bg-accent-red mb-2" />
-            <div className="content-place text-zinc-300 font-mono text-[9px] font-bold tracking-widest">
-              {slide.place}
-            </div>
-            <div className="content-title-1 font-bold text-white text-[12px] font-heading">
-              {slide.title}
-            </div>
-            <div className="content-title-2 font-bold text-white text-[12px] font-heading">
-              {slide.title2}
-            </div>
-          </div>
-        </React.Fragment>
-      ))}
-      {/* Details Box - Twin Buffers for text animations, wrapped in layout container */}
-      <div className="absolute inset-0 z-22 pointer-events-none flex items-center">
-        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
-          <div className="details" id="details-even">
-            <div className="place-box">
-              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-            </div>
-            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
-              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-            </div>
-            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
-              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-            </div>
-            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-            <div className="cta flex gap-4 mt-6">
-              <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          <div className="details" id="details-odd" style={{ opacity: 0 }}>
-            <div className="place-box">
-              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
-            </div>
-            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
-              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-            </div>
-            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl lg:text-7xl font-heading">
-              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
-            </div>
-            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
-            <div className="cta flex gap-4 mt-6">
-              <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Pagination Controls */}
-      <div className="pagination" id="pagination">
-        <div
-          className="arrow arrow-left"
-          onClick={(e) => {
-            e.stopPropagation();
-            prevSlide();
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
-        </div>
-        <div
-          className="arrow arrow-right ml-4"
-          onClick={(e) => {
-            e.stopPropagation();
-            nextSlide(false);
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-        </div>
-      </div>
-
-      {/* Cover Screen for page intro slide-wipe */}
-      <div className="cover" />
-    </div>
-  );
+  return {
+    order: orderRef.current,
+    activeIdx,
+    isAnimating: isAnimatingRef.current,
+    nextSlide,
+    prevSlide,
+    selectSlide,
+  };
 }

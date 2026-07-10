@@ -37,3 +37,19 @@ export interface StatsItem {
   value: string;
   description?: string;
 }
+
+export interface SolutionItem {
+  title: string;
+  href: string;
+  imageUrl: string;
+  iconUrl: string;
+  description: string;
+}
+
+export interface GsapHeroSlide {
+  place: string;
+  title: string;
+  title2: string;
+  desc: string;
+  image: string;
+}

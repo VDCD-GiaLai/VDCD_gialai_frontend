@@ -22,7 +22,7 @@ import {
 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { GsapHero } from "@/components/landing/gsap-hero";
+import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 
 export default function LandingPage() {
