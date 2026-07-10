@@ -15,6 +15,15 @@ Hệ khung dự án Frontend chuẩn doanh nghiệp (Production-ready Boilerplat
 *   **HTTP Client**: Axios (Tích hợp tự động gắn Token & Refresh Token)
 *   **Quality Gates**: ESLint, Prettier, Husky, lint-staged
 
+
+## Quản lý trạng thái & Gọi API (State Management & Fetching)
+React Query (v5.62.7 - @tanstack/react-query): Quản lý server state, fetching, caching và đồng bộ dữ liệu.
+Zustand (v5.0.2): Quản lý client state (global state) gọn nhẹ và hiệu năng cao.
+Axios (v1.7.9): HTTP client để gọi API.
+4. Quản lý Form & Validation
+React Hook Form (v7.54.2): Quản lý các trạng thái và xử lý form.
+Zod (v3.24.1): Thư viện khai báo và kiểm tra cấu trúc dữ liệu (schema validation).
+@hookform/resolvers (v3.10.0): Bộ điều phối để tích hợp Zod schema vào React Hook Form.
 ---
 
 ## 📂 Cơ Cấu Thư Mục (Folder Structure)
