@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "VDCD Group", url: "https://vdcdgroup.vn" }],
   robots: "index, follow",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
