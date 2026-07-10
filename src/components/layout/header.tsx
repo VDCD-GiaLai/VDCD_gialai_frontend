@@ -40,18 +40,18 @@ export function Header() {
 
   const logoSrc = React.useMemo(() => {
     if (!mounted) {
-      return "https://vdcd.vn/wp-content/uploads/2025/10/cropped-cropped-LogoFull_KhongNen_DenDo-1-2.png";
+      return isHome ? "/VDCD_gialai_white.png" : "/VDCD_gialai_black.png";
     }
 
     if (!showSolidHeader) {
       // Dark background at the top of homepage -> use white logo
-      return "https://vdcd.vn/wp-content/uploads/2024/03/Logo-VDCD-01.png";
+      return "/VDCD_gialai_white.png";
     }
 
     return resolvedTheme === "dark"
-      ? "https://vdcd.vn/wp-content/uploads/2024/03/Logo-VDCD-01.png"
-      : "https://vdcd.vn/wp-content/uploads/2025/10/cropped-cropped-LogoFull_KhongNen_DenDo-1-2.png";
-  }, [mounted, showSolidHeader, resolvedTheme]);
+      ? "/VDCD_gialai_white.png"
+      : "/VDCD_gialai_black.png";
+  }, [mounted, isHome, showSolidHeader, resolvedTheme]);
 
   return (
     <header
@@ -63,12 +63,12 @@ export function Header() {
     >
       <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
         <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
-          <div className="relative w-32 h-12">
+          <div className="relative w-[240px] h-[68px]">
             <Image
               alt="VDCD Logo"
               fill
               priority
-              sizes="128px"
+              sizes="256px"
               className="object-contain"
               src={logoSrc}
             />
