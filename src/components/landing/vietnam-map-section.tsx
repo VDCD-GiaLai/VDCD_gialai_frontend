@@ -14,7 +14,6 @@ import {
   useTransform,
   animate,
   AnimatePresence,
-  useSpring,
 } from "framer-motion";
 import {
   FiMapPin,
@@ -102,21 +101,8 @@ const GEONAME_TO_PROVINCE_ID: Record<string, string> = {
   "Khanh Hoa": "khanh-hoa",
 };
 
-// ─── Accessibility: prefers-reduced-motion hook ───
-function usePrefersReducedMotion() {
-  const [reducedMotion, setReducedMotion] = React.useState(false);
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mediaQuery.matches);
-    const listener = (event: MediaQueryListEvent) => {
-      setReducedMotion(event.matches);
-    };
-    mediaQuery.addEventListener("change", listener);
-    return () => mediaQuery.removeEventListener("change", listener);
-  }, []);
-  return reducedMotion;
-}
+// ─── Pre-compute province lookup map for O(1) access ───
+const PROVINCE_BY_ID = new Map(PROVINCES.map((p) => [p.id, p]));
 
 // ─── Province Extra Details Mapping ───
 interface ProvinceDetail {
@@ -400,41 +386,32 @@ const PROVINCE_DETAILS: Record<string, ProvinceDetail> = {
   },
 };
 
+const DEFAULT_DETAIL: ProvinceDetail = {
+  image:
+    "https://images.unsplash.com/photo-1509060464153-4466739f78d0?auto=format&fit=crop&w=600&q=80",
+  description: "Đối tác hoạt động phát triển công nghệ đổi mới.",
+  population: "Đang cập nhật",
+  area: "Đang cập nhật",
+};
+
 // ─── Heatmap colors: light gray → deep red ───
-function getProvinceStyle(
+function getProvinceColor(
   projectCount: number,
   maxProjects: number,
   isActive: boolean,
   isHovered: boolean,
   isSelected: boolean,
-  isFlashing: boolean,
-) {
-  if (!isActive) {
-    return {
-      fill: "#e5e7eb",
-      fillOpacity: 0.6,
-      filter: "none",
-    };
-  }
+): string {
+  if (!isActive) return "#e5e7eb";
+  if (isSelected) return "#991b1b";
+  if (isHovered) return "#ef4444";
 
   const ratio = Math.min(projectCount / maxProjects, 1);
-  let fill: string;
-  if (isSelected) fill = "#991b1b";
-  else if (isHovered) fill = "#ef4444";
-  else if (ratio < 0.15) fill = "#fecaca";
-  else if (ratio < 0.3) fill = "#fca5a5";
-  else if (ratio < 0.5) fill = "#f87171";
-  else if (ratio < 0.7) fill = "#ef4444";
-  else fill = "#dc2626";
-
-  const fillOpacity = isActive ? 1.0 : 0.6;
-
-  let filter = "none";
-  if (isSelected) filter = "drop-shadow(0 0 10px rgba(185,28,28,0.7))";
-  else if (isHovered) filter = "drop-shadow(0 0 6px rgba(239,68,68,0.5))";
-  else if (isFlashing) filter = "drop-shadow(0 0 8px rgba(239,68,68,0.6))";
-
-  return { fill, fillOpacity, filter };
+  if (ratio < 0.15) return "#fecaca";
+  if (ratio < 0.3) return "#fca5a5";
+  if (ratio < 0.5) return "#f87171";
+  if (ratio < 0.7) return "#ef4444";
+  return "#dc2626";
 }
 
 // ─── Animated Counter ───
@@ -473,93 +450,65 @@ function AnimatedCounter({
   );
 }
 
-// ─── Premium Glassmorphic Tooltip Card ───
-interface FloatingInfoCardProps {
+// ─── CSS-only Tooltip (positioned via ref, no state re-renders) ───
+interface TooltipPortalProps {
   province: Province | null;
-  x: number;
-  y: number;
   visible: boolean;
-  reducedMotion: boolean;
+  posRef: React.RefObject<{ x: number; y: number } | null>;
 }
 
-const FloatingInfoCard = React.memo(
-  ({ province, x, y, visible, reducedMotion }: FloatingInfoCardProps) => {
-    const [imageLoaded, setImageLoaded] = React.useState(false);
+const TooltipPortal = React.memo(
+  ({ province, visible, posRef }: TooltipPortalProps) => {
+    const tooltipRef = React.useRef<HTMLDivElement>(null);
 
+    // Use rAF to position tooltip without state updates
     React.useEffect(() => {
-      if (!visible) {
-        setImageLoaded(false);
-      }
-    }, [visible, province]);
+      if (!visible || !tooltipRef.current || !posRef.current) return;
+
+      let rafId: number;
+      const update = () => {
+        if (!tooltipRef.current || !posRef.current) return;
+        const { x, y } = posRef.current;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const adjustedX = x + 330 > w ? x - 330 : x + 20;
+        const adjustedY = y + 350 > h ? y - 350 : y + 20;
+        tooltipRef.current.style.left = `${adjustedX}px`;
+        tooltipRef.current.style.top = `${adjustedY}px`;
+        rafId = requestAnimationFrame(update);
+      };
+      rafId = requestAnimationFrame(update);
+      return () => cancelAnimationFrame(rafId);
+    }, [visible, posRef]);
 
     if (!province) return null;
 
-    const details = PROVINCE_DETAILS[province.id] || {
-      image:
-        "https://images.unsplash.com/photo-1509060464153-4466739f78d0?auto=format&fit=crop&w=600&q=80",
-      description: "Đối tác hoạt động phát triển công nghệ đổi mới.",
-      population: "Đang cập nhật",
-      area: "Đang cập nhật",
-    };
-
-    // Keep within window boundary (approx size: width 310px, height ~330px)
-    const isRightEdge =
-      typeof window !== "undefined" && x + 330 > window.innerWidth;
-    const isBottomEdge =
-      typeof window !== "undefined" && y + 350 > window.innerHeight;
-
-    const adjustedX = isRightEdge ? x - 330 : x + 20;
-    const adjustedY = isBottomEdge ? y - 350 : y + 20;
+    const details = PROVINCE_DETAILS[province.id] || DEFAULT_DETAIL;
 
     return (
-      <motion.div
-        className="pointer-events-none fixed z-[9999] w-[310px]"
-        initial={
-          reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 15 }
-        }
-        animate={{
-          opacity: visible ? 1 : 0,
-          scale: visible ? 1 : 0.95,
-          y: visible ? 0 : 15,
-        }}
-        transition={
-          reducedMotion
-            ? { duration: 0.1 }
-            : {
-                type: "spring",
-                stiffness: 280,
-                damping: 24,
-                opacity: { duration: 0.2 },
-              }
-        }
+      <div
+        ref={tooltipRef}
+        className="pointer-events-none fixed z-[9999] w-[310px] transition-opacity duration-200"
         style={{
-          left: adjustedX,
-          top: adjustedY,
+          opacity: visible ? 1 : 0,
+          transform: visible
+            ? "translateY(0) scale(1)"
+            : "translateY(10px) scale(0.97)",
+          transition: "opacity 0.2s ease, transform 0.2s ease",
         }}
       >
         <div className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white/80 backdrop-blur-xl dark:border-zinc-800/50 dark:bg-zinc-950/80 p-1 shadow-2xl transition-colors duration-300">
-          {/* Double Bezel Inner Core */}
           <div className="rounded-[calc(1rem-3px)] overflow-hidden bg-white/50 dark:bg-zinc-900/50 p-3">
             {/* Province Image */}
             <div className="relative h-28 w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800 mb-3">
-              <motion.img
-                src={details.image}
-                alt={province.name}
-                loading="lazy"
-                onLoad={() => setImageLoaded(true)}
-                initial={
-                  reducedMotion
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.9, filter: "blur(8px)" }
-                }
-                animate={
-                  (imageLoaded && visible) || reducedMotion
-                    ? { opacity: 1, scale: 1.1, filter: "blur(0px)" }
-                    : { opacity: 0, scale: 0.9, filter: "blur(8px)" }
-                }
-                transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                className="h-full w-full object-cover"
-              />
+              {visible && (
+                <img
+                  src={details.image}
+                  alt={province.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              )}
               {/* Region Badge */}
               <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold tracking-wider uppercase bg-black/60 text-white backdrop-blur-sm">
                 {province.region === "Bắc"
@@ -628,136 +577,176 @@ const FloatingInfoCard = React.memo(
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   },
 );
-FloatingInfoCard.displayName = "FloatingInfoCard";
+TooltipPortal.displayName = "TooltipPortal";
 
-// ─── GPU-Accelerated 3D Province Path Component ───
+// ─── Lightweight SVG Province Path (pure CSS transitions, no framer-motion) ───
 interface ProvincePathProps {
-  geo: any;
   pathData: string;
   isActive: boolean;
   isHovered: boolean;
-  isAdjacent: boolean;
   isSelected: boolean;
-  isFlashing: boolean;
   fill: string;
-  fillOpacity: number;
-  reducedMotion: boolean;
-  onMouseEnter: () => void;
+  provinceId: string;
+  onMouseEnter: (id: string) => void;
   onMouseLeave: () => void;
-  onClick: () => void;
+  onClick: (id: string) => void;
 }
 
 const ProvincePath = React.memo(
   ({
-    geo,
     pathData,
     isActive,
     isHovered,
-    isAdjacent,
     isSelected,
-    isFlashing,
     fill,
-    fillOpacity,
-    reducedMotion,
+    provinceId,
     onMouseEnter,
     onMouseLeave,
     onClick,
   }: ProvincePathProps) => {
-    const variant = isHovered ? "hovered" : isAdjacent ? "adjacent" : "base";
+    const handleMouseEnter = React.useCallback(() => {
+      if (isActive) onMouseEnter(provinceId);
+    }, [isActive, onMouseEnter, provinceId]);
 
-    const variants = {
-      base: {
-        y: 0,
-        scale: 1,
-        filter: isSelected
-          ? "drop-shadow(0 0 10px rgba(185,28,28,0.65))"
-          : "none",
-      },
-      adjacent: {
-        y: reducedMotion ? 0 : -6,
-        scale: reducedMotion ? 1 : 1.02,
-        filter:
-          "drop-shadow(0 8px 16px rgba(0,0,0,0.08)) drop-shadow(0 0 6px rgba(239,68,68,0.2))",
-      },
-      hovered: {
-        y: reducedMotion ? 0 : -16,
-        scale: reducedMotion ? 1 : 1.06,
-        filter:
-          "drop-shadow(0 20px 32px rgba(0,0,0,0.18)) drop-shadow(0 0 12px rgba(239,68,68,0.45))",
-      },
-    };
+    const handleClick = React.useCallback(() => {
+      if (isActive) onClick(provinceId);
+    }, [isActive, onClick, provinceId]);
+
+    // Use CSS transform for hover lift instead of framer-motion spring
+    const transform = isHovered
+      ? "translateY(-8px) scale(1.04)"
+      : "translateY(0) scale(1)";
+
+    const filter = isSelected
+      ? "drop-shadow(0 0 10px rgba(185,28,28,0.65))"
+      : isHovered
+        ? "drop-shadow(0 12px 24px rgba(0,0,0,0.12)) drop-shadow(0 0 8px rgba(239,68,68,0.4))"
+        : "none";
 
     return (
-      <motion.g
-        variants={variants}
-        animate={variant}
-        initial="base"
-        transition={
-          reducedMotion
-            ? { duration: 0 }
-            : { type: "spring", stiffness: 350, damping: 25 }
-        }
+      <g
         style={{
+          transform,
+          filter,
           transformOrigin: "center",
+          transition:
+            "transform 0.25s cubic-bezier(0.16,1,0.3,1), filter 0.25s ease",
           cursor: isActive ? "pointer" : "default",
-          willChange:
-            (isHovered || isAdjacent) && !reducedMotion ? "transform" : "auto",
         }}
       >
-        {/* Volumetric outer edge glow bloom layers (only rendered when hovered and reduced motion is off) */}
-        {isHovered && !reducedMotion && (
-          <>
-            <path
-              d={pathData}
-              fill="none"
-              stroke="#ef4444"
-              strokeWidth={6}
-              opacity={0.35}
-              style={{
-                filter: "blur(7px)",
-                mixBlendMode: "screen",
-                pointerEvents: "none",
-              }}
-            />
-            <path
-              d={pathData}
-              fill="none"
-              stroke="#ef4444"
-              strokeWidth={2}
-              opacity={0.65}
-              style={{
-                filter: "blur(2px)",
-                mixBlendMode: "screen",
-                pointerEvents: "none",
-              }}
-            />
-          </>
+        {/* Hover glow — only rendered when hovered, pure SVG, no motion */}
+        {isHovered && (
+          <path
+            d={pathData}
+            fill="none"
+            stroke="#ef4444"
+            strokeWidth={4}
+            opacity={0.3}
+            style={{
+              filter: "blur(5px)",
+              mixBlendMode: "screen",
+              pointerEvents: "none",
+            }}
+          />
         )}
 
         {/* Main Province path */}
         <path
           d={pathData}
           fill={fill}
-          fillOpacity={fillOpacity}
-          stroke={isHovered ? "#fca5a5" : fill} // Glowing edge effect on hover
+          fillOpacity={isActive ? 1.0 : 0.6}
+          stroke={isHovered ? "#fca5a5" : fill}
           strokeWidth={isHovered ? 1.5 : 1.2}
-          onMouseEnter={onMouseEnter}
+          onMouseEnter={handleMouseEnter}
           onMouseLeave={onMouseLeave}
-          onClick={onClick}
-          className="transition-colors duration-300"
+          onClick={handleClick}
           style={{
             outline: "none",
+            transition: "fill 0.3s ease, stroke 0.3s ease",
           }}
         />
-      </motion.g>
+      </g>
     );
   },
 );
 ProvincePath.displayName = "ProvincePath";
+
+// ─── CSS-animated Marker Dot (replaces framer-motion infinite animations) ───
+const markerDotStyles = `
+  @keyframes marker-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.35; }
+    50% { transform: scale(1.8); opacity: 0; }
+  }
+  @keyframes marker-pulse-active {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(2.2); opacity: 0; }
+  }
+  .marker-ripple {
+    animation: marker-pulse 2.5s ease-out infinite;
+    transform-origin: center;
+  }
+  .marker-ripple-active {
+    animation: marker-pulse-active 1.8s ease-out infinite;
+    transform-origin: center;
+  }
+`;
+
+interface MarkerDotProps {
+  province: Province;
+  isHovered: boolean;
+  isSelected: boolean;
+  isFlashing: boolean;
+  onMouseEnter: (id: string) => void;
+  onMouseLeave: () => void;
+  onClick: (id: string) => void;
+}
+
+const MarkerDot = React.memo(
+  ({
+    province,
+    isHovered,
+    isSelected,
+    isFlashing,
+    onMouseEnter,
+    onMouseLeave,
+    onClick,
+  }: MarkerDotProps) => {
+    const highlight = isSelected || isFlashing || isHovered;
+
+    const handleMouseEnter = React.useCallback(() => {
+      onMouseEnter(province.id);
+    }, [onMouseEnter, province.id]);
+
+    const handleClick = React.useCallback(() => {
+      onClick(province.id);
+    }, [onClick, province.id]);
+
+    return (
+      <Marker coordinates={[province.lng, province.lat]}>
+        <g
+          style={{ cursor: "pointer" }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onClick={handleClick}
+        >
+          {/* Center dot */}
+          <circle
+            r={isSelected ? 4.5 : isHovered ? 4 : 2.5}
+            fill={isSelected ? "#991b1b" : "#ef4444"}
+            stroke="#ffffff"
+            strokeWidth={1}
+            style={{ transition: "r 0.2s ease" }}
+          />
+        </g>
+      </Marker>
+    );
+  },
+);
+MarkerDot.displayName = "MarkerDot";
 
 // ─── Province Card (right panel on click) ───
 function ProvinceCard({
@@ -846,16 +835,17 @@ function ProvinceCard({
         </p>
         <ul className="space-y-2">
           {province.centers.map((c, i) => (
-            <motion.li
+            <li
               key={i}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 + 0.1 }}
               className="flex items-start gap-2.5 text-sm text-zinc-700 dark:text-zinc-300"
+              style={{
+                opacity: 0,
+                animation: `fadeSlideIn 0.3s ease forwards ${i * 0.05 + 0.1}s`,
+              }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
               {c.name}
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>
@@ -891,7 +881,7 @@ function ProvinceCard({
 }
 
 // ─── Stats Panel ───
-function StatsPanel() {
+const StatsPanel = React.memo(function StatsPanel() {
   const statItems = [
     {
       value: TOTAL_STATS.provinces,
@@ -1010,28 +1000,200 @@ function StatsPanel() {
       </motion.div>
     </div>
   );
+});
+
+// ─── Memoized Map Core (isolates geography rendering from parent state) ───
+interface MapCoreProps {
+  hoveredId: string | null;
+  selectedId: string | null;
+  activeIds: Set<string>;
+  liveFlashId: string | null;
+  maxProjects: number;
+  onHoverProvince: (id: string) => void;
+  onLeaveProvince: () => void;
+  onClickProvince: (id: string) => void;
 }
 
-// ─── Main Export ───
+const MapCore = React.memo(
+  ({
+    hoveredId,
+    selectedId,
+    activeIds,
+    liveFlashId,
+    maxProjects,
+    onHoverProvince,
+    onLeaveProvince,
+    onClickProvince,
+  }: MapCoreProps) => {
+    // Pre-compute active provinces array once
+    const activeProvinces = React.useMemo(
+      () =>
+        Array.from(activeIds)
+          .map((id) => PROVINCE_BY_ID.get(id))
+          .filter(Boolean) as Province[],
+      [activeIds],
+    );
+
+    return (
+      <ComposableMap
+        projection="geoMercator"
+        projectionConfig={{
+          center: [108.4, 15.6],
+          scale: 2550,
+        }}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <Geographies geography={GEO_URL}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const geoName = (geo.properties as Record<string, unknown>)[
+                "Name"
+              ] as string;
+              const provinceId = GEONAME_TO_PROVINCE_ID[geoName];
+
+              if (!provinceId) {
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    style={{
+                      default: {
+                        fill: "#e5e7eb",
+                        fillOpacity: 0.5,
+                        stroke: "#e5e7eb",
+                        strokeWidth: 1.2,
+                        outline: "none",
+                      },
+                      hover: {
+                        fill: "#e5e7eb",
+                        outline: "none",
+                      },
+                      pressed: { outline: "none" },
+                    }}
+                  />
+                );
+              }
+
+              const province = PROVINCE_BY_ID.get(provinceId);
+              if (!province) return null;
+
+              const isActive = activeIds.has(provinceId);
+              const isHovered = hoveredId === provinceId;
+              const isSelected = selectedId === provinceId;
+
+              const fill = getProvinceColor(
+                province.projectCount,
+                maxProjects,
+                isActive,
+                isHovered,
+                isSelected,
+              );
+
+              return (
+                <ProvincePath
+                  key={geo.rsmKey}
+                  pathData={geo.svgPath}
+                  isActive={isActive}
+                  isHovered={isActive && isHovered}
+                  isSelected={isSelected}
+                  fill={fill}
+                  provinceId={provinceId}
+                  onMouseEnter={onHoverProvince}
+                  onMouseLeave={onLeaveProvince}
+                  onClick={onClickProvince}
+                />
+              );
+            })
+          }
+        </Geographies>
+
+        {/* Province center dots — CSS animations instead of framer-motion */}
+        {activeProvinces.map((p) => (
+          <MarkerDot
+            key={p.id}
+            province={p}
+            isHovered={hoveredId === p.id}
+            isSelected={selectedId === p.id}
+            isFlashing={liveFlashId === p.id}
+            onMouseEnter={onHoverProvince}
+            onMouseLeave={onLeaveProvince}
+            onClick={onClickProvince}
+          />
+        ))}
+
+        {/* Quần đảo Hoàng Sa (Paracel Islands) */}
+        <Marker coordinates={[112.2, 16.2]}>
+          <g className="opacity-90">
+            <text
+              x={14}
+              y={2}
+              fill="#4b5563"
+              className="dark:fill-zinc-300 font-sans font-bold text-[7px] tracking-wider select-none pointer-events-none"
+            >
+              Q.Đ Hoàng Sa
+            </text>
+            <text
+              x={14}
+              y={8}
+              fill="#9ca3af"
+              className="font-sans text-[5.5px] select-none pointer-events-none"
+            >
+              (TP. Đà Nẵng)
+            </text>
+          </g>
+        </Marker>
+
+        {/* Quần đảo Trường Sa (Spratly Islands) */}
+        <Marker coordinates={[114.0, 8.8]}>
+          <g className="opacity-90">
+            <text
+              x={18}
+              y={2}
+              fill="#4b5563"
+              className="dark:fill-zinc-300 font-sans font-bold text-[7px] tracking-wider select-none pointer-events-none"
+            >
+              Q.Đ Trường Sa
+            </text>
+            <text
+              x={18}
+              y={8}
+              fill="#9ca3af"
+              className="font-sans text-[5.5px] select-none pointer-events-none"
+            >
+              (T. Khánh Hòa)
+            </text>
+          </g>
+        </Marker>
+      </ComposableMap>
+    );
+  },
+);
+MapCore.displayName = "MapCore";
+
 // ─── Main Export ───
 export function VietnamMapSection() {
   const sectionRef = React.useRef<HTMLDivElement>(null);
   const mapInView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const reducedMotion = usePrefersReducedMotion();
 
-  const [hoveredProvince, setHoveredProvince] = React.useState<Province | null>(
-    null,
-  );
+  const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [selectedProvince, setSelectedProvince] =
     React.useState<Province | null>(null);
-  const [tooltipPos, setTooltipPos] = React.useState({ x: 0, y: 0 });
   const [activeIds, setActiveIds] = React.useState<Set<string>>(new Set());
   const [liveFlashId, setLiveFlashId] = React.useState<string | null>(null);
   const [liveProvince, setLiveProvince] = React.useState<Province | null>(null);
 
+  // Tooltip position tracked via ref (no re-renders on mousemove!)
+  const tooltipPosRef = React.useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
   const maxProjects = React.useMemo(
     () => Math.max(...PROVINCES.map((p) => p.projectCount)),
     [],
+  );
+
+  // Derive hovered Province from hoveredId (avoid storing full object in state)
+  const hoveredProvince = React.useMemo(
+    () => (hoveredId ? PROVINCE_BY_ID.get(hoveredId) || null : null),
+    [hoveredId],
   );
 
   // Wave animation: provinces light up in 4 batches
@@ -1057,7 +1219,7 @@ export function VietnamMapSection() {
     const ids = Array.from(activeIds);
     const interval = setInterval(() => {
       const id = ids[Math.floor(Math.random() * ids.length)];
-      const p = PROVINCES.find((pr) => pr.id === id) || null;
+      const p = PROVINCE_BY_ID.get(id) || null;
       setLiveFlashId(id);
       setLiveProvince(p);
       setTimeout(() => {
@@ -1068,43 +1230,52 @@ export function VietnamMapSection() {
     return () => clearInterval(interval);
   }, [activeIds]);
 
+  // Mousemove handler writes to ref — zero state updates
   const handleMouseMove = React.useCallback((e: React.MouseEvent) => {
-    setTooltipPos({ x: e.clientX, y: e.clientY });
+    tooltipPosRef.current = { x: e.clientX, y: e.clientY };
   }, []);
 
-  const geoToProvince = React.useCallback(
-    (props: Record<string, unknown>): Province | null => {
-      const name = props["Name"] as string;
-      const id = GEONAME_TO_PROVINCE_ID[name];
-      if (!id) return null;
-      return PROVINCES.find((p) => p.id === id) || null;
-    },
-    [],
+  // Debounced hover to avoid rapid state cycling
+  const hoverTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null,
   );
 
-  // Calculate adjacent provinces (top 3 closest to hovered province)
-  const adjacentProvinceIds = React.useMemo(() => {
-    if (!hoveredProvince) return new Set<string>();
-    const withDistance = PROVINCES.filter(
-      (p) => p.id !== hoveredProvince.id && activeIds.has(p.id),
-    ).map((p) => {
-      const dist = Math.sqrt(
-        Math.pow(p.lat - hoveredProvince.lat, 2) +
-          Math.pow(p.lng - hoveredProvince.lng, 2),
-      );
-      return { id: p.id, dist };
-    });
+  const onHoverProvince = React.useCallback((id: string) => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    setHoveredId(id);
+  }, []);
 
-    withDistance.sort((a, b) => a.dist - b.dist);
-    const closest = withDistance.slice(0, 3).map((x) => x.id);
-    return new Set(closest);
-  }, [hoveredProvince, activeIds]);
+  const onLeaveProvince = React.useCallback(() => {
+    // Small delay before clearing hover to avoid flicker between adjacent paths
+    hoverTimerRef.current = setTimeout(() => {
+      setHoveredId(null);
+    }, 50);
+  }, []);
+
+  const onClickProvince = React.useCallback((id: string) => {
+    const province = PROVINCE_BY_ID.get(id) || null;
+    setSelectedProvince((prev) => (prev?.id === id ? null : province));
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
+      {/* Inject CSS keyframes for marker animations */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html:
+            markerDotStyles +
+            `
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateX(-8px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+      `,
+        }}
+      />
+
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
         {/* Header */}
         <motion.div
@@ -1167,256 +1338,18 @@ export function VietnamMapSection() {
                 </div>
               </div>
 
-              {/* ComposableMap */}
+              {/* ComposableMap — isolated in MapCore */}
               <div className="aspect-[9/13] sm:aspect-[3/4] md:aspect-[9/13]">
-                <ComposableMap
-                  projection="geoMercator"
-                  projectionConfig={{
-                    center: [108.4, 15.6],
-                    scale: 2550,
-                  }}
-                  style={{ width: "100%", height: "100%" }}
-                >
-                  <Geographies geography={GEO_URL}>
-                    {({ geographies, projection }) => {
-                      // Sort geographies to draw base first, then adjacent, then hovered
-                      const sortedGeos = [
-                        ...geographies.filter((geo) => {
-                          const p = geoToProvince(
-                            geo.properties as Record<string, unknown>,
-                          );
-                          return (
-                            !p ||
-                            (p.id !== hoveredProvince?.id &&
-                              !adjacentProvinceIds.has(p.id))
-                          );
-                        }),
-                        ...geographies.filter((geo) => {
-                          const p = geoToProvince(
-                            geo.properties as Record<string, unknown>,
-                          );
-                          return (
-                            p &&
-                            p.id !== hoveredProvince?.id &&
-                            adjacentProvinceIds.has(p.id)
-                          );
-                        }),
-                        ...geographies.filter((geo) => {
-                          const p = geoToProvince(
-                            geo.properties as Record<string, unknown>,
-                          );
-                          return p && p.id === hoveredProvince?.id;
-                        }),
-                      ];
-
-                      return (
-                        <>
-                          {/* Map paths */}
-                          {sortedGeos.map((geo) => {
-                            const province = geoToProvince(
-                              geo.properties as Record<string, unknown>,
-                            );
-
-                            if (!province) {
-                              return (
-                                <Geography
-                                  key={geo.rsmKey}
-                                  geography={geo}
-                                  style={{
-                                    default: {
-                                      fill: "#e5e7eb",
-                                      fillOpacity: 0.5,
-                                      stroke: "#e5e7eb",
-                                      strokeWidth: 1.2,
-                                      outline: "none",
-                                    },
-                                    hover: {
-                                      fill: "#e5e7eb",
-                                      outline: "none",
-                                    },
-                                    pressed: { outline: "none" },
-                                  }}
-                                />
-                              );
-                            }
-
-                            const isActive = activeIds.has(province.id);
-                            const isHovered =
-                              hoveredProvince?.id === province.id;
-                            const isAdjacent = adjacentProvinceIds.has(
-                              province.id,
-                            );
-                            const isSelected =
-                              selectedProvince?.id === province.id;
-                            const isFlashing = liveFlashId === province.id;
-
-                            const { fill, fillOpacity } = getProvinceStyle(
-                              province.projectCount,
-                              maxProjects,
-                              isActive,
-                              isHovered,
-                              isSelected,
-                              isFlashing,
-                            );
-
-                            return (
-                              <ProvincePath
-                                key={geo.rsmKey}
-                                geo={geo}
-                                pathData={geo.svgPath}
-                                isActive={isActive}
-                                isHovered={isActive && isHovered}
-                                isAdjacent={isActive && isAdjacent}
-                                isSelected={isSelected}
-                                isFlashing={isFlashing}
-                                fill={fill}
-                                fillOpacity={fillOpacity}
-                                reducedMotion={reducedMotion}
-                                onMouseEnter={() => {
-                                  if (isActive) setHoveredProvince(province);
-                                }}
-                                onMouseLeave={() => setHoveredProvince(null)}
-                                onClick={() => {
-                                  if (!isActive) return;
-                                  setSelectedProvince(
-                                    selectedProvince?.id === province.id
-                                      ? null
-                                      : province,
-                                  );
-                                }}
-                              />
-                            );
-                          })}
-                        </>
-                      );
-                    }}
-                  </Geographies>
-
-                  {/* Province center dots */}
-                  {Array.from(activeIds).map((id) => {
-                    const p = PROVINCES.find((pr) => pr.id === id);
-                    if (!p) return null;
-                    const isFlashing = liveFlashId === id;
-                    const isSelected = selectedProvince?.id === id;
-                    const isHovered = hoveredProvince?.id === id;
-                    const highlight = isSelected || isFlashing || isHovered;
-
-                    // Organic, non-synchronized floating offset duration
-                    const floatDuration = 3.2 + (p.lng % 2) * 0.4;
-
-                    return (
-                      <Marker key={id} coordinates={[p.lng, p.lat]}>
-                        <motion.g
-                          animate={reducedMotion ? {} : { y: [0, -2.5, 0] }}
-                          transition={
-                            reducedMotion
-                              ? {}
-                              : {
-                                  repeat: Infinity,
-                                  duration: floatDuration,
-                                  ease: "easeInOut",
-                                }
-                          }
-                          style={{ cursor: "pointer" }}
-                          onMouseEnter={() => setHoveredProvince(p)}
-                          onMouseLeave={() => setHoveredProvince(null)}
-                          onClick={() => {
-                            setSelectedProvince(
-                              selectedProvince?.id === p.id ? null : p,
-                            );
-                          }}
-                        >
-                          {/* Expanding Ripple Ring */}
-                          {!reducedMotion && (
-                            <motion.circle
-                              r={highlight ? 11 : 6}
-                              fill="none"
-                              stroke={isSelected ? "#991b1b" : "#ef4444"}
-                              strokeWidth={1.2}
-                              initial={{ scale: 0.8, opacity: 0.6 }}
-                              animate={{
-                                scale: highlight ? [1, 2.2, 1] : [1, 1.6, 1],
-                                opacity: highlight
-                                  ? [0.65, 0, 0.65]
-                                  : [0.35, 0, 0.35],
-                              }}
-                              transition={{
-                                repeat: Infinity,
-                                duration: 2.2,
-                                ease: "easeOut",
-                              }}
-                              style={{ transformOrigin: "center" }}
-                            />
-                          )}
-
-                          {highlight && reducedMotion && (
-                            <circle
-                              r={10}
-                              fill="none"
-                              stroke="#ef4444"
-                              strokeWidth={1.5}
-                            />
-                          )}
-
-                          <circle
-                            r={isSelected ? 4.5 : isHovered ? 4 : 2.5}
-                            fill={isSelected ? "#991b1b" : "#ef4444"}
-                            stroke="#ffffff"
-                            strokeWidth={1}
-                            style={{ transition: "r 0.2s ease" }}
-                            className="transition-all duration-300"
-                          />
-                        </motion.g>
-                      </Marker>
-                    );
-                  })}
-
-                  {/* Quần đảo Hoàng Sa (Paracel Islands) */}
-                  <Marker coordinates={[112.2, 16.2]}>
-                    <g className="opacity-90 transition-all duration-300">
-                      {/* Labeled text */}
-                      <text
-                        x={14}
-                        y={2}
-                        fill="#4b5563"
-                        className="dark:fill-zinc-300 font-sans font-bold text-[7px] tracking-wider select-none pointer-events-none"
-                      >
-                        Q.Đ Hoàng Sa
-                      </text>
-                      <text
-                        x={14}
-                        y={8}
-                        fill="#9ca3af"
-                        className="font-sans text-[5.5px] select-none pointer-events-none"
-                      >
-                        (TP. Đà Nẵng)
-                      </text>
-                    </g>
-                  </Marker>
-
-                  {/* Quần đảo Trường Sa (Spratly Islands) */}
-                  <Marker coordinates={[114.0, 8.8]}>
-                    <g className="opacity-90 transition-all duration-300">
-                      {/* Labeled text */}
-                      <text
-                        x={18}
-                        y={2}
-                        fill="#4b5563"
-                        className="dark:fill-zinc-300 font-sans font-bold text-[7px] tracking-wider select-none pointer-events-none"
-                      >
-                        Q.Đ Trường Sa
-                      </text>
-                      <text
-                        x={18}
-                        y={8}
-                        fill="#9ca3af"
-                        className="font-sans text-[5.5px] select-none pointer-events-none"
-                      >
-                        (T. Khánh Hòa)
-                      </text>
-                    </g>
-                  </Marker>
-                </ComposableMap>
+                <MapCore
+                  hoveredId={hoveredId}
+                  selectedId={selectedProvince?.id || null}
+                  activeIds={activeIds}
+                  liveFlashId={liveFlashId}
+                  maxProjects={maxProjects}
+                  onHoverProvince={onHoverProvince}
+                  onLeaveProvince={onLeaveProvince}
+                  onClickProvince={onClickProvince}
+                />
               </div>
 
               {/* Live activity toast */}
@@ -1488,13 +1421,11 @@ export function VietnamMapSection() {
         </div>
       </div>
 
-      {/* Floating tooltip */}
-      <FloatingInfoCard
+      {/* Floating tooltip — positioned via ref, no re-renders */}
+      <TooltipPortal
         province={hoveredProvince}
-        x={tooltipPos.x}
-        y={tooltipPos.y}
         visible={!!hoveredProvince && !selectedProvince}
-        reducedMotion={reducedMotion}
+        posRef={tooltipPosRef}
       />
     </section>
   );
