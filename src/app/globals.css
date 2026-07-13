@@ -135,3 +135,16 @@ button {
   background: #0f0f11;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
+/* Glass card — exact match to reference HTML */
+.glass-card-project {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0px;
+  transition: border-color 0.3s ease;
+}
+.glass-card-project:hover {
+  border-color: #e80002;
+}

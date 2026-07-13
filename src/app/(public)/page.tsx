@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
+import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -346,73 +347,7 @@ export default function LandingPage() {
       <VietnamMapSection />
 
       {/* Featured Projects */}
-      <section
-        id="projects"
-        className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-900/10 transition-colors duration-300"
-      >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
-            <div>
-              <div className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase">
-                Danh mục hoạt động
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white">
-                Dự án tiêu biểu
-              </h2>
-            </div>
-            <p className="text-secondary dark:text-zinc-400 max-w-sm mt-4 md:mt-0 text-sm">
-              Những bước đi tiên phong trong hành trình số hóa nông nghiệp, đô
-              thị và xây dựng hạ tầng dữ liệu.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Dự án Nông nghiệp Thông minh",
-                category: "Công nghệ cao",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA3_pi4nq9swPjtrnjkXBer0BcnV3tdbv_QWwcxCghuvkdkisr7WHRzBCF2NT_hsFdvClXqOE1zCdgvW_u_gfTFgpG4AiPl6xHe75xty7qOgD91V29BogzVVkprsHNLP6OXist4SW4qo5J7ieWA1apwHIRLnA2qyGPuE5eif4fZzc5dG3XrB95yQFPtFZyoBfDrg8_goEliSHb_ZDthO497CyUd9EHuyciCaymg0zIc_YS0vj9rtt_2blg5qMVpgsP4GnsNr3Y6N5s",
-              },
-              {
-                title: "Hệ thống Quản lý Đô thị",
-                category: "Đô thị số",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDbByJEZ3YCeLztV59YYYx6ui2pVNNKBH0FyrLb6bH5rsLUkFyWsRPdlSX2w1O3xBe6-E9p8RECqRUDP_z7rWYI1AzXR0iMj9H6JXhckH6Baqca7GmK4JbAL6Lyqm5lgPdUasNgj7Z-4I5F3GMRc3tm6_sEnoxzeNypYjdJ6XdE1XyBxtnZ5EdEKFckdAuJ24SZqdJkQDPtfSWPSvhj_zYYfVEnxTbpwUOBusK_rszTZAj_4ha2Mg8d1w9lp74qx6ZqdBvGJBzmrN8",
-              },
-              {
-                title: "Trung tâm Dữ liệu Vùng",
-                category: "Hạ tầng số",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBOC4a0nIghorFBjuVOMhUqrfruHrpAy5IhSqZuksn9j5YB4_f2JvWsBtf-NNh8ovEE68kOwuf7VaUqzqpEnneNawCgRUo7DJnYmUqUKbBUgxMqYXMOF7_dbXNabqEKx8pknqMcrpLXRT1wAI5rNMHIY-wSKfCEyG6YXA5_TjeTmQqo99skl1cuBud52sqyfBUJa_B_nT_fXbqtjC9k8XX1hNgq6PSiCO1Zvq0JTz9M4LIkZulIfizgH16Sh5Zp1rdI1mep5UqeKZc",
-              },
-            ].map((proj, i) => (
-              <motion.div
-                key={proj.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-              >
-                <Card className="h-full flex flex-col group cursor-pointer overflow-hidden">
-                  <div className="h-60 relative w-full mb-6 rounded-xl overflow-hidden bg-neutral-100 dark:bg-zinc-800">
-                    <Image
-                      alt={proj.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      src={proj.img}
-                    />
-                  </div>
-                  <div className="font-mono-label text-[10px] font-bold text-accent-red mb-2 uppercase tracking-widest">
-                    {proj.category}
-                  </div>
-                  <h3 className="text-xl font-bold text-black dark:text-white group-hover:text-accent-red transition-colors line-clamp-2">
-                    {proj.title}
-                  </h3>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturedProjectsSection />
 
       {/* Partners & Contact */}
       <section
