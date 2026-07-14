@@ -25,6 +25,8 @@ import { Card } from "@/components/ui/card";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
+import { PartnersSection } from "@/components/landing/partners-section";
+import { EcosystemSection } from "@/components/landing/ecosystem-section";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -106,7 +108,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/innovation_center.png"
+                    src="/images/home/kientaotuonglai.jpeg"
                     alt="Hạ tầng công nghệ"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -349,36 +351,18 @@ export default function LandingPage() {
       {/* Featured Projects */}
       <FeaturedProjectsSection />
 
-      {/* Partners & Contact */}
+      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
+      <EcosystemSection />
+
+      {/* Partners */}
+      <PartnersSection />
+
+      {/* Contact */}
       <section
         id="contact"
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       >
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
-          {/* Partners */}
-          <div className="mb-24">
-            <div className="font-mono-label text-xs text-secondary dark:text-zinc-400 text-center mb-10 uppercase tracking-widest">
-              Đối tác chiến lược
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 dark:opacity-40 grayscale select-none">
-              {[
-                "MINISTRY",
-                "TECH-CO",
-                "UNIVERSITY",
-                "LOCAL-GOV",
-                "AGRI-CORP",
-                "INNOV-HUB",
-              ].map((brand) => (
-                <div
-                  key={brand}
-                  className="text-xl font-bold font-mono tracking-tighter text-black dark:text-white"
-                >
-                  {brand}
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Contact Layout */}
           <motion.div
             className="bg-canvas-white dark:bg-zinc-900/40 rounded-2xl p-8 md:p-16 border border-whisper-border dark:border-zinc-800 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
