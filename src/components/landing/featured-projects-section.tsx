@@ -122,9 +122,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       {/* ── Default bottom: gradient + title + white border ── */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-10
-                   transition-all duration-500 ease-in-out
-                   group-hover:opacity-0 group-hover:translate-y-3"
+        className="project-card-default-bottom absolute bottom-0 left-0 right-0 z-10
+                   transition-all duration-500 ease-in-out"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="relative px-5 pb-4 pt-14">
@@ -137,10 +136,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       {/* ── White data panel — slides UP on hover ── */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-20
+        className="project-card-hover-panel absolute bottom-0 left-0 right-0 z-20
                    bg-white dark:bg-zinc-900
-                   translate-y-full group-hover:translate-y-0
-                   transition-transform duration-500 ease-in-out"
+                   transition-all duration-500 ease-in-out"
       >
         {/* Panel content wrapper */}
         <div className="relative overflow-hidden px-6 pt-5 pb-6">
