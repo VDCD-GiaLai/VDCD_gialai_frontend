@@ -224,9 +224,41 @@ button {
 @media (max-width: 768px) {
   .marquee-track {
     gap: 1rem;
+    animation-duration: calc(var(--marquee-duration, 40s) * 1.5);
   }
   .marquee-item {
     padding: 0.75rem 1.25rem;
     border-radius: 12px;
+  }
+}
+
+/* ── Project Card Touch & Hover Fallbacks ──────────────── */
+@media (hover: hover) {
+  .project-card-default-bottom {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .group:hover .project-card-default-bottom {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .project-card-hover-panel {
+    transform: translateY(100%);
+  }
+  .group:hover .project-card-hover-panel {
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none), (max-width: 1023px) {
+  .project-card-default-bottom {
+    display: none !important;
+  }
+  .project-card-hover-panel {
+    transform: translateY(0) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+  }
+  .dark .project-card-hover-panel {
+    background: rgba(24, 24, 27, 0.95) !important;
   }
 }
