@@ -26,6 +26,7 @@ import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
 import { PartnersSection } from "@/components/landing/partners-section";
+import { EcosystemSection } from "@/components/landing/ecosystem-section";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -349,6 +350,9 @@ export default function LandingPage() {
 
       {/* Featured Projects */}
       <FeaturedProjectsSection />
+
+      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
+      <EcosystemSection />
 
       {/* Partners */}
       <PartnersSection />
