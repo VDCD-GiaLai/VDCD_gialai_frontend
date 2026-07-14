@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { FiSun, FiMoon, FiLogIn, FiLayout } from "react-icons/fi";
+import { FiSun, FiMoon, FiLogIn, FiLayout, FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAuthStore } from "@/store/auth.store";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
@@ -17,6 +18,7 @@ export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     setMounted(true);
@@ -32,11 +34,16 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on path changes
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const showSolidHeader = !isHome || isScrolled;
+  const showSolidHeader = !isHome || isScrolled || isMobileMenuOpen;
 
   const logoSrc = React.useMemo(() => {
     if (!mounted) {
@@ -63,7 +70,7 @@ export function Header() {
     >
       <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
         <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
-          <div className="relative w-[240px] h-[68px]">
+          <div className="relative w-[180px] sm:w-[240px] h-[50px] sm:h-[68px]">
             <Image
               alt="VDCD Logo"
               fill
@@ -75,7 +82,7 @@ export function Header() {
           </div>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Navigation Links - Desktop */}
         <nav
           className={`hidden lg:flex items-center gap-8 font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 ${
             showSolidHeader
@@ -107,7 +114,7 @@ export function Header() {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           {/* Theme Toggle */}
           {mounted && (
             <Button
@@ -145,15 +152,77 @@ export function Header() {
             <Link href={APP_ROUTES.LOGIN}>
               <Button
                 color="primary"
-                className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold"
+                className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold px-3 sm:px-4"
                 trailingIcon={<FiLogIn className="w-3.5 h-3.5" />}
               >
                 Đăng nhập
               </Button>
             </Link>
-          )}{" "}
+          )}
+
+          {/* Hamburger Menu Toggle for Mobile */}
+          <Button
+            isIconOnly
+            variant="light"
+            radius="full"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Mobile Menu"
+            className={`lg:hidden transition-colors duration-300 ${
+              showSolidHeader
+                ? "text-zinc-600 dark:text-zinc-400 hover:text-accent-red"
+                : "text-zinc-200 hover:text-white"
+            }`}
+          >
+            {isMobileMenuOpen ? (
+              <FiX className="w-5 h-5" />
+            ) : (
+              <FiMenu className="w-5 h-5" />
+            )}
+          </Button>
         </div>
       </div>
+
+      {/* Mobile Menu Panel */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
+          >
+            <a
+              href="#about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+            >
+              Về chúng tôi
+            </a>
+            <Link
+              href="/solution"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+            >
+              Giải pháp
+            </Link>
+            <a
+              href="#projects"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+            >
+              Dự án
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+            >
+              Liên hệ
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
