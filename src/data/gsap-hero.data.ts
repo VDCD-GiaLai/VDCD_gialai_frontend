@@ -6,7 +6,7 @@ export const GSAP_HERO_SLIDES: GsapHeroSlide[] = [
     title: "KIẾN TẠO",
     title2: "HỆ SINH THÁI SỐ",
     desc: "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
-    image: "/images/home/innovation_center.png",
+    image: "/images/home/kientaotuonglai.jpeg",
   },
   {
     place: "NÔNG NGHIỆP CÔNG NGHỆ CAO",
@@ -20,7 +20,7 @@ export const GSAP_HERO_SLIDES: GsapHeroSlide[] = [
     title: "HỆ THỐNG",
     title2: "ĐÔ THỊ SỐ",
     desc: "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
-    image: "/images/home/quynhon_citynightview.webp",
+    image: "/images/home/hethongdothiso.jpg",
   },
   {
     place: "HẠ TẦNG KỸ THUẬT SỐ",
