@@ -37,18 +37,18 @@ export function useGsapHero(
 
     if (width < 768) {
       // Mobile offsets - optimized to fit screen
-      offsetTopVal.current = height - 210;
-      offsetLeftVal.current = 20;
-      cardWidthVal.current = 80;
-      cardHeightVal.current = 120;
-      gapVal.current = 10;
+      offsetTopVal.current = height - (height < 650 ? 160 : 185);
+      offsetLeftVal.current = 16;
+      cardWidthVal.current = width < 360 ? 62 : 72;
+      cardHeightVal.current = width < 360 ? 90 : 105;
+      gapVal.current = 8;
     } else if (width < 1024) {
       // Tablet offsets
-      offsetTopVal.current = height - 320;
-      offsetLeftVal.current = width - 420;
-      cardWidthVal.current = 130;
-      cardHeightVal.current = 180;
-      gapVal.current = 16;
+      offsetTopVal.current = height - 280;
+      offsetLeftVal.current = width - 390;
+      cardWidthVal.current = 110;
+      cardHeightVal.current = 160;
+      gapVal.current = 12;
     } else {
       // Desktop offsets
       offsetTopVal.current = height - 420;
@@ -928,6 +928,38 @@ export function useGsapHero(
       );
     }, containerRef);
 
+    // Touch Swipe Gestures
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          prevSlide();
+        } else {
+          nextSlide(false);
+        }
+      }
+    };
+
+    container.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    container.addEventListener("touchend", handleTouchEnd, { passive: true });
+
     // Window Resize handler
     const handleResize = () => {
       updateDimensions();
@@ -938,6 +970,8 @@ export function useGsapHero(
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchend", handleTouchEnd);
       ctx.revert();
       stopAutoplayLoop();
     };

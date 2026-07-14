@@ -1255,6 +1255,12 @@ export function VietnamMapSection() {
   const onClickProvince = React.useCallback((id: string) => {
     const province = PROVINCE_BY_ID.get(id) || null;
     setSelectedProvince((prev) => (prev?.id === id ? null : province));
+    if (typeof window !== "undefined" && window.innerWidth < 1024 && province) {
+      setTimeout(() => {
+        const panelEl = document.getElementById("map-detail-panel");
+        panelEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 120);
+    }
   }, []);
 
   return (
@@ -1375,8 +1381,8 @@ export function VietnamMapSection() {
                 )}
               </AnimatePresence>
 
-              {/* Interactive Guide Widget */}
-              <div className="absolute bottom-4 right-4 z-10 max-w-[200px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl p-3 shadow-md border border-zinc-200/50 dark:border-zinc-800/50 text-[10px] text-zinc-500 dark:text-zinc-400 space-y-1.5 transition-colors duration-300">
+              {/* Interactive Guide Widget - hidden on mobile */}
+              <div className="hidden sm:block absolute bottom-4 right-4 z-10 max-w-[200px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl p-3 shadow-md border border-zinc-200/50 dark:border-zinc-800/50 text-[10px] text-zinc-500 dark:text-zinc-400 space-y-1.5 transition-colors duration-300">
                 <p className="font-bold text-[9px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono mb-1">
                   Hướng dẫn bản đồ
                 </p>
@@ -1397,7 +1403,7 @@ export function VietnamMapSection() {
           </motion.div>
 
           {/* ─── Right panel ─── */}
-          <div>
+          <div id="map-detail-panel" className="scroll-mt-24">
             <AnimatePresence mode="wait">
               {selectedProvince ? (
                 <ProvinceCard
@@ -1424,7 +1430,12 @@ export function VietnamMapSection() {
       {/* Floating tooltip — positioned via ref, no re-renders */}
       <TooltipPortal
         province={hoveredProvince}
-        visible={!!hoveredProvince && !selectedProvince}
+        visible={
+          !!hoveredProvince &&
+          !selectedProvince &&
+          typeof window !== "undefined" &&
+          window.innerWidth >= 768
+        }
         posRef={tooltipPosRef}
       />
     </section>
