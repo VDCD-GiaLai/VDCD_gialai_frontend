@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import { SOLUTIONS } from "@/data/solutions";
+import { SOLUTIONS } from "@/data/solution/solutions";
 
 /** ────────────────────────────────────────────────────────────
  *  Ecosystem Section — FR-HOME-05
@@ -242,13 +243,13 @@ export function EcosystemSection() {
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          <a
+          <Link
             href="/solution"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-accent-red/20 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300 group"
           >
             Khám phá tất cả Giải pháp
             <FiArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
