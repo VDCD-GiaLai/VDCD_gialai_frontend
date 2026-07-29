@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
+import { fetchProjectsFromApi } from "@/services/project.service";
 import { useTransitionStore } from "@/store/transition-store";
 
 /* ────────────────────────────────────────────────────────
@@ -56,7 +57,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 
   return (
     <div
-      className="prj-card group block"
+      className="prj-card group block cursor-pointer"
       role="link"
       tabIndex={0}
       aria-label={`Xem dự án ${project.title}`}
@@ -98,8 +99,17 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
    ──────────────────────────────────────────────────────── */
 
 export const ProjectsGallery = () => {
-  /* Ensure we have enough projects; fall back gracefully */
-  const p = PROJECTS_DATA;
+  const [projects, setProjects] = React.useState<ProjectEntry[]>(PROJECTS_DATA);
+
+  React.useEffect(() => {
+    fetchProjectsFromApi().then((data) => {
+      if (data && data.length > 0) {
+        setProjects(data);
+      }
+    });
+  }, []);
+
+  const p = projects;
 
   return (
     <section className="gallery-section" aria-label="Bộ sưu tập dự án">
@@ -120,7 +130,7 @@ export const ProjectsGallery = () => {
       </div>
 
       <div className="gallery-grid">
-        {/* ── Row 1: Full-width hero card ──────────────────────── */}
+        {/* Render initial layout blocks */}
         {p[0] && (
           <div className="gallery-row--full">
             <ProjectCard
@@ -130,7 +140,6 @@ export const ProjectsGallery = () => {
           </div>
         )}
 
-        {/* ── Row 2: Portrait + Landscape split ───────────────── */}
         {p[1] && p[2] && (
           <div className="gallery-row--split">
             <ProjectCard
@@ -144,7 +153,6 @@ export const ProjectsGallery = () => {
           </div>
         )}
 
-        {/* ── Interlude text ──────────────────────────────────── */}
         <div className="gallery-interlude">
           <p className="gallery-interlude__text">
             Chúng tôi tin rằng mỗi công trình đều kể một câu chuyện — về con
@@ -152,7 +160,6 @@ export const ProjectsGallery = () => {
           </p>
         </div>
 
-        {/* ── Row 3: Full-width landscape ─────────────────────── */}
         {p[3] && (
           <div className="gallery-row--full">
             <ProjectCard
@@ -162,7 +169,6 @@ export const ProjectsGallery = () => {
           </div>
         )}
 
-        {/* ── Row 4: Landscape + Portrait split (reversed) ───── */}
         {p[4] && p[5] && (
           <div className="gallery-row--split-reverse">
             <ProjectCard
@@ -176,7 +182,6 @@ export const ProjectsGallery = () => {
           </div>
         )}
 
-        {/* ── Interlude text ──────────────────────────────────── */}
         <div className="gallery-interlude">
           <p className="gallery-interlude__text">
             Từ Bắc vào Nam — công nghệ giám sát VDCD đồng hành cùng những công
@@ -184,21 +189,16 @@ export const ProjectsGallery = () => {
           </p>
         </div>
 
-        {/* ── Row 5: Three-column ─────────────────────────────── */}
-        {p[6] && p[7] && p[8] && (
-          <div className="gallery-row--three">
-            <ProjectCard
-              project={p[6]}
-              aspectClass="prj-card__image-wrapper--landscape"
-            />
-            <ProjectCard
-              project={p[7]}
-              aspectClass="prj-card__image-wrapper--landscape"
-            />
-            <ProjectCard
-              project={p[8]}
-              aspectClass="prj-card__image-wrapper--landscape"
-            />
+        {/* Dynamic rendering for rest of items */}
+        {p.length > 6 && (
+          <div className="gallery-row--three mt-8">
+            {p.slice(6).map((proj) => (
+              <ProjectCard
+                key={proj.id}
+                project={proj}
+                aspectClass="prj-card__image-wrapper--landscape"
+              />
+            ))}
           </div>
         )}
       </div>

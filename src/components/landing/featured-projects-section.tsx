@@ -3,8 +3,12 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
+
+import { fetchFeaturedProjectsFromApi } from "@/services/project.service";
+import type { ProjectEntry } from "@/data/projects.data";
 
 interface ProjectItem {
   title: string;
@@ -12,63 +16,6 @@ interface ProjectItem {
   img: string;
   link: string;
 }
-
-const projectsData: ProjectItem[] = [
-  {
-    title: "Vân Phong – Khánh Hòa",
-    desc: "Khu kinh tế Vân Phong được giám sát số hóa toàn diện, ứng dụng AutoTimelapse ghi lại từng giai đoạn phát triển của khu kinh tế chiến lược tại Khánh Hòa.",
-    img: "https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited-768x576.jpg",
-    link: "https://vdcd.vn/projects/van-phong-khanh-hoa/",
-  },
-  {
-    title: "Lotte Mall Võ Chí Công",
-    desc: "Trung tâm thương mại & chung cư Lotte Mall được giám sát tiến độ xây dựng bằng hệ thống camera AutoTimelapse 24/7 từ lúc khởi công đến hoàn thiện.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/Lotte-Mall-1-1-1-768x509.jpg",
-    link: "https://vdcd.vn/projects/lotte-mall-vo-chi-cong/",
-  },
-  {
-    title: "Becamex Bình Dương",
-    desc: "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – biểu tượng mới của đô thị thông minh, nơi công nghệ và kiến trúc hòa quyện.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1-768x512.jpeg",
-    link: "https://vdcd.vn/projects/becamex-binh-duong/",
-  },
-  {
-    title: "The Terra An Hưng",
-    desc: "VDCD mang công nghệ giám sát tự động vào The Terra An Hưng, giúp Văn Phú – Invest quản lý tiến độ số hóa và xây dựng đô thị thông minh.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/the-terra-an-hung-1-1-1-768x499.jpg",
-    link: "https://vdcd.vn/projects/the-terra-an-hung/",
-  },
-  {
-    title: "Tháp Bà Ponagar",
-    desc: "Ứng dụng công nghệ số hóa và giám sát bảo tồn di tích lịch sử Tháp Bà Ponagar, bảo vệ di sản văn hóa Chăm Pa bằng hệ thống camera thông minh.",
-    img: "https://vdcd.vn/wp-content/uploads/2025/11/11-1024x680-1-768x510.png",
-    link: "https://vdcd.vn/projects/thap-ba-ponagar/",
-  },
-  {
-    title: "Sun Marina Hạ Long",
-    desc: "AutoTimelapse triển khai tại Marina Hạ Long, ứng dụng công nghệ giám sát tự động giúp kiến tạo sắc vóc đô thị ven biển hiện đại.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-768x512.jpg",
-    link: "https://vdcd.vn/projects/sun-marina-ha-long/",
-  },
-  {
-    title: "Sơn Trà – Đà Nẵng",
-    desc: "Dự án Sơn Trà nằm cách trung tâm Đà Nẵng 10km về phía Đông Bắc, được giám sát toàn diện bằng hệ thống camera thông minh tích hợp AI.",
-    img: "https://vdcd.vn/wp-content/uploads/2025/11/Screenshot_76-min-1024x609-1-768x457.png",
-    link: "https://vdcd.vn/projects/son-tra-da-nang/",
-  },
-  {
-    title: "Sân Bay Vân Đồn",
-    desc: "Hệ thống AutoTimelapse ghi lại toàn bộ tiến độ xây dựng sân bay Vân Đồn – sân bay tư nhân đầu tiên của Việt Nam tại Quảng Ninh.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/467321399_1099508478849158_37644-768x512.jpg",
-    link: "https://vdcd.vn/projects/san-bay-van-don/",
-  },
-  {
-    title: "Sân Bay Quốc Tế Phú Quốc",
-    desc: "VDCD triển khai giám sát tiến độ xây dựng tại cảng hàng không quốc tế Phú Quốc, cửa ngõ du lịch hàng đầu của Việt Nam.",
-    img: "https://vdcd.vn/wp-content/uploads/2024/03/cang-hkqt-phu-quoc-1750338379-62-768x434.jpg",
-    link: "https://vdcd.vn/projects/san-bay-quoc-te-phu-quoc/",
-  },
-];
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -186,21 +133,37 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
 export function FeaturedProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [projects, setProjects] = React.useState<ProjectItem[]>([]);
+
+  React.useEffect(() => {
+    fetchFeaturedProjectsFromApi(6).then((data) => {
+      if (data && data.length > 0) {
+        setProjects(
+          data.map((p) => ({
+            title: p.title,
+            desc: p.description || p.title,
+            img: p.coverImage,
+            link: `/projects/${p.id}`,
+          })),
+        );
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || projects.length === 0) return;
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) return;
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(".project-card", { autoAlpha: 1 });
-      });
+      ScrollTrigger.config({ limitCallbacks: true });
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      requestAnimationFrame(() => {
         gsap.set(".project-card", {
           autoAlpha: 0,
-          y: 30,
+          y: 40,
+          willChange: "transform, opacity",
         });
 
         ScrollTrigger.batch(".project-card", {
@@ -219,7 +182,7 @@ export function FeaturedProjectsSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [projects]);
 
   return (
     <section
@@ -250,20 +213,18 @@ export function FeaturedProjectsSection() {
           <p className="max-w-xs text-sm text-secondary dark:text-zinc-400 uppercase tracking-widest leading-loose md:text-right">
             Những công trình tiêu biểu VDCD đã triển khai trên khắp cả nước.
           </p>
-          <a
-            href="https://vdcd.vn/du-an/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/projects"
             className="inline-flex items-center gap-2 text-accent-red font-bold text-xs uppercase tracking-[0.25em] hover:opacity-70 transition-opacity"
           >
             Xem tất cả <FiArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
 
       {/* Card Grid */}
       <div className="max-w-[1800px] mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {projectsData.map((project, i) => (
+        {projects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
         ))}
       </div>

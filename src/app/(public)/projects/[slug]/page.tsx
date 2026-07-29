@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PROJECTS_DATA, getProjectById } from "@/data/projects.data";
+import { fetchProjectBySlugFromApi } from "@/services/project.service";
 import { ProjectDetailContent } from "@/components/projects/detail/project-detail-content";
 import { notFound } from "next/navigation";
 
@@ -13,7 +14,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectById(slug);
+  const project =
+    (await fetchProjectBySlugFromApi(slug)) || getProjectById(slug);
 
   if (!project) {
     return { title: "Dự án không tồn tại | VDCD Group" };
@@ -56,7 +58,8 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProjectById(slug);
+  const project =
+    (await fetchProjectBySlugFromApi(slug)) || getProjectById(slug);
 
   if (!project) {
     notFound();

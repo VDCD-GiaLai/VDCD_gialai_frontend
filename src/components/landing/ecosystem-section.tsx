@@ -6,14 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 import { SOLUTIONS } from "@/data/solution/solutions";
+import {
+  fetchSolutionsFromApi,
+  type SolutionItem,
+} from "@/services/solution.service";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-
-/** ────────────────────────────────────────────────────────────
- *  Ecosystem Section — FR-HOME-05
- *  Displays VDCD Group member units in a hub-spoke visual +
- *  interactive grid. Designed to sit below Featured Projects.
- *  ──────────────────────────────────────────────────────────── */
 
 /* ── Accent colors for each card (rotated) ──────────────────── */
 const ACCENT_COLORS = [
@@ -41,14 +39,16 @@ const ACCENT_COLORS = [
   },
 ];
 
+interface EcoItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  href: string;
+}
+
 /* ── Single ecosystem card ──────────────────────────────────── */
-function EcosystemCard({
-  item,
-  index,
-}: {
-  item: (typeof SOLUTIONS)[number];
-  index: number;
-}) {
+function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
   const accent = ACCENT_COLORS[index % ACCENT_COLORS.length];
 
   return (
@@ -142,6 +142,38 @@ function HubVisual() {
 /* ── Main export ────────────────────────────────────────────── */
 export function EcosystemSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [items, setItems] = React.useState<EcoItem[]>(
+    SOLUTIONS.map((s) => ({
+      id: s.href || s.title,
+      title: s.title,
+      description: s.description,
+      imageUrl: s.imageUrl,
+      href: s.href,
+    })),
+  );
+
+  React.useEffect(() => {
+    fetchSolutionsFromApi(50).then((data) => {
+      if (data && data.length > 0) {
+        setItems(
+          SOLUTIONS.map((s) => {
+            const apiMatch = data.find(
+              (sol) =>
+                sol.title.toLowerCase() === s.title.toLowerCase() ||
+                sol.slug === s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+            );
+            return {
+              id: s.href || s.title,
+              title: s.title,
+              description: apiMatch?.description || s.description,
+              imageUrl: apiMatch?.thumbnail || s.imageUrl,
+              href: apiMatch?.websiteUrl || s.href,
+            };
+          }),
+        );
+      }
+    });
+  }, []);
 
   /* GSAP scroll-reveal for header, hub, and CTA */
   const headerRef = useScrollReveal({
@@ -151,40 +183,35 @@ export function EcosystemSection() {
 
   /* GSAP batch reveal for the card grid */
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || items.length === 0) return;
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) return;
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(".eco-card", { autoAlpha: 1 });
+      gsap.set(".eco-card", {
+        autoAlpha: 0,
+        y: 20,
+        scale: 0.97,
       });
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(".eco-card", {
-          autoAlpha: 0,
-          y: 20,
-          scale: 0.97,
-        });
-
-        ScrollTrigger.batch(".eco-card", {
-          start: "top 85%",
-          once: true,
-          onEnter: (elements) =>
-            gsap.to(elements, {
-              autoAlpha: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.5,
-              ease: "power3.out",
-              stagger: 0.06,
-            }),
-        });
+      ScrollTrigger.batch(".eco-card", {
+        start: "top 85%",
+        once: true,
+        onEnter: (elements) =>
+          gsap.to(elements, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power3.out",
+            stagger: 0.06,
+          }),
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [items]);
 
   return (
     <section
@@ -236,7 +263,7 @@ export function EcosystemSection() {
 
         {/* ── Ecosystem Grid ────────────────────────── */}
         <div className="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
-          {SOLUTIONS.map((sol, i) => (
+          {items.map((sol, i) => (
             <EcosystemCard key={sol.title} item={sol} index={i} />
           ))}
         </div>

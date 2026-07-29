@@ -3,15 +3,39 @@
 import * as React from "react";
 import { useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { GSAP_HERO_SLIDES } from "@/data/gsap-hero.data";
+import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
+import { fetchHeroSlidesFromApi } from "@/services/hero.service";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
 
 export function GsapHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [slides, setSlides] = React.useState<GsapHeroSlide[]>(GSAP_HERO_SLIDES);
+
+  React.useEffect(() => {
+    fetchHeroSlidesFromApi().then((apiSlides) => {
+      if (apiSlides && apiSlides.length > 0) {
+        const mapped: GsapHeroSlide[] = apiSlides.map((s) => {
+          const parts = s.title.split(" ");
+          const mid = Math.ceil(parts.length / 2);
+          return {
+            title: parts.slice(0, mid).join(" "),
+            title2: parts.slice(mid).join(" ") || "Dự án VDCD",
+            desc:
+              s.description ||
+              "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
+            image: s.image || (s as any).imageUrl || "",
+            place: s.subtitle || s.location || "VIỆT NAM",
+          };
+        });
+        setSlides(mapped);
+      }
+    });
+  }, []);
+
   const { activeIdx, nextSlide, prevSlide, selectSlide } = useGsapHero(
     containerRef,
-    GSAP_HERO_SLIDES,
+    slides,
   );
 
   return (
@@ -20,7 +44,7 @@ export function GsapHero() {
       className="gsap-hero-container w-full min-h-[100dvh] relative bg-zinc-950 text-white select-none overflow-hidden"
     >
       {/* Slide Cards */}
-      {GSAP_HERO_SLIDES.map((slide, idx) => (
+      {slides.map((slide, idx) => (
         <React.Fragment key={idx}>
           <div
             className={`card cursor-pointer ${activeIdx === idx ? "active-bg" : ""}`}

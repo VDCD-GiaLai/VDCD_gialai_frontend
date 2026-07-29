@@ -3,6 +3,10 @@
 import * as React from "react";
 import Image from "next/image";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import {
+  fetchPartnersFromApi,
+  type PartnerItem,
+} from "@/services/partner.service";
 
 /** ────────────────────────────────────────────────
  *  Partner / Client data crawled from vdcd.vn
@@ -109,6 +113,22 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
  *  integrations ticker design
  *  ──────────────────────────────────────────────── */
 export function PartnersSection() {
+  const [partnerList, setPartnerList] = React.useState<PartnerItem[]>(
+    PARTNERS.map((p, idx) => ({
+      id: String(idx + 1),
+      name: p.name,
+      logo: p.logo,
+    })),
+  );
+
+  React.useEffect(() => {
+    fetchPartnersFromApi().then((items) => {
+      if (items && items.length > 0) {
+        setPartnerList(items);
+      }
+    });
+  }, []);
+
   /* GSAP scroll-reveal for header and footer text blocks */
   const sectionRef = useScrollReveal({
     targets: ".partners-reveal",
@@ -121,7 +141,7 @@ export function PartnersSection() {
   });
 
   /* Duplicate the list so the marquee loops seamlessly */
-  const allLogos = [...PARTNERS, ...PARTNERS];
+  const allLogos = [...partnerList, ...partnerList];
 
   return (
     <section

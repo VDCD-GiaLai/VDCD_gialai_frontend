@@ -1,15 +1,44 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ServiceCard } from "@/components/ui/service-card";
 import { CAPABILITY_SOLUTIONS } from "@/data/solution/solutions";
+import { fetchSolutionsFromApi } from "@/services/solution.service";
 import { gsap } from "@/lib/animations/register-gsap";
+
+interface SolutionItem {
+  title: string;
+  description: string;
+  href: string;
+  imageUrl: string;
+  iconUrl?: string;
+  slug?: string;
+}
 
 export default function SolutionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const [solutions, setSolutions] =
+    useState<SolutionItem[]>(CAPABILITY_SOLUTIONS);
 
   useEffect(() => {
-    if (!pageRef.current) return;
+    fetchSolutionsFromApi().then((items) => {
+      if (items && items.length > 0) {
+        setSolutions(
+          items.map((sol) => ({
+            title: sol.title,
+            description: sol.description,
+            href: `/solution/${sol.slug}`,
+            imageUrl: sol.thumbnail || "/images/placeholder-solution.jpg",
+            iconUrl: sol.icon || "/icons/cpu.svg",
+            slug: sol.slug,
+          })),
+        );
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!pageRef.current || solutions.length === 0) return;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -40,7 +69,7 @@ export default function SolutionsPage() {
     }, pageRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [solutions]);
 
   return (
     <div
@@ -66,13 +95,13 @@ export default function SolutionsPage() {
 
         {/* Grid of ServiceCards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {CAPABILITY_SOLUTIONS.map((sol) => (
+          {solutions.map((sol) => (
             <div key={sol.title} className="sol-card h-full">
               <ServiceCard
                 title={sol.title}
                 href={sol.href}
                 imageUrl={sol.imageUrl}
-                iconUrl={sol.iconUrl}
+                iconUrl={sol.iconUrl || "/icons/cpu.svg"}
                 description={sol.description}
               />
             </div>

@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { useRef, useEffect } from "react";
-import { getProjectById, getNextProject } from "@/data/projects.data";
+import {
+  getProjectById,
+  getNextProject,
+  type ProjectEntry,
+} from "@/data/projects.data";
+import { fetchProjectBySlugFromApi } from "@/services/project.service";
 import { useTransitionStore } from "@/store/transition-store";
 import { useProjectDetailGsap } from "@/hooks/use-project-detail-gsap";
 import { ProjectDetailHero } from "./project-detail-hero";
@@ -25,8 +30,27 @@ interface ProjectDetailContentProps {
  */
 export const ProjectDetailContent = ({ slug }: ProjectDetailContentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const project = getProjectById(slug);
-  const nextProject = project ? getNextProject(project.id) : undefined;
+  const [project, setProject] = React.useState<ProjectEntry | null>(
+    getProjectById(slug) || null,
+  );
+  const [nextProject, setNextProject] = React.useState<
+    ProjectEntry | undefined
+  >(project ? getNextProject(project.id) : undefined);
+
+  useEffect(() => {
+    fetchProjectBySlugFromApi(slug).then((data) => {
+      if (data) {
+        setProject(data);
+        if (data.detail?.nextProjectId) {
+          fetchProjectBySlugFromApi(data.detail.nextProjectId).then(
+            (nextData) => {
+              if (nextData) setNextProject(nextData);
+            },
+          );
+        }
+      }
+    });
+  }, [slug]);
 
   const { isTransitioning, endTransition } = useTransitionStore();
 

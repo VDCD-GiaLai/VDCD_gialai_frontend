@@ -4,7 +4,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung tâm Bản đồ số",
     href: "https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-ban-do-so_Y1QWTr1vx.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -14,7 +15,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Viện Thiết Kế Số",
     href: "https://bimv.vn/",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_vien-thiet-ke-so__2hKI9bpo.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/house.svg",
     description:
@@ -23,7 +24,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung Tâm Giám Sát Số",
     href: "https://autotimelapse.com",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-giam-sat-so_lFPT35rfj.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
     description:
@@ -33,7 +35,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
     href: "https://vdcd.vn/services/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai/",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai_epPzRMHOA.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -43,7 +45,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Viện Nghiên cứu công nghệ không gian và dưới nước",
     href: "https://iig.vn",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc_VCi7R6zPh.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -53,7 +55,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Trung tâm phần mềm VDCD – Soft",
     href: "https://geneat.vn",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-phan-mem-vdcd-soft_fiI6DJoPu.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
     description:
@@ -62,7 +64,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
     href: "https://vdcd.vn/services/trung-tam-doi-moi-sang-tao-tinh/",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-doi-moi-sang-tao-tinh_lxFJ5P8Up.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/bed.svg",
     description:
@@ -71,7 +74,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung Tâm Chuyển giao Công Nghệ",
     href: "https://vdcd.vn/services/trung-tam-chuyen-giao-cong-nghe/",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-chuyen-giao-cong-nghe_S1qHUyzo4.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -81,7 +85,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Máy Bay Việt",
     href: "https://maybayviet.com",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-768x432.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_may-bay-viet_23M2uXWkZ.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -91,7 +95,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Trung tâm phát triển Robot & AI",
     href: "https://vdcd.vn/services/trung-tam-phat-trien-robot-ai/",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-phat-trien-robot-ai_ZqD1Z198b.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/floor.svg",
     description:
@@ -100,7 +104,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung Tâm Sản Xuất Phim",
     href: "https://vietflycam.vn/dich-vu/quay-phim-chup-anh-bang-flycam",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/75474-768x576.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-san-xuat-phim_ZndzHq198.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -109,7 +114,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
     href: "https://vdcd.vn/services/trung-tam-nghien-cuu-va-phat-trien-san-pham/",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_trung-tam-nghien-cuu-va-phat-trien-san-pham-rd_dzHq198bZ.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -122,7 +128,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Nông nghiệp - Lâm nghiệp",
     href: "/solution/nong-nghiep-lam-nghiep",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Ban-sao-cua-IMG_2462-1024x768.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_nong-nghiep-lam-nghiep_VdkW2TrHd.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -132,7 +138,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Giám sát an ninh",
     href: "/solution/an-ninh-giam-sat-an-ninh",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7896992273679_a63ab25fd7af7b68be795587ac4a41fb-1-1024x683.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_an-ninh-giam-sat-an-ninh_VF3zUFc8Y.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/house.svg",
     description:
@@ -142,7 +148,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Điện - Năng lượng",
     href: "/solution/dien-nang-luong",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Dien-gio-Quang-Tri-1-1410x720.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_dien-nang-luong_saWTrli1w.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
     description:
@@ -152,7 +158,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Khai thác khoáng sản",
     href: "/solution/tai-nguyen-khai-thac-khoang-san",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7903688360376_37c98f8dadd2f5e6419362c107fe4ca4-1-1024x509.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_tai-nguyen-khai-thac-khoang-san_-aZ2_3Eqe.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -162,7 +168,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Tài nguyên môi trường",
     href: "/solution/quan-ly-tai-nguyen-quan-trac-moi-truong",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7913610376494_aabfc4669de386a5916480d8fb3f34cd-1024x490.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_quan-ly-tai-nguyen-quan-trac-moi-truong_XEYuZsKZG.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -172,7 +178,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Du lịch thông minh - Số hóa di sản",
     href: "/solution/du-lich-thong-minh-so-hoa-di-san",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Phoenix-Ha-Long-1-1024x683.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_du-lich-thong-minh-so-hoa-di-san_ASo8rSbCZ.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
     description:
@@ -182,7 +188,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Cứu hộ cứu nạn",
     href: "/solution/cuu-ho-cuu-nan-phong-chong-thien-tai",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7896919187727_98d70d6fee3b5d5ed1d65405a3ad2c72-1024x768.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/solution_cuu-ho-cuu-nan-phong-chong-thien-tai_kvJ1ciDLD.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:

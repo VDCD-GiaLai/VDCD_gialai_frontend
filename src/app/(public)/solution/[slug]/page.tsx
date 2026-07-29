@@ -5,7 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FiArrowLeft, FiArrowUpRight, FiMail, FiPhone } from "react-icons/fi";
-import { SOLUTION_DETAILS } from "@/data/solution/solution-details";
+import {
+  SOLUTION_DETAILS,
+  type SolutionDetail,
+} from "@/data/solution/solution-details";
+import { fetchSolutionBySlugFromApi } from "@/services/solution.service";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 interface PageProps {
@@ -14,7 +18,38 @@ interface PageProps {
 
 export default function SolutionDetailPage({ params }: PageProps) {
   const { slug } = use(params);
-  const detail = SOLUTION_DETAILS[slug];
+  const [detail, setDetail] = React.useState<SolutionDetail | null>(
+    SOLUTION_DETAILS[slug] || null,
+  );
+
+  React.useEffect(() => {
+    fetchSolutionBySlugFromApi(slug).then((apiData) => {
+      if (apiData) {
+        const fallback = SOLUTION_DETAILS[slug];
+        setDetail({
+          slug: apiData.slug || slug,
+          title: apiData.title,
+          subtitle: fallback?.subtitle || "VDCD Solution",
+          introText: apiData.description,
+          imageUrl:
+            apiData.thumbnail ||
+            fallback?.imageUrl ||
+            "/images/placeholder-solution.jpg",
+          sections: fallback?.sections || [
+            {
+              title: "Tổng quan giải pháp",
+              description: apiData.description,
+              points: [
+                "Số hóa toàn bộ dữ liệu hiện trường và quản lý trực quan.",
+                "Tối ưu hóa chi phí và rút ngắn 40% thời gian triển khai.",
+                "Tích hợp hệ thống báo cáo & cảnh báo tự động 24/7.",
+              ],
+            },
+          ],
+        });
+      }
+    });
+  }, [slug]);
 
   if (!detail) {
     notFound();

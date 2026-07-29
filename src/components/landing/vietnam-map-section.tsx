@@ -47,6 +47,8 @@ import {
   REGION_STATS,
   Province,
 } from "@/data/vietnam-provinces";
+import { fetchProvincesFromApi } from "@/services/province.service";
+import { fetchOrganizationInfoFromApi } from "@/services/hero.service";
 
 const GEO_URL = "/data/vietnam-provinces.json";
 
@@ -1200,6 +1202,26 @@ export function VietnamMapSection() {
     () => (hoveredId ? PROVINCE_BY_ID.get(hoveredId) || null : null),
     [hoveredId],
   );
+
+  React.useEffect(() => {
+    fetchProvincesFromApi().then((apiProvinces) => {
+      if (apiProvinces && apiProvinces.length > 0) {
+        apiProvinces.forEach((ap) => {
+          const matched = PROVINCES.find(
+            (p) =>
+              p.name.toLowerCase() === ap.name.toLowerCase() ||
+              p.id === ap.code.toLowerCase(),
+          );
+          if (matched && ap.centerCount > 0) {
+            matched.projectCount = Math.max(
+              matched.projectCount,
+              ap.centerCount,
+            );
+          }
+        });
+      }
+    });
+  }, []);
 
   // Wave animation: provinces light up in 4 batches
   React.useEffect(() => {

@@ -5,15 +5,23 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
+      {
+        protocol: "https",
+        hostname: "vdcd.vn",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "https",
         hostname: "lh3.googleusercontent.com",
       },
       {
         protocol: "https",
         hostname: "picsum.photos",
-      },
-      {
-        protocol: "https",
-        hostname: "vdcd.vn",
       },
     ],
   },
