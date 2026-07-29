@@ -27,7 +27,7 @@ export default function SolutionsPage() {
           items.map((sol) => ({
             title: sol.title,
             description: sol.description,
-            href: `/solution/${sol.slug}`,
+            href: sol.websiteUrl || `/solution/${sol.slug}`,
             imageUrl: sol.thumbnail || "/images/placeholder-solution.jpg",
             iconUrl: sol.icon || "/icons/cpu.svg",
             slug: sol.slug,

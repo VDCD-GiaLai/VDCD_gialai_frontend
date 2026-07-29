@@ -31,7 +31,8 @@ export const SOLUTIONS: SolutionItem[] = [
   },
   {
     title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
-    href: "https://vdcd.vn/services/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai/",
+    href: "/solution/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     imageUrl:
       "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
     iconUrl:
@@ -61,7 +62,8 @@ export const SOLUTIONS: SolutionItem[] = [
   },
   {
     title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
-    href: "https://vdcd.vn/services/trung-tam-doi-moi-sang-tao-tinh/",
+    href: "/solution/trung-tam-doi-moi-sang-tao-tinh",
+    slug: "trung-tam-doi-moi-sang-tao-tinh",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/bed.svg",
@@ -70,7 +72,8 @@ export const SOLUTIONS: SolutionItem[] = [
   },
   {
     title: "Trung Tâm Chuyển giao Công Nghệ",
-    href: "https://vdcd.vn/services/trung-tam-chuyen-giao-cong-nghe/",
+    href: "/solution/trung-tam-chuyen-giao-cong-nghe",
+    slug: "trung-tam-chuyen-giao-cong-nghe",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
@@ -89,7 +92,8 @@ export const SOLUTIONS: SolutionItem[] = [
   },
   {
     title: "Trung tâm phát triển Robot & AI",
-    href: "https://vdcd.vn/services/trung-tam-phat-trien-robot-ai/",
+    href: "/solution/trung-tam-phat-trien-robot-ai",
+    slug: "trung-tam-phat-trien-robot-ai",
     imageUrl:
       "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
     iconUrl:
@@ -108,7 +112,8 @@ export const SOLUTIONS: SolutionItem[] = [
   },
   {
     title: "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
-    href: "https://vdcd.vn/services/trung-tam-nghien-cuu-va-phat-trien-san-pham/",
+    href: "/solution/trung-tam-nghien-cuu-va-phat-trien-san-pham",
+    slug: "trung-tam-nghien-cuu-va-phat-trien-san-pham",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",

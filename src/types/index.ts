@@ -53,6 +53,7 @@ export interface SolutionItem {
   imageUrl: string;
   iconUrl: string;
   description: string;
+  slug?: string;
 }
 
 export interface GsapHeroSlide {
