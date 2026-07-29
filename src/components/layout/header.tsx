@@ -1,43 +1,81 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { FiSun, FiMoon, FiLogIn, FiLayout, FiMenu, FiX } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
-import { useAuthStore } from "@/store/auth.store";
+import { FiSun, FiMoon, FiMenu, FiX, FiFileText } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 export function Header() {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const { isAuthenticated } = useAuthStore();
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  React.useEffect(() => {
+  /* ── GSAP-powered scroll detection (replaces raw scroll listener) ── */
+  useEffect(() => {
     setMounted(true);
 
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const st = ScrollTrigger.create({
+      start: "50px top",
+      end: 99999,
+      onUpdate: (self) => {
+        setIsScrolled(self.progress > 0);
+      },
+    });
+
+    return () => st.kill();
   }, []);
 
   // Close mobile menu on path changes
-  React.useEffect(() => {
+  useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
+
+  /* ── Mobile menu GSAP animation ── */
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuTlRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!menuRef.current) return;
+
+    // Build a timeline but keep it paused
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(
+      menuRef.current,
+      { height: 0, opacity: 0, display: "none" },
+      {
+        height: "auto",
+        opacity: 1,
+        display: "flex",
+        duration: 0.25,
+        ease: "power2.inOut",
+      },
+    );
+
+    menuTlRef.current = tl;
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!menuTlRef.current) return;
+
+    if (isMobileMenuOpen) {
+      menuTlRef.current.play();
+    } else {
+      menuTlRef.current.reverse();
+    }
+  }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -84,7 +122,7 @@ export function Header() {
 
         {/* Navigation Links - Desktop */}
         <nav
-          className={`hidden lg:flex items-center gap-8 font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 ${
+          className={`hidden lg:flex items-center gap-5 xl:gap-7 font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 ${
             showSolidHeader
               ? "text-zinc-700 dark:text-zinc-300"
               : "text-zinc-200/90"
@@ -93,17 +131,32 @@ export function Header() {
           <a href="#about" className="hover:text-accent-red transition-colors">
             Về chúng tôi
           </a>
+          <a
+            href="#programs"
+            className="hover:text-accent-red transition-colors"
+          >
+            Chương trình
+          </a>
           <Link
             href="/solution"
             className="hover:text-accent-red transition-colors"
           >
             Giải pháp
           </Link>
-          <a
-            href="#projects"
+          <Link
+            href="/projects"
             className="hover:text-accent-red transition-colors"
           >
             Dự án
+          </Link>
+          <a href="#news" className="hover:text-accent-red transition-colors">
+            Tin tức
+          </a>
+          <a
+            href="#careers"
+            className="hover:text-accent-red transition-colors"
+          >
+            Tuyển dụng
           </a>
           <a
             href="#contact"
@@ -114,7 +167,7 @@ export function Header() {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Theme Toggle */}
           {mounted && (
             <Button
@@ -136,29 +189,17 @@ export function Header() {
               )}
             </Button>
           )}
-          {/* Auth State Button */}
-          {isAuthenticated ? (
-            <Link href={APP_ROUTES.DASHBOARD}>
-              <Button
-                color="primary"
-                variant="flat"
-                className="font-mono-label text-xs tracking-wider uppercase font-bold text-accent-red bg-accent-red/10 border-accent-red/20 border"
-                trailingIcon={<FiLayout className="w-3.5 h-3.5" />}
-              >
-                Bảng điều khiển
-              </Button>
-            </Link>
-          ) : (
-            <Link href={APP_ROUTES.LOGIN}>
-              <Button
-                color="primary"
-                className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold px-3 sm:px-4"
-                trailingIcon={<FiLogIn className="w-3.5 h-3.5" />}
-              >
-                Đăng nhập
-              </Button>
-            </Link>
-          )}
+
+          {/* Action CTA Button: Capacity Profile */}
+          <a href="#capacity-profile">
+            <Button
+              color="primary"
+              className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold px-3 sm:px-4"
+              trailingIcon={<FiFileText className="w-3.5 h-3.5" />}
+            >
+              Hồ sơ năng lực
+            </Button>
+          </a>
 
           {/* Hamburger Menu Toggle for Mobile */}
           <Button
@@ -182,47 +223,70 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Panel */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
-          >
-            <a
-              href="#about"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-            >
-              Về chúng tôi
-            </a>
-            <Link
-              href="/solution"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-            >
-              Giải pháp
-            </Link>
-            <a
-              href="#projects"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-            >
-              Dự án
-            </a>
-            <a
-              href="#contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-            >
-              Liên hệ
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile Menu Panel — GSAP animated (replaces AnimatePresence) */}
+      <div
+        ref={menuRef}
+        style={{ height: 0, opacity: 0, display: "none" }}
+        className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
+      >
+        <a
+          href="#about"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Về chúng tôi
+        </a>
+        <a
+          href="#programs"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Chương trình
+        </a>
+        <Link
+          href="/solution"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Giải pháp
+        </Link>
+        <Link
+          href="/projects"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Dự án
+        </Link>
+        <a
+          href="#news"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Tin tức
+        </a>
+        <a
+          href="#careers"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Tuyển dụng
+        </a>
+        <a
+          href="#contact"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+        >
+          Liên hệ
+        </a>
+        <a
+          href="#capacity-profile"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
+        >
+          <FiFileText className="w-4 h-4" />
+          Hồ sơ năng lực
+        </a>
+      </div>
     </header>
   );
 }

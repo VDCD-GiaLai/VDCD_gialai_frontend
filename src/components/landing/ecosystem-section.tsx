@@ -1,43 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import { SOLUTIONS } from "@/data/solution/solutions";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 /** ────────────────────────────────────────────────────────────
  *  Ecosystem Section — FR-HOME-05
  *  Displays VDCD Group member units in a hub-spoke visual +
  *  interactive grid. Designed to sit below Featured Projects.
  *  ──────────────────────────────────────────────────────────── */
-
-/* ── Animation variants ─────────────────────────────────────── */
-const fadeInUp = {
-  hidden: { opacity: 0, y: 28, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 20, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-  },
-};
 
 /* ── Accent colors for each card (rotated) ──────────────────── */
 const ACCENT_COLORS = [
@@ -76,12 +52,11 @@ function EcosystemCard({
   const accent = ACCENT_COLORS[index % ACCENT_COLORS.length];
 
   return (
-    <motion.a
+    <a
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      variants={cardVariant}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
+      className={`eco-card group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
     >
       {/* Image */}
       <div className="relative h-40 md:h-44 overflow-hidden">
@@ -127,7 +102,7 @@ function EcosystemCard({
           </span>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
@@ -166,8 +141,54 @@ function HubVisual() {
 
 /* ── Main export ────────────────────────────────────────────── */
 export function EcosystemSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* GSAP scroll-reveal for header, hub, and CTA */
+  const headerRef = useScrollReveal({
+    targets: ".eco-header-reveal",
+    options: { y: 28, blur: 4, duration: 0.7 },
+  });
+
+  /* GSAP batch reveal for the card grid */
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".eco-card", { autoAlpha: 1 });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".eco-card", {
+          autoAlpha: 0,
+          y: 20,
+          scale: 0.97,
+        });
+
+        ScrollTrigger.batch(".eco-card", {
+          start: "top 85%",
+          once: true,
+          onEnter: (elements) =>
+            gsap.to(elements, {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.5,
+              ease: "power3.out",
+              stagger: 0.06,
+            }),
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="ecosystem"
       className="relative border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
@@ -183,17 +204,14 @@ export function EcosystemSection() {
         }}
       />
 
-      <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-16 md:py-24 lg:py-32">
+      <div
+        ref={headerRef}
+        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-16 md:py-24 lg:py-32"
+      >
         {/* ── Header + Hub ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 md:mb-20">
           {/* Text */}
-          <motion.div
-            className="lg:col-span-7"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <div className="eco-header-reveal lg:col-span-7">
             <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-4">
               Hệ sinh thái VDCD Group
             </span>
@@ -208,41 +226,23 @@ export function EcosystemSection() {
               giám sát IoT, đến phát triển AI và sản xuất nội dung số — tạo
               thành chuỗi giá trị công nghệ khép kín.
             </p>
-          </motion.div>
+          </div>
 
           {/* Hub visual */}
-          <motion.div
-            className="hidden lg:flex lg:col-span-5 justify-center"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
+          <div className="eco-header-reveal hidden lg:flex lg:col-span-5 justify-center">
             <HubVisual />
-          </motion.div>
+          </div>
         </div>
 
         {/* ── Ecosystem Grid ────────────────────────── */}
-        <motion.div
-          className="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
-        >
+        <div className="grid grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
           {SOLUTIONS.map((sol, i) => (
             <EcosystemCard key={sol.title} item={sol} index={i} />
           ))}
-        </motion.div>
+        </div>
 
         {/* ── Bottom CTA ────────────────────────────── */}
-        <motion.div
-          className="mt-14 md:mt-20 text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
+        <div className="eco-header-reveal mt-14 md:mt-20 text-center">
           <Link
             href="/solution"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-accent-red/20 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300 group"
@@ -250,7 +250,7 @@ export function EcosystemSection() {
             Khám phá tất cả Giải pháp
             <FiArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

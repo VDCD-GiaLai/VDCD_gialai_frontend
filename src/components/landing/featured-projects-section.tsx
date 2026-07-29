@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 interface ProjectItem {
   title: string;
@@ -76,15 +77,11 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <motion.a
+    <a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="group relative overflow-hidden cursor-pointer
+      className="project-card group relative overflow-hidden cursor-pointer
                  border border-whisper-border dark:border-zinc-800
                  hover:shadow-2xl transition-shadow duration-500"
       style={{ height: "400px" }}
@@ -183,13 +180,50 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
 export function FeaturedProjectsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".project-card", { autoAlpha: 1 });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".project-card", {
+          autoAlpha: 0,
+          y: 30,
+        });
+
+        ScrollTrigger.batch(".project-card", {
+          start: "top 85%",
+          once: true,
+          onEnter: (elements) =>
+            gsap.to(elements, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power3.out",
+              stagger: 0.05,
+            }),
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 py-20"
     >

@@ -73,59 +73,67 @@ export function Footer() {
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Ban lãnh đạo
+              Hệ sinh thái VDCD Group
             </span>
           </a>
           <a
-            href="#about"
+            href="#capacity-profile"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Mạng lưới đối tác
+              Hồ sơ năng lực
             </span>
           </a>
         </div>
 
         <div className="flex flex-col gap-3">
           <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Giải pháp
-          </h4>
-          <Link
-            href="/solution"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Chuyển đổi số
-            </span>
-          </Link>
-          <Link
-            href="/solution"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Nông nghiệp thông minh
-            </span>
-          </Link>
-          <Link
-            href="/solution"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Đô thị số
-            </span>
-          </Link>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Thông tin
+            Chương trình & Giải pháp
           </h4>
           <a
-            href="#projects"
+            href="#programs"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Chương trình đổi mới
+            </span>
+          </a>
+          <Link
+            href="/solution"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Giải pháp công nghệ
+            </span>
+          </Link>
+          <a
+            href="projects"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Dự án tiêu biểu
+            </span>
+          </a>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+            Thông tin & Khác
+          </h4>
+          <a
+            href="#news"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Tin tức & Sự kiện
+            </span>
+          </a>
+          <a
+            href="#careers"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Tuyển dụng
             </span>
           </a>
           <a
@@ -133,7 +141,7 @@ export function Footer() {
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Liên hệ
+              Liên hệ hợp tác
             </span>
           </a>
           <Link
