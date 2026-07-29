@@ -8,7 +8,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 import { fetchFeaturedProjectsFromApi } from "@/services/project.service";
-import type { ProjectEntry } from "@/data/projects.data";
+import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
 
 interface ProjectItem {
   title: string;
@@ -16,6 +16,13 @@ interface ProjectItem {
   img: string;
   link: string;
 }
+
+const INITIAL_PROJECTS: ProjectItem[] = PROJECTS_DATA.slice(0, 6).map((p) => ({
+  title: p.title,
+  desc: p.description || p.title,
+  img: p.coverImage,
+  link: `/projects/${p.id}`,
+}));
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -133,7 +140,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
 export function FeaturedProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [projects, setProjects] = React.useState<ProjectItem[]>([]);
+  const [projects, setProjects] =
+    React.useState<ProjectItem[]>(INITIAL_PROJECTS);
 
   React.useEffect(() => {
     fetchFeaturedProjectsFromApi(6).then((data) => {

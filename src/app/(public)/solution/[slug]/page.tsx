@@ -57,22 +57,16 @@ export default function SolutionDetailPage({ params }: PageProps) {
 
   const pageRef = useRef<HTMLDivElement>(null);
 
-  // Helper function to render bullet points with bold headers
-  const renderPoint = (point: string) => {
+  // Helper to parse bold header and description
+  const parsePoint = (point: string) => {
     const colonIndex = point.indexOf(":");
     if (colonIndex !== -1) {
-      const boldPart = point.substring(0, colonIndex);
-      const regularPart = point.substring(colonIndex + 1);
-      return (
-        <span>
-          <strong className="text-black dark:text-white font-bold">
-            {boldPart}:
-          </strong>
-          {regularPart}
-        </span>
-      );
+      return {
+        title: point.substring(0, colonIndex).trim(),
+        description: point.substring(colonIndex + 1).trim(),
+      };
     }
-    return <span>{point}</span>;
+    return { title: "", description: point };
   };
 
   /* ── GSAP entrance + scroll animations ── */
@@ -226,26 +220,42 @@ export default function SolutionDetailPage({ params }: PageProps) {
                 </p>
               )}
 
-              {/* Points Grid */}
+              {/* Points Split-Row List */}
               {section.points && section.points.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {section.points.map((point, pIdx) => (
-                    <div
-                      key={pIdx}
-                      className="p-6 bg-white dark:bg-zinc-900/40 border border-whisper-border dark:border-zinc-900 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-                    >
-                      <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
-                        {renderPoint(point)}
-                      </p>
+                <div className="mt-8 border-t border-zinc-100 dark:border-zinc-900/60">
+                  {section.points.map((point, pIdx) => {
+                    const { title, description } = parsePoint(point);
+                    return (
+                      <div
+                        key={pIdx}
+                        className="group relative grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 border-b border-zinc-100 dark:border-zinc-900/60 hover:bg-zinc-50/30 dark:hover:bg-zinc-900/10 px-4 md:px-6 -mx-4 md:-mx-6 transition-all duration-300"
+                      >
+                        {/* Left highlight bar */}
+                        <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent-red scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center" />
 
-                      <div className="mt-4 pt-3 border-t border-zinc-50 dark:border-zinc-900/60 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red animate-pulse" />
-                        <span className="text-[10px] font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest">
-                          Chi tiết giải pháp
-                        </span>
+                        {/* Double-digit index */}
+                        <div className="md:col-span-1 flex items-start md:items-center">
+                          <span className="font-mono text-base font-bold text-zinc-400 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300">
+                            {(pIdx + 1).toString().padStart(2, "0")}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <div className="md:col-span-4 flex items-start md:items-center">
+                          <h4 className="text-base md:text-lg font-bold text-black dark:text-white tracking-tight leading-snug group-hover:text-accent-red transition-colors duration-300 font-heading">
+                            {title || "Giải pháp"}
+                          </h4>
+                        </div>
+
+                        {/* Description */}
+                        <div className="md:col-span-7 flex items-start md:items-center">
+                          <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+                            {description}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </section>

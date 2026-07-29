@@ -128,9 +128,14 @@ export function Header() {
               : "text-zinc-200/90"
           }`}
         >
-          <a href="#about" className="hover:text-accent-red transition-colors">
+          <Link
+            href="/about-us"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/about-us" ? "text-accent-red font-semibold" : ""
+            }`}
+          >
             Về chúng tôi
-          </a>
+          </Link>
           <a
             href="#programs"
             className="hover:text-accent-red transition-colors"
@@ -139,7 +144,11 @@ export function Header() {
           </a>
           <Link
             href="/solution"
-            className="hover:text-accent-red transition-colors"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/solution" || pathname.startsWith("/solution/")
+                ? "text-accent-red font-semibold"
+                : ""
+            }`}
           >
             Giải pháp
           </Link>

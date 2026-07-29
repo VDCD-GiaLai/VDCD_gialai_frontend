@@ -40,8 +40,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
       "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
-    image:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_1_kientaotuonglai_sPOB2GxiW.jpeg",
+    image: "/images/home/kientaotuonglai.jpeg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -53,8 +52,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
       "Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
-    image:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_2_farm_area_drone_view_tqYP89XrY.jpg",
+    image: "/images/home/farm_area_drone_view.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -66,8 +64,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
       "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
-    image:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_3_hethongdothiso_Bj8WOtBhJ.jpg",
+    image: "/images/home/hethongdothiso.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -79,8 +76,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
       "Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
-    image:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_4_data_center_XDtXW2rmN.jpg",
+    image: "/images/home/data_center.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -92,8 +88,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
       "Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
-    image:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_5_quynhon_herobanner_uR1j8LYX8.jpg",
+    image: "/images/home/quynhon_herobanner.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },

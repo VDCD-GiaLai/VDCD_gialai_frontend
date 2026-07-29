@@ -60,22 +60,22 @@ export function Footer() {
           <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Về chúng tôi
           </h4>
-          <a
-            href="#about"
+          <Link
+            href="/about-us#vision"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Tầm nhìn & Sứ mệnh
             </span>
-          </a>
-          <a
-            href="#about"
+          </Link>
+          <Link
+            href="/about-us#stats"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Hệ sinh thái VDCD Group
             </span>
-          </a>
+          </Link>
           <a
             href="#capacity-profile"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
@@ -106,14 +106,14 @@ export function Footer() {
               Giải pháp công nghệ
             </span>
           </Link>
-          <a
-            href="projects"
+          <Link
+            href="/projects"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Dự án tiêu biểu
             </span>
-          </a>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-3">
