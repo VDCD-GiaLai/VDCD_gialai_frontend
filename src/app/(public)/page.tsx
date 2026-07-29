@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   FiArrowRight,
   FiMapPin,
@@ -27,6 +27,8 @@ import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
 import { PartnersSection } from "@/components/landing/partners-section";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 export default function LandingPage() {
   const [copiedEmail, setCopiedEmail] = React.useState(false);
@@ -37,15 +39,60 @@ export default function LandingPage() {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const fadeInUpVariants = {
-    hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  /* ── GSAP scroll-reveal for about section header ── */
+  const aboutRef = useScrollReveal({
+    targets: ".about-reveal",
+    options: {
+      y: 24,
+      blur: 4,
+      duration: 0.8,
+      ease: "power3.out",
     },
-  };
+  });
+
+  /* ── GSAP scroll-reveal for feature cards ── */
+  const featuresRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!featuresRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(".feature-card", { autoAlpha: 1 });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(".feature-card", { autoAlpha: 0, y: 30 });
+
+        ScrollTrigger.batch(".feature-card", {
+          start: "top 85%",
+          once: true,
+          onEnter: (elements) =>
+            gsap.to(elements, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.6,
+              ease: "power3.out",
+              stagger: 0.1,
+            }),
+        });
+      });
+    }, featuresRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  /* ── GSAP scroll-reveal for contact section ── */
+  const contactRef = useScrollReveal({
+    targets: ".contact-reveal",
+    options: {
+      y: 30,
+      blur: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    },
+  });
 
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
@@ -56,30 +103,21 @@ export default function LandingPage() {
         id="about"
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
+        <div
+          ref={aboutRef}
+          className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12"
+        >
           {/* Header Zone */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-            <motion.div
-              className="lg:col-span-8"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUpVariants}
-            >
+            <div className="about-reveal lg:col-span-8">
               <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
                 Hệ sinh thái Đổi mới sáng tạo
               </span>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white mb-6 leading-tight max-w-3xl">
                 Cầu nối vững chắc trong Hệ sinh thái Đổi mới sáng tạo
               </h2>
-            </motion.div>
-            <motion.div
-              className="lg:col-span-4 lg:pt-8"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUpVariants}
-            >
+            </div>
+            <div className="about-reveal lg:col-span-4 lg:pt-8">
               <p className="text-secondary dark:text-zinc-400 text-body-md mb-6 leading-relaxed">
                 Chúng tôi cung cấp các giải pháp toàn diện từ tư vấn chiến lược,
                 triển khai hạ tầng đến chuyển giao công nghệ, giúp doanh nghiệp
@@ -91,19 +129,16 @@ export default function LandingPage() {
               >
                 Xem Hồ sơ năng lực <FiArrowRight className="w-4 h-4" />
               </a>
-            </motion.div>
+            </div>
           </div>
 
           {/* Bento/Feature Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+          <div
+            ref={featuresRef}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+          >
             {/* Card 1: Hạ tầng công nghệ toàn diện */}
-            <motion.div
-              className="flex flex-col gap-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="feature-card flex flex-col gap-6">
               <div className="h-80 relative rounded-none overflow-hidden bg-slate-50 dark:bg-zinc-900/60 border border-whisper-border dark:border-zinc-800 flex items-center justify-center p-6 select-none shadow-xs group">
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
@@ -187,16 +222,10 @@ export default function LandingPage() {
                   đổi số của bạn.
                 </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Card 2: Tối ưu hóa quy trình vận hành */}
-            <motion.div
-              className="flex flex-col gap-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            <div className="feature-card flex flex-col gap-6">
               <div className="h-80 relative rounded-none overflow-hidden bg-slate-50 dark:bg-zinc-900/60 border border-whisper-border dark:border-zinc-800 flex flex-col justify-end p-5 select-none shadow-xs group">
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
@@ -262,16 +291,10 @@ export default function LandingPage() {
                   tác thông qua các giải pháp thông minh không cần code.
                 </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Card 3: Tuân thủ tiêu chuẩn & An toàn */}
-            <motion.div
-              className="flex flex-col gap-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <div className="feature-card flex flex-col gap-6">
               <div className="h-80 relative rounded-none overflow-hidden bg-slate-50 dark:bg-zinc-900/60 border border-whisper-border dark:border-zinc-800 flex items-center justify-center p-6 select-none shadow-xs group">
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
@@ -341,7 +364,7 @@ export default function LandingPage() {
                   nghiệp và tuân thủ các quy định pháp lý tại từng địa phương.
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -362,15 +385,12 @@ export default function LandingPage() {
         id="contact"
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
+        <div
+          ref={contactRef}
+          className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12"
+        >
           {/* Contact Layout */}
-          <motion.div
-            className="bg-canvas-white dark:bg-zinc-900/40 rounded-2xl p-8 md:p-16 border border-whisper-border dark:border-zinc-800 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="contact-reveal bg-canvas-white dark:bg-zinc-900/40 rounded-2xl p-8 md:p-16 border border-whisper-border dark:border-zinc-800 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white mb-6">
                 Sẵn sàng để đột phá?
@@ -404,7 +424,7 @@ export default function LandingPage() {
                 GỬI YÊU CẦU LIÊN HỆ
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

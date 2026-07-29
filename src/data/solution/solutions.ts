@@ -172,7 +172,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Du lịch thông minh - Số hóa di sản",
     href: "/solution/du-lich-thong-minh-so-hoa-di-san",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Phoenix-Ha-Long-1-1024x683.jpg",
+      "https://vdcd.vn/wp-content/uploads/2026/06/Lotte-Mall-1-1-1-scaled.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
     description:
@@ -182,7 +182,7 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
     title: "Cứu hộ cứu nạn",
     href: "/solution/cuu-ho-cuu-nan-phong-chong-thien-tai",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7896919187727_98d70d6fee3b5d5ed1d65405a3ad2c72-1024x768.jpg",
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7908953163351_e6a394ecff68dca617c06ebed9a5ecbc-1024x768.jpg",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:

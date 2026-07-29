@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       path: "/",
     });
 
-    // Also set a temporary access token cookie for the middleware to easily check auth
+    // Also set a temporary access token cookie for the proxy to easily check auth
     response.cookies.set("is_authenticated", "true", {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

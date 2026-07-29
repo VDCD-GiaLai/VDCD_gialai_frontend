@@ -9,9 +9,7 @@ export const API_ROUTES = {
 export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
-  DASHBOARD: "/dashboard",
-  PROFILE: "/dashboard/profile",
-  SETTINGS: "/dashboard/settings",
+  PROJECTS: "/projects",
 } as const;
 
 export const STORAGE_KEYS = {

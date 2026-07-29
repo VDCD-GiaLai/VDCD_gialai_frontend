@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import {
+  fetchPartnersFromApi,
+  type PartnerItem,
+} from "@/services/partner.service";
 
 /** ────────────────────────────────────────────────
  *  Partner / Client data crawled from vdcd.vn
@@ -109,21 +113,39 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
  *  integrations ticker design
  *  ──────────────────────────────────────────────── */
 export function PartnersSection() {
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  const [partnerList, setPartnerList] = React.useState<PartnerItem[]>(
+    PARTNERS.map((p, idx) => ({
+      id: String(idx + 1),
+      name: p.name,
+      logo: p.logo,
+    })),
+  );
+
+  React.useEffect(() => {
+    fetchPartnersFromApi().then((items) => {
+      if (items && items.length > 0) {
+        setPartnerList(items);
+      }
+    });
+  }, []);
+
+  /* GSAP scroll-reveal for header and footer text blocks */
+  const sectionRef = useScrollReveal({
+    targets: ".partners-reveal",
+    options: {
+      y: 24,
+      blur: 4,
+      duration: 0.8,
+      ease: "power3.out",
     },
-  };
+  });
 
   /* Duplicate the list so the marquee loops seamlessly */
-  const allLogos = [...PARTNERS, ...PARTNERS];
+  const allLogos = [...partnerList, ...partnerList];
 
   return (
     <section
+      ref={sectionRef}
       id="partners"
       className="relative border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
@@ -138,13 +160,7 @@ export function PartnersSection() {
 
       <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-16 md:py-24 lg:py-32">
         {/* ── Header ─────────────────────────────────── */}
-        <motion.div
-          className="max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
+        <div className="partners-reveal max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           {/* Subtitle */}
           <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-4">
             Khách hàng & Đối tác
@@ -162,7 +178,7 @@ export function PartnersSection() {
             trong nước và quốc tế, cùng xây dựng hạ tầng và giải pháp công nghệ
             tiên tiến.
           </p>
-        </motion.div>
+        </div>
 
         {/* ── Marquee Ticker Row 1 (→ left) ──────────── */}
         <div className="marquee-container mb-4">
@@ -192,13 +208,7 @@ export function PartnersSection() {
         </div>
 
         {/* ── Footer ─────────────────────────────────── */}
-        <motion.div
-          className="max-w-xl mx-auto text-center mt-12 md:mt-16 lg:mt-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
+        <div className="partners-reveal max-w-xl mx-auto text-center mt-12 md:mt-16 lg:mt-20">
           <p className="text-secondary dark:text-zinc-500 text-xs md:text-sm leading-relaxed">
             Cùng hơn{" "}
             <span className="font-semibold text-black dark:text-white">
@@ -207,7 +217,7 @@ export function PartnersSection() {
             đã triển khai trên khắp Việt Nam, chúng tôi không ngừng mở rộng mạng
             lưới hợp tác chiến lược.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
