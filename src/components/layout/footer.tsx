@@ -128,14 +128,14 @@ export function Footer() {
               Tin tức & Sự kiện
             </span>
           </a>
-          <a
-            href="#careers"
+          <Link
+            href="/careers"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Tuyển dụng
             </span>
-          </a>
+          </Link>
           <a
             href="#contact"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"

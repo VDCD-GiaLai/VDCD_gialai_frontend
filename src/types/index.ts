@@ -62,3 +62,43 @@ export interface GsapHeroSlide {
   desc: string;
   image: string;
 }
+
+/* ── Careers / Recruitment ─────────────────────────────── */
+
+export interface JobPosition {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  employmentType: string;
+  salary?: string;
+  postedDate: string;
+  description: string;
+  experience: string;
+  tags: string[];
+}
+
+export interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface RecruitmentStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface EmployeeStory {
+  id: string;
+  name: string;
+  department: string;
+  avatar: string;
+  quote: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}

@@ -1,0 +1,193 @@
+/* ── Careers Page — Component Styles ────────────────────── */
+
+/* ── Timeline ──────────────────────────────────────────── */
+.careers-timeline {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  gap: 0;
+}
+
+.careers-timeline::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(226, 232, 240, 0.6) 8%,
+    rgba(226, 232, 240, 0.6) 92%,
+    transparent
+  );
+}
+
+.dark .careers-timeline::before {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(63, 63, 70, 0.5) 8%,
+    rgba(63, 63, 70, 0.5) 92%,
+    transparent
+  );
+}
+
+.careers-timeline-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 0 0.5rem;
+}
+
+.careers-timeline-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: 2px solid rgba(226, 232, 240, 0.5);
+  background: #ffffff;
+  color: var(--color-secondary);
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .careers-timeline-dot {
+  background: #18181b;
+  border-color: rgba(63, 63, 70, 0.5);
+}
+
+.careers-timeline-step:hover .careers-timeline-dot {
+  border-color: #e80002;
+  color: #e80002;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 6px rgba(232, 0, 2, 0.08);
+}
+
+/* ── Mobile timeline vertical ─────────────────────────── */
+@media (max-width: 768px) {
+  .careers-timeline {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .careers-timeline::before {
+    top: 24px;
+    bottom: 24px;
+    left: 23px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .careers-timeline-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0;
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .careers-timeline-step:last-child {
+    padding-bottom: 0;
+  }
+
+  .careers-timeline-dot {
+    flex-shrink: 0;
+  }
+}
+
+/* ── Job Card ──────────────────────────────────────────── */
+.job-card {
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  background: #ffffff;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .job-card {
+  border-color: rgba(63, 63, 70, 0.3);
+  background: rgba(24, 24, 27, 0.5);
+}
+
+.job-card:hover {
+  border-color: rgba(232, 0, 2, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px);
+}
+
+.dark .job-card:hover {
+  border-color: rgba(232, 0, 2, 0.35);
+  box-shadow: 0 4px 24px rgba(232, 0, 2, 0.06);
+}
+
+/* ── Gallery Grid ──────────────────────────────────────── */
+.careers-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 0.75rem;
+}
+
+.careers-gallery-grid > :first-child {
+  grid-row: span 2;
+}
+
+@media (max-width: 768px) {
+  .careers-gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 160px);
+  }
+
+  .careers-gallery-grid > :first-child {
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .careers-gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .careers-gallery-grid > :first-child {
+    grid-column: span 1;
+  }
+}
+
+/* ── Testimonial Cards ─────────────────────────────────── */
+.testimonial-card {
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  background: #ffffff;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .testimonial-card {
+  border-color: rgba(63, 63, 70, 0.3);
+  background: rgba(24, 24, 27, 0.5);
+}
+
+.testimonial-card:hover {
+  border-color: rgba(232, 0, 2, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Filter chip active state ──────────────────────────── */
+.filter-chip-active {
+  background: #e80002 !important;
+  color: #ffffff !important;
+  border-color: #e80002 !important;
+}

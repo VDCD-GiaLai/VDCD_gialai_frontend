@@ -11,18 +11,28 @@ import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
+const emptySubscribe = () => () => {};
+
 export function Header() {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [prevPathname, setPrevPathname] = React.useState(pathname);
+
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setIsMobileMenuOpen(false);
+  }
 
   /* ── GSAP-powered scroll detection (replaces raw scroll listener) ── */
   useEffect(() => {
-    setMounted(true);
-
     const st = ScrollTrigger.create({
       start: "50px top",
       end: 99999,
@@ -33,11 +43,6 @@ export function Header() {
 
     return () => st.kill();
   }, []);
-
-  // Close mobile menu on path changes
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
 
   /* ── Mobile menu GSAP animation ── */
   const menuRef = useRef<HTMLDivElement>(null);
@@ -161,12 +166,14 @@ export function Header() {
           <a href="#news" className="hover:text-accent-red transition-colors">
             Tin tức
           </a>
-          <a
-            href="#careers"
-            className="hover:text-accent-red transition-colors"
+          <Link
+            href="/careers"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/careers" ? "text-accent-red font-semibold" : ""
+            }`}
           >
             Tuyển dụng
-          </a>
+          </Link>
           <a
             href="#contact"
             className="hover:text-accent-red transition-colors"
@@ -273,13 +280,13 @@ export function Header() {
         >
           Tin tức
         </a>
-        <a
-          href="#careers"
+        <Link
+          href="/careers"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >
           Tuyển dụng
-        </a>
+        </Link>
         <a
           href="#contact"
           onClick={() => setIsMobileMenuOpen(false)}

@@ -977,6 +977,7 @@ export function useGsapHero(
     };
   }, []);
 
+  /* eslint-disable react-hooks/refs */
   return {
     order: orderRef.current,
     activeIdx,
@@ -985,4 +986,5 @@ export function useGsapHero(
     prevSlide,
     selectSlide,
   };
+  /* eslint-enable react-hooks/refs */
 }

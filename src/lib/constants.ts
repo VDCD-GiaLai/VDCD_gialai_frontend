@@ -10,6 +10,7 @@ export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   PROJECTS: "/projects",
+  CAREERS: "/careers",
 } as const;
 
 export const STORAGE_KEYS = {
