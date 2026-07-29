@@ -1,4 +1,10 @@
-import { GsapHeroSlide } from "@/types";
+export interface GsapHeroSlide {
+  place: string;
+  title: string;
+  title2: string;
+  desc: string;
+  image: string;
+}
 
 export const GSAP_HERO_SLIDES: GsapHeroSlide[] = [
   {

@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = React.useState(false);
 
   // Read URL query param to redirect back to target route if needed
-  const redirectFrom = searchParams.get("from") || APP_ROUTES.DASHBOARD;
+  const redirectFrom = searchParams.get("from") || APP_ROUTES.HOME;
 
   const { control, handleSubmit } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema as any),
@@ -40,14 +40,14 @@ export default function LoginPage() {
       const res = await AuthService.login(data);
 
       // Update state in Zustand auth store
-      setAuth(res.user, res.accessToken);
+      setAuth(res.user);
 
-      // Force route navigation to dashboard
+      // Force route navigation to homepage
       router.push(redirectFrom);
     } catch (err: any) {
       console.error("Login failed:", err);
       setErrorMsg(
-        err.response?.data?.error ||
+        err.response?.data?.message ||
           "Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản hoặc mật khẩu.",
       );
     } finally {

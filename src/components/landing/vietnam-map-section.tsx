@@ -7,14 +7,30 @@ import {
   Geography,
   Marker,
 } from "react-simple-maps";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useTransform,
-  animate,
-  AnimatePresence,
-} from "framer-motion";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
+
+/** Lightweight useInView replacement using IntersectionObserver */
+function useInViewOnce(
+  ref: React.RefObject<Element | null>,
+  margin = "-80px",
+): boolean {
+  const [inView, setInView] = React.useState(false);
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: margin },
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref, margin]);
+  return inView;
+}
 import {
   FiMapPin,
   FiUsers,
@@ -31,6 +47,8 @@ import {
   REGION_STATS,
   Province,
 } from "@/data/vietnam-provinces";
+import { fetchProvincesFromApi } from "@/services/province.service";
+import { fetchOrganizationInfoFromApi } from "@/services/hero.service";
 
 const GEO_URL = "/data/vietnam-provinces.json";
 
@@ -414,7 +432,7 @@ function getProvinceColor(
   return "#dc2626";
 }
 
-// ─── Animated Counter ───
+// ─── Animated Counter (GSAP — zero React re-renders) ───
 function AnimatedCounter({
   target,
   suffix = "",
@@ -424,28 +442,36 @@ function AnimatedCounter({
   suffix?: string;
   duration?: number;
 }) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) =>
-    v >= 1000
-      ? Math.round(v).toLocaleString("vi-VN")
-      : Math.round(v).toString(),
-  );
   const ref = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const inView = useInViewOnce(ref, "-50px");
 
   React.useEffect(() => {
-    if (!inView) return;
-    const ctrl = animate(count, target, {
+    if (!inView || !ref.current) return;
+    const el = ref.current;
+    const obj = { value: 0 };
+
+    const tween = gsap.to(obj, {
+      value: target,
       duration,
-      ease: [0.16, 1, 0.3, 1],
+      ease: "power3.out",
+      onUpdate: () => {
+        const rounded = Math.round(obj.value);
+        const formatted =
+          rounded >= 1000
+            ? rounded.toLocaleString("vi-VN")
+            : rounded.toString();
+        el.textContent = `${formatted}${suffix}`;
+      },
     });
-    return ctrl.stop;
-  }, [inView, target, duration, count]);
+
+    return () => {
+      tween.kill();
+    };
+  }, [inView, target, duration, suffix]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      <motion.span>{rounded}</motion.span>
-      {suffix}
+      0{suffix}
     </span>
   );
 }
@@ -757,13 +783,10 @@ function ProvinceCard({
   onClose: () => void;
 }) {
   return (
-    <motion.div
+    <div
       key={province.id}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 12 }}
-      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="rounded-2xl border border-accent-red/20 overflow-hidden shadow-xl bg-white dark:bg-zinc-900"
+      style={{ animation: "fadeSlideIn 0.3s ease forwards" }}
     >
       {/* Header */}
       <div
@@ -876,7 +899,7 @@ function ProvinceCard({
           </div>
         );
       })()}
-    </motion.div>
+    </div>
   );
 }
 
@@ -912,14 +935,7 @@ const StatsPanel = React.memo(function StatsPanel() {
   return (
     <div className="space-y-3">
       {statItems.map((s, i) => (
-        <motion.div
-          key={s.label}
-          initial={{ opacity: 0, x: 16 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: i * 0.1 }}
-          className="group"
-        >
+        <div key={s.label} className="group stat-reveal-item">
           <div className="flex items-center gap-4 p-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-accent-red/25 hover:shadow-md transition-all duration-300">
             <div className="w-11 h-11 rounded-xl bg-accent-red/5 flex items-center justify-center text-accent-red text-lg group-hover:bg-accent-red/10 transition-colors shrink-0">
               {s.icon}
@@ -937,17 +953,11 @@ const StatsPanel = React.memo(function StatsPanel() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
 
       {/* Regional breakdown */}
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="mt-2 pt-4 border-t border-zinc-100 dark:border-zinc-800 space-y-3"
-      >
+      <div className="mt-2 pt-4 border-t border-zinc-100 dark:border-zinc-800 space-y-3 region-breakdown">
         <p className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
           Phân bổ vùng
         </p>
@@ -982,22 +992,19 @@ const StatsPanel = React.memo(function StatsPanel() {
                 </span>
               </div>
               <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                <motion.div
-                  className={`h-full rounded-full bg-gradient-to-r ${r.gradient}`}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${pct}%` }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 1.2,
-                    delay: 0.4,
-                    ease: [0.16, 1, 0.3, 1],
+                <div
+                  className={`h-full rounded-full bg-gradient-to-r ${r.gradient} region-bar`}
+                  data-width={`${pct}%`}
+                  style={{
+                    width: 0,
+                    transition: "width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
                   }}
                 />
               </div>
             </div>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 });
@@ -1173,7 +1180,7 @@ MapCore.displayName = "MapCore";
 // ─── Main Export ───
 export function VietnamMapSection() {
   const sectionRef = React.useRef<HTMLDivElement>(null);
-  const mapInView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const mapInView = useInViewOnce(sectionRef, "-80px");
 
   const [hoveredId, setHoveredId] = React.useState<string | null>(null);
   const [selectedProvince, setSelectedProvince] =
@@ -1195,6 +1202,26 @@ export function VietnamMapSection() {
     () => (hoveredId ? PROVINCE_BY_ID.get(hoveredId) || null : null),
     [hoveredId],
   );
+
+  React.useEffect(() => {
+    fetchProvincesFromApi().then((apiProvinces) => {
+      if (apiProvinces && apiProvinces.length > 0) {
+        apiProvinces.forEach((ap) => {
+          const matched = PROVINCES.find(
+            (p) =>
+              p.name.toLowerCase() === ap.name.toLowerCase() ||
+              p.id === ap.code.toLowerCase(),
+          );
+          if (matched && ap.centerCount > 0) {
+            matched.projectCount = Math.max(
+              matched.projectCount,
+              ap.centerCount,
+            );
+          }
+        });
+      }
+    });
+  }, []);
 
   // Wave animation: provinces light up in 4 batches
   React.useEffect(() => {
@@ -1284,13 +1311,7 @@ export function VietnamMapSection() {
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
         {/* Header */}
-        <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="mb-12 map-header-reveal">
           <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
             Dấu ấn hoạt động trên toàn quốc
           </span>
@@ -1301,7 +1322,7 @@ export function VietnamMapSection() {
             Mạng lưới đối tác phủ sóng từ Bắc đến Nam — từ các trung tâm đổi mới
             sáng tạo đến hub nông nghiệp công nghệ cao tại từng địa phương.
           </p>
-        </motion.div>
+        </div>
 
         {/* Layout: Map (65%) | Panel (35%) */}
         <div
@@ -1309,13 +1330,7 @@ export function VietnamMapSection() {
           onMouseMove={handleMouseMove}
         >
           {/* ─── Map ─── */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="relative map-container-reveal">
             <div
               className="relative rounded-2xl border border-whisper-border dark:border-zinc-800 shadow-inner overflow-hidden"
               style={{
@@ -1358,28 +1373,23 @@ export function VietnamMapSection() {
                 />
               </div>
 
-              {/* Live activity toast */}
-              <AnimatePresence>
-                {liveProvince && (
-                  <motion.div
-                    key={liveProvince.id}
-                    initial={{ opacity: 0, y: 8, x: -8 }}
-                    animate={{ opacity: 1, y: 0, x: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.25 }}
-                    className="absolute bottom-4 left-4 flex items-center gap-2.5 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md rounded-xl px-3.5 py-2.5 shadow-xl border border-accent-red/10"
-                  >
-                    <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse shrink-0" />
-                    <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
-                      <span className="text-accent-red font-bold">
-                        {liveProvince.name}
-                      </span>{" "}
-                      — Đang hoạt động
-                    </span>
-                    <FiActivity className="w-3 h-3 text-accent-red" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* Live activity toast — CSS transition replaces AnimatePresence */}
+              {liveProvince && (
+                <div
+                  key={liveProvince.id}
+                  className="absolute bottom-4 left-4 flex items-center gap-2.5 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md rounded-xl px-3.5 py-2.5 shadow-xl border border-accent-red/10"
+                  style={{ animation: "fadeSlideIn 0.25s ease forwards" }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse shrink-0" />
+                  <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+                    <span className="text-accent-red font-bold">
+                      {liveProvince.name}
+                    </span>{" "}
+                    — Đang hoạt động
+                  </span>
+                  <FiActivity className="w-3 h-3 text-accent-red" />
+                </div>
+              )}
 
               {/* Interactive Guide Widget - hidden on mobile */}
               <div className="hidden sm:block absolute bottom-4 right-4 z-10 max-w-[200px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl p-3 shadow-md border border-zinc-200/50 dark:border-zinc-800/50 text-[10px] text-zinc-500 dark:text-zinc-400 space-y-1.5 transition-colors duration-300">
@@ -1400,29 +1410,21 @@ export function VietnamMapSection() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* ─── Right panel ─── */}
           <div id="map-detail-panel" className="scroll-mt-24">
-            <AnimatePresence mode="wait">
-              {selectedProvince ? (
-                <ProvinceCard
-                  key="province"
-                  province={selectedProvince}
-                  onClose={() => setSelectedProvince(null)}
-                />
-              ) : (
-                <motion.div
-                  key="stats"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <StatsPanel />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {selectedProvince ? (
+              <ProvinceCard
+                key={`province-${selectedProvince.id}`}
+                province={selectedProvince}
+                onClose={() => setSelectedProvince(null)}
+              />
+            ) : (
+              <div key="stats">
+                <StatsPanel />
+              </div>
+            )}
           </div>
         </div>
       </div>

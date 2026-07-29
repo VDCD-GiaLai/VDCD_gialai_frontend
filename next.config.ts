@@ -1,8 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
+      {
+        protocol: "https",
+        hostname: "vdcd.vn",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
@@ -10,10 +23,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "picsum.photos",
-      },
-      {
-        protocol: "https",
-        hostname: "vdcd.vn",
       },
     ],
   },

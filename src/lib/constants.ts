@@ -1,17 +1,15 @@
 export const API_ROUTES = {
   LOGIN: "/auth/login",
   LOGOUT: "/auth/logout",
-  REFRESH_TOKEN: "/auth/refresh-token",
-  USER_PROFILE: "/user/profile",
-  USERS: "/users",
+  REFRESH_TOKEN: "/auth/refresh",
+  USER_PROFILE: "/auth/me",
+  ADMIN_USERS: "/admin/users",
 } as const;
 
 export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
-  DASHBOARD: "/dashboard",
-  PROFILE: "/dashboard/profile",
-  SETTINGS: "/dashboard/settings",
+  PROJECTS: "/projects",
 } as const;
 
 export const STORAGE_KEYS = {

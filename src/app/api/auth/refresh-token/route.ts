@@ -7,16 +7,22 @@ export async function POST() {
 
   if (!refreshToken) {
     return NextResponse.json(
-      { error: "Phiên đăng nhập hết hạn hoặc không hợp lệ" },
+      {
+        statusCode: 401,
+        message: "Phiên đăng nhập hết hạn hoặc không hợp lệ",
+        timestamp: new Date().toISOString(),
+        path: "/api/v1/auth/refresh",
+      },
       { status: 401 },
     );
   }
 
-  // Issue a new mock access token
-  const newAccessToken =
-    "mock-access-token-refreshed-" + Math.random().toString(36).substring(2);
-
-  return NextResponse.json({
-    accessToken: newAccessToken,
-  });
+  // API 4.2: Returns { success: true }, new accessToken is set via cookie
+  return NextResponse.json(
+    {
+      statusCode: 201,
+      data: { success: true },
+    },
+    { status: 201 },
+  );
 }

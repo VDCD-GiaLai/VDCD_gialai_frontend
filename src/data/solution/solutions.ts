@@ -116,3 +116,76 @@ export const SOLUTIONS: SolutionItem[] = [
       "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
   },
 ];
+
+export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
+  {
+    title: "Nông nghiệp - Lâm nghiệp",
+    href: "/solution/nong-nghiep-lam-nghiep",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/Ban-sao-cua-IMG_2462-1024x768.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    description:
+      "Giải pháp nông nghiệp thông minh, giúp tối ưu hóa canh tác, tối ưu chi phí và truy xuất nguồn gốc dễ dàng",
+  },
+  {
+    title: "Giám sát an ninh",
+    href: "/solution/an-ninh-giam-sat-an-ninh",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7896992273679_a63ab25fd7af7b68be795587ac4a41fb-1-1024x683.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/house.svg",
+    description:
+      "Ứng dụng công nghệ AutoTimelapse giám sát trực quan 24/7, tự động cảnh báo xâm nhập và lưu trữ bảo mật, giúp tối ưu hóa công tác quản lý an ninh",
+  },
+  {
+    title: "Điện - Năng lượng",
+    href: "/solution/dien-nang-luong",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/Dien-gio-Quang-Tri-1-1410x720.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
+    description:
+      "Hệ sinh thái số hóa tích hợp giúp tối ưu khảo sát, bảo trì lưới điện và giám sát an toàn",
+  },
+  {
+    title: "Khai thác khoáng sản",
+    href: "/solution/tai-nguyen-khai-thac-khoang-san",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7903688360376_37c98f8dadd2f5e6419362c107fe4ca4-1-1024x509.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    description:
+      "Giải pháp số hóa toàn diện khu vực mỏ giúp kiểm soát trạm cân, minh bạch hóa dữ liệu và tối ưu vận hành mỏ",
+  },
+  {
+    title: "Tài nguyên môi trường",
+    href: "/solution/quan-ly-tai-nguyen-quan-trac-moi-truong",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7913610376494_aabfc4669de386a5916480d8fb3f34cd-1024x490.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    description:
+      "Giải pháp quan trắc môi trường giúp theo dõi dữ liệu thời gian thực, cảnh báo sớm rủi ro sinh thái",
+  },
+  {
+    title: "Du lịch thông minh - Số hóa di sản",
+    href: "/solution/du-lich-thong-minh-so-hoa-di-san",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/Lotte-Mall-1-1-1-scaled.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
+    description:
+      "Ứng dụng công nghệ để số hóa di sản, xây dựng bản đồ du lịch thông minh và nâng tầm trải nghiệm thực tế ảo",
+  },
+  {
+    title: "Cứu hộ cứu nạn",
+    href: "/solution/cuu-ho-cuu-nan-phong-chong-thien-tai",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7908953163351_e6a394ecff68dca617c06ebed9a5ecbc-1024x768.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    description:
+      "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn",
+  },
+];
