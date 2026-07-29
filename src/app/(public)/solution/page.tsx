@@ -3,7 +3,7 @@
 import React from "react";
 import { ServiceCard } from "@/components/ui/service-card";
 import { motion } from "framer-motion";
-import { SOLUTIONS } from "@/data/solutions";
+import { CAPABILITY_SOLUTIONS } from "@/data/solution/solutions";
 
 export default function SolutionsPage() {
   return (
@@ -17,15 +17,14 @@ export default function SolutionsPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
-              Hệ sinh thái công nghệ VDCD
+              giải pháp
             </span>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-black dark:text-white mb-4">
-              Danh mục các Giải pháp & Trung tâm
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-black dark:text-white mb-4 uppercase">
+              GIẢI PHÁP THEO LĨNH VỰC
             </h1>
             <p className="text-secondary dark:text-zinc-400 max-w-2xl text-sm md:text-base leading-relaxed">
-              Khám phá hệ sinh thái đổi mới sáng tạo toàn diện của chúng tôi,
-              cung cấp các giải pháp từ hạ tầng dữ liệu, mô hình hóa 3D, thiết
-              kế số đến nghiên cứu phát triển robot và AI.
+              Khám phá các giải pháp công nghệ toàn diện của chúng tôi, mang lại
+              giá trị bền vững và hiệu quả tối ưu cho từng lĩnh vực hoạt động.
             </p>
           </motion.div>
         </div>
@@ -43,9 +42,10 @@ export default function SolutionsPage() {
             },
           }}
         >
-          {SOLUTIONS.map((sol) => (
+          {CAPABILITY_SOLUTIONS.map((sol) => (
             <motion.div
               key={sol.title}
+              className="h-full"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: {

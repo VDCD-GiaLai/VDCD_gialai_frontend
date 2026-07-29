@@ -60,7 +60,7 @@ export function ServiceCard({
 
             {/* Optional Description */}
             {description && (
-              <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3">
+              <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-3 h-[4.25rem]">
                 {description}
               </p>
             )}
