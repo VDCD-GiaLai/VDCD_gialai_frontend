@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
+import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 
 export interface HeroSlideItem {
   id: string;
@@ -32,7 +31,78 @@ export interface OrganizationInfo {
   socialLinks: Record<string, string>;
 }
 
+export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
+  {
+    id: "1",
+    title: "KIẾN TẠO HỆ SINH THÁI SỐ",
+    subtitle: "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI",
+    description:
+      "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
+    tag: "DỰ ÁN TRỌNG ĐIỂM",
+    location: "Gia Lai",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_1_kientaotuonglai_sPOB2GxiW.jpeg",
+    statValue: "100%",
+    statLabel: "Tiến độ",
+  },
+  {
+    id: "2",
+    title: "NÔNG NGHIỆP THÔNG MINH",
+    subtitle: "NÔNG NGHIỆP CÔNG NGHỆ CAO",
+    description:
+      "Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.",
+    tag: "DỰ ÁN TRỌNG ĐIỂM",
+    location: "Gia Lai",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_2_farm_area_drone_view_tqYP89XrY.jpg",
+    statValue: "100%",
+    statLabel: "Tiến độ",
+  },
+  {
+    id: "3",
+    title: "HỆ THỐNG ĐÔ THỊ SỐ",
+    subtitle: "QUẢN LÝ ĐÔ THỊ THÔNG MINH",
+    description:
+      "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
+    tag: "DỰ ÁN TRỌNG ĐIỂM",
+    location: "Gia Lai",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_3_hethongdothiso_Bj8WOtBhJ.jpg",
+    statValue: "100%",
+    statLabel: "Tiến độ",
+  },
+  {
+    id: "4",
+    title: "TRUNG TÂM DỮ LIỆU VÙNG",
+    subtitle: "HẠ TẦNG KỸ THUẬT SỐ",
+    description:
+      "Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.",
+    tag: "DỰ ÁN TRỌNG ĐIỂM",
+    location: "Gia Lai",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_4_data_center_XDtXW2rmN.jpg",
+    statValue: "100%",
+    statLabel: "Tiến độ",
+  },
+  {
+    id: "5",
+    title: "LIÊN KẾT PHÁT TRIỂN",
+    subtitle: "HỆ SINH THÁI VDCD GROUP",
+    description:
+      "Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.",
+    tag: "DỰ ÁN TRỌNG ĐIỂM",
+    location: "Gia Lai",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/hero_slide_5_quynhon_herobanner_uR1j8LYX8.jpg",
+    statValue: "100%",
+    statLabel: "Tiến độ",
+  },
+];
+
 export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
+  if (USE_MOCK_DATA) {
+    return MOCK_HERO_SLIDES;
+  }
   try {
     const res = await fetch(`${API_BASE_URL}/slides`, { cache: "no-store" });
     if (res.ok) {
@@ -53,26 +123,15 @@ export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
       }
     }
   } catch (err) {
-    console.warn("Failed to fetch slides from API:", err);
+    console.warn("Failed to fetch slides from API, fallback to mock:", err);
   }
-  return [
-    {
-      id: "1",
-      title: "Chuyển Đổi Số Công Trình & Hạ Tầng Quốc Gia",
-      subtitle: "VDCD Group",
-      description:
-        "Tiên phong ứng dụng công nghệ AutoTimelapse, UAV trắc địa và mô hình BIM/GIS vào giám sát, điều hành công trình quy mô lớn.",
-      tag: "DỰ ÁN TRỌNG ĐIỂM",
-      location: "Việt Nam",
-      image:
-        "https://ik.imagekit.io/po0s6zxoj/vdcd/projects/Lotte-Mall-1-1-1-scaled_jpg_a3c23efc8e99_qC7F0e2fQ.jpg",
-      statValue: "50+",
-      statLabel: "Công trình tiêu biểu",
-    },
-  ];
+  return MOCK_HERO_SLIDES;
 }
 
 export async function fetchOrganizationInfoFromApi(): Promise<OrganizationInfo | null> {
+  if (USE_MOCK_DATA) {
+    return null;
+  }
   try {
     const res = await fetch(`${API_BASE_URL}/organization`, {
       cache: "no-store",

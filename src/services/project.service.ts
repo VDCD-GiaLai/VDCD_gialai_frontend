@@ -5,8 +5,7 @@ import {
   type ProjectGalleryImage,
 } from "@/data/projects.data";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
+import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 
 export interface BackendProject {
   id: string;
@@ -122,6 +121,9 @@ export function mapBackendProjectToEntry(
 export async function fetchProjectsFromApi(
   limit = 50,
 ): Promise<ProjectEntry[]> {
+  if (USE_MOCK_DATA) {
+    return PROJECTS_DATA.slice(0, limit);
+  }
   try {
     const res = await fetch(`${API_BASE_URL}/projects?limit=${limit}`, {
       cache: "no-store",
@@ -135,7 +137,7 @@ export async function fetchProjectsFromApi(
   } catch (err) {
     console.warn("API fetch failed, fallback to local dataset:", err);
   }
-  return PROJECTS_DATA;
+  return PROJECTS_DATA.slice(0, limit);
 }
 
 export async function fetchFeaturedProjectsFromApi(
@@ -147,6 +149,9 @@ export async function fetchFeaturedProjectsFromApi(
 export async function fetchProjectBySlugFromApi(
   slug: string,
 ): Promise<ProjectEntry | null> {
+  if (USE_MOCK_DATA) {
+    return getLocalProjectById(slug) || null;
+  }
   try {
     const res = await fetch(`${API_BASE_URL}/projects/${slug}`, {
       cache: "no-store",
