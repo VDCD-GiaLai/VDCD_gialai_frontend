@@ -1,15 +1,15 @@
 export interface User {
   id: string;
+  username: string;
   email: string;
-  name: string;
-  role: "admin" | "user";
-  avatarUrl?: string;
+  role: "superadmin" | "editor" | "viewer";
+  isActive: boolean;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface AuthState {
   user: User | null;
-  accessToken: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
 }
@@ -21,7 +21,16 @@ export interface LoginResponse {
 }
 
 export interface RefreshTokenResponse {
-  accessToken: string;
+  success: boolean;
+}
+
+/** Paginated response wrapper matching API pagination format */
+export interface PaginatedResponse<T> {
+  items: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
 
 export interface ProjectItem {

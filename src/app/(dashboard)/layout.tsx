@@ -119,11 +119,11 @@ export default function DashboardLayout({
           )}
         >
           <div className="w-10 h-10 rounded-full bg-success/15 flex items-center justify-center text-accent-red font-bold">
-            {user?.name?.charAt(0) || "U"}
+            {user?.username?.charAt(0) || "U"}
           </div>
           <div className="overflow-hidden">
             <h4 className="text-sm font-bold truncate text-black dark:text-white">
-              {user?.name || "User"}
+              {user?.username || "User"}
             </h4>
             <p className="text-[10px] text-secondary truncate font-mono">
               {user?.email || ""}
@@ -225,10 +225,10 @@ export default function DashboardLayout({
 
             <div className="flex items-center gap-2">
               <span className="hidden sm:inline-block text-xs font-mono font-bold text-secondary">
-                {user?.role === "admin" ? "ADMIN" : "USER"}
+                {user?.role?.toUpperCase() || "USER"}
               </span>
               <div className="w-8 h-8 rounded-full bg-success/15 flex items-center justify-center text-accent-red font-bold">
-                {user?.name?.charAt(0) || "U"}
+                {user?.username?.charAt(0) || "U"}
               </div>
             </div>
           </div>

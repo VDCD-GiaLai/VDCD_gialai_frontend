@@ -27,7 +27,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/utils";
-import { User } from "@/types";
+import { PaginatedResponse, User } from "@/types";
 
 export default function DashboardPage() {
   const queryClient = useQueryClient();
@@ -36,17 +36,15 @@ export default function DashboardPage() {
   const [showEmptyDemo, setShowEmptyDemo] = React.useState(false);
 
   // React Query Fetch Example
-  const {
-    data: users,
-    isLoading,
-    isError,
-    refetch,
-    isRefetching,
-  } = useQuery<User[]>({
+  const { data, isLoading, isError, refetch, isRefetching } = useQuery<
+    PaginatedResponse<User>
+  >({
     queryKey: ["users"],
-    queryFn: UserService.getUsers,
+    queryFn: () => UserService.getUsers(),
     enabled: !showEmptyDemo, // disable if showing empty state demo
   });
+
+  const users = data?.items;
 
   // React Query Mutation Mock Example
   const deleteMutation = useMutation({
@@ -57,9 +55,14 @@ export default function DashboardPage() {
     },
     onSuccess: (deletedId) => {
       // Optimistically update query client state
-      queryClient.setQueryData<User[]>(["users"], (oldUsers) =>
-        (oldUsers || []).filter((u) => u.id !== deletedId),
-      );
+      queryClient.setQueryData<PaginatedResponse<User>>(["users"], (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          items: old.items.filter((u) => u.id !== deletedId),
+          total: old.total - 1,
+        };
+      });
       setDeleteTarget(null);
       setIsDeleteLoading(false);
     },
@@ -203,7 +206,7 @@ export default function DashboardPage() {
               {(users || []).map((row) => (
                 <TableRow key={row.id}>
                   <TableCell className="font-bold text-black dark:text-white">
-                    {row.name}
+                    {row.username}
                   </TableCell>
                   <TableCell className="font-mono text-xs">
                     {row.email}
@@ -211,7 +214,7 @@ export default function DashboardPage() {
                   <TableCell>
                     <span
                       className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono-label font-bold uppercase ${
-                        row.role === "admin"
+                        row.role === "superadmin"
                           ? "bg-danger-50 text-danger dark:bg-danger-950/20"
                           : "bg-success-50 text-accent-red dark:bg-success-950/20"
                       }`}
@@ -250,7 +253,7 @@ export default function DashboardPage() {
         isLoading={isDeleteLoading}
         isDangerous={true}
         title="Xóa thành viên liên kết?"
-        message={`Bạn có chắc chắn muốn loại bỏ đối tác "${deleteTarget?.name}" khỏi hệ thống điều hành số Gia Lai không? Hành động này không thể hoàn tác.`}
+        message={`Bạn có chắc chắn muốn loại bỏ đối tác "${deleteTarget?.username}" khỏi hệ thống điều hành số Gia Lai không? Hành động này không thể hoàn tác.`}
         confirmLabel="Loại bỏ đối tác"
         cancelLabel="Hủy"
       />
