@@ -3,8 +3,9 @@ export const API_BASE_URL =
 
 export const APP_ENV = process.env.NEXT_PUBLIC_APP_ENV || "development";
 
-// If APP_ENV is 'production' (or 'prod'), default to mock data until backend is live on production server
+// Dev mode (development / dev) = Dùng 100% Mock data local (không cần chạy Backend API)
+// Prod mode (production / prod) = Gọi trực tiếp Backend API live (khi đã deploy server)
 export const USE_MOCK_DATA =
   process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ||
-  APP_ENV === "production" ||
-  APP_ENV === "prod";
+  APP_ENV === "development" ||
+  APP_ENV === "dev";
