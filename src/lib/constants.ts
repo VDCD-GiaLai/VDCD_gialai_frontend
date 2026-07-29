@@ -1,9 +1,9 @@
 export const API_ROUTES = {
   LOGIN: "/auth/login",
   LOGOUT: "/auth/logout",
-  REFRESH_TOKEN: "/auth/refresh-token",
-  USER_PROFILE: "/user/profile",
-  USERS: "/users",
+  REFRESH_TOKEN: "/auth/refresh",
+  USER_PROFILE: "/auth/me",
+  ADMIN_USERS: "/admin/users",
 } as const;
 
 export const APP_ROUTES = {

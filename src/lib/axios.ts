@@ -8,47 +8,44 @@ export const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  // If cookies are required for httpOnly session token
+  // HttpOnly cookies are sent automatically with credentials
   withCredentials: true,
 });
 
 // Flag to track if refresh token request is ongoing
 let isRefreshing = false;
-// Queue to hold requests that are waiting for new token
+// Queue to hold requests that are waiting for token refresh
 let failedQueue: Array<{
-  resolve: (token: string) => void;
+  resolve: (value?: unknown) => void;
   reject: (err: any) => void;
 }> = [];
 
-// Helper to resolve all pending queued requests with new token
-const processQueue = (error: any, token: string | null = null) => {
+// Helper to resolve all pending queued requests after refresh
+const processQueue = (error: any) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
-    } else if (token) {
-      prom.resolve(token);
+    } else {
+      prom.resolve();
     }
   });
   failedQueue = [];
 };
 
-// Request Interceptor: Attach bearer token
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = useAuthStore.getState().accessToken;
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
-
-// Response Interceptor: Handle token refresh on 401 error
+// Response Interceptor: Unwrap API envelope { statusCode, data } → data
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // API wraps all success responses in { statusCode, data }
+    // Unwrap so callers get the actual payload from response.data
+    if (
+      response.data &&
+      typeof response.data === "object" &&
+      "data" in response.data
+    ) {
+      response.data = response.data.data;
+    }
+    return response;
+  },
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
@@ -67,10 +64,7 @@ api.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
-            resolve: (token: string) => {
-              if (originalRequest.headers) {
-                originalRequest.headers.Authorization = `Bearer ${token}`;
-              }
+            resolve: () => {
               resolve(api(originalRequest));
             },
             reject: (err) => reject(err),
@@ -82,33 +76,21 @@ api.interceptors.response.use(
 
       try {
         // Perform token refresh call
-        // In real backend, refresh token is retrieved from httpOnly cookie on server
-        const response = await axios.post<{ accessToken: string }>(
+        // Server reads refreshToken from HttpOnly cookie and sets new accessToken cookie
+        await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL || "/api"}${API_ROUTES.REFRESH_TOKEN}`,
           {},
           { withCredentials: true },
         );
 
-        const { accessToken } = response.data;
-
-        // Update Zustand store
-        const user = useAuthStore.getState().user;
-        if (user) {
-          useAuthStore.getState().setAuth(user, accessToken);
-        }
-
-        // Retry the original request
-        if (originalRequest.headers) {
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        }
-
-        processQueue(null, accessToken);
+        // Retry the original request (new cookie is set automatically)
+        processQueue(null);
         isRefreshing = false;
 
         return api(originalRequest);
       } catch (refreshError) {
         // If refresh fails, sign out and redirect to login
-        processQueue(refreshError, null);
+        processQueue(refreshError);
         isRefreshing = false;
 
         useAuthStore.getState().clearAuth();

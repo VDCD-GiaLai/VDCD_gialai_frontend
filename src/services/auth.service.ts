@@ -1,12 +1,12 @@
 import { api } from "@/lib/axios";
 import { API_ROUTES } from "@/lib/constants";
-import { LoginResponse, User } from "@/types";
+import { LoginResponse, RefreshTokenResponse, User } from "@/types";
 import { LoginInput } from "@/schemas/auth.schema";
 
 export const AuthService = {
   /**
    * Logs in a user with credentials.
-   * On success, updates Zustand auth state.
+   * Sets accessToken and refreshToken via HttpOnly cookies.
    */
   login: async (credentials: LoginInput): Promise<LoginResponse> => {
     const response = await api.post<LoginResponse>(
@@ -24,7 +24,7 @@ export const AuthService = {
   },
 
   /**
-   * Fetches the user profile based on active accessToken
+   * Fetches the user profile based on active session cookie
    */
   getProfile: async (): Promise<User> => {
     const response = await api.get<User>(API_ROUTES.USER_PROFILE);
@@ -32,10 +32,11 @@ export const AuthService = {
   },
 
   /**
-   * Refreshes the session access token manually
+   * Refreshes the session via HttpOnly cookie.
+   * Server reads refreshToken cookie and sets new accessToken cookie.
    */
-  refreshToken: async (): Promise<{ accessToken: string }> => {
-    const response = await api.post<{ accessToken: string }>(
+  refreshToken: async (): Promise<RefreshTokenResponse> => {
+    const response = await api.post<RefreshTokenResponse>(
       API_ROUTES.REFRESH_TOKEN,
     );
     return response.data;

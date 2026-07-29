@@ -40,14 +40,14 @@ export default function LoginPage() {
       const res = await AuthService.login(data);
 
       // Update state in Zustand auth store
-      setAuth(res.user, res.accessToken);
+      setAuth(res.user);
 
       // Force route navigation to dashboard
       router.push(redirectFrom);
     } catch (err: any) {
       console.error("Login failed:", err);
       setErrorMsg(
-        err.response?.data?.error ||
+        err.response?.data?.message ||
           "Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản hoặc mật khẩu.",
       );
     } finally {

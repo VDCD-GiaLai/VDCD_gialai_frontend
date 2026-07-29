@@ -1,53 +1,79 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
-export async function GET(request: Request) {
-  const authHeader = request.headers.get("Authorization");
+export async function GET() {
+  const cookieStore = await cookies();
+  const isAuthenticated = cookieStore.get("is_authenticated")?.value;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!isAuthenticated) {
     return NextResponse.json(
-      { error: "Không được phép truy cập" },
+      {
+        statusCode: 401,
+        message: "Không được phép truy cập",
+        timestamp: new Date().toISOString(),
+        path: "/api/v1/admin/users",
+      },
       { status: 401 },
     );
   }
 
-  // Return a list of users for dashboard demo
+  // Return a paginated list of admin users matching API 5.1 docs
   const mockUsers = [
     {
       id: "usr_001",
+      username: "admin_user",
       email: "admin@vdcdgroup.vn",
-      name: "Quản Trị Viên",
-      role: "admin",
+      role: "superadmin",
+      isActive: true,
       createdAt: "2024-11-20T00:00:00.000Z",
+      updatedAt: "2024-11-20T00:00:00.000Z",
     },
     {
       id: "usr_002",
+      username: "le_nguyen",
       email: "le.nguyen@vdcdgroup.vn",
-      name: "Lê Văn Nguyên",
-      role: "user",
+      role: "editor",
+      isActive: true,
       createdAt: "2024-11-21T08:30:00.000Z",
+      updatedAt: "2024-11-21T08:30:00.000Z",
     },
     {
       id: "usr_003",
+      username: "tran_bich",
       email: "tran.thi.b@vdcdgroup.vn",
-      name: "Trần Thị Bích",
-      role: "user",
+      role: "editor",
+      isActive: true,
       createdAt: "2024-11-22T09:15:00.000Z",
+      updatedAt: "2024-11-22T09:15:00.000Z",
     },
     {
       id: "usr_004",
+      username: "pham_tuan",
       email: "pham.anh.tuan@vdcdgroup.vn",
-      name: "Phạm Anh Tuấn",
-      role: "user",
+      role: "viewer",
+      isActive: true,
       createdAt: "2024-11-23T14:45:00.000Z",
+      updatedAt: "2024-11-23T14:45:00.000Z",
     },
     {
       id: "usr_005",
+      username: "nguyen_hoang",
       email: "nguyen.hoang@vdcdgroup.vn",
-      name: "Nguyễn Minh Hoàng",
-      role: "user",
+      role: "viewer",
+      isActive: false,
       createdAt: "2024-11-24T16:20:00.000Z",
+      updatedAt: "2024-11-24T16:20:00.000Z",
     },
   ];
 
-  return NextResponse.json(mockUsers);
+  return NextResponse.json({
+    statusCode: 200,
+    data: {
+      items: mockUsers,
+      total: mockUsers.length,
+      page: 1,
+      limit: 10,
+      totalPages: 1,
+    },
+  });
 }
