@@ -90,27 +90,36 @@ export function Header() {
               : "text-zinc-200/90"
           }`}
         >
-          <a href="#about" className="hover:text-accent-red transition-colors">
+          <Link
+            href="/about-us"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/about-us" ? "text-accent-red font-semibold" : ""
+            }`}
+          >
             Về chúng tôi
-          </a>
+          </Link>
           <Link
             href="/solution"
-            className="hover:text-accent-red transition-colors"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/solution" || pathname.startsWith("/solution/")
+                ? "text-accent-red font-semibold"
+                : ""
+            }`}
           >
             Giải pháp
           </Link>
-          <a
-            href="#projects"
+          <Link
+            href={isHome ? "#projects" : "/#projects"}
             className="hover:text-accent-red transition-colors"
           >
             Dự án
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href={isHome ? "#contact" : "/#contact"}
             className="hover:text-accent-red transition-colors"
           >
             Liên hệ
-          </a>
+          </Link>
         </nav>
 
         {/* Actions */}
@@ -192,34 +201,42 @@ export function Header() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
           >
-            <a
-              href="#about"
+            <Link
+              href="/about-us"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+              className={`px-6 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+                pathname === "/about-us"
+                  ? "text-accent-red font-semibold bg-zinc-50/50 dark:bg-zinc-900/20"
+                  : "text-zinc-800 dark:text-zinc-200 hover:text-accent-red"
+              }`}
             >
               Về chúng tôi
-            </a>
+            </Link>
             <Link
               href="/solution"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+              className={`px-6 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+                pathname === "/solution" || pathname.startsWith("/solution/")
+                  ? "text-accent-red font-semibold bg-zinc-50/50 dark:bg-zinc-900/20"
+                  : "text-zinc-800 dark:text-zinc-200 hover:text-accent-red"
+              }`}
             >
               Giải pháp
             </Link>
-            <a
-              href="#projects"
+            <Link
+              href={isHome ? "#projects" : "/#projects"}
               onClick={() => setIsMobileMenuOpen(false)}
               className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
             >
               Dự án
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href={isHome ? "#contact" : "/#contact"}
               onClick={() => setIsMobileMenuOpen(false)}
               className="px-6 py-4 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
             >
               Liên hệ
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

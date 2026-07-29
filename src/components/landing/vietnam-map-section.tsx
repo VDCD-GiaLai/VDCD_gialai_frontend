@@ -31,6 +31,7 @@ import {
   REGION_STATS,
   Province,
 } from "@/data/vietnam-provinces";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 const GEO_URL = "/data/vietnam-provinces.json";
 
@@ -412,42 +413,6 @@ function getProvinceColor(
   if (ratio < 0.5) return "#f87171";
   if (ratio < 0.7) return "#ef4444";
   return "#dc2626";
-}
-
-// ─── Animated Counter ───
-function AnimatedCounter({
-  target,
-  suffix = "",
-  duration = 2,
-}: {
-  target: number;
-  suffix?: string;
-  duration?: number;
-}) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) =>
-    v >= 1000
-      ? Math.round(v).toLocaleString("vi-VN")
-      : Math.round(v).toString(),
-  );
-  const ref = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-
-  React.useEffect(() => {
-    if (!inView) return;
-    const ctrl = animate(count, target, {
-      duration,
-      ease: [0.16, 1, 0.3, 1],
-    });
-    return ctrl.stop;
-  }, [inView, target, duration, count]);
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      <motion.span>{rounded}</motion.span>
-      {suffix}
-    </span>
-  );
 }
 
 // ─── CSS-only Tooltip (positioned via ref, no state re-renders) ───
