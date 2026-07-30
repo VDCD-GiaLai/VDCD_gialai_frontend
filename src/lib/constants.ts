@@ -5,6 +5,7 @@ export const API_ROUTES = {
   USER_PROFILE: "/auth/me",
   ADMIN_USERS: "/admin/users",
   LEADS: "/leads",
+  ARTICLES: "/articles",
   UPLOAD_FILE: "/upload/file",
 } as const;
 
@@ -12,6 +13,7 @@ export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   PROJECTS: "/projects",
+  NEWS: "/news",
   CAREERS: "/careers",
   CONTACT: "/contact",
 } as const;

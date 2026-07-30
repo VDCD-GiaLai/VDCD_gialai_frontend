@@ -164,8 +164,12 @@ export function Header() {
             Dự án
           </Link>
           <Link
-            href="/#news"
-            className="hover:text-accent-red transition-colors"
+            href="/news"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/news" || pathname.startsWith("/news/")
+                ? "text-accent-red font-semibold"
+                : ""
+            }`}
           >
             Tin tức
           </Link>
@@ -276,9 +280,13 @@ export function Header() {
           Dự án
         </Link>
         <Link
-          href="/#news"
+          href="/news"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+          className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+            pathname === "/news" || pathname.startsWith("/news/")
+              ? "text-accent-red font-semibold bg-zinc-50 dark:bg-zinc-900/40"
+              : "text-zinc-800 dark:text-zinc-200"
+          }`}
         >
           Tin tức
         </Link>

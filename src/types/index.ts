@@ -125,3 +125,38 @@ export interface UploadFileResponse {
   fileId: string;
   name: string;
 }
+
+/* ── Articles / News ───────────────────────────────────── */
+
+export interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  content?: string;
+  thumbnail?: string;
+  category?: string;
+  tags?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  isPublished: boolean;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  project?: { id: string; title: string; slug: string } | null;
+  program?: { id: string; title: string; slug: string } | null;
+  solution?: { id: string; title: string; slug: string } | null;
+}
+
+export interface ArticleDetail extends Article {
+  relatedArticles: Pick<
+    Article,
+    "id" | "title" | "slug" | "thumbnail" | "publishedAt"
+  >[];
+}
+
+export interface ArticleListParams {
+  page?: number;
+  limit?: number;
+  category?: string;
+  tags?: string;
+}
