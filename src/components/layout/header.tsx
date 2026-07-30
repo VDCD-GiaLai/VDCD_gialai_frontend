@@ -141,12 +141,12 @@ export function Header() {
           >
             Về chúng tôi
           </Link>
-          <a
-            href="#programs"
+          <Link
+            href="/#programs"
             className="hover:text-accent-red transition-colors"
           >
             Chương trình
-          </a>
+          </Link>
           <Link
             href="/solution"
             className={`hover:text-accent-red transition-colors ${
@@ -163,9 +163,12 @@ export function Header() {
           >
             Dự án
           </Link>
-          <a href="#news" className="hover:text-accent-red transition-colors">
+          <Link
+            href="/#news"
+            className="hover:text-accent-red transition-colors"
+          >
             Tin tức
-          </a>
+          </Link>
           <Link
             href="/careers"
             className={`hover:text-accent-red transition-colors ${
@@ -174,12 +177,14 @@ export function Header() {
           >
             Tuyển dụng
           </Link>
-          <a
-            href="#contact"
-            className="hover:text-accent-red transition-colors"
+          <Link
+            href="/contact"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/contact" ? "text-accent-red font-semibold" : ""
+            }`}
           >
             Liên hệ
-          </a>
+          </Link>
         </nav>
 
         {/* Actions */}
@@ -206,16 +211,13 @@ export function Header() {
             </Button>
           )}
 
-          {/* Action CTA Button: Capacity Profile */}
-          <a href="#capacity-profile">
-            <Button
-              color="primary"
-              className="bg-accent-red hover:bg-accent-red-hover text-white font-mono-label text-xs tracking-wider uppercase font-bold px-3 sm:px-4"
-              trailingIcon={<FiFileText className="w-3.5 h-3.5" />}
-            >
-              Hồ sơ năng lực
-            </Button>
-          </a>
+          <Button
+            as={Link}
+            href="/contact"
+            className="hidden sm:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-sm"
+          >
+            Hợp tác ngay
+          </Button>
 
           {/* Hamburger Menu Toggle for Mobile */}
           <Button
@@ -245,20 +247,20 @@ export function Header() {
         style={{ height: 0, opacity: 0, display: "none" }}
         className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
       >
-        <a
-          href="#about"
+        <Link
+          href="/about-us"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >
           Về chúng tôi
-        </a>
-        <a
-          href="#programs"
+        </Link>
+        <Link
+          href="/#programs"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >
           Chương trình
-        </a>
+        </Link>
         <Link
           href="/solution"
           onClick={() => setIsMobileMenuOpen(false)}
@@ -273,13 +275,13 @@ export function Header() {
         >
           Dự án
         </Link>
-        <a
-          href="#news"
+        <Link
+          href="/#news"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >
           Tin tức
-        </a>
+        </Link>
         <Link
           href="/careers"
           onClick={() => setIsMobileMenuOpen(false)}
@@ -287,21 +289,25 @@ export function Header() {
         >
           Tuyển dụng
         </Link>
-        <a
+        <Link
           href="/contact"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+          className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+            pathname === "/contact"
+              ? "text-accent-red font-semibold bg-zinc-50 dark:bg-zinc-900/40"
+              : "text-zinc-800 dark:text-zinc-200"
+          }`}
         >
           Liên hệ
-        </a>
-        <a
-          href="#capacity-profile"
+        </Link>
+        <Link
+          href="/#capacity-profile"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
         >
           <FiFileText className="w-4 h-4" />
           Hồ sơ năng lực
-        </a>
+        </Link>
       </div>
     </header>
   );

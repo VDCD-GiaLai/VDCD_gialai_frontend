@@ -120,14 +120,14 @@ export function Footer() {
           <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Thông tin & Khác
           </h4>
-          <a
-            href="#news"
+          <Link
+            href="/#news"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Tin tức & Sự kiện
             </span>
-          </a>
+          </Link>
           <Link
             href="/careers"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
@@ -136,14 +136,14 @@ export function Footer() {
               Tuyển dụng
             </span>
           </Link>
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Liên hệ hợp tác
             </span>
-          </a>
+          </Link>
           <Link
             href={APP_ROUTES.LOGIN}
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
