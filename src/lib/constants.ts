@@ -4,6 +4,8 @@ export const API_ROUTES = {
   REFRESH_TOKEN: "/auth/refresh",
   USER_PROFILE: "/auth/me",
   ADMIN_USERS: "/admin/users",
+  LEADS: "/leads",
+  UPLOAD_FILE: "/upload/file",
 } as const;
 
 export const APP_ROUTES = {
@@ -11,6 +13,7 @@ export const APP_ROUTES = {
   LOGIN: "/login",
   PROJECTS: "/projects",
   CAREERS: "/careers",
+  CONTACT: "/contact",
 } as const;
 
 export const STORAGE_KEYS = {

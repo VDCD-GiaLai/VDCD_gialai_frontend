@@ -103,3 +103,25 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
+
+/* ── Contact / Lead ────────────────────────────────────── */
+
+export interface CreateLeadPayload {
+  fullName: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+  attachment?: string;
+  website?: string; // honeypot — must be empty
+}
+
+export interface LeadResponse {
+  message: string;
+}
+
+export interface UploadFileResponse {
+  url: string;
+  fileId: string;
+  name: string;
+}

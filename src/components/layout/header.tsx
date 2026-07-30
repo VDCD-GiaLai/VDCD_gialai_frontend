@@ -288,7 +288,7 @@ export function Header() {
           Tuyển dụng
         </Link>
         <a
-          href="#contact"
+          href="/contact"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >
