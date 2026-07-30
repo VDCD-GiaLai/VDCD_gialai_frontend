@@ -50,12 +50,16 @@ interface EcoItem {
 /* ── Single ecosystem card ──────────────────────────────────── */
 function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
   const accent = ACCENT_COLORS[index % ACCENT_COLORS.length];
+  const isExternal =
+    item.href.startsWith("http://") || item.href.startsWith("https://");
+  const LinkComponent = isExternal ? "a" : Link;
+  const linkProps = isExternal
+    ? { href: item.href, target: "_blank", rel: "noopener noreferrer" }
+    : { href: item.href };
 
   return (
-    <a
-      href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <LinkComponent
+      {...(linkProps as any)}
       className={`eco-card group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
     >
       {/* Image */}
@@ -102,7 +106,7 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
           </span>
         </div>
       </div>
-    </a>
+    </LinkComponent>
   );
 }
 

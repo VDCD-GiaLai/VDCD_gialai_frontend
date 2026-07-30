@@ -1,0 +1,128 @@
+/* ── Programs Page — Component Styles ──────────────────── */
+
+/* ── Program Card ─────────────────────────────────────── */
+.program-card {
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .program-card {
+  border-color: rgba(63, 63, 70, 0.3);
+  background: rgba(24, 24, 27, 0.5);
+}
+
+.program-card:hover {
+  border-color: rgba(232, 0, 2, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px);
+}
+
+.dark .program-card:hover {
+  border-color: rgba(232, 0, 2, 0.35);
+  box-shadow: 0 4px 24px rgba(232, 0, 2, 0.06);
+}
+
+/* ── Program Detail Content ───────────────────────────── */
+.program-content {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: var(--color-on-surface-variant);
+}
+
+.program-content h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-on-surface);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.program-content h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--color-on-surface);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.program-content p {
+  margin-bottom: 1.25rem;
+}
+
+.program-content ul,
+.program-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.program-content li {
+  margin-bottom: 0.5rem;
+}
+
+.program-content img {
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  width: 100%;
+  height: auto;
+}
+
+.program-content a {
+  color: var(--color-accent-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s;
+}
+
+.program-content a:hover {
+  opacity: 0.8;
+}
+
+.program-content blockquote {
+  border-left: 3px solid var(--color-accent-red);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+.dark .program-content {
+  color: rgba(161, 161, 170, 1);
+}
+
+.dark .program-content h2,
+.dark .program-content h3 {
+  color: #ffffff;
+}
+
+/* ── Related article card (inside program detail) ──────── */
+.program-related-card {
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .program-related-card {
+  border-color: rgba(63, 63, 70, 0.3);
+  background: rgba(24, 24, 27, 0.5);
+}
+
+.program-related-card:hover {
+  border-color: rgba(232, 0, 2, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.dark .program-related-card:hover {
+  border-color: rgba(232, 0, 2, 0.35);
+  box-shadow: 0 4px 20px rgba(232, 0, 2, 0.05);
+}

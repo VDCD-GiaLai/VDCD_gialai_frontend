@@ -16,10 +16,10 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
   ...SOLUTIONS.map((s) => ({
     id: s.href || s.title,
     title: s.title,
-    slug: s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    slug: s.slug || s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     description: s.description,
     thumbnail: s.imageUrl,
-    websiteUrl: s.href,
+    websiteUrl: s.href.startsWith("http") ? s.href : undefined,
     isPublished: true,
   })),
   ...CAPABILITY_SOLUTIONS.map((cs) => ({
