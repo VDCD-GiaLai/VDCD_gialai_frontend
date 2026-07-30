@@ -142,7 +142,7 @@ export function Header() {
             Về chúng tôi
           </Link>
           <Link
-            href="/#programs"
+            href="/programs"
             className="hover:text-accent-red transition-colors"
           >
             Chương trình
@@ -259,7 +259,7 @@ export function Header() {
           Về chúng tôi
         </Link>
         <Link
-          href="/#programs"
+          href="/programs"
           onClick={() => setIsMobileMenuOpen(false)}
           className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
         >

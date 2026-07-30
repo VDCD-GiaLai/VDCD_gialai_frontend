@@ -13,6 +13,7 @@ export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   PROJECTS: "/projects",
+  PROGRAMS: "/programs",
   NEWS: "/news",
   CAREERS: "/careers",
   CONTACT: "/contact",

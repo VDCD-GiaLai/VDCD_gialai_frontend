@@ -160,3 +160,44 @@ export interface ArticleListParams {
   category?: string;
   tags?: string;
 }
+
+/* ── Operation Fields ─────────────────────────────────── */
+
+export interface OperationField {
+  id: string;
+  name: string;
+  slug: string;
+  icon?: string;
+  shortDescription?: string;
+  order: number;
+}
+
+/* ── Programs ─────────────────────────────────────────── */
+
+export interface Program {
+  id: string;
+  title: string;
+  slug: string;
+  shortDescription?: string;
+  content?: string;
+  thumbnail?: string;
+  field?: OperationField | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProgramDetail extends Program {
+  relatedArticles: Pick<
+    Article,
+    "id" | "title" | "slug" | "thumbnail" | "publishedAt"
+  >[];
+}
+
+export interface ProgramListParams {
+  page?: number;
+  limit?: number;
+  fieldId?: string;
+}

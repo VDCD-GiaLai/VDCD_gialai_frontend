@@ -90,14 +90,14 @@ export function Footer() {
           <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Chương trình & Giải pháp
           </h4>
-          <a
-            href="#programs"
+          <Link
+            href="/programs"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
               Chương trình đổi mới
             </span>
-          </a>
+          </Link>
           <Link
             href="/solution"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
