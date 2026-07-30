@@ -4,12 +4,19 @@ export const API_ROUTES = {
   REFRESH_TOKEN: "/auth/refresh",
   USER_PROFILE: "/auth/me",
   ADMIN_USERS: "/admin/users",
+  LEADS: "/leads",
+  ARTICLES: "/articles",
+  UPLOAD_FILE: "/upload/file",
 } as const;
 
 export const APP_ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   PROJECTS: "/projects",
+  PROGRAMS: "/programs",
+  NEWS: "/news",
+  CAREERS: "/careers",
+  CONTACT: "/contact",
 } as const;
 
 export const STORAGE_KEYS = {

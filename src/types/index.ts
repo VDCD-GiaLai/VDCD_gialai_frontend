@@ -53,6 +53,7 @@ export interface SolutionItem {
   imageUrl: string;
   iconUrl: string;
   description: string;
+  slug?: string;
 }
 
 export interface GsapHeroSlide {
@@ -61,4 +62,142 @@ export interface GsapHeroSlide {
   title2: string;
   desc: string;
   image: string;
+}
+
+/* ── Careers / Recruitment ─────────────────────────────── */
+
+export interface JobPosition {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  employmentType: string;
+  salary?: string;
+  postedDate: string;
+  description: string;
+  experience: string;
+  tags: string[];
+}
+
+export interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface RecruitmentStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface EmployeeStory {
+  id: string;
+  name: string;
+  department: string;
+  avatar: string;
+  quote: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+/* ── Contact / Lead ────────────────────────────────────── */
+
+export interface CreateLeadPayload {
+  fullName: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+  attachment?: string;
+  website?: string; // honeypot — must be empty
+}
+
+export interface LeadResponse {
+  message: string;
+}
+
+export interface UploadFileResponse {
+  url: string;
+  fileId: string;
+  name: string;
+}
+
+/* ── Articles / News ───────────────────────────────────── */
+
+export interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  content?: string;
+  thumbnail?: string;
+  category?: string;
+  tags?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  isPublished: boolean;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  project?: { id: string; title: string; slug: string } | null;
+  program?: { id: string; title: string; slug: string } | null;
+  solution?: { id: string; title: string; slug: string } | null;
+}
+
+export interface ArticleDetail extends Article {
+  relatedArticles: Pick<
+    Article,
+    "id" | "title" | "slug" | "thumbnail" | "publishedAt"
+  >[];
+}
+
+export interface ArticleListParams {
+  page?: number;
+  limit?: number;
+  category?: string;
+  tags?: string;
+}
+
+/* ── Operation Fields ─────────────────────────────────── */
+
+export interface OperationField {
+  id: string;
+  name: string;
+  slug: string;
+  icon?: string;
+  shortDescription?: string;
+  order: number;
+}
+
+/* ── Programs ─────────────────────────────────────────── */
+
+export interface Program {
+  id: string;
+  title: string;
+  slug: string;
+  shortDescription?: string;
+  content?: string;
+  thumbnail?: string;
+  field?: OperationField | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProgramDetail extends Program {
+  relatedArticles: Pick<
+    Article,
+    "id" | "title" | "slug" | "thumbnail" | "publishedAt"
+  >[];
+}
+
+export interface ProgramListParams {
+  page?: number;
+  limit?: number;
+  fieldId?: string;
 }

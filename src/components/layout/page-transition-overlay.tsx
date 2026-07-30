@@ -89,7 +89,7 @@ export const PageTransitionOverlay = () => {
       },
       0.1,
     );
-  }, [sourceRect, imageSrc, projectId, router]);
+  }, [sourceRect, projectId, router]);
 
   /* Trigger the transition when state changes */
   useEffect(() => {

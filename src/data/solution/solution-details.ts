@@ -354,4 +354,217 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       },
     ],
   },
+  "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai": {
+    slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
+    subtitle: "Nền tảng công nghệ lõi cho hệ sinh thái chuyển đổi số",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+    introText:
+      "Trong kỷ nguyên số, dữ liệu trở thành “nguồn tài nguyên chiến lược” của mọi tổ chức. Để đảm bảo hạ tầng tính toán và lưu trữ dữ liệu phục vụ cho các giải pháp công nghệ quy mô lớn, VDCD Group đã đầu tư phát triển Trung tâm Dữ liệu, Siêu máy tính và Đào tạo AI. Trung tâm được xây dựng và vận hành tại các điểm công nghệ trọng yếu như Hà Nội, TP. Hồ Chí Minh, Ninh Bình và Quảng Ngãi, với tổng diện tích sử dụng hơn 4.000 m². Đây là nền tảng hạ tầng quan trọng trong hệ sinh thái số của VDCD Group, phục vụ nghiên cứu, phát triển và triển khai các công nghệ BIM, GIS, IoT và AI trên phạm vi toàn quốc.",
+    sections: [
+      {
+        title: "1. Trung tâm Dữ liệu (VDCD DATA)",
+        description:
+          "Data Center của VDCD được thiết kế theo tiêu chuẩn hiện đại, đảm bảo khả năng lưu trữ, bảo mật và vận hành ổn định 24/7, phục vụ toàn bộ các hệ thống dữ liệu của GIS, BIM, hồ sơ kỹ thuật và dữ liệu IoT.",
+        points: [
+          "Lưu trữ tập trung toàn bộ cơ sở dữ liệu: Giúp đồng bộ thông tin trên các nền tảng công nghệ.",
+          "Đảm bảo an toàn và bảo mật: Hệ thống dự phòng dữ liệu (Backup & DR) và các dịch vụ lưu trữ đám mây (Cloud Storage) giúp phục hồi nhanh chóng khi xảy ra sự cố.",
+          "Giám sát vận hành thông minh: Hoạt động của trung tâm được quản lý qua NOC (Network Operation Center), cho phép kiểm soát truy cập, hiệu suất và tính toàn vẹn dữ liệu.",
+          "Mở rộng linh hoạt: Thông qua cổng dữ liệu mở (Open Data Portal), hỗ trợ các tổ chức, đối tác khai thác, chia sẻ và tích hợp dữ liệu một cách an toàn và hiệu quả.",
+        ],
+      },
+      {
+        title: "2. Siêu máy tính (High Performance Computing – HPC)",
+        description:
+          "HPC & AI supercomputer được VDCD DATA xây dựng để phục vụ xử lý dữ liệu quy mô lớn và các ứng dụng công nghệ tiên tiến trong các lĩnh vực GIS, BIM, AI và Big Data.",
+        points: [
+          "Xử lý dữ liệu lớn: Xử lý dữ liệu bản đồ 2D/3D, ảnh vệ tinh, quét laser, UAV và mô hình địa hình số.",
+          "Xây dựng mô phỏng mô hình BIM – GIS tích hợp: Phục vụ công tác quy hoạch, hạ tầng, đô thị thông minh và xây dựng số (Digital Construction).",
+          "Tính toán song song (Parallel Computing): Phục vụ huấn luyện, dự báo và phân tích dữ liệu AI, Big Data.",
+          "Hỗ trợ hiển thị, chia sẻ dữ liệu mô hình 3D: Trên các thiết bị đầu cuối, trình duyệt web và ứng dụng di động của khách hàng.",
+        ],
+      },
+      {
+        title: "3. Trung tâm Đào tạo và Ứng dụng AI",
+        description:
+          "Bên cạnh hạ tầng dữ liệu và tính toán, VDCD DATA còn phát triển Trung tâm Đào tạo và Ứng dụng AI, hướng tới mục tiêu hình thành nguồn nhân lực chất lượng cao trong lĩnh vực công nghệ số.",
+        points: [
+          "Đào tạo và huấn luyện chuyên sâu: Đào tạo kỹ sư, cán bộ vận hành trong các lĩnh vực AI, Machine Learning, Big Data, GIS, BIM.",
+          "Xây dựng môi trường AI Sandbox: Cho phép thử nghiệm, huấn luyện và triển khai các mô hình AI thực tế.",
+          "Kết nối nghiên cứu – đào tạo – ứng dụng: Hợp tác cùng các trường đại học, viện nghiên cứu và doanh nghiệp trong và ngoài nước để phát triển các giải pháp ứng dụng AI phục vụ quy hoạch, quản lý và sản xuất.",
+        ],
+      },
+      {
+        title: "4. Giá trị ứng dụng nổi bật",
+        points: [
+          "Nâng cao năng lực xử lý dữ liệu và AI: Cung cấp tài nguyên tính toán mạnh mẽ.",
+          "Tối ưu chi phí bằng hạ tầng đám mây: Giảm thiểu đầu tư hạ tầng phần cứng ban đầu.",
+          "Bảo mật, ổn định và tin cậy tuyệt đối: Vận hành theo tiêu chuẩn bảo mật ISO/IEC 27001.",
+          "Hạ tầng vững chắc cho chuyển đổi số: Nền tảng cốt lõi liên kết dữ liệu toàn hệ sinh thái.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-doi-moi-sang-tao-tinh": {
+    slug: "trung-tam-doi-moi-sang-tao-tinh",
+    title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
+    subtitle: "Cầu nối giữa dữ liệu, công nghệ và sáng tạo địa phương",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
+    introText:
+      "Trong tiến trình chuyển đổi số toàn diện của Việt Nam, đổi mới sáng tạo không chỉ là mục tiêu mà còn là động lực giúp các địa phương phát triển bền vững. Với vai trò tiên phong trong hệ sinh thái công nghệ số của VDCD Group, Trung tâm Đổi mới Sáng tạo Tỉnh được thành lập nhằm thúc đẩy các chương trình chuyển đổi số, sáng tạo mô hình mới và phát triển công nghệ ứng dụng theo định hướng địa phương. Trung tâm đóng vai trò kết nối giữa con người – dữ liệu – công nghệ – tư duy sáng tạo, tạo nền tảng cho việc triển khai các chương trình đổi mới, đồng thời hỗ trợ cơ quan quản lý, doanh nghiệp và cộng đồng khai thác hiệu quả giá trị số trong mọi hoạt động kinh tế – xã hội.",
+    sections: [
+      {
+        title: "1. Khối Chiến lược và Tư vấn Chuyển đổi số",
+        description:
+          "Khối này giữ vai trò trung tâm trong hoạch định chiến lược, tư vấn và triển khai các chương trình chuyển đổi số cấp tỉnh, ngành và doanh nghiệp.",
+        points: [
+          "Tư vấn hoạch định chiến lược số: Định hướng chiến lược, tư vấn, triển khai và quản trị các chương trình chuyển đổi số cấp tỉnh, bộ, ngành và doanh nghiệp.",
+          "Xây dựng lộ trình tổng thể: Thiết lập lộ trình gắn với mục tiêu phát triển kinh tế – xã hội và quy hoạch hạ tầng số của địa phương.",
+          "Vận hành thông minh (Data-driven Governance): Tư vấn tái cấu trúc quy trình, tổ chức và quản lý dữ liệu để ra quyết định dựa trên dữ liệu thực tế.",
+          "Đào tạo và truyền thông số: Nâng cao nhận thức số, hỗ trợ các địa phương, doanh nghiệp làm chủ công nghệ và vận hành hệ thống số hóa.",
+        ],
+      },
+      {
+        title: "2. Khối Đổi mới Sáng tạo và Phát triển Mô hình mới",
+        description:
+          "Đây là trung tâm của các hoạt động nghiên cứu, thử nghiệm và triển khai mô hình đổi mới sáng tạo (Innovation Lab) trong hệ thống VDCD Group.",
+        points: [
+          "Điều phối các Trung tâm chuyên ngành: Gồm AI & Robot, R&D, Dữ liệu & AI, Phần mềm, Bản đồ số, Giám sát số tạo thành hệ sinh thái đổi mới mở.",
+          "Phát triển các nền tảng và dịch vụ sáng tạo: Ứng dụng AI, IoT, Blockchain, Big Data, GIS và Cloud phục vụ quản lý đô thị và chính quyền điện tử.",
+          "Thử nghiệm dự án thí điểm (Pilot Project): Đánh giá tính khả thi của công nghệ mới, mô hình vận hành và giải pháp chuyển đổi tại từng lĩnh vực.",
+          "Ươm tạo khởi nghiệp công nghệ: Kết nối với doanh nghiệp, viện trường và cộng đồng sáng tạo để phát triển mô hình đổi mới.",
+        ],
+      },
+      {
+        title: "3. Khối Giám sát, Vận hành và Truyền thông số",
+        description:
+          "Khối này chịu trách nhiệm vận hành, giám sát và truyền thông số cho toàn hệ sinh thái VDCD Group.",
+        points: [
+          "Giám sát hệ sinh thái số: Vận hành trung tâm dữ liệu, nền tảng phần mềm, hệ thống giám sát số và cổng dữ liệu mở.",
+          "Trung tâm điều hành và phân tích thông minh: Xây dựng Dashboard và phân tích dữ liệu trực quan bằng BI (Business Intelligence).",
+          "Lan tỏa tinh thần đổi mới sáng tạo: Tổ chức hội thảo, triển lãm, diễn đàn công nghệ và xây dựng nền tảng Cộng đồng số VDCD.",
+        ],
+      },
+      {
+        title: "4. Khối hỗ trợ khởi nghiệp sáng tạo",
+        description:
+          "Khối hỗ trợ khởi nghiệp sáng tạo tỉnh được thành lập nhằm thúc đẩy đổi mới sáng tạo và phát triển hệ sinh thái khởi nghiệp sáng tạo tại địa phương.",
+        points: [
+          "Huy động và quản lý nguồn lực đầu tư: Hỗ trợ, khuyến khích phát triển và nâng cao năng lực cho các cơ sở ươm tạo công nghệ.",
+          "Nghiên cứu và cung cấp dịch vụ hỗ trợ: Cung cấp dịch vụ khoa học, tư vấn, đào tạo kết nối mạng lưới đổi mới sáng tạo.",
+          "Thúc đẩy liên kết doanh nghiệp: Xây dựng mạng lưới đối tác trong và ngoài nước, tổ chức sự kiện xúc tiến đầu tư.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-chuyen-giao-cong-nghe": {
+    slug: "trung-tam-chuyen-giao-cong-nghe",
+    title: "Trung Tâm Chuyển giao Công Nghệ",
+    subtitle:
+      "Tiên phong trong chuyển giao và ứng dụng công nghệ AI – BIM – Cloud – Giám sát số",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
+    introText:
+      "VDCD Group thành lập VDCD Academy – Trung tâm Chuyển giao Công nghệ, trực thuộc Viện Thiết kế Số VDCD BIM đóng vai trò kết nối giữa nghiên cứu – đào tạo – ứng dụng thực tế, giúp nhân sự trong ngành nhanh chóng tiếp cận công nghệ mới, làm chủ các nền tảng BIM, GIS, AI, Digital Twin và các công cụ thiết kế – quản lý hiện đại nhất.",
+    sections: [
+      {
+        title: "1. Sứ mệnh và định hướng phát triển",
+        description:
+          "VDCD Academy được định hướng trở thành “Học viện Công nghệ Thiết kế” tiên phong trong lĩnh vực đào tạo và chuyển giao công nghệ số cho ngành xây dựng, quy hoạch và hạ tầng.",
+        points: [
+          "Đội ngũ nhân sự công nghệ cao: Tạo ra nhân sự có năng lực về AI Design, Generative Design, Digital Construction.",
+          "Chuẩn hóa năng lực số quốc gia: Nâng tầm và chuẩn hóa kiến thức chuyên môn thiết kế số và xây dựng.",
+          "Mở rộng hợp tác nghiên cứu: Kết hợp cùng đại học, viện nghiên cứu và doanh nghiệp công nghệ phát triển giải pháp số.",
+        ],
+      },
+      {
+        title: "2. Lĩnh vực hoạt động chính",
+        points: [
+          "Đào tạo chuyên sâu về công nghệ thiết kế: Tổ chức các khóa học chuyên sâu về BIM (Building Information Modeling), GIS (Geographic Information System).",
+          "Tư vấn quy trình & phần mềm công nghệ: Tư vấn, triển khai và đồng bộ hóa quy trình làm việc thông qua BIM Collaboration và GIS Integration.",
+          "Nghiên cứu & chuyển giao giải pháp thực tế: Phát triển các chương trình R&D phối hợp với doanh nghiệp nhằm chuyển giao công nghệ vào quy hoạch và xây dựng số.",
+        ],
+      },
+      {
+        title: "3. Giá trị cốt lõi mang lại",
+        points: [
+          "Khai thác tối đa tiềm năng con người: Giúp nhân sự ngành thiết kế làm việc hiệu quả, sáng tạo và tự động hóa quy trình.",
+          "Tăng năng suất và giảm sai sót: Quản lý dữ liệu tập trung và phối hợp công việc theo thời gian thực.",
+          "Xây dựng cộng đồng công nghệ thiết kế: Tạo mạng lưới kết nối các chuyên gia, kỹ sư và doanh nghiệp thiết kế số tại Việt Nam.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-phat-trien-robot-ai": {
+    slug: "trung-tam-phat-trien-robot-ai",
+    title: "Trung tâm phát triển Robot & AI",
+    subtitle:
+      "Tăng tốc chuyển đổi công nghệ bằng trí tuệ nhân tạo và tự động hóa",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
+    introText:
+      "Trung tâm phát triển Robot & AI là đơn vị nghiên cứu, phát triển và triển khai công nghệ trí tuệ nhân tạo (AI) và robot bay (UAV – Drone) trong hệ sinh thái công nghệ của VDCD Group. Trung tâm đóng vai trò chủ đạo trong việc làm chủ công nghệ AI, điều khiển tự động, phân tích hình ảnh và vận hành UAV, phục vụ các lĩnh vực địa chính, xây dựng, giao thông, nông nghiệp, môi trường đô thị, đồng thời phát triển hạ tầng giám sát – điều hành tự động hóa trên không gian số 3D.",
+    sections: [
+      {
+        title: "1. Khối Nghiên cứu và Phát triển AI (AI R&D)",
+        points: [
+          "Mô hình AI xử lý hình ảnh: Phát triển mô hình AI chuyên sâu phục vụ xử lý ảnh UAV, nhận dạng đối tượng, phân tích không gian 2D/3D.",
+          "Thuật toán điều khiển UAV tự hành: Xây dựng Autonomous Flight AI định vị, tối ưu tuyến bay và phân tích dữ liệu giám sát tự động.",
+          "Huấn luyện trên hạ tầng HPC: Sử dụng Siêu máy tính và Data Center của VDCD Group để tối ưu hóa hiệu suất mô hình.",
+        ],
+      },
+      {
+        title: "2. Khối Robot và Tự động hóa (Robotics & Automation)",
+        points: [
+          "Tích hợp hệ thống UAV tự động: Thiết kế drone giám sát, drone đo đạc và kiểm tra công trình chuyên nghiệp.",
+          "Nền tảng quản lý UAV tập trung: Lập kế hoạch, giám sát và điều hành đội bay tự động từ xa.",
+          "Thị giác máy tính & Edge Computing: Tích hợp công nghệ AI trên UAV để nhận dạng và phát hiện vi phạm thực địa.",
+          "Hệ thống bay tự động toàn phần: Vận hành chu trình khép kín: cất cánh – bay khảo sát – hạ cánh – sạc tự động – truyền dữ liệu.",
+        ],
+      },
+      {
+        title: "3. Khối Ứng dụng và Chuyển giao Công nghệ",
+        points: [
+          "Giám sát địa chính và xây dựng: Ứng dụng UAV kết hợp AI tự động phát hiện và cảnh báo hành vi vi phạm hiện trạng.",
+          "Lập mô hình 3D và GIS: Khảo sát số hóa, trắc địa tự động và tích hợp mô hình BIM–GIS cho xây dựng số.",
+          "Nền tảng điều hành đa nhiệm vụ: Multi-UAV Command Platform hỗ trợ IOC lập đội bay tự động và cảnh báo khẩn cấp.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-nghien-cuu-va-phat-trien-san-pham": {
+    slug: "trung-tam-nghien-cuu-va-phat-trien-san-pham",
+    title: "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
+    subtitle: "Nghiên cứu, thiết kế và cải tiến sản phẩm công nghệ tiên phong",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
+    introText:
+      "Trung tâm Nghiên cứu và Phát triển là đơn vị nòng cốt của VDCD Group trong việc nghiên cứu, thiết kế, phát triển, thử nghiệm và hoàn thiện các sản phẩm – giải pháp công nghệ mới phục vụ chiến lược chuyển đổi số và đổi mới sáng tạo quốc gia. Trung tâm đảm nhận vai trò kết nối giữa nghiên cứu khoa học, công nghệ với ứng dụng thực tiễn, tạo ra các sản phẩm “Make in Vietnam” có tính ứng dụng cao, khả năng mở rộng và tích hợp linh hoạt.",
+    sections: [
+      {
+        title: "1. Các hoạt động cốt lõi của Trung tâm R&D",
+        points: [
+          "Nghiên cứu & sáng tạo ý tưởng: Khảo sát nhu cầu thực tiễn, phát triển khái niệm và xây dựng nguyên mẫu sản phẩm.",
+          "Thiết kế & thử nghiệm kỹ thuật: Lựa chọn vật liệu kỹ thuật cao, kiểm định chất lượng và tối ưu hóa hiệu suất.",
+          "Cải tiến & tối ưu hóa sản phẩm: Nâng cấp thiết kế, bổ sung công năng hữu ích cho các sản phẩm hiện có.",
+          "Chuyển giao và thương mại hóa: Kết nối R&D với doanh nghiệp để đưa kết quả nghiên cứu vào thị trường thực tế.",
+        ],
+      },
+      {
+        title: "2. Cơ cấu tổ chức hoạt động",
+        points: [
+          "Khối Nghiên cứu và Thiết kế: Nghiên cứu công nghệ nền tảng GIS, BIM, AI, IoT, Digital Twin và thiết kế hệ thống IOC.",
+          "Khối Phát triển và Kiểm thử: Phát triển phần mềm Web/Mobile 3D WebGL và QA/QC toàn diện qua các hệ thống tự động.",
+          "Khối Ứng dụng và Chuyển giao: Nội địa hóa sản phẩm, đào tạo vận hành và hỗ trợ ươm tạo khởi nghiệp Tech Incubator.",
+        ],
+      },
+      {
+        title: "3. Lợi ích vượt trội",
+        points: [
+          "Nâng cao giá trị sản phẩm: Biến ý tưởng thô sơ thành giải pháp hoàn chỉnh có chất lượng cao.",
+          "Tối ưu hóa quy trình R&D: Rút ngắn thời gian đưa sản phẩm ra thị trường nhờ mô phỏng và kiểm thử chuyên nghiệp.",
+          "Thúc đẩy tự chủ công nghệ: Phát triển các sản phẩm công nghệ 'Make in Vietnam' phục vụ vùng và cả nước.",
+        ],
+      },
+    ],
+  },
 };

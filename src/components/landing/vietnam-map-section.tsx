@@ -1045,8 +1045,8 @@ const MapCore = React.memo(
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          center: [108.4, 15.6],
-          scale: 2550,
+          center: [108.0, 16.0],
+          scale: 2000,
         }}
         style={{ width: "100%", height: "100%" }}
       >
@@ -1293,7 +1293,7 @@ export function VietnamMapSection() {
   return (
     <section
       ref={sectionRef}
-      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
+      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden py-16 md:py-24"
     >
       {/* Inject CSS keyframes for marker animations */}
       <style
@@ -1309,9 +1309,9 @@ export function VietnamMapSection() {
         }}
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         {/* Header */}
-        <div className="mb-12 map-header-reveal">
+        <div className="mb-10 map-header-reveal">
           <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
             Dấu ấn hoạt động trên toàn quốc
           </span>
@@ -1324,107 +1324,110 @@ export function VietnamMapSection() {
           </p>
         </div>
 
-        {/* Layout: Map (65%) | Panel (35%) */}
+        {/* ─── Full-width Map Container with Overlay Statistics Panel ─── */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_380px] gap-8 items-start"
+          className="relative map-container-reveal w-full"
           onMouseMove={handleMouseMove}
         >
-          {/* ─── Map ─── */}
-          <div className="relative map-container-reveal">
-            <div
-              className="relative rounded-2xl border border-whisper-border dark:border-zinc-800 shadow-inner overflow-hidden"
-              style={{
-                background: "linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%)",
-              }}
-            >
-              {/* Legend */}
-              <div className="absolute top-3 left-3 z-10 bg-white/85 dark:bg-zinc-900/85 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm border border-zinc-100 dark:border-zinc-800">
-                <p className="text-[8px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-1.5">
-                  Mật độ dự án
-                </p>
-                <div className="flex items-center gap-1">
-                  {["#fecaca", "#fca5a5", "#f87171", "#ef4444", "#dc2626"].map(
-                    (c, i) => (
-                      <div
-                        key={i}
-                        className="w-4 h-2 rounded-sm first:rounded-l last:rounded-r"
-                        style={{ backgroundColor: c }}
-                      />
-                    ),
-                  )}
-                </div>
-                <div className="flex justify-between text-[7px] text-zinc-400 mt-0.5 font-mono">
-                  <span>Ít</span>
-                  <span>Nhiều</span>
-                </div>
+          <div
+            className="relative rounded-2xl border border-whisper-border dark:border-zinc-800 shadow-inner overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%)",
+            }}
+          >
+            {/* Legend (Top Left) */}
+            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-white/85 dark:bg-zinc-900/85 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm border border-zinc-100 dark:border-zinc-800">
+              <p className="text-[8px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-1.5">
+                Mật độ dự án
+              </p>
+              <div className="flex items-center gap-1">
+                {["#fecaca", "#fca5a5", "#f87171", "#ef4444", "#dc2626"].map(
+                  (c, i) => (
+                    <div
+                      key={i}
+                      className="w-4 h-2 rounded-sm first:rounded-l last:rounded-r"
+                      style={{ backgroundColor: c }}
+                    />
+                  ),
+                )}
               </div>
-
-              {/* ComposableMap — isolated in MapCore */}
-              <div className="aspect-[9/13] sm:aspect-[3/4] md:aspect-[9/13]">
-                <MapCore
-                  hoveredId={hoveredId}
-                  selectedId={selectedProvince?.id || null}
-                  activeIds={activeIds}
-                  liveFlashId={liveFlashId}
-                  maxProjects={maxProjects}
-                  onHoverProvince={onHoverProvince}
-                  onLeaveProvince={onLeaveProvince}
-                  onClickProvince={onClickProvince}
-                />
-              </div>
-
-              {/* Live activity toast — CSS transition replaces AnimatePresence */}
-              {liveProvince && (
-                <div
-                  key={liveProvince.id}
-                  className="absolute bottom-4 left-4 flex items-center gap-2.5 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md rounded-xl px-3.5 py-2.5 shadow-xl border border-accent-red/10"
-                  style={{ animation: "fadeSlideIn 0.25s ease forwards" }}
-                >
-                  <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse shrink-0" />
-                  <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
-                    <span className="text-accent-red font-bold">
-                      {liveProvince.name}
-                    </span>{" "}
-                    — Đang hoạt động
-                  </span>
-                  <FiActivity className="w-3 h-3 text-accent-red" />
-                </div>
-              )}
-
-              {/* Interactive Guide Widget - hidden on mobile */}
-              <div className="hidden sm:block absolute bottom-4 right-4 z-10 max-w-[200px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl p-3 shadow-md border border-zinc-200/50 dark:border-zinc-800/50 text-[10px] text-zinc-500 dark:text-zinc-400 space-y-1.5 transition-colors duration-300">
-                <p className="font-bold text-[9px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono mb-1">
-                  Hướng dẫn bản đồ
-                </p>
-                <div className="flex items-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1 shrink-0" />
-                  <span>Di chuột để xem nhanh thông tin dự án</span>
-                </div>
-                <div className="flex items-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-800 mt-1 shrink-0" />
-                  <span>Nhấp để cố định bảng hiển thị trung tâm</span>
-                </div>
-                <div className="flex items-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1 shrink-0" />
-                  <span>Chấm tròn đỏ thể hiện vị trí các trung tâm</span>
-                </div>
+              <div className="flex justify-between text-[7px] text-zinc-400 mt-0.5 font-mono">
+                <span>Ít</span>
+                <span>Nhiều</span>
               </div>
             </div>
-          </div>
 
-          {/* ─── Right panel ─── */}
-          <div id="map-detail-panel" className="scroll-mt-24">
-            {selectedProvince ? (
-              <ProvinceCard
-                key={`province-${selectedProvince.id}`}
-                province={selectedProvince}
-                onClose={() => setSelectedProvince(null)}
+            {/* ComposableMap Canvas - Generous Height to prevent clipping */}
+            <div className="w-full aspect-[4/5] sm:aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] min-h-[580px] sm:min-h-[640px] md:min-h-[720px] lg:min-h-[780px]">
+              <MapCore
+                hoveredId={hoveredId}
+                selectedId={selectedProvince?.id || null}
+                activeIds={activeIds}
+                liveFlashId={liveFlashId}
+                maxProjects={maxProjects}
+                onHoverProvince={onHoverProvince}
+                onLeaveProvince={onLeaveProvince}
+                onClickProvince={onClickProvince}
               />
-            ) : (
-              <div key="stats">
-                <StatsPanel />
+            </div>
+
+            {/* Live activity toast */}
+            {liveProvince && (
+              <div
+                key={liveProvince.id}
+                className="absolute bottom-4 left-4 flex items-center gap-2.5 bg-white/92 dark:bg-zinc-900/92 backdrop-blur-md rounded-xl px-3.5 py-2.5 shadow-xl border border-accent-red/10 z-10"
+                style={{ animation: "fadeSlideIn 0.25s ease forwards" }}
+              >
+                <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse shrink-0" />
+                <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400">
+                  <span className="text-accent-red font-bold">
+                    {liveProvince.name}
+                  </span>{" "}
+                  — Đang hoạt động
+                </span>
+                <FiActivity className="w-3 h-3 text-accent-red" />
               </div>
             )}
+
+            {/* Interactive Guide Widget (Bottom Left) */}
+            <div className="hidden xl:block absolute bottom-4 left-40 z-10 max-w-[200px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-xl p-3 shadow-md border border-zinc-200/50 dark:border-zinc-800/50 text-[10px] text-zinc-500 dark:text-zinc-400 space-y-1.5 transition-colors duration-300">
+              <p className="font-bold text-[9px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono mb-1">
+                Hướng dẫn bản đồ
+              </p>
+              <div className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1 shrink-0" />
+                <span>Di chuột để xem nhanh thông tin dự án</span>
+              </div>
+              <div className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-800 mt-1 shrink-0" />
+                <span>Nhấp để cố định bảng hiển thị trung tâm</span>
+              </div>
+              <div className="flex items-start gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1 shrink-0" />
+                <span>Chấm tròn đỏ thể hiện vị trí các trung tâm</span>
+              </div>
+            </div>
+
+            {/* ─── Floating Right Overlay Panel (Statistics / Province Card) ─── */}
+            <div
+              id="map-detail-panel"
+              className="mt-4 md:mt-0 md:absolute md:top-4 md:right-4 md:bottom-4 z-20 w-full md:w-[320px] lg:w-[350px] xl:w-[380px] max-h-[580px] md:max-h-none overflow-y-auto custom-scrollbar p-3 md:p-0 pointer-events-auto"
+            >
+              {selectedProvince ? (
+                <ProvinceCard
+                  key={`province-${selectedProvince.id}`}
+                  province={selectedProvince}
+                  onClose={() => setSelectedProvince(null)}
+                />
+              ) : (
+                <div
+                  key="stats"
+                  className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md rounded-2xl border border-whisper-border dark:border-zinc-800 shadow-xl p-4 sm:p-5"
+                >
+                  <StatsPanel />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
