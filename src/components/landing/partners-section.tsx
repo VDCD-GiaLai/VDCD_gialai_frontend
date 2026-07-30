@@ -99,9 +99,9 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
       <Image
         src={logo}
         alt={name}
-        width={120}
-        height={48}
-        className="h-8 md:h-10 w-auto object-contain pointer-events-none select-none"
+        width={200}
+        height={80}
+        className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto max-w-[180px] sm:max-w-[200px] md:max-w-[240px] object-contain pointer-events-none select-none transition-all duration-300"
         loading="lazy"
       />
     </span>
