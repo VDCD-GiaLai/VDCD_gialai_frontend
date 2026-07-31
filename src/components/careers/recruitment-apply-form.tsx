@@ -4,15 +4,18 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { FiSend, FiPaperclip, FiX, FiCheck } from "react-icons/fi";
+import { FiSend, FiPaperclip, FiX, FiCheck, FiArrowLeft } from "react-icons/fi";
+import Link from "next/link";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import {
-  contactFormSchema,
-  type ContactFormInput,
-} from "@/schemas/contact.schema";
-import { ContactService } from "@/services/contact.service";
-import type { CreateContactPayload } from "@/types/contact";
+  recruitmentFormSchema,
+  type RecruitmentFormInput,
+} from "@/schemas/lead.schema";
+import { LeadService } from "@/services/lead.service";
+import type { CreateLeadPayload, JobPosition } from "@/types";
+
+/* ── Animation ───────────────────────────────────────── */
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -24,6 +27,12 @@ const fadeInUp = {
   },
 };
 
+/* ── Types ───────────────────────────────────────────── */
+
+export interface RecruitmentApplyFormProps {
+  job: JobPosition | null;
+}
+
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 const ACCEPTED_FILE_TYPES = [
@@ -34,7 +43,9 @@ const ACCEPTED_FILE_TYPES = [
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-export function ContactForm() {
+/* ── Component ───────────────────────────────────────── */
+
+export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
   const [status, setStatus] = React.useState<FormStatus>("idle");
   const [serverMessage, setServerMessage] = React.useState("");
   const [attachedFile, setAttachedFile] = React.useState<File | null>(null);
@@ -47,13 +58,12 @@ export function ContactForm() {
     handleSubmit,
     reset,
     formState: { isSubmitting },
-  } = useForm<ContactFormInput>({
-    resolver: zodResolver(contactFormSchema),
+  } = useForm<RecruitmentFormInput>({
+    resolver: zodResolver(recruitmentFormSchema),
     defaultValues: {
       fullName: "",
       email: "",
       phone: "",
-      subject: "",
       message: "",
       website: "", // honeypot
     },
@@ -87,18 +97,18 @@ export function ContactForm() {
     }
   };
 
-  const handleFormSubmit = async (data: ContactFormInput) => {
+  const handleFormSubmit = async (data: RecruitmentFormInput) => {
     setStatus("submitting");
     setServerMessage("");
 
     try {
       let attachmentUrl: string | undefined;
 
-      // Upload file first if attached
+      // Upload CV first if attached
       if (attachedFile) {
         setUploadingFile(true);
         try {
-          const uploadResult = await ContactService.uploadFile(attachedFile);
+          const uploadResult = await LeadService.uploadFile(attachedFile);
           attachmentUrl = uploadResult.url;
         } catch {
           setServerMessage("Không thể tải tệp đính kèm. Vui lòng thử lại.");
@@ -109,19 +119,20 @@ export function ContactForm() {
         setUploadingFile(false);
       }
 
-      const payload: CreateContactPayload = {
+      const payload: CreateLeadPayload = {
         fullName: data.fullName,
         email: data.email,
         phone: data.phone || undefined,
-        subject: data.subject || undefined,
+        subject: job?.title,
         message: data.message || undefined,
         attachment: attachmentUrl,
         website: data.website || undefined,
       };
 
-      const result = await ContactService.submitContact(payload);
+      const result = await LeadService.submitLead(payload);
       setServerMessage(
-        result?.message || "Gửi thành công. Chúng tôi sẽ liên hệ sớm nhất!",
+        result?.message ||
+          "Hồ sơ ứng tuyển đã được gửi thành công! Chúng tôi sẽ liên hệ sớm nhất.",
       );
       setStatus("success");
       reset();
@@ -134,9 +145,7 @@ export function ContactForm() {
       } else if (typeof errorData?.message === "string") {
         setServerMessage(errorData.message);
       } else {
-        setServerMessage(
-          "Đã xảy ra lỗi khi gửi tin nhắn. Vui lòng thử lại sau.",
-        );
+        setServerMessage("Đã xảy ra lỗi khi gửi hồ sơ. Vui lòng thử lại sau.");
       }
       setStatus("error");
     }
@@ -144,34 +153,88 @@ export function ContactForm() {
 
   const isLoading = status === "submitting" || isSubmitting;
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(handleFormSubmit)(e);
+  };
+
   return (
     <section
-      id="contact-form"
+      id="recruitment-apply"
       className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/20"
-      aria-labelledby="contact-form-heading"
+      aria-labelledby="recruitment-apply-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+        {/* Back navigation */}
+        <motion.div
+          className="mb-8"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+        >
+          <Link
+            href="/careers#positions"
+            className="inline-flex items-center gap-2 font-mono-label text-xs font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
+          >
+            <FiArrowLeft className="w-3.5 h-3.5" />
+            Quay lại danh sách tuyển dụng
+          </Link>
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left column — heading */}
+          {/* Left column — heading & job info */}
           <motion.div
             className="lg:col-span-4"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            animate="visible"
             variants={fadeInUp}
           >
             <span className="font-mono-label text-[10px] font-bold text-accent-red uppercase tracking-widest block mb-3">
-              Gửi tin nhắn
+              Nộp hồ sơ ứng tuyển
             </span>
-            <h2
-              id="contact-form-heading"
+            <h1
+              id="recruitment-apply-heading"
               className="text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white font-heading mb-4"
             >
-              Liên hệ hợp tác
-            </h2>
+              {job?.title || "Ứng tuyển"}
+            </h1>
+
+            {job && (
+              <div className="space-y-3 mb-6">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-secondary dark:text-zinc-400">
+                  <span className="font-mono-label text-xs font-bold uppercase tracking-wider text-accent-red">
+                    {job.department}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                  <span>{job.location}</span>
+                  <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                  <span>{job.employmentType}</span>
+                </div>
+                {job.salary && (
+                  <p className="text-sm text-secondary dark:text-zinc-400">
+                    Mức lương: {job.salary}
+                  </p>
+                )}
+                <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
+                  {job.description}
+                </p>
+                {job.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {job.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-[11px] font-mono-label font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
-              Điền thông tin bên dưới và chúng tôi sẽ phản hồi trong thời gian
-              sớm nhất. Các trường có dấu (*) là bắt buộc.
+              Điền thông tin bên dưới và đính kèm hồ sơ CV của bạn. Các trường
+              có dấu (*) là bắt buộc.
             </p>
           </motion.div>
 
@@ -179,8 +242,7 @@ export function ContactForm() {
           <motion.div
             className="lg:col-span-8"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            animate="visible"
             variants={fadeInUp}
           >
             <div className="double-bezel-outer">
@@ -252,44 +314,38 @@ export function ContactForm() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <FormField
-                      name="phone"
-                      control={control}
-                      label="Số điện thoại"
-                      placeholder="0912 345 678"
-                      isDisabled={isLoading}
-                    />
-                    <FormField
-                      name="subject"
-                      control={control}
-                      label="Chủ đề"
-                      placeholder="Tư vấn giải pháp chuyển đổi số"
-                      isDisabled={isLoading}
-                    />
-                  </div>
+                  <FormField
+                    name="phone"
+                    control={control}
+                    label="Số điện thoại"
+                    placeholder="0912 345 678"
+                    isDisabled={isLoading}
+                  />
 
                   <FormField
                     name="message"
                     control={control}
-                    label="Nội dung tin nhắn"
-                    placeholder="Mô tả chi tiết nhu cầu của bạn..."
+                    label="Thư giới thiệu"
+                    placeholder="Giới thiệu ngắn gọn về bản thân và lý do bạn muốn ứng tuyển vị trí này..."
                     type="textarea"
                     minRows={4}
                     isDisabled={isLoading}
                   />
 
-                  {/* File attachment */}
+                  {/* CV file attachment */}
                   <div>
+                    <p className="font-mono-label text-[10px] font-bold text-secondary dark:text-zinc-500 uppercase tracking-widest mb-2">
+                      Hồ sơ / CV
+                    </p>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept=".pdf,.doc,.docx"
                       onChange={handleFileChange}
                       className="hidden"
-                      id="contact-attachment"
+                      id="recruitment-cv-attachment"
                       disabled={isLoading}
-                      aria-label="Đính kèm tệp"
+                      aria-label="Đính kèm hồ sơ CV"
                     />
 
                     {attachedFile ? (
@@ -317,10 +373,10 @@ export function ContactForm() {
                         onClick={() => fileInputRef.current?.click()}
                         className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
                         disabled={isLoading}
-                        aria-label="Đính kèm tệp PDF, DOC hoặc DOCX"
+                        aria-label="Đính kèm hồ sơ PDF, DOC hoặc DOCX"
                       >
                         <FiPaperclip className="w-3.5 h-3.5" />
-                        Đính kèm tệp (PDF, DOC, DOCX — tối đa 10MB)
+                        Đính kèm CV (PDF, DOC, DOCX — tối đa 10MB)
                       </button>
                     )}
                   </div>
@@ -332,7 +388,7 @@ export function ContactForm() {
                       isLoading={isLoading}
                       isDisabled={isLoading}
                       className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white disabled:opacity-50"
-                      aria-label="Gửi tin nhắn liên hệ"
+                      aria-label="Gửi hồ sơ ứng tuyển"
                     >
                       {uploadingFile ? (
                         "Đang tải tệp..."
@@ -340,7 +396,7 @@ export function ContactForm() {
                         "Đang gửi..."
                       ) : (
                         <>
-                          Gửi tin nhắn
+                          Gửi hồ sơ
                           <FiSend className="w-3.5 h-3.5 ml-2" />
                         </>
                       )}
