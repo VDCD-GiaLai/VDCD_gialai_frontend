@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import { FiSun, FiMoon, FiMenu, FiX, FiFileText } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
+import { useMegaMenu } from "@/components/layout/mega-menu";
 
 const emptySubscribe = () => () => {};
 
@@ -88,6 +89,16 @@ export function Header() {
 
   const showSolidHeader = !isHome || isScrolled || isMobileMenuOpen;
 
+  const handleMobileNavigate = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  const megaMenu = useMegaMenu({
+    showSolidHeader,
+    pathname,
+    onMobileNavigate: handleMobileNavigate,
+  });
+
   const logoSrc = React.useMemo(() => {
     if (!mounted) {
       return isHome ? "/VDCD_gialai_white.png" : "/VDCD_gialai_black.png";
@@ -141,22 +152,7 @@ export function Header() {
           >
             Về chúng tôi
           </Link>
-          <Link
-            href="/programs"
-            className="hover:text-accent-red transition-colors"
-          >
-            Chương trình
-          </Link>
-          <Link
-            href="/solution"
-            className={`hover:text-accent-red transition-colors ${
-              pathname === "/solution" || pathname.startsWith("/solution/")
-                ? "text-accent-red font-semibold"
-                : ""
-            }`}
-          >
-            Giải pháp
-          </Link>
+          {megaMenu.desktop}
           <Link
             href="/projects"
             className="hover:text-accent-red transition-colors"
@@ -217,10 +213,11 @@ export function Header() {
 
           <Button
             as={Link}
-            href="/contact"
+            href="/#capacity-profile"
+            startContent={<FiFileText className="w-4 h-4" />}
             className="hidden sm:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-sm"
           >
-            Hợp tác ngay
+            Hồ sơ năng lực
           </Button>
 
           {/* Hamburger Menu Toggle for Mobile */}
@@ -258,20 +255,7 @@ export function Header() {
         >
           Về chúng tôi
         </Link>
-        <Link
-          href="/programs"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-        >
-          Chương trình
-        </Link>
-        <Link
-          href="/solution"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-        >
-          Giải pháp
-        </Link>
+        {megaMenu.mobile}
         <Link
           href="/projects"
           onClick={() => setIsMobileMenuOpen(false)}
