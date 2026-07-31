@@ -23,6 +23,20 @@ export function Header() {
   );
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  /** Pages with a full-viewport hero banner that need a transparent header */
+  const HERO_BANNER_PATHS = new Set([
+    "/",
+    "/about-us",
+    "/programs",
+    "/solution",
+    "/projects",
+    "/news",
+    "/contact",
+    "/careers",
+  ]);
+  const hasHeroBanner = HERO_BANNER_PATHS.has(pathname);
+
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [prevPathname, setPrevPathname] = React.useState(pathname);
@@ -87,7 +101,7 @@ export function Header() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const showSolidHeader = !isHome || isScrolled || isMobileMenuOpen;
+  const showSolidHeader = !hasHeroBanner || isScrolled || isMobileMenuOpen;
 
   const handleMobileNavigate = useCallback(() => {
     setIsMobileMenuOpen(false);
@@ -101,18 +115,20 @@ export function Header() {
 
   const logoSrc = React.useMemo(() => {
     if (!mounted) {
-      return isHome ? "/VDCD_gialai_white.png" : "/VDCD_gialai_black.png";
+      return hasHeroBanner
+        ? "/VDCD_gialai_white.png"
+        : "/VDCD_gialai_black.png";
     }
 
     if (!showSolidHeader) {
-      // Dark background at the top of homepage -> use white logo
+      // Dark background at the top of hero banner pages -> use white logo
       return "/VDCD_gialai_white.png";
     }
 
     return resolvedTheme === "dark"
       ? "/VDCD_gialai_white.png"
       : "/VDCD_gialai_black.png";
-  }, [mounted, isHome, showSolidHeader, resolvedTheme]);
+  }, [mounted, hasHeroBanner, showSolidHeader, resolvedTheme]);
 
   return (
     <header

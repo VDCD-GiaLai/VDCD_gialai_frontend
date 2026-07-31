@@ -2,18 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  FiArrowRight,
-  FiArrowUpRight,
-  FiMail,
-  FiDatabase,
-  FiMapPin,
-  FiCpu,
-  FiTrendingUp,
-} from "react-icons/fi";
+import { FiArrowUpRight, FiMail } from "react-icons/fi";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { PageHeroBanner } from "@/components/ui/page-hero-banner";
 
 export default function AboutPage() {
   const fadeInUp = {
@@ -24,11 +16,6 @@ export default function AboutPage() {
       filter: "blur(0px)",
       transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
     },
-  };
-
-  const staggerContainer = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.08 } },
   };
 
   const stats = [
@@ -76,62 +63,11 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 pt-28 pb-20">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8">
-        {/* Navigation Breadcrumb */}
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
-          >
-            Trở lại Trang chủ
-          </Link>
-        </motion.div>
+    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
+      {/* Hero Banner — backend-ready */}
+      <PageHeroBanner pageKey="about" ariaLabel="Về chúng tôi" />
 
-        {/* Hero Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-20 border-b border-zinc-100 dark:border-zinc-900 pb-16">
-          <motion.div
-            className="lg:col-span-7"
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-          >
-            <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
-              Về chúng tôi
-            </span>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black dark:text-white mb-6 leading-none font-heading uppercase">
-              KIẾN TẠO TƯƠNG LAI SỐ
-            </h1>
-            <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed max-w-2xl">
-              VDCD Group là hệ sinh thái công nghệ hàng đầu tại Việt Nam, tiên
-              phong cung cấp các giải pháp đổi mới sáng tạo, chuyển đổi số toàn
-              diện và chế tạo thiết bị công nghệ cao phục vụ phát triển kinh tế
-              vùng bền vững.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="lg:col-span-5 relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-whisper-border dark:border-zinc-800 shadow-lg"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Image
-              src="/vdcd_about_hero.png"
-              alt="Hệ sinh thái công nghệ VDCD"
-              fill
-              sizes="(max-width: 768px) 100vw, 40vw"
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        </section>
-
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-16 pb-20">
         {/* Brand Story Section */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-24 items-start">
           <motion.div

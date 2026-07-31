@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { NewsHero } from "./news-hero";
+import { PageHeroBanner } from "@/components/ui/page-hero-banner";
 import { NewsFeatured } from "./news-featured";
 import { NewsGrid } from "./news-grid";
 import { NewsCta } from "./news-cta";
@@ -30,7 +30,7 @@ export const NewsPageContent = () => {
 
   return (
     <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      <NewsHero />
+      <PageHeroBanner pageKey="news" />
       {featuredArticle && <NewsFeatured article={featuredArticle} />}
       <NewsGrid />
       <NewsCta />
