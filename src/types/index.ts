@@ -104,8 +104,9 @@ export interface FaqItem {
   answer: string;
 }
 
-/* ── Contact / Lead ────────────────────────────────────── */
+/* ── Lead (recruitment domain) ────────────────────────── */
 
+/** Payload for submitting a recruitment/job application */
 export interface CreateLeadPayload {
   fullName: string;
   email: string;

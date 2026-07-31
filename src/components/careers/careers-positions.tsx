@@ -9,8 +9,8 @@ import {
   FiClock,
   FiDollarSign,
   FiCalendar,
-  FiArrowUpRight,
 } from "react-icons/fi";
+import Link from "next/link";
 import { EmptyState } from "@/components/ui/empty-state";
 import {
   OPEN_POSITIONS,
@@ -125,21 +125,13 @@ const JobCard = ({ job }: { job: JobPosition }) => (
 
     {/* Actions */}
     <div className="flex items-center gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800/60">
-      <button
-        type="button"
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-lg cursor-pointer"
+      <Link
+        href={`/careers/apply?position=${job.id}`}
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-lg"
         aria-label={`Ứng tuyển vị trí ${job.title}`}
       >
         Ứng tuyển ngay
-      </button>
-      <button
-        type="button"
-        className="inline-flex items-center gap-1.5 px-4 py-2.5 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-lg cursor-pointer"
-        aria-label={`Xem chi tiết vị trí ${job.title}`}
-      >
-        Xem chi tiết
-        <FiArrowUpRight className="w-3.5 h-3.5" />
-      </button>
+      </Link>
     </div>
   </motion.article>
 );

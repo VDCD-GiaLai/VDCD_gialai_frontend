@@ -26,58 +26,17 @@ export const useProjectsGsap = (
       ctxRef.current = gsap.context(() => {
         const mm = gsap.matchMedia();
 
-        /* ─────────────────────── Reduced motion ─────────────────────── */
+        /* ----------------------- Reduced motion ----------------------- */
         mm.add("(prefers-reduced-motion: reduce)", () => {
           gsap.set(
-            root.querySelectorAll(
-              ".gsap-reveal, .gsap-hero-headline, .gsap-hero-sub, .gsap-hero-scroll, .workflow-panel, .prj-card",
-            ),
+            root.querySelectorAll(".gsap-reveal, .workflow-panel, .prj-card"),
             { opacity: 1, y: 0, clipPath: "none", visibility: "visible" },
           );
         });
 
-        /* ─────────────────────── Full motion ────────────────────────── */
+        /* ----------------------- Full motion ------------------------- */
         mm.add("(prefers-reduced-motion: no-preference)", () => {
-          /* ── HERO ──────────────────────────────────────────────────── */
-          const heroTl = gsap.timeline({
-            defaults: { ease: "power3.out", duration: 1 },
-          });
-
-          heroTl
-            .fromTo(
-              root.querySelector(".gsap-hero-headline"),
-              { y: 60, opacity: 0 },
-              { y: 0, opacity: 1, duration: 1.2 },
-            )
-            .fromTo(
-              root.querySelector(".gsap-hero-sub"),
-              { y: 30, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.9 },
-              "<0.25",
-            )
-            .fromTo(
-              root.querySelector(".gsap-hero-scroll"),
-              { opacity: 0 },
-              { opacity: 1, duration: 0.6 },
-              "<0.3",
-            );
-
-          /* Hero image parallax */
-          const heroImg = root.querySelector(".gsap-hero-img");
-          if (heroImg) {
-            gsap.to(heroImg, {
-              yPercent: 15,
-              ease: "none",
-              scrollTrigger: {
-                trigger: root.querySelector(".projects-hero"),
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-              },
-            });
-          }
-
-          /* ── WORKFLOW — Desktop: pinned horizontal scroll ──────────── */
+          /* -- WORKFLOW - Desktop: pinned horizontal scroll ----------- */
           const workflowPinContainer = root.querySelector(
             ".workflow-pin-container",
           );
@@ -163,7 +122,7 @@ export const useProjectsGsap = (
             }
           }
 
-          /* ── WORKFLOW — Mobile: stacked vertical reveals ────────── */
+          /* -- WORKFLOW - Mobile: stacked vertical reveals ------------ */
           const mobilePanels = root.querySelectorAll(
             ".workflow-track--mobile .workflow-panel",
           );
@@ -187,7 +146,7 @@ export const useProjectsGsap = (
             });
           }
 
-          /* ── TRANSITION ────────────────────────────────────────── */
+          /* -- TRANSITION ------------------------------------------- */
           const transitionEl = root.querySelector(".projects-transition");
           if (transitionEl) {
             gsap.fromTo(
@@ -208,7 +167,7 @@ export const useProjectsGsap = (
             );
           }
 
-          /* ── GALLERY HEADER ────────────────────────────────────── */
+          /* -- GALLERY HEADER ---------------------------------------- */
           const galleryHeader = root.querySelector(".gallery-header");
           if (galleryHeader) {
             gsap.fromTo(
@@ -229,7 +188,7 @@ export const useProjectsGsap = (
             );
           }
 
-          /* ── GALLERY CARDS — clip-path reveal ──────────────────── */
+          /* -- GALLERY CARDS - clip-path reveal ---------------------- */
           const cards = root.querySelectorAll(".prj-card");
           cards.forEach((card) => {
             const imgWrap = card.querySelector(".prj-card__image-wrapper");
@@ -271,7 +230,7 @@ export const useProjectsGsap = (
             }
           });
 
-          /* ── GALLERY INTERLUDE ─────────────────────────────────── */
+          /* -- GALLERY INTERLUDE -------------------------------------- */
           const interludes = root.querySelectorAll(".gallery-interlude");
           interludes.forEach((el) => {
             gsap.fromTo(

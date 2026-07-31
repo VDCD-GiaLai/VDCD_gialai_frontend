@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRef } from "react";
 import { useProjectsGsap } from "@/hooks/use-projects-gsap";
-import { ProjectsHero } from "./projects-hero";
+import { PageHeroBanner } from "@/components/ui/page-hero-banner";
 import { ProjectsWorkflow } from "./projects-workflow";
 import { ProjectsGallery } from "./projects-gallery";
 import "./projects.css";
@@ -23,13 +23,13 @@ export const ProjectsPageContent = () => {
       ref={containerRef}
       className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300"
     >
-      {/* 1 — Hero */}
-      <ProjectsHero />
+      {/* 1 -- Hero */}
+      <PageHeroBanner pageKey="projects" showScrollCue />
 
-      {/* 2 — Workflow */}
+      {/* 2 -- Workflow */}
       <ProjectsWorkflow />
 
-      {/* 3 — Transition */}
+      {/* 3 -- Transition */}
       <div className="projects-transition">
         <span className="gsap-reveal block font-heading text-[11px] font-bold tracking-[0.25em] uppercase text-accent-red mb-4">
           Dự án
@@ -45,7 +45,7 @@ export const ProjectsPageContent = () => {
         </p>
       </div>
 
-      {/* 4 — Gallery */}
+      {/* 4 -- Gallery */}
       <ProjectsGallery />
     </div>
   );
