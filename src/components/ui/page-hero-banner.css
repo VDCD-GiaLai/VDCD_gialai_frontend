@@ -1,0 +1,160 @@
+/* ────────────────────────────────────────────────────────
+   Page Hero Banner — Shared Styles
+   Full-viewport image hero, matching the Projects page
+   visual language with gradient overlay and white text.
+   ──────────────────────────────────────────────────────── */
+
+.page-hero-banner {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+/* ── Background image layer ─────────────────────────── */
+
+.page-hero-banner__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.page-hero-banner__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Content layer ──────────────────────────────────── */
+
+.page-hero-banner__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--spacing-margin-mobile, 1rem) 4rem;
+  max-width: var(--spacing-container-max, 1600px);
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .page-hero-banner__content {
+    padding: 0 var(--spacing-margin-desktop, 2rem) 5rem;
+  }
+}
+
+/* ── Tag (small label above title) ──────────────────── */
+
+.page-hero-banner__tag {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent-red, #e80002);
+  margin-bottom: 1rem;
+}
+
+/* ── Headline ───────────────────────────────────────── */
+
+.page-hero-banner__headline {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+/* ── Subtitle ───────────────────────────────────────── */
+
+.page-hero-banner__subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  line-height: 1.7;
+  max-width: 540px;
+  margin-top: 1.5rem;
+}
+
+/* ── CTA group ──────────────────────────────────────── */
+
+.page-hero-banner__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.page-hero-banner__cta--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.page-hero-banner__cta--primary:hover {
+  background-color: var(--color-accent-red, #e80002);
+  color: #ffffff;
+}
+
+.page-hero-banner__cta--secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.page-hero-banner__cta--secondary:hover {
+  border-color: var(--color-accent-red, #e80002);
+  color: var(--color-accent-red, #e80002);
+}
+
+/* ── Scroll cue ─────────────────────────────────────── */
+
+.page-hero-banner__scroll-cue {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page-hero-banner__scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0)
+  );
+}

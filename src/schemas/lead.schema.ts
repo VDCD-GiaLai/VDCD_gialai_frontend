@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-/* ── Contact form schema ─────────────────────────────── */
+/* ── Recruitment form schema ─────────────────────────── */
 
-export const contactFormSchema = z.object({
+export const recruitmentFormSchema = z.object({
   fullName: z
     .string()
     .min(1, "Vui lòng nhập họ và tên")
@@ -13,9 +13,8 @@ export const contactFormSchema = z.object({
     .max(20, "Số điện thoại không quá 20 ký tự")
     .optional()
     .or(z.literal("")),
-  subject: z.string().optional().or(z.literal("")),
   message: z.string().optional().or(z.literal("")),
   website: z.string().optional().or(z.literal("")), // honeypot — hidden
 });
 
-export type ContactFormInput = z.infer<typeof contactFormSchema>;
+export type RecruitmentFormInput = z.infer<typeof recruitmentFormSchema>;
