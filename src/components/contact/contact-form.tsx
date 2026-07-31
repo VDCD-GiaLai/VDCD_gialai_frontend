@@ -144,6 +144,10 @@ export function ContactForm() {
 
   const isLoading = status === "submitting" || isSubmitting;
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(handleFormSubmit)(e);
+  };
+
   return (
     <section
       id="contact-form"
