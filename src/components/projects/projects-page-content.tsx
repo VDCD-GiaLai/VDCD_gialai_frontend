@@ -26,10 +26,11 @@ export const ProjectsPageContent = () => {
       {/* 1 -- Hero */}
       <PageHeroBanner pageKey="projects" showScrollCue />
 
-      {/* 2 -- Workflow */}
-      <ProjectsWorkflow />
+      {/* 2 -- Workflow (Hidden per user request) */}
+      {/* <ProjectsWorkflow /> */}
 
-      {/* 3 -- Transition */}
+      {/* 3 -- Transition (Hidden per user request) */}
+      {/* 
       <div className="projects-transition">
         <span className="gsap-reveal block font-heading text-[11px] font-bold tracking-[0.25em] uppercase text-accent-red mb-4">
           Dự án
@@ -43,7 +44,8 @@ export const ProjectsPageContent = () => {
           Hơn 50 công trình trọng điểm trên khắp Việt Nam — từ hạ tầng giao
           thông, khu kinh tế đến bảo tồn di sản văn hóa.
         </p>
-      </div>
+      </div> 
+      */}
 
       {/* 4 -- Gallery */}
       <ProjectsGallery />

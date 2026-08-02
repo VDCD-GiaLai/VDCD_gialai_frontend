@@ -7,13 +7,17 @@ import type { ProjectEntry } from "@/data/projects.data";
 /**
  * Reality → Digital transformation visual comparison.
  * Two overlapping images with a ScrollTrigger clip-path reveal.
- * As the user scrolls, the "after" image reveals over the "before" image.
+ * Conditional render: only shows when both before and after images exist.
  */
 export const ProjectDetailTransformation = ({
   project,
 }: {
   project: ProjectEntry;
 }) => {
+  if (!project.transformationBefore || !project.transformationAfter) {
+    return null;
+  }
+
   return (
     <section className="pd-transform" aria-label="Chuyển đổi số">
       <div className="pd-transform__header">
@@ -33,7 +37,7 @@ export const ProjectDetailTransformation = ({
         {/* Before (real image) — full size, below */}
         <div className="pd-transform__before">
           <Image
-            src={project.detail.transformationBefore}
+            src={project.transformationBefore}
             alt="Hình ảnh thực tế"
             fill
             sizes="100vw"
@@ -47,7 +51,7 @@ export const ProjectDetailTransformation = ({
         {/* After (digital model) — clip-path revealed on scroll */}
         <div className="pd-transform__after">
           <Image
-            src={project.detail.transformationAfter}
+            src={project.transformationAfter}
             alt="Mô hình số hóa"
             fill
             sizes="100vw"

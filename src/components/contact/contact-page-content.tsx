@@ -6,11 +6,17 @@ import { ContactInfo } from "./contact-info";
 import { ContactForm } from "./contact-form";
 import { ContactMap } from "./contact-map";
 
-export function ContactPageContent() {
+import { OrganizationInfo } from "@/services/hero.service";
+
+export function ContactPageContent({
+  orgInfo,
+}: {
+  orgInfo?: OrganizationInfo | null;
+}) {
   return (
     <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
       <PageHeroBanner pageKey="contact" />
-      <ContactInfo />
+      <ContactInfo orgInfo={orgInfo} />
       <ContactForm />
       <ContactMap />
     </div>

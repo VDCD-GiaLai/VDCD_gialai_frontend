@@ -7,13 +7,17 @@ import type { ProjectEntry } from "@/data/projects.data";
 /**
  * Challenge section — explains the real project problem.
  * Large editorial typography + supporting photograph.
- * No marketing language. Documentary tone.
+ * Uses challengeImage from API when available, falls back to coverImage.
  */
 export const ProjectDetailChallenge = ({
   project,
 }: {
   project: ProjectEntry;
 }) => {
+  if (!project.challenge) return null;
+
+  const challengeImg = project.challengeImage || project.coverImage;
+
   return (
     <section className="pd-challenge" aria-label="Thách thức dự án">
       <div className="pd-challenge__container">
@@ -27,14 +31,14 @@ export const ProjectDetailChallenge = ({
         </div>
 
         <div className="pd-challenge__body">
-          <p className="pd-challenge__text">{project.detail.challenge}</p>
+          <p className="pd-challenge__text">{project.challenge}</p>
         </div>
       </div>
 
       {/* Supporting image */}
       <div className="pd-challenge__image">
         <Image
-          src={project.coverImage}
+          src={challengeImg}
           alt={`${project.title} — Thách thức dự án`}
           fill
           sizes="100vw"

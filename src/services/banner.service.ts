@@ -88,7 +88,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
       },
       {
         label: "Gọi ngay",
-        href: "tel:02693000000",
+        href: "tel:0373600099",
         variant: "secondary",
         ariaLabel: "Gọi hotline VDCD",
       },

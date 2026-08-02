@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/contact/contact-page-content";
+import { fetchOrganizationInfoFromApi } from "@/services/hero.service";
 
 export const metadata: Metadata = {
   title: "Liên hệ | VDCD Gia Lai — Kết nối hợp tác",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function ContactPage() {
-  return <ContactPageContent />;
+export default async function ContactPage() {
+  const orgInfo = await fetchOrganizationInfoFromApi();
+  return <ContactPageContent orgInfo={orgInfo} />;
 }
