@@ -3,6 +3,8 @@ import {
   getProjectById as getLocalProjectById,
   type ProjectEntry,
   type ProjectGalleryImage,
+  type RelatedArticle,
+  type RelatedProject,
 } from "@/data/projects.data";
 
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
@@ -32,18 +34,42 @@ export interface BackendProject {
     url: string;
     caption?: string;
     order: number;
+    size?: string;
+  }>;
+  // Detail fields from API
+  challenge?: string;
+  challengeImage?: string;
+  services?: string[];
+  discipline?: string;
+  transformationBefore?: string;
+  transformationAfter?: string;
+  technicalHighlights?: { label: string; value: string }[];
+  nextProjectSlug?: string;
+  // Related data from API (findOneBySlug response)
+  relatedArticles?: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    publishedAt: string;
+  }>;
+  relatedProjects?: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    thumbnail: string;
+    year?: number;
+    field?: { id: string; name: string; slug: string };
   }>;
 }
 
-export function mapBackendProjectToEntry(
-  bp: BackendProject,
-  allProjects: BackendProject[] = [],
-): ProjectEntry {
+export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
+  // Map gallery images from API images[]
   const galleryImages: ProjectGalleryImage[] = (bp.images || []).map(
     (img, i) => ({
       src: img.url,
       caption: img.caption || `${bp.title} - Hình ${i + 1}`,
-      size: i % 3 === 0 ? "large" : "small",
+      size: (img.size === "large" ? "large" : "small") as "large" | "small",
     }),
   );
 
@@ -55,16 +81,28 @@ export function mapBackendProjectToEntry(
     });
   }
 
-  // Find next project slug for navigation
-  let nextProjectId: string | null = null;
-  if (allProjects.length > 0) {
-    const currIdx = allProjects.findIndex((p) => p.slug === bp.slug);
-    if (currIdx >= 0 && currIdx < allProjects.length - 1) {
-      nextProjectId = allProjects[currIdx + 1].slug;
-    } else if (allProjects.length > 1) {
-      nextProjectId = allProjects[0].slug;
-    }
-  }
+  // Map related articles
+  const relatedArticles: RelatedArticle[] = (bp.relatedArticles || []).map(
+    (a) => ({
+      id: a.id,
+      title: a.title,
+      slug: a.slug,
+      thumbnail: a.thumbnail || "",
+      publishedAt: a.publishedAt,
+    }),
+  );
+
+  // Map related projects
+  const relatedProjects: RelatedProject[] = (bp.relatedProjects || []).map(
+    (p) => ({
+      id: p.id,
+      title: p.title,
+      slug: p.slug,
+      thumbnail: p.thumbnail || "",
+      year: p.year,
+      field: p.field,
+    }),
+  );
 
   return {
     id: bp.slug,
@@ -76,45 +114,21 @@ export function mapBackendProjectToEntry(
     coverImage:
       bp.thumbnail || galleryImages[0]?.src || "/images/placeholder.jpg",
     layout: "landscape-full",
-    detail: {
-      challenge: bp.overview || bp.metaDescription || bp.title,
-      services: [
-        bp.field?.name || "Chuyển đổi số công trình",
-        "Khảo sát địa hình 2D & 3D",
-        "Giám sát tiến độ AutoTimelapse",
-      ],
-      discipline: bp.field?.name || "Khảo sát & Giám sát số",
-      journeyStages: [
-        {
-          number: "01",
-          title: "Khảo sát",
-          titleEn: "Capture",
-          description:
-            "Thu thập dữ liệu hiện trường bằng thiết bị drone & công nghệ đo đạc chuyên dụng.",
-          detail: "Dữ liệu đo đạc chính xác cao",
-          image: bp.thumbnail || galleryImages[0]?.src || "",
-        },
-        {
-          number: "02",
-          title: "Mô hình hóa",
-          titleEn: "Model",
-          description: "Xử lý dữ liệu và dựng bản đồ 2D/3D số hóa công trình.",
-          detail: "Số hóa dữ liệu công trình",
-          image: galleryImages[1]?.src || bp.thumbnail || "",
-        },
-      ],
-      galleryImages,
-      technicalHighlights: [
-        { label: "Dự án", value: bp.title },
-        { label: "Địa điểm", value: bp.province?.name || "Việt Nam" },
-        { label: "Lĩnh vực", value: bp.field?.name || "Kỹ thuật công trình" },
-        { label: "Năm thực hiện", value: String(bp.year || 2024) },
-      ],
-      transformationBefore: galleryImages[0]?.src || bp.thumbnail || "",
-      transformationAfter:
-        galleryImages[1]?.src || galleryImages[0]?.src || bp.thumbnail || "",
-      nextProjectId,
-    },
+    overview: bp.overview || undefined,
+    challenge: bp.challenge || undefined,
+    challengeImage: bp.challengeImage || undefined,
+    services: bp.services && bp.services.length > 0 ? bp.services : undefined,
+    discipline: bp.discipline || bp.field?.name || undefined,
+    galleryImages,
+    technicalHighlights:
+      bp.technicalHighlights && bp.technicalHighlights.length > 0
+        ? bp.technicalHighlights
+        : undefined,
+    transformationBefore: bp.transformationBefore || undefined,
+    transformationAfter: bp.transformationAfter || undefined,
+    nextProjectSlug: bp.nextProjectSlug || null,
+    relatedArticles: relatedArticles.length > 0 ? relatedArticles : undefined,
+    relatedProjects: relatedProjects.length > 0 ? relatedProjects : undefined,
   };
 }
 
@@ -132,7 +146,7 @@ export async function fetchProjectsFromApi(
     const body = await res.json();
     const items: BackendProject[] = body.data?.data || body.data || body;
     if (Array.isArray(items) && items.length > 0) {
-      return items.map((p) => mapBackendProjectToEntry(p, items));
+      return items.map((p) => mapBackendProjectToEntry(p));
     }
   } catch (err) {
     console.warn("API fetch failed, fallback to local dataset:", err);

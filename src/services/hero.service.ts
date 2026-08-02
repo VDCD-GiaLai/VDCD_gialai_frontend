@@ -27,6 +27,7 @@ export interface OrganizationInfo {
   description: string;
   mission: string;
   vision: string;
+  address?: string;
   stats: OrganizationStats;
   socialLinks: Record<string, string>;
 }

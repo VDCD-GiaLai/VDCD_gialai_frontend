@@ -158,7 +158,7 @@ export function PartnersSection() {
         }}
       />
 
-      <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-16 md:py-24 lg:py-32">
+      <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16">
         {/* ── Header ─────────────────────────────────── */}
         <div className="partners-reveal max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           {/* Subtitle */}

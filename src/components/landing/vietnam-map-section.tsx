@@ -1293,7 +1293,7 @@ export function VietnamMapSection() {
   return (
     <section
       ref={sectionRef}
-      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden py-16 md:py-24"
+      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden py-12 md:py-16"
     >
       {/* Inject CSS keyframes for marker animations */}
       <style

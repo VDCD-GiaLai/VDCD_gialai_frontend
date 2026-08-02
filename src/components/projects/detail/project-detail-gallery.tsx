@@ -6,15 +6,17 @@ import type { ProjectEntry } from "@/data/projects.data";
 
 /**
  * Asymmetric editorial gallery.
+ * Uses flat galleryImages field from ProjectEntry.
  * Mix of large and small images with varied aspect ratios.
- * Whitespace between images. ScrollTrigger clip-path reveals.
  */
 export const ProjectDetailGallery = ({
   project,
 }: {
   project: ProjectEntry;
 }) => {
-  const images = project.detail.galleryImages;
+  const images = project.galleryImages;
+
+  if (!images || images.length === 0) return null;
 
   return (
     <section className="pd-gallery" aria-label="Hình ảnh dự án">
