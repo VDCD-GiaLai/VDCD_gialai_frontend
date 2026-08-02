@@ -4,51 +4,58 @@ import * as React from "react";
 import type { ProjectEntry } from "@/data/projects.data";
 
 /**
- * Project information section — architectural/documentary style.
- * Two-column layout: description left, structured metadata right.
- * No cards. Pure typography + whitespace.
+ * Project overview section — shows overview HTML, services, and metadata.
+ * Redesigned to display rich content from the API.
  */
 export const ProjectDetailInfo = ({ project }: { project: ProjectEntry }) => {
+  const metaRows = [
+    { label: "Tên dự án", value: project.title },
+    { label: "Địa điểm", value: project.location },
+    { label: "Năm thực hiện", value: project.year },
+    { label: "Lĩnh vực", value: project.category },
+    ...(project.discipline
+      ? [{ label: "Chuyên ngành", value: project.discipline }]
+      : []),
+  ];
+
   return (
-    <section className="pd-info" aria-label="Thông tin dự án">
-      <div className="pd-info__container">
-        {/* Left column — description */}
-        <div className="pd-info__description">
-          <span className="pd-info__label">Tổng quan</span>
-          <p className="pd-info__text">{project.description}</p>
-        </div>
-
-        {/* Right column — structured metadata */}
-        <div className="pd-info__metadata">
-          <div className="pd-info__meta-group">
-            <span className="pd-info__meta-label">Dịch vụ</span>
-            <ul className="pd-info__meta-list">
-              {project.detail.services.map((service, i) => (
-                <li key={i} className="pd-info__meta-list-item">
-                  {service}
-                </li>
-              ))}
-            </ul>
+    <section
+      className="py-12 md:py-16 px-4 md:px-8 max-w-[1600px] mx-auto"
+      aria-label="Thông tin dự án"
+    >
+      {/* Metadata rows */}
+      <dl className="pd-info-list">
+        {metaRows.map((row, i) => (
+          <div key={i} className="pd-info-list__row">
+            <dt className="pd-info-list__label">{row.label}</dt>
+            <dd className="pd-info-list__value">{row.value}</dd>
           </div>
+        ))}
+      </dl>
 
-          <div className="pd-info__meta-group">
-            <span className="pd-info__meta-label">Địa điểm</span>
-            <span className="pd-info__meta-value">{project.location}</span>
-          </div>
+      {/* Overview / Description */}
+      {project.overview ? (
+        <div
+          className="pd-overview__content"
+          dangerouslySetInnerHTML={{ __html: project.overview }}
+        />
+      ) : (
+        <h2 className="pd-info-list__heading">{project.description}</h2>
+      )}
 
-          <div className="pd-info__meta-group">
-            <span className="pd-info__meta-label">Năm</span>
-            <span className="pd-info__meta-value">{project.year}</span>
-          </div>
-
-          <div className="pd-info__meta-group">
-            <span className="pd-info__meta-label">Lĩnh vực</span>
-            <span className="pd-info__meta-value">
-              {project.detail.discipline}
-            </span>
+      {/* Services tags */}
+      {project.services && project.services.length > 0 && (
+        <div className="pd-services">
+          <span className="pd-services__label">Dịch vụ cung cấp</span>
+          <div className="pd-services__list">
+            {project.services.map((service, i) => (
+              <span key={i} className="pd-services__tag">
+                {service}
+              </span>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

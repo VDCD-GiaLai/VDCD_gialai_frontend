@@ -8,7 +8,10 @@ import {
   FiMail,
   FiClock,
   FiExternalLink,
+  FiMessageCircle,
 } from "react-icons/fi";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -79,38 +82,50 @@ const ContactInfoItem = ({
   return content;
 };
 
-const SOCIAL_LINKS = [
-  {
-    name: "Facebook",
-    url: "https://facebook.com/vdcdgroup",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-      </svg>
-    ),
-  },
-  {
-    name: "Zalo",
-    url: "https://zalo.me/vdcdgroup",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-      </svg>
-    ),
-  },
-];
+import { OrganizationInfo } from "@/services/hero.service";
 
-export function ContactInfo() {
+export function ContactInfo({
+  orgInfo,
+}: {
+  orgInfo?: OrganizationInfo | null;
+}) {
+  const address =
+    orgInfo?.address || "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai";
+  const hotline = orgInfo?.socialLinks?.hotline || "0373600099";
+  const email = orgInfo?.socialLinks?.email || "dmstgialai@vdcd.vn";
+
+  const facebookUrl =
+    orgInfo?.socialLinks?.facebook || "https://www.facebook.com/VDCDGIALAI";
+  const zaloUrl = orgInfo?.socialLinks?.zalo || "https://zalo.me/0373600099";
+  const tiktokUrl =
+    orgInfo?.socialLinks?.tiktok || "https://www.tiktok.com/@vdcdgialai";
+  const messengerUrl =
+    orgInfo?.socialLinks?.messenger ||
+    "https://www.messenger.com/t/888742211000071";
+
+  const SOCIAL_LINKS = [
+    {
+      name: "Facebook",
+      url: facebookUrl,
+      icon: <FaFacebookF className="w-5 h-5" />,
+    },
+    {
+      name: "TikTok",
+      url: tiktokUrl,
+      icon: <FaTiktok className="w-5 h-5" />,
+    },
+    {
+      name: "Zalo",
+      url: zaloUrl,
+      icon: <SiZalo className="w-5 h-5" />,
+    },
+    {
+      name: "Messenger",
+      url: messengerUrl,
+      icon: <FiMessageCircle className="w-5 h-5" />,
+    },
+  ];
+
   return (
     <section className="py-16 md:py-24" aria-labelledby="contact-info-heading">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
@@ -143,15 +158,15 @@ export function ContactInfo() {
             <ContactInfoItem
               icon={<FiMapPin className="w-5 h-5" />}
               label="Địa chỉ văn phòng"
-              value="01 Trần Hưng Đạo, TP. Pleiku, Gia Lai"
-              href="https://maps.google.com/?q=01+Trần+Hưng+Đạo,+TP.+Pleiku,+Gia+Lai"
+              value={address}
+              href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
               isExternal
             />
             <ContactInfoItem
               icon={<FiPhone className="w-5 h-5" />}
               label="Hotline"
-              value="0269 300 0000"
-              href="tel:02693000000"
+              value={hotline}
+              href={`tel:${hotline.replace(/\s+/g, "")}`}
             />
           </motion.div>
 
@@ -165,8 +180,8 @@ export function ContactInfo() {
             <ContactInfoItem
               icon={<FiMail className="w-5 h-5" />}
               label="Email"
-              value="contact@vdcdgroup.vn"
-              href="mailto:contact@vdcdgroup.vn"
+              value={email}
+              href={`mailto:${email}`}
             />
             <ContactInfoItem
               icon={<FiClock className="w-5 h-5" />}

@@ -40,12 +40,12 @@ export const ProjectDetailHero = ({ project }: { project: ProjectEntry }) => {
             <span className="pd-hero__meta-label">Địa điểm</span>
             <span className="pd-hero__meta-value">{project.location}</span>
           </div>
-          <div className="pd-hero__meta-item">
-            <span className="pd-hero__meta-label">Lĩnh vực</span>
-            <span className="pd-hero__meta-value">
-              {project.detail.discipline}
-            </span>
-          </div>
+          {project.discipline && (
+            <div className="pd-hero__meta-item">
+              <span className="pd-hero__meta-label">Lĩnh vực</span>
+              <span className="pd-hero__meta-value">{project.discipline}</span>
+            </div>
+          )}
           <div className="pd-hero__meta-item">
             <span className="pd-hero__meta-label">Năm</span>
             <span className="pd-hero__meta-value">{project.year}</span>

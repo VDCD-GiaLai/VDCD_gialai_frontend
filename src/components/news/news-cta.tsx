@@ -17,7 +17,7 @@ const fadeInUp = {
 
 export const NewsCta = () => {
   return (
-    <section className="py-16 md:py-24" aria-labelledby="news-cta-heading">
+    <section className="pb-16" aria-labelledby="news-cta-heading">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         <motion.div
           className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-black via-zinc-900 to-zinc-800 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 p-8 md:p-14"

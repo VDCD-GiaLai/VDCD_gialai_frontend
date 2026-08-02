@@ -237,7 +237,7 @@ export function EcosystemSection() {
 
       <div
         ref={headerRef}
-        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-16 md:py-24 lg:py-32"
+        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
       >
         {/* ── Header + Hub ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 md:mb-20">

@@ -8,6 +8,8 @@ import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
 import { fetchProjectsFromApi } from "@/services/project.service";
 import { useTransitionStore } from "@/store/transition-store";
 
+import { FiMapPin, FiArrowRight } from "react-icons/fi";
+
 /* ────────────────────────────────────────────────────────
    Project Card — shared atomic component
    Now intercepts clicks for shared-element transition.
@@ -57,7 +59,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 
   return (
     <div
-      className="prj-card group block cursor-pointer"
+      className="group relative block cursor-pointer overflow-hidden rounded-xl bg-black"
       role="link"
       tabIndex={0}
       aria-label={`Xem dự án ${project.title}`}
@@ -70,23 +72,53 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
         }
       }}
     >
-      <div className={`prj-card__image-wrapper ${aspectClass}`}>
+      <div
+        className={`prj-card__image-wrapper relative w-full overflow-hidden ${aspectClass}`}
+      >
         <Image
           src={project.coverImage}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
         />
 
-        {/* Overlay */}
-        <div className="prj-card__overlay">
-          <span className="prj-card__category">{project.category}</span>
-          <h3 className="prj-card__title">{project.title}</h3>
-          <div className="prj-card__meta">
-            <span>{project.location}</span>
-            <span>·</span>
-            <span>{project.year}</span>
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Text Content */}
+        <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end">
+          {/* Category & Title */}
+          <div className="transform transition-transform duration-500 ease-out group-hover:-translate-y-2">
+            <div className="flex items-end gap-2 mb-3">
+              <span className="font-heading text-xs font-bold tracking-[0.2em] uppercase text-accent-red">
+                {project.category}
+              </span>
+            </div>
+            <h3 className="font-heading text-xl md:text-2xl font-bold text-white leading-tight">
+              {project.title}
+            </h3>
+          </div>
+
+          {/* Hidden Reveal Section using grid 0fr -> 1fr trick */}
+          <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+            <div className="overflow-hidden">
+              <div className="flex flex-col gap-4 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <div className="flex items-center gap-2 text-sm text-zinc-300 font-mono-label">
+                  <FiMapPin className="text-accent-red" />
+                  <span>{project.location}</span>
+                  <span className="opacity-50">·</span>
+                  <span>{project.year}</span>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider group/btn w-fit">
+                  <span className="relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
+                    Xem chi tiết
+                  </span>
+                  <FiArrowRight className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -100,6 +132,11 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 
 export const ProjectsGallery = () => {
   const [projects, setProjects] = React.useState<ProjectEntry[]>(PROJECTS_DATA);
+  const [selectedCategory, setSelectedCategory] =
+    React.useState<string>("Tất cả");
+  const [sortOrder, setSortOrder] = React.useState<"newest" | "oldest">(
+    "newest",
+  );
 
   React.useEffect(() => {
     fetchProjectsFromApi().then((data) => {
@@ -109,96 +146,107 @@ export const ProjectsGallery = () => {
     });
   }, []);
 
-  const p = projects;
+  // Extract unique categories
+  const categories = React.useMemo(() => {
+    const cats = new Set(projects.map((p) => p.category));
+    return ["Tất cả", ...Array.from(cats)];
+  }, [projects]);
+
+  // Filter and sort
+  const displayedProjects = React.useMemo(() => {
+    let result = [...projects];
+
+    // Filter by category
+    if (selectedCategory !== "Tất cả") {
+      result = result.filter((p) => p.category === selectedCategory);
+    }
+
+    // Sort by year
+    result.sort((a, b) => {
+      const yearA = parseInt(a.year, 10) || 0;
+      const yearB = parseInt(b.year, 10) || 0;
+      return sortOrder === "newest" ? yearB - yearA : yearA - yearB;
+    });
+
+    return result;
+  }, [projects, selectedCategory, sortOrder]);
 
   return (
-    <section className="gallery-section" aria-label="Bộ sưu tập dự án">
+    <section
+      className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto pb-24"
+      aria-label="Bộ sưu tập dự án"
+    >
       {/* Section header */}
-      <div className="gallery-header mb-16">
-        <span className="gsap-reveal block font-heading text-[11px] font-bold tracking-[0.25em] uppercase text-accent-red mb-4">
-          Dự án tiêu biểu
-        </span>
-        <h2 className="gsap-reveal font-heading text-3xl md:text-5xl font-extrabold tracking-tight text-on-surface dark:text-white leading-tight max-w-3xl">
-          Những công trình
-          <br />
-          chúng tôi tự hào
+      <div className="gallery-header mb-12">
+        <h2 className="gsap-reveal font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface dark:text-white leading-tight">
+          Tất cả dự án
         </h2>
-        <p className="gsap-reveal mt-4 text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg">
-          Từ sân bay quốc tế đến khu kinh tế chiến lược — mỗi dự án là minh
-          chứng cho năng lực triển khai quy mô lớn trên toàn quốc.
-        </p>
       </div>
 
-      <div className="gallery-grid">
-        {/* Render initial layout blocks */}
-        {p[0] && (
-          <div className="gallery-row--full">
-            <ProjectCard
-              project={p[0]}
-              aspectClass="prj-card__image-wrapper--hero"
-            />
-          </div>
-        )}
-
-        {p[1] && p[2] && (
-          <div className="gallery-row--split">
-            <ProjectCard
-              project={p[1]}
-              aspectClass="prj-card__image-wrapper--portrait"
-            />
-            <ProjectCard
-              project={p[2]}
-              aspectClass="prj-card__image-wrapper--portrait"
-            />
-          </div>
-        )}
-
-        <div className="gallery-interlude">
-          <p className="gallery-interlude__text">
-            Chúng tôi tin rằng mỗi công trình đều kể một câu chuyện — về con
-            người, về kỹ thuật, và về tầm nhìn dài hạn.
-          </p>
-        </div>
-
-        {p[3] && (
-          <div className="gallery-row--full">
-            <ProjectCard
-              project={p[3]}
-              aspectClass="prj-card__image-wrapper--hero"
-            />
-          </div>
-        )}
-
-        {p[4] && p[5] && (
-          <div className="gallery-row--split-reverse">
-            <ProjectCard
-              project={p[4]}
-              aspectClass="prj-card__image-wrapper--portrait"
-            />
-            <ProjectCard
-              project={p[5]}
-              aspectClass="prj-card__image-wrapper--portrait"
-            />
-          </div>
-        )}
-
-        <div className="gallery-interlude">
-          <p className="gallery-interlude__text">
-            Từ Bắc vào Nam — công nghệ giám sát VDCD đồng hành cùng những công
-            trình trọng điểm quốc gia.
-          </p>
-        </div>
-
-        {/* Dynamic rendering for rest of items */}
-        {p.length > 6 && (
-          <div className="gallery-row--three mt-8">
-            {p.slice(6).map((proj) => (
-              <ProjectCard
-                key={proj.id}
-                project={proj}
-                aspectClass="prj-card__image-wrapper--landscape"
-              />
+      {/* Controls: Filter & Sort */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12 border-b border-slate-200/50 dark:border-zinc-800/50 pb-6">
+        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+          <span className="text-xs font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest hidden sm:inline-block whitespace-nowrap">
+            Phân loại:
+          </span>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full sm:w-auto bg-transparent border border-slate-200 dark:border-zinc-800 rounded-lg px-4 py-2 text-sm text-black dark:text-white font-medium focus:outline-none focus:border-accent-red focus:ring-1 focus:ring-accent-red transition-all cursor-pointer truncate max-w-full sm:max-w-[250px] md:max-w-[350px]"
+          >
+            {categories.map((cat) => (
+              <option
+                key={cat}
+                value={cat}
+                className="bg-white dark:bg-zinc-900"
+              >
+                {cat}
+              </option>
             ))}
+          </select>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+          <span className="text-xs font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest hidden sm:inline-block whitespace-nowrap">
+            Sắp xếp:
+          </span>
+          <select
+            value={sortOrder}
+            onChange={(e) =>
+              setSortOrder(e.target.value as "newest" | "oldest")
+            }
+            className="w-full sm:w-auto bg-transparent border border-slate-200 dark:border-zinc-800 rounded-lg px-4 py-2 text-sm text-black dark:text-white font-medium focus:outline-none focus:border-accent-red focus:ring-1 focus:ring-accent-red transition-all cursor-pointer"
+          >
+            <option value="newest" className="bg-white dark:bg-zinc-900">
+              Mới nhất
+            </option>
+            <option value="oldest" className="bg-white dark:bg-zinc-900">
+              Cũ nhất
+            </option>
+          </select>
+        </div>
+      </div>
+
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {displayedProjects.length > 0 ? (
+          displayedProjects.map((proj) => (
+            <ProjectCard
+              key={proj.id}
+              project={proj}
+              aspectClass="prj-card__image-wrapper--landscape"
+            />
+          ))
+        ) : (
+          <div className="col-span-full py-24 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-zinc-800">
+            <span className="text-4xl mb-4">🔍</span>
+            <h3 className="text-xl font-bold text-black dark:text-white mb-2">
+              Không tìm thấy dự án
+            </h3>
+            <p className="text-secondary dark:text-zinc-500 max-w-md">
+              Chưa có dự án nào thuộc phân loại "{selectedCategory}". Vui lòng
+              chọn phân loại khác.
+            </p>
           </div>
         )}
       </div>

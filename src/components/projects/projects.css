@@ -228,14 +228,14 @@
 /* ── Gallery ──────────────────────────────────────────── */
 
 .gallery-section {
-  padding: 6rem var(--spacing-margin-mobile);
+  padding: 4rem var(--spacing-margin-mobile);
   max-width: var(--spacing-container-max);
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .gallery-section {
-    padding: 8rem var(--spacing-margin-desktop);
+    padding: 6rem var(--spacing-margin-desktop);
   }
 }
 

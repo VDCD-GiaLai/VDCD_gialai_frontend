@@ -2,22 +2,21 @@
 
 import * as React from "react";
 import { useRef, useEffect } from "react";
+import { getProjectById, type ProjectEntry } from "@/data/projects.data";
 import {
-  getProjectById,
-  getNextProject,
-  type ProjectEntry,
-} from "@/data/projects.data";
-import { fetchProjectBySlugFromApi } from "@/services/project.service";
+  fetchProjectBySlugFromApi,
+  fetchProjectsFromApi,
+} from "@/services/project.service";
 import { useTransitionStore } from "@/store/transition-store";
 import { useProjectDetailGsap } from "@/hooks/use-project-detail-gsap";
 import { ProjectDetailHero } from "./project-detail-hero";
 import { ProjectDetailInfo } from "./project-detail-info";
 import { ProjectDetailChallenge } from "./project-detail-challenge";
-
 import { ProjectDetailTransformation } from "./project-detail-transformation";
 import { ProjectDetailHighlights } from "./project-detail-highlights";
 import { ProjectDetailGallery } from "./project-detail-gallery";
-import { ProjectDetailNext } from "./project-detail-next";
+import { ProjectDetailRelatedArticles } from "./project-detail-related-articles";
+import { ProjectDetailRelatedProjects } from "./project-detail-related-projects";
 import "./project-detail.css";
 
 interface ProjectDetailContentProps {
@@ -33,22 +32,21 @@ export const ProjectDetailContent = ({ slug }: ProjectDetailContentProps) => {
   const [project, setProject] = React.useState<ProjectEntry | null>(
     getProjectById(slug) || null,
   );
-  const [nextProject, setNextProject] = React.useState<
-    ProjectEntry | undefined
-  >(project ? getNextProject(project.id) : undefined);
+  const [relatedProjects, setRelatedProjects] = React.useState<ProjectEntry[]>(
+    [],
+  );
 
   useEffect(() => {
     fetchProjectBySlugFromApi(slug).then((data) => {
       if (data) {
         setProject(data);
-        if (data.detail?.nextProjectId) {
-          fetchProjectBySlugFromApi(data.detail.nextProjectId).then(
-            (nextData) => {
-              if (nextData) setNextProject(nextData);
-            },
-          );
-        }
       }
+    });
+
+    // Fetch related projects (latest projects excluding current)
+    fetchProjectsFromApi(4).then((allProjects) => {
+      const filtered = allProjects.filter((p) => p.id !== slug).slice(0, 3);
+      setRelatedProjects(filtered);
     });
   }, [slug]);
 
@@ -78,23 +76,28 @@ export const ProjectDetailContent = ({ slug }: ProjectDetailContentProps) => {
       {/* 1 — Hero */}
       <ProjectDetailHero project={project} />
 
-      {/* 2 — Project Information */}
+      {/* 2 — Project Information + Overview + Services */}
       <ProjectDetailInfo project={project} />
 
       {/* 3 — Challenge */}
       <ProjectDetailChallenge project={project} />
 
-      {/* 5 — Reality → Digital Transformation */}
+      {/* 4 — Reality → Digital Transformation */}
       <ProjectDetailTransformation project={project} />
 
-      {/* 6 — Technical Highlights */}
+      {/* 5 — Technical Highlights */}
       <ProjectDetailHighlights project={project} />
 
-      {/* 7 — Gallery */}
+      {/* 6 — Gallery */}
       <ProjectDetailGallery project={project} />
 
-      {/* 8 — Next Project */}
-      {nextProject && <ProjectDetailNext project={nextProject} />}
+      {/* 7 — Related Articles */}
+      <ProjectDetailRelatedArticles project={project} />
+
+      {/* 8 — Related Projects */}
+      {relatedProjects.length > 0 && (
+        <ProjectDetailRelatedProjects projects={relatedProjects} />
+      )}
     </div>
   );
 };

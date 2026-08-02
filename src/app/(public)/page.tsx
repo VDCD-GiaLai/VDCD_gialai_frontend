@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   FiArrowRight,
@@ -29,12 +30,24 @@ import { PartnersSection } from "@/components/landing/partners-section";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import {
+  fetchOrganizationInfoFromApi,
+  type OrganizationInfo,
+} from "@/services/hero.service";
 
 export default function LandingPage() {
-  const [copiedEmail, setCopiedEmail] = React.useState(false);
+  const router = useRouter();
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [orgInfo, setOrgInfo] = useState<OrganizationInfo | null>(null);
+
+  useEffect(() => {
+    fetchOrganizationInfoFromApi().then(setOrgInfo);
+  }, []);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("contact@vdcdgroup.vn");
+    navigator.clipboard.writeText(
+      orgInfo?.socialLinks?.email || "contact@vdcdgroup.vn",
+    );
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
@@ -105,7 +118,7 @@ export default function LandingPage() {
       >
         <div
           ref={aboutRef}
-          className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12"
+          className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
         >
           {/* Header Zone */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
@@ -401,15 +414,17 @@ export default function LandingPage() {
               </p>
               <div className="space-y-4 font-mono-label text-xs text-secondary dark:text-zinc-300">
                 <p className="flex items-center gap-3">
-                  <FiMapPin className="text-accent-red text-base" /> 01 Trần
-                  Hưng Đạo, TP. Pleiku, Gia Lai
+                  <FiMapPin className="text-accent-red text-base" />{" "}
+                  {orgInfo?.address || "01 Trần Hưng Đạo, TP. Pleiku, Gia Lai"}
                 </p>
                 <button
                   onClick={handleCopyEmail}
                   className="flex items-center gap-3 hover:text-accent-red transition-colors cursor-pointer"
                 >
                   <FiMail className="text-accent-red text-base" />
-                  {copiedEmail ? "Đã sao chép!" : "contact@vdcdgroup.vn"}
+                  {copiedEmail
+                    ? "Đã sao chép!"
+                    : orgInfo?.socialLinks?.email || "contact@vdcdgroup.vn"}
                 </button>
               </div>
             </div>
@@ -417,7 +432,9 @@ export default function LandingPage() {
             <div className="flex lg:justify-end">
               <Button
                 color="primary"
-                onClick={handleCopyEmail}
+                onClick={() => {
+                  router.push("/contact");
+                }}
                 className="bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs tracking-wider uppercase font-bold px-8 py-6 w-full md:w-auto"
                 trailingIcon={<FiMail className="w-4 h-4" />}
               >
