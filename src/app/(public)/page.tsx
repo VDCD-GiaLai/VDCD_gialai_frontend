@@ -28,6 +28,7 @@ import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
 import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
 import { PartnersSection } from "@/components/landing/partners-section";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import {
@@ -102,6 +103,17 @@ export default function LandingPage() {
     options: {
       y: 30,
       blur: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    },
+  });
+
+  /* ── GSAP scroll-reveal for stats section ── */
+  const statsRef = useScrollReveal({
+    targets: ".stats-reveal",
+    options: {
+      y: 24,
+      blur: 4,
       duration: 0.8,
       ease: "power3.out",
     },
@@ -389,6 +401,96 @@ export default function LandingPage() {
 
       {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
       <EcosystemSection />
+
+      {/* Năng lực hệ sinh thái (Highlights) - Floating Typography Scorecard Grid */}
+      <section
+        id="highlights"
+        className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 scroll-mt-28"
+      >
+        <div
+          ref={statsRef}
+          className="max-w-[1600px] mx-auto px-4 md:px-8 pt-10 pb-16 md:pt-14 md:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
+        >
+          {/* Left: Editorial intro */}
+          <div className="stats-reveal lg:col-span-4 space-y-4">
+            <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block">
+              Chỉ số phát triển
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading">
+              Hệ sinh thái qua các con số
+            </h2>
+            <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed max-w-[320px]">
+              Nền tảng năng lực thực chất được xây dựng bền bỉ qua từng dự án
+              thực tế trên toàn quốc.
+            </p>
+          </div>
+
+          {/* Right: Scorecard Grid with fine borders and inner paddings */}
+          <div className="stats-reveal lg:col-span-8 grid grid-cols-2 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs">
+            {/* Stat 1: Personnel */}
+            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
+              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                <AnimatedCounter target={1500} suffix="+" />
+              </div>
+              <div>
+                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                  Cán bộ, Nhân sự
+                </span>
+                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                  Đội ngũ nhân lực vững chuyên môn hoạt động trên toàn quốc.
+                </p>
+              </div>
+            </div>
+
+            {/* Stat 2: R&D Centers */}
+            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
+              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                <AnimatedCounter target={12} suffix="" />
+              </div>
+              <div>
+                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                  Viện & Trung Tâm R&D
+                </span>
+                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                  Hệ thống đơn vị nghiên cứu phát triển công nghệ chuyên sâu.
+                </p>
+              </div>
+            </div>
+
+            {/* Stat 3: Tech Experts */}
+            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
+              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                <AnimatedCounter target={250} suffix="+" />
+              </div>
+              <div>
+                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                  Chuyên Gia & Kỹ Sư
+                </span>
+                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                  Nhân lực chất lượng cao, các thạc sĩ, tiến sĩ R&D phần cứng,
+                  phần mềm.
+                </p>
+              </div>
+            </div>
+
+            {/* Stat 4: National Scale */}
+            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
+              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                <AnimatedCounter target={100} suffix="%" />
+              </div>
+              <div>
+                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                  Phủ Sóng Toàn Quốc
+                </span>
+                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                  Giải pháp công nghệ phục vụ trực tiếp cho hàng chục tỉnh
+                  thành.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Partners */}
       <PartnersSection />
