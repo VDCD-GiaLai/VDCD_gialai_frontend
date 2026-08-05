@@ -99,7 +99,7 @@ export const PageHeroSplitBanner = ({
 
   return (
     <section
-      className="w-full h-[50vh] min-h-[420px] max-h-[560px] flex flex-col justify-end relative overflow-hidden border-b border-whisper-border/30 bg-zinc-950"
+      className="w-full h-[70vh] min-h-[500px] max-h-[720px] flex flex-col justify-end relative overflow-hidden border-b border-whisper-border/30 bg-zinc-950"
       aria-label={ariaLabel || banner.tag || pageKey}
     >
       {/* Background Image */}
