@@ -116,10 +116,10 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   about: {
-    image: "https://picsum.photos/id/367/1920/1080",
-    title: "KIẾN TẠO\nTƯƠNG LAI SỐ",
+    image: "/about-us/3A5A2610.JPG",
+    title: "Trung tâm Đổi mới\nSáng tạo Gia Lai",
     subtitle:
-      "VDCD Group là hệ sinh thái công nghệ hàng đầu tại Việt Nam, tiên phong cung cấp các giải pháp đổi mới sáng tạo, chuyển đổi số toàn diện và chế tạo thiết bị công nghệ cao phục vụ phát triển kinh tế vùng bền vững.",
+      "Khởi đầu từ những bước chân đo đạc địa lý năm 2006, chúng tôi không ngừng đổi mới để vẽ nên hệ sinh thái công nghệ thông minh, kết nối Tây Nguyên với dòng chảy số toàn cầu.",
     tag: "Về chúng tôi",
     ctaButtons: [
       {

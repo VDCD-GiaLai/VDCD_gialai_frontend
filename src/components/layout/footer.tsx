@@ -241,10 +241,6 @@ export async function Footer() {
         <p className="text-slate-400 dark:text-zinc-500 font-medium">
           © {new Date().getFullYear()} VDCD Group. All rights reserved.
         </p>
-        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/80 dark:bg-zinc-900/40 border border-slate-200/30 dark:border-zinc-800/40 font-heading text-[10px] uppercase tracking-wider text-slate-500 dark:text-zinc-400 shadow-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-red animate-pulse" />
-          <span>Thiết kế bởi Vanguard UI Architect</span>
-        </div>
       </div>
     </footer>
   );
