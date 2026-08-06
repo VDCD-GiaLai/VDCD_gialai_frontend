@@ -9,10 +9,3 @@ export const USE_MOCK_DATA =
   process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ||
   APP_ENV === "development" ||
   APP_ENV === "dev";
-
-console.log("ENV DEBUG:", {
-  API_BASE_URL,
-  APP_ENV,
-  USE_MOCK_DATA,
-  rawAppEnv: process.env.NEXT_PUBLIC_APP_ENV,
-});
