@@ -1,0 +1,378 @@
+/* ────────────────────────────────────────────────────────
+   Careers Hero Slider — Styles
+   Fullscreen crossfade slider with circular progress ring
+   ──────────────────────────────────────────────────────── */
+
+/* ── Slider container ─────────────────────────────────── */
+
+.careers-hero-slider {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ── Slide layer ──────────────────────────────────────── */
+
+.careers-hero-slide {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.careers-hero-slide--active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Ken Burns zoom on the background image */
+.careers-hero-slide__image {
+  position: absolute;
+  inset: 0;
+}
+
+.careers-hero-slide--active .careers-hero-slide__image img {
+  animation: careers-ken-burns 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes careers-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* Gradient overlay */
+.careers-hero-slide__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+/* ── Content layer ────────────────────────────────────── */
+
+.careers-hero-slider__content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 var(--spacing-margin-mobile, 1.5rem) 4rem;
+  max-width: var(--spacing-container-max, 1440px);
+  margin: 0 auto;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 768px) {
+  .careers-hero-slider__content {
+    padding: 0 var(--spacing-margin-desktop, 4rem) 5rem;
+  }
+}
+
+/* ── Text styles ──────────────────────────────────────── */
+
+.careers-hero-slider__tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent-red, #e80002);
+  margin-bottom: 1rem;
+}
+
+.careers-hero-slider__headline {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  text-transform: uppercase;
+  white-space: pre-line;
+  max-width: 700px;
+}
+
+.careers-hero-slider__subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+  line-height: 1.7;
+  max-width: 500px;
+  margin-top: 1.25rem;
+}
+
+.careers-hero-slider__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* CTA buttons */
+.careers-hero-slider__cta--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.careers-hero-slider__cta--primary:hover {
+  background-color: var(--color-accent-red, #e80002);
+  color: #ffffff;
+}
+
+.careers-hero-slider__cta--secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.careers-hero-slider__cta--secondary:hover {
+  border-color: var(--color-accent-red, #e80002);
+  color: var(--color-accent-red, #e80002);
+}
+
+/* ── VDCD Slide Navigation Block ──────────────────────── */
+/* Octagon (Bát giác) HUD layout với viền mỏng 1px toàn khối */
+/* và line đỏ sáng bên trái. */
+
+.careers-hero-nav {
+  position: absolute;
+  z-index: 10;
+  bottom: 2.5rem;
+  right: var(--spacing-margin-mobile, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .careers-hero-nav {
+    right: var(--spacing-margin-desktop, 4rem);
+    bottom: 3.5rem;
+  }
+}
+
+/* Container hình BÁT GIÁC 8 cạnh (cố định kích thước không bị giật size khi đổi số) */
+.careers-hero-nav__block {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-width: 155px; /* Cố định chiều rộng tối thiểu không đổi size khi nhảy số */
+  background: transparent; /* Bỏ nền */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+  padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s ease;
+}
+
+.careers-hero-nav__block:hover {
+  transform: translateX(-2px);
+}
+
+/* SVG viền mỏng 1px Bát Giác & Line đỏ sáng bên trái */
+.careers-hero-nav__octagon-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.careers-hero-nav__octagon-border {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.25); /* Viền mỏng 1px toàn khối bát giác */
+  stroke-width: 1px;
+  transition: stroke 0.3s ease;
+}
+
+.careers-hero-nav__block:hover .careers-hero-nav__octagon-border {
+  stroke: rgba(255, 255, 255, 0.45);
+}
+
+.careers-hero-nav__octagon-red-line {
+  fill: none;
+  stroke: var(--color-accent-red, #e80002); /* Line đỏ phát sáng bên trái */
+  stroke-width: 3px;
+  stroke-linecap: round;
+  filter: drop-shadow(-3px 0 8px rgba(232, 0, 2, 0.9));
+}
+
+/* Left section: slide counter (số đỏ, to & mỏng, không số 0) */
+.careers-hero-nav__counter {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  min-width: 78px; /* Giữ kích thước số cố định */
+}
+
+.careers-hero-nav__current {
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+  font-weight: 300; /* mỏng & to */
+  color: var(--color-accent-red, #e80002); /* số màu đỏ */
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums; /* Giữ độ rộng số cố định không bị nẩy */
+  min-width: 1ch;
+  display: inline-block;
+  text-shadow: 0 0 15px rgba(232, 0, 2, 0.35);
+}
+
+.careers-hero-nav__separator {
+  display: inline-block;
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0.1rem;
+}
+
+.careers-hero-nav__total {
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1;
+}
+
+/* Arrow: Mũi tên màu đỏ, BỎ BOX (không nền, không khung) */
+.careers-hero-nav__arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  background: transparent; /* bỏ box nền */
+  border: none; /* bỏ khung box */
+  border-radius: 0;
+  box-shadow: none; /* bỏ shadow box */
+  padding: 0;
+  color: var(--color-accent-red, #e80002); /* mũi tên màu đỏ */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.careers-hero-nav__block:hover .careers-hero-nav__arrow,
+.careers-hero-nav__arrow:hover {
+  background: transparent;
+  color: var(--color-accent-red, #e80002);
+  border: none;
+  box-shadow: none;
+}
+
+.careers-hero-nav__arrow svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.2px;
+  filter: drop-shadow(0 0 6px rgba(232, 0, 2, 0.6));
+  transition: transform 0.3s ease;
+}
+
+.careers-hero-nav__block:hover .careers-hero-nav__arrow svg {
+  transform: translateX(4px);
+}
+
+/* Progress bar — horizontal track */
+.careers-hero-nav__progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.careers-hero-nav__progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent-red, #e80002);
+  box-shadow: 0 0 10px rgba(232, 0, 2, 0.8);
+}
+
+.careers-hero-nav__progress-fill--animate {
+  animation: careers-progress-fill var(--slide-duration, 6s) linear forwards;
+}
+
+@keyframes careers-progress-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .careers-hero-slide {
+    transition: opacity 0.2s ease;
+  }
+
+  .careers-hero-slide--active .careers-hero-slide__image img {
+    animation: none;
+  }
+
+  .careers-hero-nav__progress-fill--animate {
+    animation: none;
+    width: 100%;
+  }
+}
