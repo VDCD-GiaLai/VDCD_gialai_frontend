@@ -4,7 +4,20 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { FiSend, FiPaperclip, FiX, FiCheck } from "react-icons/fi";
+import {
+  FiSend,
+  FiPaperclip,
+  FiX,
+  FiCheck,
+  FiMapPin,
+  FiPhone,
+  FiMail,
+  FiClock,
+  FiExternalLink,
+  FiMessageCircle,
+} from "react-icons/fi";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +26,7 @@ import {
 } from "@/schemas/contact.schema";
 import { ContactService } from "@/services/contact.service";
 import type { CreateContactPayload } from "@/types/contact";
+import { OrganizationInfo } from "@/services/hero.service";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -22,6 +36,11 @@ const fadeInUp = {
     filter: "blur(0px)",
     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -34,12 +53,104 @@ const ACCEPTED_FILE_TYPES = [
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-export function ContactForm() {
+interface ContactInfoItemProps {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+  isExternal?: boolean;
+}
+
+const ContactInfoItem = ({
+  icon,
+  label,
+  value,
+  href,
+  isExternal = false,
+}: ContactInfoItemProps) => {
+  const content = (
+    <div className="group flex items-start gap-3.5 p-3.5 md:p-4 rounded-xl border border-zinc-200/80 dark:border-zinc-800/60 bg-white/80 dark:bg-zinc-900/40 hover:border-accent-red/30 hover:bg-white dark:hover:bg-zinc-900/70 transition-all duration-300 shadow-xs">
+      <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-secondary dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <span className="font-mono-label text-[10px] font-bold text-secondary/60 dark:text-zinc-500 uppercase tracking-widest block mb-0.5">
+          {label}
+        </span>
+        <span className="text-xs md:text-sm font-semibold text-black dark:text-white leading-relaxed block truncate">
+          {value}
+        </span>
+      </div>
+      {href && isExternal && (
+        <FiExternalLink className="w-3.5 h-3.5 text-secondary/40 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300 shrink-0 mt-1" />
+      )}
+    </div>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        className="block"
+        aria-label={`${label}: ${value}`}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return content;
+};
+
+export function ContactForm({
+  orgInfo,
+}: {
+  orgInfo?: OrganizationInfo | null;
+}) {
   const [status, setStatus] = React.useState<FormStatus>("idle");
   const [serverMessage, setServerMessage] = React.useState("");
   const [attachedFile, setAttachedFile] = React.useState<File | null>(null);
   const [uploadingFile, setUploadingFile] = React.useState(false);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const address =
+    orgInfo?.address || "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai";
+  const hotline = orgInfo?.socialLinks?.hotline || "0373600099";
+  const email = orgInfo?.socialLinks?.email || "dmstgialai@vdcd.vn";
+
+  const facebookUrl =
+    orgInfo?.socialLinks?.facebook || "https://www.facebook.com/VDCDGIALAI";
+  const zaloUrl = orgInfo?.socialLinks?.zalo || "https://zalo.me/0373600099";
+  const tiktokUrl =
+    orgInfo?.socialLinks?.tiktok || "https://www.tiktok.com/@vdcdgialai";
+  const messengerUrl =
+    orgInfo?.socialLinks?.messenger ||
+    "https://www.messenger.com/t/888742211000071";
+
+  const SOCIAL_LINKS = [
+    {
+      name: "Facebook",
+      url: facebookUrl,
+      icon: <FaFacebookF className="w-4 h-4" />,
+    },
+    {
+      name: "TikTok",
+      url: tiktokUrl,
+      icon: <FaTiktok className="w-4 h-4" />,
+    },
+    {
+      name: "Zalo",
+      url: zaloUrl,
+      icon: <SiZalo className="w-4 h-4" />,
+    },
+    {
+      name: "Messenger",
+      url: messengerUrl,
+      icon: <FiMessageCircle className="w-4 h-4" />,
+    },
+  ];
 
   const {
     control,
@@ -155,44 +266,82 @@ export function ContactForm() {
       aria-labelledby="contact-form-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left column — heading */}
-          <motion.div
-            className="lg:col-span-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeInUp}
-          >
-            <span className="font-mono-label text-[10px] font-bold text-accent-red uppercase tracking-widest block mb-3">
-              Gửi tin nhắn
-            </span>
-            <h2
-              id="contact-form-heading"
-              className="text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white font-heading mb-4"
-            >
-              Liên hệ hợp tác
-            </h2>
-            <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
-              Điền thông tin bên dưới và chúng tôi sẽ phản hồi trong thời gian
-              sớm nhất. Các trường có dấu (*) là bắt buộc.
-            </p>
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 lg:items-stretch">
+          {/* Left column — heading + contact info cards */}
+          <div className="lg:col-span-5 flex flex-col justify-between h-full">
+            <div>
+              <span className="font-mono-label text-[10px] font-bold text-accent-red uppercase tracking-widest block mb-2">
+                Thông tin & Gửi tin nhắn
+              </span>
+              <h2
+                id="contact-form-heading"
+                className="text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white font-heading mb-3"
+              >
+                Liên hệ hợp tác
+              </h2>
+              <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed mb-5">
+                Điền thông tin bên dưới và chúng tôi sẽ phản hồi trong thời gian
+                sớm nhất. Hoặc liên hệ trực tiếp với VDCD qua các kênh bên dưới.
+              </p>
+
+              {/* Contact Info Cards */}
+              <div className="flex flex-col gap-3">
+                <ContactInfoItem
+                  icon={<FiMapPin className="w-4 h-4" />}
+                  label="Địa chỉ văn phòng"
+                  value={address}
+                  href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
+                  isExternal
+                />
+                <ContactInfoItem
+                  icon={<FiPhone className="w-4 h-4" />}
+                  label="Hotline"
+                  value={hotline}
+                  href={`tel:${hotline.replace(/\s+/g, "")}`}
+                />
+                <ContactInfoItem
+                  icon={<FiMail className="w-4 h-4" />}
+                  label="Email"
+                  value={email}
+                  href={`mailto:${email}`}
+                />
+                <ContactInfoItem
+                  icon={<FiClock className="w-4 h-4" />}
+                  label="Giờ làm việc"
+                  value="Thứ 2 — Thứ 6 · 08:00 — 17:30"
+                />
+              </div>
+            </div>
+
+            {/* Social links */}
+            <div className="pt-4 flex items-center gap-3">
+              <span className="font-mono-label text-[10px] font-bold text-secondary/60 dark:text-zinc-500 uppercase tracking-widest mr-1">
+                Mạng xã hội
+              </span>
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-9 h-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/60 bg-white/80 dark:bg-zinc-900/40 text-secondary dark:text-zinc-400 hover:border-accent-red/30 hover:text-accent-red hover:bg-accent-red/5 transition-all duration-300 shadow-xs"
+                  aria-label={`Truy cập trang ${social.name} của VDCD`}
+                  tabIndex={0}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
 
           {/* Right column — form */}
-          <motion.div
-            className="lg:col-span-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeInUp}
-          >
-            <div className="double-bezel-outer">
-              <div className="double-bezel-inner p-6 md:p-8">
+          <div className="lg:col-span-7 h-full flex flex-col">
+            <div className="double-bezel-outer h-full flex flex-col">
+              <div className="double-bezel-inner p-6 md:p-7 h-full flex flex-col justify-between">
                 {/* Success state */}
                 {status === "success" && (
                   <motion.div
-                    className="flex items-center gap-3 p-4 mb-6 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200/50 dark:border-green-800/30"
+                    className="flex items-center gap-3 p-4 mb-4 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200/50 dark:border-green-800/30"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -210,7 +359,7 @@ export function ContactForm() {
                 {/* Error state */}
                 {status === "error" && serverMessage && (
                   <motion.div
-                    className="flex items-start gap-3 p-4 mb-6 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200/50 dark:border-red-800/30"
+                    className="flex items-start gap-3 p-4 mb-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200/50 dark:border-red-800/30"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -225,7 +374,11 @@ export function ContactForm() {
                   </motion.div>
                 )}
 
-                <form onSubmit={onSubmit} noValidate className="space-y-5">
+                <form
+                  onSubmit={onSubmit}
+                  noValidate
+                  className="flex-1 flex flex-col justify-between space-y-4"
+                >
                   {/* Honeypot — hidden from human users & Chrome autofill */}
                   <input
                     type="text"
@@ -236,7 +389,7 @@ export function ContactForm() {
                     {...register("website")}
                   />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       name="fullName"
                       control={control}
@@ -256,7 +409,7 @@ export function ContactForm() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       name="phone"
                       control={control}
@@ -279,7 +432,7 @@ export function ContactForm() {
                     label="Nội dung tin nhắn"
                     placeholder="Mô tả chi tiết nhu cầu của bạn..."
                     type="textarea"
-                    minRows={4}
+                    minRows={3}
                     isDisabled={isLoading}
                   />
 
@@ -353,7 +506,7 @@ export function ContactForm() {
                 </form>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

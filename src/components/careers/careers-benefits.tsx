@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FiTrendingUp,
@@ -19,6 +20,15 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   FiAward,
   FiGlobe,
   FiHeart,
+};
+
+const BENEFIT_IMAGES: Record<string, string> = {
+  "Phát triển chuyên môn": "https://picsum.photos/id/180/800/500",
+  "Môi trường hiện đại": "https://picsum.photos/id/1060/800/500",
+  "Đào tạo liên tục": "https://picsum.photos/id/20/800/500",
+  "Đãi ngộ cạnh tranh": "https://picsum.photos/id/368/800/500",
+  "Tác động cộng đồng": "https://picsum.photos/id/1015/800/500",
+  "Cân bằng cuộc sống": "https://picsum.photos/id/1025/800/500",
 };
 
 const fadeInUp = {
@@ -67,23 +77,43 @@ export function CareersBenefits() {
         >
           {BENEFITS.map((benefit, idx) => {
             const IconComponent = ICON_MAP[benefit.icon] || FiGlobe;
+            const imageUrl =
+              BENEFIT_IMAGES[benefit.title] ||
+              "https://picsum.photos/id/180/800/500";
 
             return (
               <motion.div
                 key={idx}
-                className="group double-bezel-outer transition-all duration-500 hover:scale-[1.01]"
+                className="group double-bezel-outer transition-all duration-300 hover:scale-[1.01] overflow-hidden"
                 variants={fadeInUp}
               >
-                <div className="double-bezel-inner p-6 h-full flex flex-col">
-                  <div className="w-12 h-12 rounded-xl bg-accent-red/5 dark:bg-accent-red/10 flex items-center justify-center mb-5 group-hover:bg-accent-red/10 dark:group-hover:bg-accent-red/20 transition-colors duration-300">
-                    <IconComponent className="w-5 h-5 text-accent-red" />
+                <div className="double-bezel-inner overflow-hidden h-full flex flex-col">
+                  {/* Card Cover Image */}
+                  <div className="relative w-full h-44 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                    <Image
+                      src={imageUrl}
+                      alt={benefit.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 background-gradient bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20">
+                      <IconComponent className="w-5 h-5 text-accent-red" />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-black dark:text-white font-heading mb-2 group-hover:text-accent-red transition-colors duration-300">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
-                    {benefit.description}
-                  </p>
+
+                  {/* Card Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold text-black dark:text-white font-heading mb-2 group-hover:text-accent-red transition-colors duration-300">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             );
