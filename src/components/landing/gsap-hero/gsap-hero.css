@@ -43,7 +43,7 @@
   color: #a1a1aa;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .gsap-hero-container .content-place {
     display: none !important;
   }
@@ -62,6 +62,7 @@
   overflow: hidden;
   word-break: break-word;
   max-width: 100%;
+  display: block;
 }
 
 .gsap-hero-container .content-title-1,
@@ -92,9 +93,9 @@
 }
 
 /* Tablet responsive overrides (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1279px) {
   .gsap-hero-container .details {
-    top: 12% !important;
+    top: calc(50% - 200px) !important;
     left: 2rem !important;
     right: 2rem !important;
     max-width: 560px !important;
@@ -300,7 +301,7 @@
   }
 
   .gsap-hero-container .details {
-    top: 8% !important;
+    top: calc(50% - 200px) !important;
     left: 1rem !important;
     right: 1rem !important;
     max-width: calc(100% - 2rem) !important;

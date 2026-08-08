@@ -70,10 +70,9 @@ export function Header() {
     const tl = gsap.timeline({ paused: true });
     tl.fromTo(
       menuRef.current,
-      { height: 0, opacity: 0, display: "none" },
+      { height: 0, display: "none" },
       {
         height: "auto",
-        opacity: 1,
         display: "flex",
         duration: 0.25,
         ease: "power2.inOut",
@@ -154,7 +153,7 @@ export function Header() {
 
         {/* Navigation Links - Desktop */}
         <nav
-          className={`hidden lg:flex items-center gap-5 xl:gap-7 font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 ${
+          className={`hidden xl:flex items-center gap-5 xl:gap-7 font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 ${
             showSolidHeader
               ? "text-zinc-700 dark:text-zinc-300"
               : "text-zinc-200/90"
@@ -231,7 +230,7 @@ export function Header() {
             as={Link}
             href="/#capacity-profile"
             startContent={<FiFileText className="w-4 h-4" />}
-            className="hidden sm:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-sm"
+            className="hidden md:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-none"
           >
             Hồ sơ năng lực
           </Button>
@@ -243,7 +242,7 @@ export function Header() {
             radius="full"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Mobile Menu"
-            className={`lg:hidden transition-colors duration-300 ${
+            className={`xl:hidden transition-colors duration-300 ${
               showSolidHeader
                 ? "text-zinc-600 dark:text-zinc-400 hover:text-accent-red"
                 : "text-zinc-200 hover:text-white"
@@ -261,8 +260,8 @@ export function Header() {
       {/* Mobile Menu Panel — GSAP animated (replaces AnimatePresence) */}
       <div
         ref={menuRef}
-        style={{ height: 0, opacity: 0, display: "none" }}
-        className="lg:hidden absolute top-20 left-0 right-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
+        style={{ height: 0, display: "none" }}
+        className="xl:hidden absolute top-20 left-0 right-0 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
       >
         <Link
           href="/about-us"
@@ -311,7 +310,7 @@ export function Header() {
         <Link
           href="/#capacity-profile"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
+          className="lg:hidden px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
         >
           <FiFileText className="w-4 h-4" />
           Hồ sơ năng lực

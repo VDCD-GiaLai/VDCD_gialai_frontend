@@ -124,38 +124,31 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
       const attachmentUrl = uploadData.url || uploadData.filePath || "";
 
       // Step 2: Create Lead (triggers email notification)
-      const extraInfo = [
-        formData.dob ? `Ngày sinh: ${formData.dob}` : "",
-        formData.address ? `Địa chỉ: ${formData.address}` : "",
-        formData.experienceYears
-          ? `Kinh nghiệm: ${formData.experienceYears}`
-          : "",
-        formData.expectedSalary
-          ? `Mức lương mong muốn: ${formData.expectedSalary}`
-          : "",
-        formData.portfolioUrl ? `Portfolio: ${formData.portfolioUrl}` : "",
-      ]
-        .filter(Boolean)
-        .join(" | ");
+      const leadPayload: Record<string, unknown> = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        subject: `[Ứng tuyển] ${jobTitle}`,
+        message: formData.coverLetter || "",
+        attachment: attachmentUrl,
+        coverLetter: formData.coverLetter || "",
+        source: "career_form",
+      };
 
-      const messageBody = [
-        formData.coverLetter || "",
-        extraInfo ? `\n---\n${extraInfo}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n");
+      // Only send optional fields if they have values
+      if (formData.dob) leadPayload.dob = formData.dob;
+      if (formData.address) leadPayload.address = formData.address;
+      if (formData.experienceYears)
+        leadPayload.experienceYears = formData.experienceYears;
+      if (formData.expectedSalary)
+        leadPayload.expectedSalary = formData.expectedSalary;
+      if (formData.portfolioUrl)
+        leadPayload.portfolioUrl = formData.portfolioUrl;
 
       const leadRes = await fetch(`${API_BASE}/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          subject: `[Ứng tuyển] ${jobTitle}`,
-          message: messageBody,
-          attachment: attachmentUrl,
-        }),
+        body: JSON.stringify(leadPayload),
       });
 
       if (!leadRes.ok) {
@@ -638,8 +631,8 @@ export function CareersPositions() {
             salary: (j.salaryRange as string) || undefined,
             postedDate: (j.createdAt as string) || "",
             description: stripMarkdown((j.description as string) || ""),
-            experience: "",
-            tags: [],
+            experience: (j.experience as string) || "",
+            tags: (j.tags as string[]) || [],
             // Keep raw backend fields for expanded detail
             _requirements: (j.requirements as string) || "",
             _benefits: (j.benefits as string) || "",

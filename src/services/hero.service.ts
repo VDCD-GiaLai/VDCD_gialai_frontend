@@ -15,7 +15,6 @@ export interface HeroSlideItem {
 
 export interface OrganizationStats {
   staff: number;
-  centers: number;
   partners: number;
   projects: number;
   provinces: number;

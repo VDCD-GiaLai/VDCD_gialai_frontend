@@ -60,7 +60,7 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
   return (
     <LinkComponent
       {...(linkProps as any)}
-      className={`eco-card group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
+      className={`eco-card group relative flex flex-col overflow-hidden rounded-none border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
     >
       {/* Image */}
       <div className="relative h-40 md:h-44 overflow-hidden">
@@ -237,7 +237,7 @@ export function EcosystemSection() {
 
       <div
         ref={headerRef}
-        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
+        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-6"
       >
         {/* ── Header + Hub ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16 md:mb-20">
@@ -276,7 +276,7 @@ export function EcosystemSection() {
         <div className="eco-header-reveal mt-14 md:mt-20 text-center">
           <Link
             href="/solution"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-accent-red/20 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300 group"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-none border border-accent-red/20 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300 group"
           >
             Khám phá tất cả Giải pháp
             <FiArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
