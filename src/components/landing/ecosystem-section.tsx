@@ -60,7 +60,7 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
   return (
     <LinkComponent
       {...(linkProps as any)}
-      className={`eco-card group relative flex flex-col overflow-hidden rounded-none border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-all duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
+      className={`eco-card group relative flex flex-col overflow-hidden rounded-none border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 transition-transform transition-colors transition-shadow duration-500 hover:border-accent-red/30 dark:hover:border-accent-red/40 hover:shadow-xl ${accent.glow} ring-1 ${accent.ring}`}
     >
       {/* Image */}
       <div className="relative h-40 md:h-44 overflow-hidden">

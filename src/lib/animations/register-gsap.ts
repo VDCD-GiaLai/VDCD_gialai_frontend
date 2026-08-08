@@ -12,4 +12,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  */
 gsap.registerPlugin(ScrollTrigger);
 
+// Prevent forced reflows on mobile resize and batch refresh events
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+});
+
 export { gsap, ScrollTrigger };
