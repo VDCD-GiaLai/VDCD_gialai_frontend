@@ -10,6 +10,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  *
  * Adding new plugins? Register them here, not in individual components.
  */
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+  });
+}
 
 export { gsap, ScrollTrigger };

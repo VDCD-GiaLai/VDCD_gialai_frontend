@@ -75,7 +75,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {/* ── Default bottom: gradient + title + white border ── */}
       <div
         className="project-card-default-bottom absolute bottom-0 left-0 right-0 z-10
-                   transition-all duration-500 ease-in-out"
+                   transition-transform transition-opacity duration-500 ease-in-out will-change-transform"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="relative px-5 pb-4 pt-14">
@@ -90,7 +90,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div
         className="project-card-hover-panel absolute bottom-0 left-0 right-0 z-20
                    bg-white dark:bg-zinc-900
-                   transition-all duration-500 ease-in-out"
+                   transition-transform transition-opacity duration-500 ease-in-out will-change-transform"
       >
         {/* Panel content wrapper */}
         <div className="relative overflow-hidden px-6 pt-5 pb-6">

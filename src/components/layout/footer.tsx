@@ -11,17 +11,30 @@ import {
 import { FaFacebookF, FaTiktok } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";
 import { APP_ROUTES } from "@/lib/constants";
-import { fetchOrganizationInfoFromApi } from "@/services/hero.service";
+import {
+  fetchOrganizationInfoFromApi,
+  DEFAULT_ORGANIZATION_INFO,
+} from "@/services/hero.service";
 
 export async function Footer() {
   const orgInfo = await fetchOrganizationInfoFromApi();
-  const address = orgInfo?.address || "01 Trần Hưng Đạo, TP. Pleiku, Gia Lai";
-  const email = orgInfo?.socialLinks?.email || "contact@vdcdgroup.vn";
-  const hotline = orgInfo?.socialLinks?.hotline;
-  const facebook = orgInfo?.socialLinks?.facebook;
-  const tiktok = orgInfo?.socialLinks?.tiktok;
-  const zalo = orgInfo?.socialLinks?.zalo;
-  const messenger = orgInfo?.socialLinks?.messenger;
+  const address = orgInfo?.address || DEFAULT_ORGANIZATION_INFO.address;
+  const email =
+    orgInfo?.socialLinks?.email || DEFAULT_ORGANIZATION_INFO.socialLinks.email;
+  const hotline =
+    orgInfo?.socialLinks?.hotline ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.hotline;
+  const facebook =
+    orgInfo?.socialLinks?.facebook ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.facebook;
+  const tiktok =
+    orgInfo?.socialLinks?.tiktok ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.tiktok;
+  const zalo =
+    orgInfo?.socialLinks?.zalo || DEFAULT_ORGANIZATION_INFO.socialLinks.zalo;
+  const messenger =
+    orgInfo?.socialLinks?.messenger ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.messenger;
 
   return (
     <footer className="bg-gradient-to-b from-canvas-white via-pure-surface to-slate-50/50 dark:from-[#08080a] dark:via-zinc-950 dark:to-[#0c0c0e] text-secondary border-t border-whisper-border/30 dark:border-zinc-800/40 py-16 px-6 md:px-12 transition-all duration-300">
@@ -60,9 +73,10 @@ export async function Footer() {
                 href={facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 hover:bg-[#1877F2]/10 hover:text-[#1877F2] hover:scale-110 transition-all duration-300 shadow-sm border border-slate-200/20 dark:border-zinc-800/20"
+                aria-label="Trang Facebook chính thức của VDCD Gia Lai"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2]/10 text-[#1877F2] hover:bg-[#1877F2] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#1877F2]/20"
               >
-                <FaFacebookF className="text-lg" />
+                <FaFacebookF className="text-lg" aria-hidden="true" />
               </a>
             )}
             {tiktok && (
@@ -70,9 +84,10 @@ export async function Footer() {
                 href={tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 hover:bg-black/10 dark:hover:bg-white/10 hover:text-black dark:hover:text-white hover:scale-110 transition-all duration-300 shadow-sm border border-slate-200/20 dark:border-zinc-800/20"
+                aria-label="Kênh TikTok chính thức của VDCD Gia Lai"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:scale-110 transition-all duration-300 shadow-xs border border-zinc-200 dark:border-zinc-700"
               >
-                <FaTiktok className="text-lg" />
+                <FaTiktok className="text-lg" aria-hidden="true" />
               </a>
             )}
             {zalo && (
@@ -80,9 +95,10 @@ export async function Footer() {
                 href={zalo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 hover:bg-[#0068FF]/10 hover:text-[#0068FF] hover:scale-110 transition-all duration-300 shadow-sm border border-slate-200/20 dark:border-zinc-800/20"
+                aria-label="Kênh Zalo chính thức của VDCD Gia Lai"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0068FF]/10 text-[#0068FF] hover:bg-[#0068FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#0068FF]/20"
               >
-                <SiZalo className="text-lg" />
+                <SiZalo className="text-lg" aria-hidden="true" />
               </a>
             )}
             {messenger && (
@@ -90,9 +106,10 @@ export async function Footer() {
                 href={messenger}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 hover:bg-[#00B2FF]/10 hover:text-[#00B2FF] hover:scale-110 transition-all duration-300 shadow-sm border border-slate-200/20 dark:border-zinc-800/20"
+                aria-label="Kênh Messenger nhắn tin của VDCD Gia Lai"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#00B2FF]/10 text-[#00B2FF] hover:bg-[#00B2FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#00B2FF]/20"
               >
-                <FiMessageCircle className="text-lg" />
+                <FiMessageCircle className="text-lg" aria-hidden="true" />
               </a>
             )}
           </div>
@@ -100,9 +117,9 @@ export async function Footer() {
 
         {/* Column 2: Liên hệ */}
         <div className="lg:col-span-3 flex flex-col gap-3">
-          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Liên hệ
-          </h4>
+          </h3>
           <div className="flex flex-col gap-4 text-sm text-secondary dark:text-zinc-400">
             <div className="group flex items-start gap-3 transition-colors duration-300">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
@@ -143,9 +160,9 @@ export async function Footer() {
 
         {/* Column 3: Về chúng tôi */}
         <div className="lg:col-span-2 flex flex-col gap-3">
-          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Về chúng tôi
-          </h4>
+          </h3>
           <Link
             href="/about-us#vision"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
@@ -174,9 +191,9 @@ export async function Footer() {
 
         {/* Column 4: Chương trình & Giải pháp */}
         <div className="lg:col-span-2 flex flex-col gap-3">
-          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Chương trình & Giải pháp
-          </h4>
+          </h3>
           <Link
             href="/programs"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
@@ -205,9 +222,9 @@ export async function Footer() {
 
         {/* Column 5: Thông tin & Khác */}
         <div className="lg:col-span-2 flex flex-col gap-3">
-          <h4 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
             Thông tin & Khác
-          </h4>
+          </h3>
           <Link
             href="/#news"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"

@@ -82,47 +82,66 @@ const ContactInfoItem = ({
   return content;
 };
 
-import { OrganizationInfo } from "@/services/hero.service";
+import {
+  OrganizationInfo,
+  DEFAULT_ORGANIZATION_INFO,
+} from "@/services/hero.service";
 
 export function ContactInfo({
   orgInfo,
 }: {
   orgInfo?: OrganizationInfo | null;
 }) {
-  const address =
-    orgInfo?.address || "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai";
-  const hotline = orgInfo?.socialLinks?.hotline || "0373600099";
-  const email = orgInfo?.socialLinks?.email || "dmstgialai@vdcd.vn";
+  const address = orgInfo?.address || DEFAULT_ORGANIZATION_INFO.address || "";
+  const hotline =
+    orgInfo?.socialLinks?.hotline ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.hotline ||
+    "";
+  const email =
+    orgInfo?.socialLinks?.email ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.email ||
+    "";
 
   const facebookUrl =
-    orgInfo?.socialLinks?.facebook || "https://www.facebook.com/VDCDGIALAI";
-  const zaloUrl = orgInfo?.socialLinks?.zalo || "https://zalo.me/0373600099";
+    orgInfo?.socialLinks?.facebook ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.facebook;
+  const zaloUrl =
+    orgInfo?.socialLinks?.zalo || DEFAULT_ORGANIZATION_INFO.socialLinks.zalo;
   const tiktokUrl =
-    orgInfo?.socialLinks?.tiktok || "https://www.tiktok.com/@vdcdgialai";
+    orgInfo?.socialLinks?.tiktok ||
+    DEFAULT_ORGANIZATION_INFO.socialLinks.tiktok;
   const messengerUrl =
     orgInfo?.socialLinks?.messenger ||
-    "https://www.messenger.com/t/888742211000071";
+    DEFAULT_ORGANIZATION_INFO.socialLinks.messenger;
 
   const SOCIAL_LINKS = [
     {
       name: "Facebook",
       url: facebookUrl,
       icon: <FaFacebookF className="w-5 h-5" />,
+      colorClass:
+        "border-[#1877F2]/30 text-[#1877F2] bg-[#1877F2]/10 hover:bg-[#1877F2] hover:text-white",
     },
     {
       name: "TikTok",
       url: tiktokUrl,
       icon: <FaTiktok className="w-5 h-5" />,
+      colorClass:
+        "border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black",
     },
     {
       name: "Zalo",
       url: zaloUrl,
       icon: <SiZalo className="w-5 h-5" />,
+      colorClass:
+        "border-[#0068FF]/30 text-[#0068FF] bg-[#0068FF]/10 hover:bg-[#0068FF] hover:text-white",
     },
     {
       name: "Messenger",
       url: messengerUrl,
       icon: <FiMessageCircle className="w-5 h-5" />,
+      colorClass:
+        "border-[#00B2FF]/30 text-[#00B2FF] bg-[#00B2FF]/10 hover:bg-[#00B2FF] hover:text-white",
     },
   ];
 
@@ -208,7 +227,7 @@ export function ContactInfo({
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-10 h-10 rounded-xl border border-zinc-100 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/30 text-secondary dark:text-zinc-400 hover:border-accent-red/30 hover:text-accent-red hover:bg-accent-red/5 transition-all duration-300"
+              className={`flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 ${social.colorClass}`}
               aria-label={`Truy cập trang ${social.name} của VDCD`}
               tabIndex={0}
             >

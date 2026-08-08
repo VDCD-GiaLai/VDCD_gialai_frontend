@@ -127,7 +127,7 @@ export default function AboutPage() {
 
               <div className="flex flex-wrap justify-center gap-4 pt-4 relative z-10">
                 <a
-                  href="mailto:contact@vdcdgroup.vn"
+                  href="mailto:dmstgialai@vdcd.vn"
                   className="inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 rounded-xl shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
                 >
                   Gửi email liên hệ

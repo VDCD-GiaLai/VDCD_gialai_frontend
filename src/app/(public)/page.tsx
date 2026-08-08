@@ -27,6 +27,7 @@ import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import {
   fetchOrganizationInfoFromApi,
+  DEFAULT_ORGANIZATION_INFO,
   type OrganizationInfo,
 } from "@/services/hero.service";
 
@@ -71,7 +72,8 @@ export default function LandingPage() {
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(
-      orgInfo?.socialLinks?.email || "contact@vdcdgroup.vn",
+      orgInfo?.socialLinks?.email ||
+        DEFAULT_ORGANIZATION_INFO.socialLinks.email,
     );
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
@@ -557,7 +559,7 @@ export default function LandingPage() {
               <div className="space-y-4 font-mono-label text-xs text-secondary dark:text-zinc-300">
                 <p className="flex items-center gap-3">
                   <FiMapPin className="text-accent-red text-base" />{" "}
-                  {orgInfo?.address || "01 Trần Hưng Đạo, TP. Pleiku, Gia Lai"}
+                  {orgInfo?.address || DEFAULT_ORGANIZATION_INFO.address}
                 </p>
                 <button
                   onClick={handleCopyEmail}
@@ -566,7 +568,8 @@ export default function LandingPage() {
                   <FiMail className="text-accent-red text-base" />
                   {copiedEmail
                     ? "Đã sao chép!"
-                    : orgInfo?.socialLinks?.email || "contact@vdcdgroup.vn"}
+                    : orgInfo?.socialLinks?.email ||
+                      DEFAULT_ORGANIZATION_INFO.socialLinks.email}
                 </button>
               </div>
             </div>

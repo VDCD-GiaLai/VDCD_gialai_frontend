@@ -58,36 +58,42 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   } = config;
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    let ctx: gsap.Context | null = null;
+    const rafId = requestAnimationFrame(() => {
+      if (!containerRef.current) return;
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+      ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
 
-      /* ── Reduced motion: instant visibility ─── */
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(targets, { autoAlpha: 1, y: 0, filter: "blur(0px)" });
-      });
+        /* ── Reduced motion: instant visibility ─── */
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+          gsap.set(targets, { autoAlpha: 1, y: 0, filter: "blur(0px)" });
+        });
 
-      /* ── Full motion ─── */
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        if (onMount) {
-          revealStaggerOnMount(targets, options as BatchRevealOptions);
-        } else if (batch) {
-          revealBatch(targets, options as BatchRevealOptions);
-        } else {
-          // Apply to each element matching the selector
-          const elements = gsap.utils.toArray<Element>(targets);
-          elements.forEach((el, i) => {
-            revealElement(el, {
-              ...options,
-              delay: (options.delay ?? 0) + i * 0.06,
+        /* ── Full motion ─── */
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          if (onMount) {
+            revealStaggerOnMount(targets, options as BatchRevealOptions);
+          } else if (batch) {
+            revealBatch(targets, options as BatchRevealOptions);
+          } else {
+            // Apply to each element matching the selector
+            const elements = gsap.utils.toArray<Element>(targets);
+            elements.forEach((el, i) => {
+              revealElement(el, {
+                ...options,
+                delay: (options.delay ?? 0) + i * 0.06,
+              });
             });
-          });
-        }
-      });
-    }, containerRef);
+          }
+        });
+      }, containerRef);
+    });
 
-    return () => ctx.revert();
+    return () => {
+      cancelAnimationFrame(rafId);
+      ctx?.revert();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
