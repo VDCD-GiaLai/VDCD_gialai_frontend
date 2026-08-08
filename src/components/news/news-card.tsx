@@ -4,17 +4,17 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiCalendar, FiArrowUpRight } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 import { formatDate } from "@/lib/utils";
 import type { Article } from "@/types";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -58,12 +58,12 @@ export const NewsCard = ({ article }: NewsCardProps) => {
         {/* Content */}
         <div className="p-5">
           {/* Category & Date */}
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center gap-3 mb-2.5">
             {article.category && (
               <span className="category-badge">{article.category}</span>
             )}
             {article.publishedAt && (
-              <span className="inline-flex items-center gap-1.5 text-xs text-secondary dark:text-zinc-500">
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-secondary dark:text-zinc-500">
                 <FiCalendar className="w-3 h-3" />
                 {formatDate(article.publishedAt)}
               </span>
@@ -71,22 +71,16 @@ export const NewsCard = ({ article }: NewsCardProps) => {
           </div>
 
           {/* Title */}
-          <h3 className="text-base font-bold text-black dark:text-white font-heading tracking-tight mb-2 line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
+          <h3 className="text-[15px] font-bold text-black dark:text-white font-heading tracking-tight mb-2 line-clamp-2 group-hover:text-accent-red transition-colors duration-300 leading-snug">
             {article.title}
           </h3>
 
           {/* Excerpt */}
           {excerpt && (
-            <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed line-clamp-2 mb-4">
+            <p className="text-secondary dark:text-zinc-400 text-[13px] leading-relaxed line-clamp-2">
               {excerpt}
             </p>
           )}
-
-          {/* Read more */}
-          <span className="inline-flex items-center gap-1.5 font-mono-label text-xs font-bold uppercase tracking-widest text-accent-red group-hover:gap-2.5 transition-all duration-300">
-            Đọc tiếp
-            <FiArrowUpRight className="w-3.5 h-3.5" />
-          </span>
         </div>
       </Link>
     </motion.article>

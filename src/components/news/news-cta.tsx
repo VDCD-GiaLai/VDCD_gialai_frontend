@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
@@ -17,50 +17,45 @@ const fadeInUp = {
 
 export const NewsCta = () => {
   return (
-    <section className="pb-16" aria-labelledby="news-cta-heading">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+    <section className="py-12 md:py-16" aria-labelledby="news-cta-heading">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
         <motion.div
-          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-black via-zinc-900 to-zinc-800 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 p-8 md:p-14"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          {/* Decorative accent */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-red/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent-red/5 rounded-full blur-3xl pointer-events-none" />
+          <hr className="news-divider mb-10" />
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <span className="font-mono-label text-xs font-bold text-accent-red mb-4 tracking-widest uppercase block">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="max-w-lg">
+              <span className="font-mono-label text-[11px] font-bold text-accent-red tracking-widest uppercase block mb-3">
                 Liên hệ hợp tác
               </span>
               <h2
                 id="news-cta-heading"
-                className="text-2xl md:text-4xl font-bold tracking-tight text-white font-heading mb-4"
+                className="text-xl md:text-2xl font-bold tracking-tight text-black dark:text-white font-heading mb-3"
               >
-                Bạn có câu chuyện
-                <br />
-                muốn chia sẻ?
+                Bạn có câu chuyện muốn chia sẻ?
               </h2>
-              <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg">
+              <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
                 Liên hệ với chúng tôi để hợp tác truyền thông, chia sẻ dự án
-                hoặc gửi thông tin sự kiện. VDCD luôn sẵn sàng lắng nghe.
+                hoặc gửi thông tin sự kiện.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4 lg:justify-end">
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black font-mono-label text-[11px] font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300"
                 aria-label="Liên hệ với VDCD"
               >
                 Liên hệ ngay
-                <FiArrowUpRight className="w-4 h-4" />
+                <FiArrowUpRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 href="/about-us"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-600 text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-300 dark:border-zinc-700 text-black dark:text-white font-mono-label text-[11px] font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
                 aria-label="Tìm hiểu về VDCD"
               >
                 Về chúng tôi
