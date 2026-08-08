@@ -394,7 +394,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <VietnamMapSection />
+      {/* <VietnamMapSection /> */}
 
       {/* Featured Projects */}
       <FeaturedProjectsSection />
