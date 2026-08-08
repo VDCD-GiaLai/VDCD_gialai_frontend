@@ -114,6 +114,13 @@ export interface CreateLeadPayload {
   subject?: string;
   message?: string;
   attachment?: string;
+  dob?: string;
+  address?: string;
+  experienceYears?: string;
+  expectedSalary?: string;
+  portfolioUrl?: string;
+  coverLetter?: string;
+  source?: string;
   website?: string; // honeypot — must be empty
 }
 
