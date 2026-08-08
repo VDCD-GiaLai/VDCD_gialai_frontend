@@ -18,6 +18,9 @@ export interface OrganizationStats {
   partners: number;
   projects: number;
   provinces: number;
+  experts?: number;
+  centers?: number;
+  subsidiaries?: number;
 }
 
 export interface OrganizationInfo {
