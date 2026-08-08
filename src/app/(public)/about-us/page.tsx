@@ -467,20 +467,20 @@ export default function AboutPage() {
                 >
                   {/* ── Animated border — draws clockwise on hover ── */}
                   <span
-                    className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40
-                                   group-hover:w-full transition-[width] duration-[200ms] ease-linear"
+                    className="pointer-events-none absolute top-[-1px] left-[-1px] h-[1px] w-0 bg-accent-red z-40
+                                   group-hover:w-[calc(100%+2px)] transition-[width] duration-[200ms] ease-linear"
                   />
                   <span
-                    className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40
-                                   group-hover:h-full transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:200ms]"
+                    className="pointer-events-none absolute top-[-1px] right-[-1px] w-[1px] h-0 bg-accent-red z-40
+                                   group-hover:h-[calc(100%+2px)] transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:200ms]"
                   />
                   <span
-                    className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40
-                                   group-hover:w-full transition-[width] duration-[200ms] ease-linear group-hover:[transition-delay:400ms]"
+                    className="pointer-events-none absolute bottom-[-1px] right-[-1px] h-[1px] w-0 bg-accent-red z-40
+                                   group-hover:w-[calc(100%+2px)] transition-[width] duration-[200ms] ease-linear group-hover:[transition-delay:400ms]"
                   />
                   <span
-                    className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40
-                                   group-hover:h-full transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:600ms]"
+                    className="pointer-events-none absolute bottom-[-1px] left-[-1px] w-[1px] h-0 bg-accent-red z-40
+                                   group-hover:h-[calc(100%+2px)] transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:600ms]"
                   />
 
                   {/* Top: Icon container */}
@@ -685,10 +685,10 @@ export default function AboutPage() {
                   variants={fadeInUp}
                 >
                   {/* Clockwise drawing border lines */}
-                  <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
-                  <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
-                  <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
-                  <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
+                  <span className="pointer-events-none absolute top-[-1px] left-[-1px] h-[1px] w-0 bg-accent-red z-40 group-hover:w-[calc(100%+2px)] transition-[width] duration-[150ms] ease-linear" />
+                  <span className="pointer-events-none absolute top-[-1px] right-[-1px] w-[1px] h-0 bg-accent-red z-40 group-hover:h-[calc(100%+2px)] transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
+                  <span className="pointer-events-none absolute bottom-[-1px] right-[-1px] h-[1px] w-0 bg-accent-red z-40 group-hover:w-[calc(100%+2px)] transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
+                  <span className="pointer-events-none absolute bottom-[-1px] left-[-1px] w-[1px] h-0 bg-accent-red z-40 group-hover:h-[calc(100%+2px)] transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
 
                   <div className="flex items-center gap-4 mb-4">
                     <div className="p-2.5 rounded-full bg-accent-red/5 text-accent-red border border-accent-red/10 flex items-center justify-center shrink-0">
@@ -729,10 +729,10 @@ export default function AboutPage() {
                 variants={fadeInUp}
               >
                 {/* Clockwise drawing border lines */}
-                <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
-                <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
-                <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
-                <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
+                <span className="pointer-events-none absolute top-[-1px] left-[-1px] h-[1px] w-0 bg-accent-red z-40 group-hover:w-[calc(100%+2px)] transition-[width] duration-[150ms] ease-linear" />
+                <span className="pointer-events-none absolute top-[-1px] right-[-1px] w-[1px] h-0 bg-accent-red z-40 group-hover:h-[calc(100%+2px)] transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
+                <span className="pointer-events-none absolute bottom-[-1px] right-[-1px] h-[1px] w-0 bg-accent-red z-40 group-hover:w-[calc(100%+2px)] transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
+                <span className="pointer-events-none absolute bottom-[-1px] left-[-1px] w-[1px] h-0 bg-accent-red z-40 group-hover:h-[calc(100%+2px)] transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
 
                 {/* Top index and label */}
                 <div className="flex items-center justify-between mb-8">
@@ -752,67 +752,6 @@ export default function AboutPage() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </section>
-
-        {/* Social Media Contact Grid Section */}
-        <section id="social-connect" className="scroll-mt-28">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div className="max-w-xl">
-              <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
-                Kết nối cộng đồng
-              </span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
-                Kênh truyền thông & Mạng xã hội
-              </h2>
-            </div>
-            <p className="text-secondary dark:text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
-              Theo dõi chúng tôi trên các nền tảng mạng xã hội để cập nhật tin
-              tức công nghệ và các giải pháp đổi mới sáng tạo mới nhất.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {dynamicSocialChannels.map((chan, idx) => {
-              const IconComp = chan.icon;
-              return (
-                <motion.a
-                  key={idx}
-                  href={chan.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 flex items-center justify-between select-none cursor-pointer overflow-hidden rounded-none"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeInUp}
-                >
-                  {/* Clockwise drawing border lines */}
-                  <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
-                  <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear delay-[150ms] group-hover:delay-[150ms]" />
-                  <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear delay-[300ms] group-hover:delay-[300ms]" />
-                  <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear delay-[450ms] group-hover:delay-[450ms]" />
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-zinc-800/80 flex items-center justify-center text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/5 group-hover:text-accent-red border border-slate-200/20 dark:border-zinc-800/20 transition-all duration-300 shrink-0">
-                      <IconComp className="text-xl" />
-                    </div>
-                    <div>
-                      <h4 className="font-heading font-bold text-sm md:text-base text-black dark:text-white transition-colors duration-300">
-                        {chan.name}
-                      </h4>
-                      <p className="text-[11px] md:text-xs text-slate-500 dark:text-zinc-500 leading-normal mt-0.5 max-w-[180px]">
-                        {chan.subLabel}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="w-8 h-8 rounded-full border border-slate-200/60 dark:border-zinc-800/40 flex items-center justify-center text-slate-400 group-hover:border-accent-red group-hover:text-accent-red group-hover:rotate-45 transition-all duration-300 shrink-0">
-                    <FiArrowUpRight className="w-4 h-4" />
-                  </div>
-                </motion.a>
-              );
-            })}
           </div>
         </section>
 
