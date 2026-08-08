@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
 import { FiCalendar } from "react-icons/fi";
 import { formatDate } from "@/lib/utils";
@@ -40,7 +40,7 @@ const PrimaryCard = ({ article }: PrimaryCardProps) => {
       {/* Image */}
       <div className="news-featured-primary__image">
         {article.thumbnail ? (
-          <Image
+          <OptimizedImage
             src={article.thumbnail}
             alt={article.title}
             fill
@@ -104,7 +104,7 @@ const SidebarItem = ({ article }: SidebarItemProps) => (
     {/* Thumbnail */}
     <div className="news-featured-sidebar__thumb">
       {article.thumbnail ? (
-        <Image
+        <OptimizedImage
           src={article.thumbnail}
           alt={article.title}
           fill

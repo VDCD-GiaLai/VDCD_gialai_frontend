@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import {
   fetchPartnersFromApi,
   type PartnerItem,
@@ -95,7 +95,7 @@ const PARTNERS = [
 function PartnerLogo({ name, logo }: { name: string; logo: string }) {
   return (
     <span className="marquee-item group/logo" title={name}>
-      <Image
+      <OptimizedImage
         src={logo}
         alt={name}
         width={200}

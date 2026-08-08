@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRef } from "react";
+import Image from "next/image";
 import { FiArrowRight } from "react-icons/fi";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
 import { fetchHeroSlidesFromApi } from "@/services/hero.service";
@@ -49,13 +50,23 @@ export function GsapHero() {
           <div
             className={`card cursor-pointer ${activeIdx === idx ? "active-bg" : ""}`}
             id={`card-${idx}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
             onClick={() => {
               if (activeIdx !== idx) {
                 selectSlide(idx);
               }
             }}
-          />
+          >
+            <Image
+              src={slide.image}
+              alt={slide.title + " " + slide.title2}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority={idx === 0}
+              fetchPriority={idx === 0 ? "high" : "auto"}
+              loading={idx === 0 ? "eager" : "lazy"}
+            />
+          </div>
           {/* Card Content Overlay */}
           <div className="card-content" id={`card-content-${idx}`}>
             <div className="content-start bg-accent-red mb-1.5" />

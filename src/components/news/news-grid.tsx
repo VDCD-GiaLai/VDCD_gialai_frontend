@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
 import { FiSearch, FiCalendar } from "react-icons/fi";
 import { Pagination } from "@/components/ui/pagination";
@@ -55,7 +55,7 @@ const VerticalCard = ({ article, priority = false }: VerticalCardProps) => {
       >
         <div className="relative aspect-[16/10] overflow-hidden">
           {article.thumbnail ? (
-            <Image
+            <OptimizedImage
               src={article.thumbnail}
               alt={article.title}
               fill
@@ -122,7 +122,7 @@ const WideCard = ({ article }: WideCardProps) => {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr]">
           <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[220px] overflow-hidden">
             {article.thumbnail ? (
-              <Image
+              <OptimizedImage
                 src={article.thumbnail}
                 alt={article.title}
                 fill

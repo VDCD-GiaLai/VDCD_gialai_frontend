@@ -18,8 +18,8 @@ interface ImageComparisonSliderProps {
 }
 
 export function ImageComparisonSlider({
-  leftImage = "/images/home/farm_area_view.jpg",
-  rightImage = "/images/home/hethongdothiso.jpg",
+  leftImage = "/images/home/farm_area_view.webp",
+  rightImage = "/images/home/hethongdothiso.webp",
   leftAlt = "Thực địa Vệ tinh",
   rightAlt = "Bản đồ số 3D",
   className = "",

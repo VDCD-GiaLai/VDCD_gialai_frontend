@@ -34,7 +34,7 @@ export default function SolutionDetailPage({ params }: PageProps) {
           imageUrl:
             apiData.thumbnail ||
             fallback?.imageUrl ||
-            "/images/placeholder-solution.jpg",
+            "/images/placeholder-solution.webp",
           sections: fallback?.sections || [
             {
               title: "Tổng quan giải pháp",

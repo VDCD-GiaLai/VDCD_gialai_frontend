@@ -29,7 +29,7 @@ export default function SolutionsPage() {
             title: sol.title,
             description: sol.description,
             href: sol.websiteUrl || `/solution/${sol.slug}`,
-            imageUrl: sol.thumbnail || "/images/placeholder-solution.jpg",
+            imageUrl: sol.thumbnail || "/images/placeholder-solution.webp",
             iconUrl: sol.icon || "/icons/cpu.svg",
             slug: sol.slug,
           })),

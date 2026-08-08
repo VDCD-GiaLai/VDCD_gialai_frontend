@@ -116,7 +116,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   about: {
-    image: "/about-us/3A5A2610.JPG",
+    image: "/about-us/3A5A2610.webp",
     title: "Trung tâm Đổi mới\nSáng tạo Gia Lai",
     businessLicense: "Giấy chứng nhận đăng ký kinh doanh số: 4101443823",
     subtitle:

@@ -3,13 +3,13 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   FiArrowRight,
   FiMapPin,
   FiMail,
   FiCheckCircle,
-  FiClock,
   FiGlobe,
   FiDatabase,
   FiServer,
@@ -17,17 +17,11 @@ import {
   FiLayers,
   FiShield,
   FiCheck,
-  FiSend,
   FiTerminal,
-  FiActivity,
 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
-import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
-import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
-import { PartnersSection } from "@/components/landing/partners-section";
-import { EcosystemSection } from "@/components/landing/ecosystem-section";
+import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -35,6 +29,36 @@ import {
   fetchOrganizationInfoFromApi,
   type OrganizationInfo,
 } from "@/services/hero.service";
+
+/* ── Lazy-loaded below-fold sections ── */
+const ProgramsSolutionsSection = dynamic(
+  () =>
+    import("@/components/landing/programs-solutions-section").then((m) => ({
+      default: m.ProgramsSolutionsSection,
+    })),
+  { ssr: false },
+);
+const FeaturedProjectsSection = dynamic(
+  () =>
+    import("@/components/landing/featured-projects-section").then((m) => ({
+      default: m.FeaturedProjectsSection,
+    })),
+  { ssr: false },
+);
+const PartnersSection = dynamic(
+  () =>
+    import("@/components/landing/partners-section").then((m) => ({
+      default: m.PartnersSection,
+    })),
+  { ssr: false },
+);
+const EcosystemSection = dynamic(
+  () =>
+    import("@/components/landing/ecosystem-section").then((m) => ({
+      default: m.EcosystemSection,
+    })),
+  { ssr: false },
+);
 
 export default function LandingPage() {
   const router = useRouter();
@@ -123,6 +147,9 @@ export default function LandingPage() {
     <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
       <GsapHero />
 
+      {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
+      <DigitalPioneerSection />
+
       {/* Introduction Section - Redesigned based on Taito.ai layout */}
       <section
         id="about"
@@ -168,7 +195,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/kientaotuonglai.jpeg"
+                    src="/images/home/kientaotuonglai.webp"
                     alt="Hạ tầng công nghệ"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -255,7 +282,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/farm_area_drone_view.jpg"
+                    src="/images/home/farm_area_drone_view.webp"
                     alt="Quy trình vận hành"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -324,7 +351,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/data_center.jpg"
+                    src="/images/home/data_center.webp"
                     alt="Tiêu chuẩn an toàn"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -393,14 +420,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* <VietnamMapSection /> */}
-
-      {/* Featured Projects */}
-      <FeaturedProjectsSection />
-
-      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
-      <EcosystemSection />
 
       {/* Năng lực hệ sinh thái (Highlights) - Floating Typography Scorecard Grid */}
       <section
@@ -503,6 +522,15 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Khối 4: Chương trình và giải pháp */}
+      <ProgramsSolutionsSection />
+
+      {/* Featured Projects */}
+      <FeaturedProjectsSection />
+
+      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
+      <EcosystemSection />
 
       {/* Partners */}
       <PartnersSection />

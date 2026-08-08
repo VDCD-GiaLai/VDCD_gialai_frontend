@@ -134,7 +134,7 @@ export async function fetchPartnersFromApi(): Promise<PartnerItem[]> {
         return items.map((p) => ({
           id: p.id,
           name: p.name,
-          logo: p.logo || "/images/placeholder-logo.png",
+          logo: p.logo || "/images/placeholder-logo.webp",
           website: p.websiteUrl || p.website,
           category: p.category || "Đối tác chiến lược",
         }));
