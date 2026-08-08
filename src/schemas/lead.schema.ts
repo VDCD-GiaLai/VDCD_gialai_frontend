@@ -13,6 +13,28 @@ export const recruitmentFormSchema = z.object({
     .max(20, "Số điện thoại không quá 20 ký tự")
     .optional()
     .or(z.literal("")),
+  dob: z.string().optional().or(z.literal("")),
+  address: z
+    .string()
+    .max(255, "Địa chỉ không quá 255 ký tự")
+    .optional()
+    .or(z.literal("")),
+  experienceYears: z
+    .string()
+    .max(100, "Không quá 100 ký tự")
+    .optional()
+    .or(z.literal("")),
+  expectedSalary: z
+    .string()
+    .max(100, "Không quá 100 ký tự")
+    .optional()
+    .or(z.literal("")),
+  portfolioUrl: z
+    .string()
+    .max(500, "URL không quá 500 ký tự")
+    .optional()
+    .or(z.literal("")),
+  coverLetter: z.string().optional().or(z.literal("")),
   message: z.string().optional().or(z.literal("")),
   website: z.string().optional().or(z.literal("")), // honeypot — hidden
 });

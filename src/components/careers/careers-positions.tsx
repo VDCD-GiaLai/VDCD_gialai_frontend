@@ -118,9 +118,14 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
         body: uploadForm,
       });
       if (!uploadRes.ok) {
-        throw new Error("Tải lên CV thất bại. Vui lòng thử lại.");
+        const errBody = await uploadRes.json().catch(() => null);
+        throw new Error(
+          errBody?.message || "Tải lên CV thất bại. Vui lòng thử lại.",
+        );
       }
-      const uploadData = await uploadRes.json();
+      const uploadJson = await uploadRes.json();
+      // TransformInterceptor wraps response in { statusCode, data }
+      const uploadData = uploadJson.data || uploadJson;
       const attachmentUrl = uploadData.url || uploadData.filePath || "";
 
       // Step 2: Create Lead (triggers email notification)
@@ -152,7 +157,11 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
       });
 
       if (!leadRes.ok) {
-        throw new Error("Gửi hồ sơ thất bại. Vui lòng thử lại sau.");
+        const errBody = await leadRes.json().catch(() => null);
+        const errMsg = Array.isArray(errBody?.message)
+          ? errBody.message.join(". ")
+          : errBody?.message || "Gửi hồ sơ thất bại. Vui lòng thử lại sau.";
+        throw new Error(errMsg);
       }
 
       setStatus("success");
