@@ -1,7 +1,13 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
+import {
+  FiMapPin,
+  FiMail,
+  FiPhone,
+  FiMessageCircle,
+  FiArrowUpRight,
+} from "react-icons/fi";
 import { FaFacebookF, FaTiktok } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";
 import { APP_ROUTES } from "@/lib/constants";
