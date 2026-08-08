@@ -274,7 +274,7 @@ export default function SolutionDetailPage({ params }: PageProps) {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:contact@vdcdgroup.vn"
+              href="mailto:dmstgialai@vdcd.vn"
               className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300"
             >
               Gửi email liên hệ <FiMail className="w-4 h-4" />

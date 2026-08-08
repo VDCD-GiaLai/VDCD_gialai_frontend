@@ -132,9 +132,41 @@ export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
   return MOCK_HERO_SLIDES;
 }
 
-export async function fetchOrganizationInfoFromApi(): Promise<OrganizationInfo | null> {
+export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
+  name: "Trung tâm Đổi mới Sáng tạo Gia Lai",
+  tagline:
+    "Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng tại Gia Lai & Tây Nguyên.",
+  description:
+    "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
+  mission:
+    "Thúc đẩy đổi mới sáng tạo, hỗ trợ doanh nghiệp và chuyển đổi số cho tỉnh Gia Lai.",
+  vision:
+    "Trở thành trung tâm công nghệ và ươm tạo doanh nghiệp số hàng đầu khu vực Tây Nguyên.",
+  coreValues: "Sáng tạo - Tin cậy - Hiệu quả - Bền vững",
+  address: "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai",
+  stats: {
+    staff: 1500,
+    partners: 250,
+    provinces: 30,
+    projects: 100,
+    experts: 250,
+    centers: 5,
+    subsidiaries: 12,
+  },
+  socialLinks: {
+    hotline: "0373600099",
+    phone: "0373600099",
+    email: "dmstgialai@vdcd.vn",
+    facebook: "https://www.facebook.com/VDCDGIALAI",
+    zalo: "https://zalo.me/0373600099",
+    tiktok: "https://www.tiktok.com/@vdcdgialai",
+    messenger: "https://www.messenger.com/t/888742211000071",
+  },
+};
+
+export async function fetchOrganizationInfoFromApi(): Promise<OrganizationInfo> {
   if (USE_MOCK_DATA) {
-    return null;
+    return DEFAULT_ORGANIZATION_INFO;
   }
   try {
     const res = await fetch(`${API_BASE_URL}/organization`, {
@@ -142,10 +174,28 @@ export async function fetchOrganizationInfoFromApi(): Promise<OrganizationInfo |
     });
     if (res.ok) {
       const body = await res.json();
-      return body.data || body;
+      const apiData = body.data || body;
+      if (apiData && typeof apiData === "object") {
+        return {
+          ...DEFAULT_ORGANIZATION_INFO,
+          ...apiData,
+          address: apiData.address || DEFAULT_ORGANIZATION_INFO.address,
+          stats: {
+            ...DEFAULT_ORGANIZATION_INFO.stats,
+            ...(apiData.stats || {}),
+          },
+          socialLinks: {
+            ...DEFAULT_ORGANIZATION_INFO.socialLinks,
+            ...(apiData.socialLinks || {}),
+          },
+        };
+      }
     }
   } catch (err) {
-    console.warn("Failed to fetch organization from API:", err);
+    console.warn(
+      "Failed to fetch organization from API, fallback to default:",
+      err,
+    );
   }
-  return null;
+  return DEFAULT_ORGANIZATION_INFO;
 }

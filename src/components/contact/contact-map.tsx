@@ -55,7 +55,7 @@ export function ContactMap() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Bản đồ văn phòng VDCD Gia Lai — 01 Trần Hưng Đạo, TP. Pleiku"
+                title="Bản đồ văn phòng VDCD Gia Lai — Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai"
                 className="absolute inset-0 w-full h-full"
               />
             </div>
