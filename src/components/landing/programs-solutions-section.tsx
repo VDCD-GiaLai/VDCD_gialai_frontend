@@ -8,7 +8,7 @@ import {
   useEffect,
   useLayoutEffect,
 } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
@@ -36,25 +36,25 @@ const CATEGORIES: Category[] = [
     items: [
       {
         title: "Ươm tạo khởi nghiệp sáng tạo",
-        image: "/images/home/sol_startup.jpg",
+        image: "/images/home/sol_startup.webp",
         description:
           "Hỗ trợ ý tưởng từ giai đoạn hình thành đến thương mại hóa.",
       },
       {
         title: "Đào tạo và phát triển nhân lực",
-        image: "/images/home/sol_training.jpg",
+        image: "/images/home/sol_training.webp",
         description:
           "Nâng cao kỹ năng số, quản trị dữ liệu cho cán bộ địa phương.",
       },
       {
         title: "Kết nối chuyên gia – doanh nghiệp – nhà đầu tư",
-        image: "/images/home/sol_networking.jpg",
+        image: "/images/home/sol_networking.webp",
         description:
           "Xây dựng mạng lưới liên kết đa bên, chuyển giao công nghệ.",
       },
       {
         title: "Tư vấn chuyển đổi số",
-        image: "/images/home/sol_digital_transform.jpg",
+        image: "/images/home/sol_digital_transform.webp",
         description:
           "Đánh giá hiện trạng, lộ trình và triển khai giải pháp số.",
       },
@@ -66,35 +66,35 @@ const CATEGORIES: Category[] = [
     items: [
       {
         title: "UAV",
-        image: "/images/home/sol_uav.jpg",
+        image: "/images/home/sol_uav.webp",
         description:
           "Khảo sát, lập bản đồ và giám sát hiện trường bằng thiết bị bay.",
       },
       {
         title: "AI",
-        image: "/images/home/sol_ai.jpg",
+        image: "/images/home/sol_ai.webp",
         description:
           "Phân tích dữ liệu thông minh, nhận diện và hỗ trợ ra quyết định.",
       },
       {
         title: "Autotimelapse",
-        image: "/images/home/sol_timelapse.jpg",
+        image: "/images/home/sol_timelapse.webp",
         description: "Giám sát tiến độ công trình theo thời gian thực tự động.",
       },
       {
         title: "SmartScale",
-        image: "/images/home/sol_smartscale.jpg",
+        image: "/images/home/sol_smartscale.webp",
         description: "Hệ thống cân đo thông minh kết nối IoT, đồng bộ dữ liệu.",
       },
       {
         title: "VR360",
-        image: "/images/home/sol_vr360.jpg",
+        image: "/images/home/sol_vr360.webp",
         description:
           "Tái hiện không gian thực tế ảo 360° phục vụ du lịch, BĐS.",
       },
       {
         title: "Data Center",
-        image: "/images/home/sol_datacenter.jpg",
+        image: "/images/home/sol_datacenter.webp",
         description: "Hạ tầng lưu trữ và xử lý dữ liệu chuẩn quốc tế.",
       },
     ],
@@ -165,7 +165,7 @@ export function ProgramsSolutionsSection() {
             ease: "none",
             scrollTrigger: {
               trigger: trackRef.current!,
-              start: "top top",
+              start: "top 25%",
               end: () => `+=${calcScrollDistance() + window.innerHeight * 0.3}`,
               scrub: 1,
               pin: true,
@@ -289,12 +289,13 @@ export function ProgramsSolutionsSection() {
                 className="group relative shrink-0 w-[280px] md:w-[320px] lg:w-[360px] aspect-[3/4] overflow-hidden cursor-pointer"
               >
                 {/* Background Image */}
-                <Image
+                <OptimizedImage
                   src={item.image}
                   alt={item.title}
                   fill
                   sizes="360px"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  transformation={[{ width: 360, quality: 80, format: "auto" }]}
                 />
 
                 {/* Gradient Overlay */}
@@ -328,17 +329,12 @@ export function ProgramsSolutionsSection() {
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 mt-8">
           <div className="ps-reveal">
             {/* Progress Bar */}
-            <div className="h-[2px] bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+            <div className="h-[0.5px] bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-accent-red transition-[width] duration-100 ease-out rounded-full"
                 style={{ width: `${Math.max(5, scrollProgress * 100)}%` }}
               />
             </div>
-
-            {/* Scroll hint */}
-            <p className="hidden md:block text-center text-xs text-secondary dark:text-zinc-500 mt-4 font-mono-label uppercase tracking-widest">
-              Cuộn để khám phá
-            </p>
           </div>
         </div>
       </div>

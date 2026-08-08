@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
@@ -41,12 +41,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       style={{ height: "400px" }}
     >
       {/* ── Image — always fills full card ── */}
-      <Image
+      <OptimizedImage
         alt={project.title}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="object-cover group-hover:scale-105 transition-all duration-700"
         src={project.img}
+        transformation={[{ width: 600, quality: 80, format: "auto" }]}
       />
 
       {/* ── Animated border — draws clockwise on hover ── */}

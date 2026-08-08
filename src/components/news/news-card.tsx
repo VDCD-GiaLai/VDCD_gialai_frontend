@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
 import { FiCalendar } from "react-icons/fi";
 import { formatDate } from "@/lib/utils";
@@ -38,13 +38,14 @@ export const NewsCard = ({ article }: NewsCardProps) => {
         {/* Thumbnail */}
         <div className="relative aspect-[16/10] overflow-hidden">
           {article.thumbnail ? (
-            <Image
+            <OptimizedImage
               src={article.thumbnail}
               alt={article.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
+              transformation={[{ width: 400, quality: 80, format: "auto" }]}
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 flex items-center justify-center">

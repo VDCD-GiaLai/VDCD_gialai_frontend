@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   FiArrowRight,
@@ -21,10 +22,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
-import { ProgramsSolutionsSection } from "@/components/landing/programs-solutions-section";
-import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
-import { PartnersSection } from "@/components/landing/partners-section";
-import { EcosystemSection } from "@/components/landing/ecosystem-section";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -32,6 +29,36 @@ import {
   fetchOrganizationInfoFromApi,
   type OrganizationInfo,
 } from "@/services/hero.service";
+
+/* ── Lazy-loaded below-fold sections ── */
+const ProgramsSolutionsSection = dynamic(
+  () =>
+    import("@/components/landing/programs-solutions-section").then((m) => ({
+      default: m.ProgramsSolutionsSection,
+    })),
+  { ssr: false },
+);
+const FeaturedProjectsSection = dynamic(
+  () =>
+    import("@/components/landing/featured-projects-section").then((m) => ({
+      default: m.FeaturedProjectsSection,
+    })),
+  { ssr: false },
+);
+const PartnersSection = dynamic(
+  () =>
+    import("@/components/landing/partners-section").then((m) => ({
+      default: m.PartnersSection,
+    })),
+  { ssr: false },
+);
+const EcosystemSection = dynamic(
+  () =>
+    import("@/components/landing/ecosystem-section").then((m) => ({
+      default: m.EcosystemSection,
+    })),
+  { ssr: false },
+);
 
 export default function LandingPage() {
   const router = useRouter();
@@ -168,7 +195,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/kientaotuonglai.jpeg"
+                    src="/images/home/kientaotuonglai.webp"
                     alt="Hạ tầng công nghệ"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -255,7 +282,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/farm_area_drone_view.jpg"
+                    src="/images/home/farm_area_drone_view.webp"
                     alt="Quy trình vận hành"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -324,7 +351,7 @@ export default function LandingPage() {
                 {/* Background Image (no rounding) */}
                 <div className="absolute inset-0 opacity-90 dark:opacity-30 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none">
                   <Image
-                    src="/images/home/data_center.jpg"
+                    src="/images/home/data_center.webp"
                     alt="Tiêu chuẩn an toàn"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"

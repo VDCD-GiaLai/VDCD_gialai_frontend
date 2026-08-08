@@ -45,10 +45,10 @@ export default function AboutPage() {
   ];
 
   const defaultImages = [
-    "/images/home/hethongdothiso.jpg",
-    "/images/home/farm_area_drone_view.jpg",
-    "/images/home/data_center.jpg",
-    "/images/home/kientaotuonglai.jpeg",
+    "/images/home/hethongdothiso.webp",
+    "/images/home/farm_area_drone_view.webp",
+    "/images/home/data_center.webp",
+    "/images/home/kientaotuonglai.webp",
   ];
 
   const defaultIcons = [FiCpu, FiMap, FiActivity, FiSettings];

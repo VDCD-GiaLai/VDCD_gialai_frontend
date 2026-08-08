@@ -112,7 +112,7 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     year: bp.year ? String(bp.year) : "2024",
     description: bp.metaDescription || bp.overview?.slice(0, 150) || bp.title,
     coverImage:
-      bp.thumbnail || galleryImages[0]?.src || "/images/placeholder.jpg",
+      bp.thumbnail || galleryImages[0]?.src || "/images/placeholder.webp",
     layout: "landscape-full",
     overview: bp.overview || undefined,
     challenge: bp.challenge || undefined,

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
 import { fetchPageBannerFromApi } from "@/services/banner.service";
 import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
@@ -50,7 +50,7 @@ export const NewsHero = () => {
     <section className="news-hero" aria-label={banner.tag || "Tin tức"}>
       {/* Background image */}
       <div className="news-hero__image">
-        <Image
+        <OptimizedImage
           src={banner.image}
           alt={banner.tag || banner.title}
           fill
@@ -58,6 +58,7 @@ export const NewsHero = () => {
           sizes="100vw"
           className="object-cover"
           style={{ willChange: "transform" }}
+          transformation={[{ width: 1920, quality: 80, format: "auto" }]}
         />
       </div>
 

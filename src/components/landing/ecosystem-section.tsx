@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 import { SOLUTIONS } from "@/data/solution/solutions";
@@ -64,12 +64,13 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
     >
       {/* Image */}
       <div className="relative h-40 md:h-44 overflow-hidden">
-        <Image
+        <OptimizedImage
           src={item.imageUrl}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover group-hover:scale-105 transition-transform duration-700"
+          transformation={[{ width: 400, quality: 80, format: "auto" }]}
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

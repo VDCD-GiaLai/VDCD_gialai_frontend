@@ -35,7 +35,7 @@ export async function Footer() {
               fill
               sizes="208px"
               className="object-contain object-left dark:hidden transition-all duration-300"
-              src="/GL_NOBGArtboard 4.png"
+              src="/GL_NOBGArtboard 4.webp"
               priority
             />
             {/* Dark Mode Logo */}
@@ -44,7 +44,7 @@ export async function Footer() {
               fill
               sizes="208px"
               className="object-contain object-left hidden dark:block transition-all duration-300"
-              src="/GL_NOBGArtboard 4_white.png"
+              src="/GL_NOBGArtboard 4_white.webp"
               priority
             />
           </div>

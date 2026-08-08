@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   FiArrowRight,
   FiActivity,
@@ -127,7 +126,7 @@ export function DigitalPioneerSection() {
               {/* Primary Feature Visual (Col 7) */}
               <div className="md:col-span-7 relative group min-h-[380px] md:min-h-[480px] rounded-none border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
-                  src="/images/home/pioneer_field_tech.jpg"
+                  src="/images/home/pioneer_field_tech.webp"
                   alt="Khảo sát dữ liệu hiện trường"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
@@ -151,7 +150,7 @@ export function DigitalPioneerSection() {
                 {/* Secondary Image */}
                 <div className="relative group h-56 md:h-64 rounded-none border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                   <Image
-                    src="/images/home/digital_command_center.jpg"
+                    src="/images/home/digital_command_center.webp"
                     alt="Trung tâm phân tích & điều hành"
                     fill
                     sizes="(max-width: 1024px) 100vw, 25vw"

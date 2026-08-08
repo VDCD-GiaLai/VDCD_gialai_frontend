@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fetchPageBannerFromApi } from "@/services/banner.service";
@@ -104,7 +104,7 @@ export const PageHeroBanner = ({
     >
       {/* Background image */}
       <div className="page-hero-banner__image">
-        <Image
+        <OptimizedImage
           src={banner.image}
           alt={banner.tag || banner.title}
           fill
@@ -112,6 +112,7 @@ export const PageHeroBanner = ({
           sizes="100vw"
           className="object-cover"
           style={{ willChange: "transform" }}
+          transformation={[{ width: 1920, quality: 80, format: "auto" }]}
         />
       </div>
 

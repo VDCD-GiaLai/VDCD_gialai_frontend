@@ -114,18 +114,18 @@ export function Header() {
   const logoSrc = React.useMemo(() => {
     if (!mounted) {
       return hasHeroBanner
-        ? "/VDCD_gialai_white.png"
-        : "/VDCD_gialai_black.png";
+        ? "/VDCD_gialai_white.webp"
+        : "/VDCD_gialai_black.webp";
     }
 
     if (!showSolidHeader) {
       // Dark background at the top of hero banner pages -> use white logo
-      return "/VDCD_gialai_white.png";
+      return "/VDCD_gialai_white.webp";
     }
 
     return resolvedTheme === "dark"
-      ? "/VDCD_gialai_white.png"
-      : "/VDCD_gialai_black.png";
+      ? "/VDCD_gialai_white.webp"
+      : "/VDCD_gialai_black.webp";
   }, [mounted, hasHeroBanner, showSolidHeader, resolvedTheme]);
 
   return (

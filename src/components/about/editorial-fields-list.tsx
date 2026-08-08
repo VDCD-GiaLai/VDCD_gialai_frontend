@@ -51,7 +51,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
         "AI Analytics",
         "Cloud Infra",
       ],
-      image: "/images/home/hethongdothiso.jpg",
+      image: "/images/home/hethongdothiso.webp",
     },
     {
       title: "Khảo sát, Đo đạc & Số hóa bản đồ",
@@ -63,7 +63,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
         "Remote Sensing",
         "Forest Digitization",
       ],
-      image: "/images/home/farm_area_drone_view.jpg",
+      image: "/images/home/farm_area_drone_view.webp",
     },
     {
       title: "Hạ tầng & Điều hành thông minh",
@@ -75,7 +75,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
         "Smart City",
         "Process Automation",
       ],
-      image: "/images/home/data_center.jpg",
+      image: "/images/home/data_center.webp",
     },
     {
       title: "Nghiên cứu, Sản xuất & Chế tạo phần cứng",
@@ -87,7 +87,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
         "AI Camera",
         "IoT Hardware",
       ],
-      image: "/images/home/kientaotuonglai.jpeg",
+      image: "/images/home/kientaotuonglai.webp",
     },
   ];
 

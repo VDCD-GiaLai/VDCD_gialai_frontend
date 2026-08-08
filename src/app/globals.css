@@ -57,8 +57,18 @@
 html,
 body {
   height: 100%;
-  scroll-behavior: smooth;
   font-family: var(--font-sans);
+}
+
+/* Skip rendering of below-fold sections until they scroll into view */
+#about,
+#highlights,
+#programs-solutions,
+.featured-projects,
+.ecosystem-section,
+.partners-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 /* Custom Scrollbar */

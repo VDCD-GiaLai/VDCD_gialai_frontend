@@ -2,17 +2,22 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function HeroRadar() {
   return (
     <div className="relative w-full h-[55vh] min-h-[450px] overflow-hidden bg-zinc-950 flex flex-col justify-between p-6 md:p-12 select-none">
       {/* 1. Background Image with Dark Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 ease-out scale-105"
-        style={{
-          backgroundImage: "url('/images/home/farm_area_drone_view.jpg')",
-        }}
-      />
+      <div className="absolute inset-0">
+        <Image
+          src="/images/home/farm_area_drone_view.webp"
+          alt="Khung cảnh nông nghiệp Tây Nguyên"
+          fill
+          sizes="100vw"
+          className="object-cover object-center scale-105"
+          loading="lazy"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-zinc-950/50 to-zinc-950 z-0" />
 
       {/* 2. Top Header Content (Breadcrumbs) */}

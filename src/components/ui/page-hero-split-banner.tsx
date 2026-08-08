@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fetchPageBannerFromApi } from "@/services/banner.service";
@@ -105,7 +105,7 @@ export const PageHeroSplitBanner = ({
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-black/20" />
-        <Image
+        <OptimizedImage
           src={banner.image}
           alt={banner.tag || banner.title}
           fill
@@ -113,6 +113,7 @@ export const PageHeroSplitBanner = ({
           sizes="100vw"
           className="object-cover"
           style={{ willChange: "transform", objectPosition: "bottom" }}
+          transformation={[{ width: 1920, quality: 80, format: "auto" }]}
         />
       </div>
 

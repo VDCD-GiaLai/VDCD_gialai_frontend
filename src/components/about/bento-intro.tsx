@@ -55,7 +55,7 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
         <div className="lg:col-span-7 relative group">
           <div className="relative aspect-[3/2] overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-lg transition-transform duration-700 hover:scale-[1.01]">
             <img
-              src="/about-us/3A5A2610.JPG"
+              src="/about-us/3A5A2610.webp"
               alt="Trung tâm Đổi mới Sáng tạo Gia Lai"
               className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />

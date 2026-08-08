@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { FiGlobe, FiTarget, FiShield } from "react-icons/fi";
 
 interface PhilosophyAccordionProps {
@@ -25,7 +26,7 @@ export function PhilosophyAccordion({
         missionText ||
         "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.",
       icon: FiGlobe,
-      bgImage: "/images/home/farm_area_view.jpg",
+      bgImage: "/images/home/farm_area_view.webp",
     },
     {
       id: "02",
@@ -34,7 +35,7 @@ export function PhilosophyAccordion({
         visionText ||
         "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
       icon: FiTarget,
-      bgImage: "/images/home/hethongdothiso.jpg",
+      bgImage: "/images/home/hethongdothiso.webp",
     },
     {
       id: "03",
@@ -42,7 +43,7 @@ export function PhilosophyAccordion({
       desc: coreValuesText || "Sáng tạo – Chính trực – Hợp tác – Tác động",
       icon: FiShield,
 
-      bgImage: "/images/home/data_center.jpg",
+      bgImage: "/images/home/data_center.webp",
     },
   ];
 
@@ -78,12 +79,16 @@ export function PhilosophyAccordion({
               }`}
             >
               {/* Background Image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out scale-105"
-                style={{
-                  backgroundImage: `url('${item.bgImage}')`,
-                }}
-              />
+              <div className="absolute inset-0">
+                <Image
+                  src={item.bgImage}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center scale-105"
+                  loading="lazy"
+                />
+              </div>
               {/* Dark Overlay overlaying the image */}
               <div
                 className={`absolute inset-0 transition-colors duration-500 ${
