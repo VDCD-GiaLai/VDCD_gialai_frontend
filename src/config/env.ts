@@ -7,5 +7,5 @@ export const APP_ENV = process.env.NEXT_PUBLIC_APP_ENV || "development";
 // Prod mode (production / prod) = Gọi trực tiếp Backend API live (khi đã deploy server)
 export const USE_MOCK_DATA =
   process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true" ||
-  APP_ENV === "development" ||
-  APP_ENV === "dev";
+  (process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false" &&
+    (APP_ENV === "development" || APP_ENV === "dev"));

@@ -118,9 +118,11 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
   about: {
     image: "/about-us/3A5A2610.JPG",
     title: "Trung tâm Đổi mới\nSáng tạo Gia Lai",
+    businessLicense: "Giấy chứng nhận đăng ký kinh doanh số: 4101443823",
     subtitle:
       "Khởi đầu từ những bước chân đo đạc địa lý năm 2006, chúng tôi không ngừng đổi mới để vẽ nên hệ sinh thái công nghệ thông minh, kết nối Tây Nguyên với dòng chảy số toàn cầu.",
     tag: "Về chúng tôi",
+
     ctaButtons: [
       {
         label: "Tìm hiểu thêm",
@@ -190,6 +192,7 @@ export const fetchPageBannerFromApi = async (
           subtitle: data.subtitle || fallback.subtitle,
           tag: data.tag || fallback.tag,
           ctaButtons: data.ctaButtons || fallback.ctaButtons,
+          businessLicense: data.businessLicense || fallback.businessLicense,
         };
       }
     }

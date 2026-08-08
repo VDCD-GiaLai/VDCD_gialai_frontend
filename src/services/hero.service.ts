@@ -18,20 +18,23 @@ export interface OrganizationStats {
   partners: number;
   projects: number;
   provinces: number;
-  experts?: number;
-  centers?: number;
-  subsidiaries?: number;
 }
 
 export interface OrganizationInfo {
   name: string;
   tagline: string;
+  businessLicenseNo?: string;
   description: string;
   mission: string;
   vision: string;
+  coreValues: string;
+  foundedYear?: number;
   address?: string;
   stats: OrganizationStats;
   socialLinks: Record<string, string>;
+  operationFields?: Array<{ title: string; description: string }>;
+  ecosystemCapabilities?: string;
+  developmentOrientations?: Array<{ title: string; description: string }>;
 }
 
 export const MOCK_HERO_SLIDES: HeroSlideItem[] = [

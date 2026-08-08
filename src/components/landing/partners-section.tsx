@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import {
   fetchPartnersFromApi,
   type PartnerItem,
@@ -109,8 +108,9 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
 }
 
 /** ────────────────────────────────────────────────
- *  Partners Section — inspired by qount.io
- *  integrations ticker design
+ *  Partners Section — continuous marquee ticker
+ *  No scroll-triggered animations; logos scroll
+ *  immediately and endlessly.
  *  ──────────────────────────────────────────────── */
 export function PartnersSection() {
   const [partnerList, setPartnerList] = React.useState<PartnerItem[]>(
@@ -129,23 +129,8 @@ export function PartnersSection() {
     });
   }, []);
 
-  /* GSAP scroll-reveal for header and footer text blocks */
-  const sectionRef = useScrollReveal({
-    targets: ".partners-reveal",
-    options: {
-      y: 24,
-      blur: 4,
-      duration: 0.8,
-      ease: "power3.out",
-    },
-  });
-
-  /* Duplicate the list so the marquee loops seamlessly */
-  const allLogos = [...partnerList, ...partnerList];
-
   return (
     <section
-      ref={sectionRef}
       id="partners"
       className="relative border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >
@@ -160,7 +145,7 @@ export function PartnersSection() {
 
       <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16">
         {/* ── Header ─────────────────────────────────── */}
-        <div className="partners-reveal max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
+        <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           {/* Subtitle */}
           <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-4">
             Khách hàng & Đối tác
@@ -186,9 +171,16 @@ export function PartnersSection() {
             className="marquee-track"
             style={{ ["--marquee-duration" as string]: "50s" }}
           >
-            {allLogos.map((p, i) => (
-              <PartnerLogo key={`row1-${i}`} name={p.name} logo={p.logo} />
-            ))}
+            <div className="marquee-half">
+              {partnerList.map((p, i) => (
+                <PartnerLogo key={`r1a-${i}`} name={p.name} logo={p.logo} />
+              ))}
+            </div>
+            <div className="marquee-half">
+              {partnerList.map((p, i) => (
+                <PartnerLogo key={`r1b-${i}`} name={p.name} logo={p.logo} />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -201,14 +193,21 @@ export function PartnersSection() {
               animationDirection: "reverse",
             }}
           >
-            {[...allLogos].reverse().map((p, i) => (
-              <PartnerLogo key={`row2-${i}`} name={p.name} logo={p.logo} />
-            ))}
+            <div className="marquee-half">
+              {[...partnerList].reverse().map((p, i) => (
+                <PartnerLogo key={`r2a-${i}`} name={p.name} logo={p.logo} />
+              ))}
+            </div>
+            <div className="marquee-half">
+              {[...partnerList].reverse().map((p, i) => (
+                <PartnerLogo key={`r2b-${i}`} name={p.name} logo={p.logo} />
+              ))}
+            </div>
           </div>
         </div>
 
         {/* ── Footer ─────────────────────────────────── */}
-        <div className="partners-reveal max-w-xl mx-auto text-center mt-12 md:mt-16 lg:mt-20">
+        <div className="max-w-xl mx-auto text-center mt-12 md:mt-16 lg:mt-20">
           <p className="text-secondary dark:text-zinc-500 text-xs md:text-sm leading-relaxed">
             Cùng hơn{" "}
             <span className="font-semibold text-black dark:text-white">

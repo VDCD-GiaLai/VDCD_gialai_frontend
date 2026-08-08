@@ -27,7 +27,6 @@ export function Header() {
   /** Pages with a full-viewport hero banner that need a transparent header */
   const HERO_BANNER_PATHS = new Set([
     "/",
-    "/about-us",
     "/programs",
     "/solution",
     "/projects",
