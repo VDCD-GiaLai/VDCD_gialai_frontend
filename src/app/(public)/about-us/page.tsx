@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   FiArrowUpRight,
@@ -10,17 +11,122 @@ import {
   FiCompass,
   FiCpu,
   FiAward,
+  FiGlobe,
   FiShield,
-  FiUsers,
   FiMap,
   FiActivity,
   FiSettings,
+  FiLayers,
+  FiDatabase,
+  FiMessageCircle,
 } from "react-icons/fi";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
+import {
+  fetchOrganizationInfoFromApi,
+  type OrganizationInfo,
+} from "@/services/hero.service";
+import {
+  fetchOperationFieldsFromApi,
+  type OperationFieldItem,
+} from "@/services/operation-field.service";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { PageHeroSplitBanner } from "@/components/ui/page-hero-split-banner";
 import { Card } from "@/components/ui/card";
 
 export default function AboutPage() {
+  const [orgInfo, setOrgInfo] = useState<OrganizationInfo | null>(null);
+  const [operationFields, setOperationFields] = useState<OperationFieldItem[]>(
+    [],
+  );
+
+  useEffect(() => {
+    fetchOrganizationInfoFromApi().then(setOrgInfo);
+    fetchOperationFieldsFromApi().then(setOperationFields);
+  }, []);
+
+  const philosophyItems = [
+    {
+      title: "01. SỨ MỆNH",
+      desc: "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.",
+      icon: FiGlobe,
+    },
+    {
+      title: "02. TẦM NHÌN",
+      desc: "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
+      icon: FiTarget,
+    },
+    {
+      title: "03. GIÁ TRỊ CỐT LÕI",
+      desc: "Sáng tạo – Chính trực – Hợp tác – Tác động",
+      icon: FiShield,
+    },
+  ];
+
+  const statsItems = [
+    { label: "Nhân sự", value: 1500, suffix: "+" },
+    { label: "Chuyên gia", value: 250, suffix: "+" },
+    { label: "Tỉnh thành", value: 30, suffix: "" },
+    { label: "Trung tâm", value: 12, suffix: "" },
+    { label: "Công ty thành viên", value: 10, suffix: "" },
+    { label: "Dự án", value: 100, suffix: "+" },
+  ];
+
+  const inheritedCapacities = [
+    {
+      title: "Khảo sát chuyên sâu",
+      desc: "Ứng dụng các thiết bị bay không người lái (UAV/Drone) và quét LiDAR để đo đạc bản đồ địa hình chuyên nghiệp.",
+      icon: FiMap,
+    },
+    {
+      title: "Dữ liệu không gian",
+      desc: "Xây dựng hệ thống cơ sở dữ liệu GIS và mô hình bản đồ số 3D (Digital Twin/3DG Platform) trực quan.",
+      icon: FiLayers,
+    },
+    {
+      title: "Trí tuệ nhân tạo",
+      desc: "Tích hợp phân tích dữ liệu lớn và AI để tự động hóa giám sát hiện trường (AutoTimelapse) thông minh.",
+      icon: FiCpu,
+    },
+    {
+      title: "Thông tin công trình",
+      desc: "Nghiên cứu và triển khai mô hình thông tin công trình (BIM) hỗ trợ đắc lực cho quy hoạch hạ tầng.",
+      icon: FiSettings,
+    },
+    {
+      title: "Hạ tầng dữ liệu",
+      desc: "Xây dựng nền tảng đám mây và hệ thống cơ sở dữ liệu lớn đáp ứng các yêu cầu bảo mật cao nhất.",
+      icon: FiDatabase,
+    },
+    {
+      title: "Phần mềm quản lý",
+      desc: "Thiết kế và lập trình các ứng dụng SaaS chuyên dụng hỗ trợ quản trị và vận hành doanh nghiệp hiệu quả.",
+      icon: FiActivity,
+    },
+  ];
+
+  const developmentOrientations = [
+    {
+      step: "01",
+      title: "Phát triển Hạ tầng",
+      desc: "Phát triển hạ tầng dữ liệu và công nghệ dùng chung làm bệ phóng vững chắc cho chuyển đổi số toàn diện.",
+    },
+    {
+      step: "02",
+      title: "Kinh tế Chủ lực",
+      desc: "Thúc đẩy ứng dụng công nghệ số trong các ngành kinh tế chủ lực tại Gia Lai và khu vực Tây Nguyên.",
+    },
+    {
+      step: "03",
+      title: "Ươm mầm Đổi mới",
+      desc: "Hỗ trợ các startup và doanh nghiệp địa phương tối ưu hóa vận hành, chuyển đổi mô hình hoạt động hiệu quả.",
+    },
+    {
+      step: "04",
+      title: "Kết nối Nguồn lực",
+      desc: "Kết nối Gia Lai với mạng lưới chuyên gia quốc tế, chuyển giao công nghệ và thu hút các quỹ đầu tư tiềm năng.",
+    },
+  ];
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
     visible: {
@@ -49,29 +155,6 @@ export default function AboutPage() {
       title: "Hệ Sinh Thái Đa Ngành",
       tagline: "Vươn mình dẫn đầu công nghệ số",
       desc: "Trở thành Tập đoàn công nghệ đa ngành tích hợp phần cứng thông minh và hạ tầng đám mây. Làm chủ công nghệ thiết bị bay không người lái (UAV) tự chủ, hệ thống trí tuệ nhân tạo (AI), nền tảng Bản đồ 3D tương tác (Digital Twin) và các hệ thống IOC điều hành đô thị hiện đại.",
-    },
-  ];
-
-  const coreValues = [
-    {
-      icon: FiCpu,
-      title: "Bản lĩnh Đổi mới",
-      desc: "Không ngừng nghiên cứu các công nghệ mới, dũng cảm dấn thân và tiên phong chuyển hóa tri thức số vào đời sống thực tế.",
-    },
-    {
-      icon: FiAward,
-      title: "Khát vọng Chất lượng",
-      desc: "Đặt độ chính xác và tính tối ưu làm thước đo tối thượng cho mỗi dự án bản đồ số, sản phẩm phần mềm hay thiết bị chế tạo.",
-    },
-    {
-      icon: FiShield,
-      title: "Cam kết Minh bạch",
-      desc: "Cam kết trung thực tuyệt đối trong dữ liệu, minh bạch trong quy trình và giải pháp để tạo dựng niềm tin bền vững.",
-    },
-    {
-      icon: FiUsers,
-      title: "Trọn vẹn Đồng hành",
-      desc: "Luôn đồng hành cùng địa phương, cộng đồng và doanh nghiệp trên suốt hành trình số hóa khó khăn và lâu dài.",
     },
   ];
 
@@ -122,84 +205,185 @@ export default function AboutPage() {
     },
   ];
 
+  // 1. Triết lý hoạt động (Sứ mệnh, Tầm nhìn, Giá trị cốt lõi)
+  const dynamicPhilosophy = [
+    {
+      title: "01. SỨ MỆNH",
+      desc: orgInfo?.mission || philosophyItems[0].desc,
+      icon: FiGlobe,
+    },
+    {
+      title: "02. TẦM NHÌN",
+      desc: orgInfo?.vision || philosophyItems[1].desc,
+      icon: FiTarget,
+    },
+    {
+      title: "03. GIÁ TRỊ CỐT LÕI",
+      desc: orgInfo?.coreValues || philosophyItems[2].desc,
+      icon: FiShield,
+    },
+  ];
+
+  // 2. Mạng lưới & Thống kê
+  const dynamicStats = [
+    { label: "Nhân sự", value: orgInfo?.stats?.staff ?? 1500, suffix: "+" },
+    { label: "Chuyên gia", value: orgInfo?.stats?.experts ?? 250, suffix: "+" },
+    { label: "Tỉnh thành", value: orgInfo?.stats?.provinces ?? 30, suffix: "" },
+    { label: "Trung tâm", value: orgInfo?.stats?.centers ?? 12, suffix: "" },
+    {
+      label: "Công ty thành viên",
+      value: orgInfo?.stats?.subsidiaries ?? 10,
+      suffix: "",
+    },
+    { label: "Dự án", value: orgInfo?.stats?.projects ?? 100, suffix: "+" },
+  ];
+
+  // 3. Lĩnh vực hoạt động chủ chốt (Lấy từ Operation Fields API chuyên biệt)
+  const defaultIcons = [
+    FiCpu,
+    FiMap,
+    FiActivity,
+    FiSettings,
+    FiGlobe,
+    FiLayers,
+  ];
+  const dynamicActivities =
+    operationFields && operationFields.length > 0
+      ? operationFields.map((field, idx) => {
+          const iconMap: Record<string, any> = {
+            FiCpu,
+            FiMap,
+            FiActivity,
+            FiSettings,
+            FiGlobe,
+            FiLayers,
+          };
+          const icon =
+            (field.icon && iconMap[field.icon]) ||
+            defaultIcons[idx % defaultIcons.length];
+          return {
+            title: field.name,
+            desc: field.shortDescription || "",
+            icon,
+            techKeywords: [] as string[],
+          };
+        })
+      : activities;
+
+  // 4. Nền tảng vững chắc (Năng lực kế thừa từ hệ sinh thái VDCD)
+  const dynamicEcosystemDesc =
+    orgInfo?.ecosystemCapabilities ||
+    "Trung tâm kế thừa năng lực công nghệ vượt trội, đội ngũ chuyên gia hàng đầu và mạng lưới triển khai rộng khắp của hệ sinh thái VDCD Group trong các dự án thực tế trên toàn quốc.";
+
+  // 5. Định hướng phát triển
+  const dynamicOrientations =
+    orgInfo?.developmentOrientations &&
+    orgInfo.developmentOrientations.length > 0
+      ? orgInfo.developmentOrientations.map((item, idx) => ({
+          step: (idx + 1).toString().padStart(2, "0"),
+          title: item.title,
+          desc: item.description || "",
+        }))
+      : developmentOrientations;
+
+  // 6. Kênh truyền thông & Mạng xã hội
+  const dynamicSocialChannels = [
+    {
+      name: "Facebook",
+      subLabel: "Theo dõi hoạt động, sự kiện công nghệ",
+      icon: FaFacebookF,
+      url:
+        orgInfo?.socialLinks?.facebook || "https://www.facebook.com/vdcdgroup",
+    },
+    {
+      name: "Zalo OA",
+      subLabel: "Kết nối trực tiếp với đội ngũ hỗ trợ",
+      icon: SiZalo,
+      url: orgInfo?.socialLinks?.zalo || "https://zalo.me/vdcdgroup",
+    },
+    {
+      name: "TikTok",
+      subLabel: "Xem video xu hướng, giải pháp thực địa",
+      icon: FaTiktok,
+      url: orgInfo?.socialLinks?.tiktok || "https://www.tiktok.com/@vdcdgroup",
+    },
+    {
+      name: "Messenger",
+      subLabel: "Trao đổi & nhận tư vấn giải pháp 24/7",
+      icon: FiMessageCircle,
+      url: orgInfo?.socialLinks?.messenger || "https://m.me/vdcdgroup",
+    },
+  ];
+
   return (
     <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      {/* Hero Banner split 50/50 */}
-      <PageHeroSplitBanner pageKey="about" ariaLabel="Về chúng tôi" />
+      {/* Tiêu đề trang tối giản */}
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-36 pb-6">
+        <nav className="text-xs font-mono-label text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-3">
+          <Link href="/" className="hover:text-accent-red transition-colors">
+            Trang chủ
+          </Link>
+          <span className="mx-2 text-zinc-300 dark:text-zinc-800">/</span>
+          <span className="text-zinc-600 dark:text-zinc-400">Về chúng tôi</span>
+        </nav>
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-black dark:text-white font-heading uppercase leading-none">
+          Về chúng tôi
+        </h1>
+      </div>
 
       {/* Main Section Padding increased for Premium spatial rhythm */}
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-24 pb-32 space-y-36">
-        {/* Brand Story Section - Editorial Split Layout */}
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-6 pb-32 space-y-36">
+        {/* Khối 1 – Giới thiệu chung */}
         <section
-          id="brand-story"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start scroll-mt-28"
+          id="introduction"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center scroll-mt-28"
         >
-          {/* Left Column: Heading & Quote Card */}
+          {/* Cột trái: Hình ảnh */}
           <motion.div
-            className="lg:col-span-5 space-y-10"
+            className="lg:col-span-6 relative aspect-[16/10] md:aspect-[4/3] w-full overflow-hidden border border-slate-200 dark:border-zinc-800 shadow-sm"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <div className="space-y-3">
-              <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
-                Lịch sử & Vị thế
-              </span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
-                Từ thực địa núi rừng <br />
-                <span className="text-accent-red">đến không gian số</span>
-              </h2>
-              <span className="font-mono text-[10px] md:text-xs text-zinc-400 dark:text-zinc-500 tracking-wider block pt-1">
-                Giấy chứng nhận đăng ký kinh doanh số: 4101443823
-              </span>
-            </div>
-
-            {/* Premium Quote Card - Minimalist edge styled */}
-            <Card className="hover:scale-[1.01] hover:border-accent-red/25 transition-all duration-300">
-              <p className="text-black dark:text-zinc-200 font-medium italic text-base md:text-lg leading-relaxed">
-                “Chúng tôi mang theo tinh thần kiên cường của đất rừng Tây
-                Nguyên và trí tuệ công nghệ hiện đại để cùng kiến tạo một tương
-                lai số thịnh vượng, bắt đầu từ những giải pháp thực tế nhất cho
-                cộng đồng.”
-              </p>
-              <div className="mt-4 flex items-center gap-3">
-                <div className="w-8 h-[1px] bg-zinc-300 dark:bg-zinc-700" />
-                <span className="text-xs font-bold font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest">
-                  Ban Lãnh đạo VDCD Group
-                </span>
-              </div>
-            </Card>
+            <Image
+              src="/about-us/3A5A2610.JPG"
+              alt="Trung tâm Đổi mới Sáng tạo Gia Lai"
+              fill
+              className="object-cover hover:scale-105 transition-transform duration-500"
+              sizes="(max-w-1024px) 100vw, 50vw"
+              priority
+            />
           </motion.div>
 
-          {/* Right Column: Paragraphs */}
+          {/* Cột phải: Nội dung văn bản */}
           <motion.div
-            className="lg:col-span-7 space-y-8"
+            className="lg:col-span-6 space-y-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            {/* Plain text representation without AI-ish bold words */}
-            <div className="space-y-6 text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+            <div className="space-y-2.5">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+                {orgInfo?.name || "Trung tâm Đổi mới Sáng tạo Gia Lai"}
+              </h2>
+              <p className="text-xs md:text-sm font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block">
+                Giấy chứng nhận đăng ký kinh doanh số:{" "}
+                {orgInfo?.businessLicenseNo || "4101443823"}
+              </p>
+            </div>
+
+            <div className="space-y-5 text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
               <p>
-                Hành trình của tập đoàn VDCD bắt đầu từ năm 2006, xuất phát từ
-                những bước chân băng rừng lội suối để đo đạc địa lý và vẽ nên
-                những tấm bản đồ thực địa đầu tiên. Chính những ngày tháng gắn
-                bó với đất rừng Tây Nguyên đã nhen nhóm trong chúng tôi một khát
-                vọng lớn lao hơn: Làm thế nào để đưa tri thức công nghệ cao về
-                phục vụ và phát triển vùng đất này?
+                {orgInfo?.description ||
+                  "Trung tâm Đổi mới Sáng tạo Gia Lai, là mô hình xã hội hóa do doanh nghiệp đầu tư và vận hành. Trung tâm được hình thành nhằm kết nối nguồn lực công nghệ, chuyên gia, doanh nghiệp và dữ liệu; thúc đẩy ứng dụng công nghệ, chuyển đổi số và phát triển hệ sinh thái khởi nghiệp sáng tạo tại địa phương."}
               </p>
               <p>
-                Trải qua gần 20 năm kiên tâm đổi mới, những bản đồ giấy năm xưa
-                nay đã được số hóa thành các mô hình Digital Twin (bản đồ số 3D)
-                sống động; những thước đo truyền thống được thay thế bằng những
-                phi đội UAV tự chủ làm chủ bầu trời. Chúng tôi tự hào kiến tạo
-                một hệ sinh thái R&D khép kín, đưa các phát kiến công nghệ tiên
-                tiến nhất từ phòng thí nghiệm ra thực địa, giúp tối ưu hóa nguồn
-                lực tự nhiên, lâm nghiệp và hạ tầng đô thị. Từ cái nôi Gia Lai,
-                VDCD đang vững vàng vươn tầm phục vụ các dự án trọng điểm trên
-                toàn quốc.
+                Với định hướng lấy nhu cầu thực tiễn làm trung tâm, Trung tâm
+                không chỉ là không gian kết nối mà còn trực tiếp đồng hành trong
+                quá trình tư vấn, thử nghiệm, đào tạo, chuyển giao và triển khai
+                công nghệ.
               </p>
             </div>
           </motion.div>
@@ -211,7 +395,7 @@ export default function AboutPage() {
             <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
               Hành trình phát triển
             </span>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
               Các mốc lịch sử quan trọng
             </h2>
           </div>
@@ -257,109 +441,166 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Vision & Mission Section - Asymmetrical Bento Grid */}
+        {/* Vision, Mission & Core Values Section - 3-Column Grid Layout */}
         <section id="vision" className="scroll-mt-28">
           <div className="mb-12">
             <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
               Triết lý hoạt động
             </span>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading">
-              Tầm nhìn & Sứ mệnh
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+              Tầm nhìn · Sứ mệnh · Giá trị cốt lõi
             </h2>
           </div>
 
-          {/* Asymmetrical Bento Grid (7 columns Tầm nhìn + 5 columns Sứ mệnh) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* Tầm nhìn Card (Lớn hơn - lg:col-span-7) */}
-            <motion.div
-              className="lg:col-span-7 relative p-8 md:p-10 bg-pure-surface dark:bg-zinc-900 border border-whisper-border rounded-2xl overflow-hidden shadow-xs group flex flex-col justify-between min-h-[300px] hover:border-accent-red/30 transition-all duration-500"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              <div className="absolute -right-16 -top-16 w-48 h-48 bg-accent-red/5 rounded-full blur-3xl group-hover:bg-accent-red/10 transition-colors duration-500" />
-              <div className="flex items-center justify-between mb-8">
-                <div className="p-3 bg-accent-red/10 rounded-xl text-accent-red border border-accent-red/20">
-                  <FiTarget className="w-6 h-6" />
-                </div>
-                <span className="text-xs font-bold font-mono text-accent-red/70 tracking-widest uppercase font-heading">
-                  Tầm nhìn
-                </span>
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white tracking-tight font-heading">
-                  Kiến tạo thế giới số thông minh
-                </h3>
-                <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
-                  Kiến tạo một thế giới số thông minh và minh bạch, nơi công
-                  nghệ tiên tiến phục vụ cuộc sống con người, bảo tồn tài nguyên
-                  thiên nhiên và rút ngắn khoảng cách phát triển giữa các vùng
-                  miền.
-                </p>
-              </div>
-            </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch w-full">
+            {dynamicPhilosophy.map((item, idx) => {
+              const IconComp = item.icon;
 
-            {/* Sứ mệnh Card (Nhỏ hơn - lg:col-span-5) */}
-            <motion.div
-              className="lg:col-span-5 relative p-8 md:p-10 bg-pure-surface dark:bg-zinc-900 border border-whisper-border rounded-2xl overflow-hidden shadow-xs group flex flex-col justify-between min-h-[300px] hover:border-accent-red/30 transition-all duration-500"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              <div className="absolute -right-16 -top-16 w-48 h-48 bg-accent-red/5 rounded-full blur-3xl group-hover:bg-accent-red/10 transition-colors duration-500" />
-              <div className="flex items-center justify-between mb-8">
-                <div className="p-3 bg-accent-red/10 rounded-xl text-accent-red border border-accent-red/20">
-                  <FiCompass className="w-6 h-6" />
-                </div>
-                <span className="text-xs font-bold font-mono text-accent-red/70 tracking-widest uppercase font-heading">
-                  Sứ mệnh
-                </span>
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white tracking-tight font-heading">
-                  Khơi dậy tiềm năng vùng đất
-                </h3>
-                <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
-                  Khơi dậy tiềm năng của mọi vùng đất bằng công nghệ hiện đại,
-                  kết nối tri thức toàn cầu với sự am hiểu địa phương để giải
-                  quyết những thách thức thực tế nhất.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+              return (
+                <motion.div
+                  key={idx}
+                  className="group relative p-8 md:p-10 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-none shadow-xs hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-1 flex flex-col justify-between select-none cursor-pointer overflow-hidden"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeInUp}
+                >
+                  {/* ── Animated border — draws clockwise on hover ── */}
+                  <span
+                    className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40
+                                   group-hover:w-full transition-[width] duration-[200ms] ease-linear"
+                  />
+                  <span
+                    className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40
+                                   group-hover:h-full transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:200ms]"
+                  />
+                  <span
+                    className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40
+                                   group-hover:w-full transition-[width] duration-[200ms] ease-linear group-hover:[transition-delay:400ms]"
+                  />
+                  <span
+                    className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40
+                                   group-hover:h-full transition-[height] duration-[200ms] ease-linear group-hover:[transition-delay:600ms]"
+                  />
 
-          {/* Core Values Section - Structured Row Dividers instead of repetitive Bezel Boxes */}
-          <div className="mt-20">
-            <span className="font-mono-label text-[10px] md:text-xs font-bold text-secondary dark:text-zinc-500 uppercase tracking-widest block mb-8">
-              Cam kết giá trị
-            </span>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pt-10 border-t border-zinc-200 dark:border-zinc-800">
-              {coreValues.map((val, idx) => {
-                const IconComp = val.icon;
-                return (
-                  <motion.div
-                    key={idx}
-                    className="space-y-4"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
-                  >
-                    <div className="p-2.5 bg-accent-red/5 rounded-lg w-fit text-accent-red border border-accent-red/10">
-                      <IconComp className="w-5 h-5" />
+                  {/* Top: Icon container */}
+                  <div className="flex items-center justify-start mb-8">
+                    <div className="p-3 rounded-full bg-accent-red/5 text-accent-red border border-accent-red/10 flex items-center justify-center shrink-0">
+                      <IconComp className="w-6 h-6" />
                     </div>
-                    <h4 className="text-base md:text-lg font-bold text-black dark:text-white font-heading">
-                      {val.title}
-                    </h4>
-                    <p className="text-secondary dark:text-zinc-400 text-xs md:text-sm leading-relaxed">
-                      {val.desc}
+                  </div>
+
+                  {/* Content space */}
+                  <div className="space-y-4 flex-grow flex flex-col justify-start">
+                    <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] dark:text-white tracking-tight font-heading leading-snug">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-[#334155] dark:text-zinc-300 text-base md:text-[17px] leading-[1.65] pt-2">
+                      {item.desc}
                     </p>
-                  </motion.div>
-                );
-              })}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Network & Statistics Section (Replicating Home Page Style: Chỉ số phát triển hệ sinh thái qua các con số) */}
+        <section
+          id="stats"
+          className="border-t border-b border-zinc-200/50 dark:border-zinc-800/50 py-16 scroll-mt-28"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Editorial intro */}
+            <div className="lg:col-span-4 space-y-4">
+              <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block">
+                Chỉ số phát triển
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+                Hệ sinh thái qua các con số
+              </h2>
+              <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+                Nền tảng năng lực thực chất của VDCD Group được xây dựng bền bỉ
+                qua từng dự án thực tế trên toàn quốc.
+              </p>
+            </div>
+
+            {/* Right: Scorecard Grid with fine borders and inner paddings */}
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs">
+              {/* Stat 1: Personnel */}
+              <div className="p-8 md:p-10 bg-white dark:bg-zinc-900 space-y-3">
+                <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                  <AnimatedCounter
+                    target={orgInfo?.stats?.staff ?? 1500}
+                    suffix="+"
+                  />
+                </div>
+                <div>
+                  <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                    Cán bộ, Nhân sự
+                  </span>
+                  <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                    Đội ngũ nhân lực vững chuyên môn hoạt động trên toàn quốc.
+                  </p>
+                </div>
+              </div>
+
+              {/* Stat 2: R&D Centers */}
+              <div className="p-8 md:p-10 bg-white dark:bg-zinc-900 space-y-3">
+                <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                  <AnimatedCounter
+                    target={orgInfo?.stats?.centers ?? 12}
+                    suffix=""
+                  />
+                </div>
+                <div>
+                  <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                    Viện & Trung Tâm R&D
+                  </span>
+                  <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                    Hệ thống đơn vị nghiên cứu phát triển công nghệ chuyên sâu.
+                  </p>
+                </div>
+              </div>
+
+              {/* Stat 3: Tech Experts */}
+              <div className="p-8 md:p-10 bg-white dark:bg-zinc-900 space-y-3">
+                <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                  <AnimatedCounter
+                    target={orgInfo?.stats?.experts ?? 250}
+                    suffix="+"
+                  />
+                </div>
+                <div>
+                  <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                    Chuyên Gia & Kỹ Sư
+                  </span>
+                  <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                    Nhân lực chất lượng cao, các thạc sĩ, tiến sĩ R&D phần cứng
+                    và phần mềm.
+                  </p>
+                </div>
+              </div>
+
+              {/* Stat 4: Projects / Scale */}
+              <div className="p-8 md:p-10 bg-white dark:bg-zinc-900 space-y-3">
+                <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                  <AnimatedCounter
+                    target={orgInfo?.stats?.projects ?? 100}
+                    suffix="+"
+                  />
+                </div>
+                <div>
+                  <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                    Dự án triển khai
+                  </span>
+                  <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                    Hàng trăm dự án chuyển đổi số và công nghệ quy mô lớn trên
+                    toàn quốc.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -370,13 +611,13 @@ export default function AboutPage() {
             <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
               Năng lực công nghệ
             </span>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
               Lĩnh vực hoạt động chủ chốt
             </h2>
           </div>
 
           <div className="border-t border-zinc-200 dark:border-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-800/60 mt-8">
-            {activities.map((act, idx) => {
+            {dynamicActivities.map((act, idx) => {
               const IconComp = act.icon;
               return (
                 <motion.div
@@ -407,30 +648,169 @@ export default function AboutPage() {
                       <p className="text-secondary dark:text-zinc-400 text-xs md:text-sm leading-relaxed">
                         {act.desc}
                       </p>
-                      {/* Monospace inline tech list */}
-                      <p className="text-[10px] md:text-xs font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pt-1.5 flex flex-wrap gap-x-2 gap-y-1">
-                        <span className="text-accent-red/70">Tích hợp:</span>
-                        {act.techKeywords.map((tag, tagIdx) => (
-                          <React.Fragment key={tagIdx}>
-                            <span>{tag}</span>
-                            {tagIdx < act.techKeywords.length - 1 && (
-                              <span className="text-zinc-300 dark:text-zinc-800">
-                                ·
-                              </span>
-                            )}
-                          </React.Fragment>
-                        ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Inherited Capacity Section (Block 5) */}
+        <section id="inheritance" className="scroll-mt-28">
+          {/* Header block (full-width, max-w-3xl for optimal line width) */}
+          <div className="mb-12 text-left max-w-3xl">
+            <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
+              Nền tảng vững chắc
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight mb-4">
+              Kế thừa sức mạnh từ hệ sinh thái VDCD Group
+            </h2>
+            <p className="text-secondary dark:text-zinc-400 text-base leading-relaxed pt-1">
+              {dynamicEcosystemDesc}
+            </p>
+          </div>
+
+          {/* 3-column grid of capacities */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {inheritedCapacities.map((item, idx) => {
+              const IconComp = item.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  className="group relative p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-none shadow-xs hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-1 flex flex-col justify-start select-none cursor-pointer overflow-hidden"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeInUp}
+                >
+                  {/* Clockwise drawing border lines */}
+                  <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
+                  <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
+                  <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
+                  <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
+
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-2.5 rounded-full bg-accent-red/5 text-accent-red border border-accent-red/10 flex items-center justify-center shrink-0">
+                      <IconComp className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-base md:text-lg font-bold text-[#0F172A] dark:text-white tracking-tight font-heading">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-secondary dark:text-zinc-400 text-xs md:text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Development Orientation Section (Block 6) */}
+        <section id="orientation" className="scroll-mt-28">
+          <div className="mb-12 text-left">
+            <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
+              Tầm nhìn tương lai
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+              Định hướng phát triển trọng tâm
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch w-full">
+            {dynamicOrientations.map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="group relative p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-none shadow-xs hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-1 flex flex-col justify-between select-none cursor-pointer overflow-hidden"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+              >
+                {/* Clockwise drawing border lines */}
+                <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
+                <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:150ms]" />
+                <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear group-hover:[transition-delay:300ms]" />
+                <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear group-hover:[transition-delay:450ms]" />
+
+                {/* Top index and label */}
+                <div className="flex items-center justify-between mb-8">
+                  <div className="px-2.5 py-1 text-xs font-mono font-bold text-accent-red bg-accent-red/5 border border-accent-red/10 select-none">
+                    {item.step}
+                  </div>
+                </div>
+
+                {/* Content space */}
+                <div className="space-y-3 flex-grow flex flex-col justify-start">
+                  <h3 className="text-lg md:text-xl font-bold text-[#0F172A] dark:text-white tracking-tight font-heading leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Social Media Contact Grid Section */}
+        <section id="social-connect" className="scroll-mt-28">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="max-w-xl">
+              <span className="font-mono-label text-xs font-bold text-accent-red mb-3 tracking-widest uppercase block">
+                Kết nối cộng đồng
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+                Kênh truyền thông & Mạng xã hội
+              </h2>
+            </div>
+            <p className="text-secondary dark:text-zinc-400 text-sm md:text-base max-w-md leading-relaxed">
+              Theo dõi chúng tôi trên các nền tảng mạng xã hội để cập nhật tin
+              tức công nghệ và các giải pháp đổi mới sáng tạo mới nhất.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {dynamicSocialChannels.map((chan, idx) => {
+              const IconComp = chan.icon;
+              return (
+                <motion.a
+                  key={idx}
+                  href={chan.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300 hover:-translate-y-1 flex items-center justify-between select-none cursor-pointer overflow-hidden rounded-none"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeInUp}
+                >
+                  {/* Clockwise drawing border lines */}
+                  <span className="pointer-events-none absolute top-0 left-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear" />
+                  <span className="pointer-events-none absolute top-0 right-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear delay-[150ms] group-hover:delay-[150ms]" />
+                  <span className="pointer-events-none absolute bottom-0 right-0 h-[1px] w-0 bg-accent-red z-40 group-hover:w-full transition-[width] duration-[150ms] ease-linear delay-[300ms] group-hover:delay-[300ms]" />
+                  <span className="pointer-events-none absolute bottom-0 left-0 w-[1px] h-0 bg-accent-red z-40 group-hover:h-full transition-[height] duration-[150ms] ease-linear delay-[450ms] group-hover:delay-[450ms]" />
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-zinc-800/80 flex items-center justify-center text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/5 group-hover:text-accent-red border border-slate-200/20 dark:border-zinc-800/20 transition-all duration-300 shrink-0">
+                      <IconComp className="text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="font-heading font-bold text-sm md:text-base text-black dark:text-white transition-colors duration-300">
+                        {chan.name}
+                      </h4>
+                      <p className="text-[11px] md:text-xs text-slate-500 dark:text-zinc-500 leading-normal mt-0.5 max-w-[180px]">
+                        {chan.subLabel}
                       </p>
                     </div>
                   </div>
 
-                  {/* Right part: clean hover arrow */}
-                  <div className="flex items-center justify-end shrink-0 pl-12 md:pl-0">
-                    <div className="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-400 group-hover:border-accent-red group-hover:text-accent-red group-hover:rotate-45 transition-all duration-300 shrink-0">
-                      <FiArrowUpRight className="w-5 h-5" />
-                    </div>
+                  <div className="w-8 h-8 rounded-full border border-slate-200/60 dark:border-zinc-800/40 flex items-center justify-center text-slate-400 group-hover:border-accent-red group-hover:text-accent-red group-hover:rotate-45 transition-all duration-300 shrink-0">
+                    <FiArrowUpRight className="w-4 h-4" />
                   </div>
-                </motion.div>
+                </motion.a>
               );
             })}
           </div>
