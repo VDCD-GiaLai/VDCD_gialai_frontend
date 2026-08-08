@@ -1,10 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback, useRef, useEffect } from "react";
+import {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import Image from "next/image";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 /* ────────────────────────────────────────────────────────
    DATA
@@ -100,10 +107,12 @@ const CATEGORIES: Category[] = [
 
 export function ProgramsSolutionsSection() {
   const [activeId, setActiveId] = useState<string>(CATEGORIES[0].id);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  /* refs for GSAP horizontal scroll */
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardsWrapperRef = useRef<HTMLDivElement>(null);
 
   const active = CATEGORIES.find((c) => c.id === activeId) ?? CATEGORIES[0];
 
@@ -117,59 +126,111 @@ export function ProgramsSolutionsSection() {
     },
   });
 
-  const updateScrollState = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    if (maxScroll <= 0) {
-      setScrollProgress(0);
-      setCanScrollLeft(false);
-      setCanScrollRight(false);
-      return;
-    }
-    setScrollProgress(el.scrollLeft / maxScroll);
-    setCanScrollLeft(el.scrollLeft > 2);
-    setCanScrollRight(el.scrollLeft < maxScroll - 2);
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollLeft = 0;
-    updateScrollState();
-  }, [activeId, updateScrollState]);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    updateScrollState();
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    };
-  }, [updateScrollState]);
-
-  const scroll = useCallback((dir: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth =
-      el.querySelector<HTMLElement>("[data-card]")?.offsetWidth ?? 320;
-    el.scrollBy({
-      left: dir === "left" ? -cardWidth : cardWidth,
-      behavior: "smooth",
-    });
-  }, []);
-
   const handleSwitch = useCallback((id: string) => {
     setActiveId(id);
   }, []);
 
+  /* ── GSAP ScrollTrigger: horizontal scroll driven by vertical scroll ── */
+  useLayoutEffect(() => {
+    if (!sectionRef.current || !trackRef.current || !cardsWrapperRef.current)
+      return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      /* Reduced motion: just show everything, no scroll animation */
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set("[data-card]", { autoAlpha: 1 });
+      });
+
+      /* Normal motion + desktop: horizontal scroll */
+      mm.add(
+        "(prefers-reduced-motion: no-preference) and (min-width: 768px)",
+        () => {
+          /* We need to wait a tick for cards to render after category switch */
+          const cards = gsap.utils.toArray<HTMLElement>(
+            "[data-card]",
+            cardsWrapperRef.current!,
+          );
+          if (cards.length === 0) return;
+
+          /* Calculate how far we need to scroll horizontally */
+          const calcScrollDistance = () => {
+            const wrapper = cardsWrapperRef.current!;
+            return wrapper.scrollWidth - wrapper.clientWidth;
+          };
+
+          const tween = gsap.to(cardsWrapperRef.current!, {
+            x: () => -calcScrollDistance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: trackRef.current!,
+              start: "top top",
+              end: () => `+=${calcScrollDistance() + window.innerHeight * 0.3}`,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                setScrollProgress(self.progress);
+              },
+            },
+          });
+
+          /* Entry animation for cards */
+          cards.forEach((card, i) => {
+            gsap.from(card, {
+              autoAlpha: 0,
+              y: 30,
+              scale: 0.97,
+              duration: 0.6,
+              ease: "power3.out",
+              delay: i * 0.08,
+              scrollTrigger: {
+                trigger: sectionRef.current!,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            });
+          });
+
+          return () => {
+            tween.kill();
+          };
+        },
+      );
+
+      /* Mobile: no horizontal scroll, just a vertical stack with stagger reveal */
+      mm.add("(max-width: 767px)", () => {
+        const cards = gsap.utils.toArray<HTMLElement>(
+          "[data-card]",
+          cardsWrapperRef.current!,
+        );
+        cards.forEach((card, i) => {
+          gsap.from(card, {
+            autoAlpha: 0,
+            y: 24,
+            duration: 0.5,
+            ease: "power3.out",
+            delay: i * 0.06,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [activeId]); // Re-initialize when category changes
+
   return (
     <section
+      ref={sectionRef}
       id="programs-solutions"
-      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
+      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
     >
       <div ref={containerRef} className="py-16 md:py-24">
         {/* ── Section Header ── */}
@@ -180,7 +241,7 @@ export function ProgramsSolutionsSection() {
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base mt-4 max-w-xl mx-auto leading-relaxed">
               Kiến tạo hệ sinh thái đổi mới sáng tạo và chuyển giao công nghệ
-              tiên phong cho Gia Lai & Tây Nguyên.
+              tiên phong cho Gia Lai &amp; Tây Nguyên.
             </p>
           </div>
 
@@ -209,35 +270,30 @@ export function ProgramsSolutionsSection() {
           </div>
         </div>
 
-        {/* ── Carousel ── */}
-        <div className="ps-reveal relative">
+        {/* ── Horizontal Scroll Track ── */}
+        <div ref={trackRef} className="ps-reveal relative overflow-hidden">
           <div
-            ref={scrollRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth px-4 md:px-8 pb-4 snap-x snap-mandatory"
+            ref={cardsWrapperRef}
+            className="flex gap-4 md:gap-6 px-4 md:px-8 will-change-transform"
             style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch",
+              /* On desktop: inline layout for horizontal scroll.
+                 On mobile: we override to vertical via the className below. */
+              paddingLeft: "max(1rem, calc((100vw - 1600px) / 2 + 2rem))",
+              paddingRight: "max(1rem, calc((100vw - 1600px) / 2 + 2rem))",
             }}
           >
-            {/* Left spacer for centering on large screens */}
-            <div className="shrink-0 w-0 lg:w-[calc((100vw-1600px)/2+16px)]" />
-
             {active.items.map((item, idx) => (
               <div
                 key={`${activeId}-${idx}`}
                 data-card
-                className="group relative shrink-0 w-[280px] md:w-[320px] lg:w-[340px] aspect-[3/4] overflow-hidden snap-start cursor-pointer"
-                style={{
-                  animation: `cardFadeIn 0.5s ease-out ${idx * 0.08}s both`,
-                }}
+                className="group relative shrink-0 w-[280px] md:w-[320px] lg:w-[360px] aspect-[3/4] overflow-hidden cursor-pointer"
               >
                 {/* Background Image */}
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  sizes="340px"
+                  sizes="360px"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
 
@@ -265,68 +321,27 @@ export function ProgramsSolutionsSection() {
                 </div>
               </div>
             ))}
-
-            {/* Right spacer */}
-            <div className="shrink-0 w-4 lg:w-[calc((100vw-1600px)/2+16px)]" />
           </div>
+        </div>
 
-          {/* ── Navigation ── */}
-          <div className="max-w-[1600px] mx-auto px-4 md:px-8 mt-8 flex items-center gap-6">
+        {/* ── Progress Bar ── */}
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mt-8">
+          <div className="ps-reveal">
             {/* Progress Bar */}
-            <div className="flex-1 h-[2px] bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+            <div className="h-[2px] bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
               <div
-                className="h-full bg-accent-red transition-all duration-200 ease-out rounded-full"
-                style={{ width: `${Math.max(10, scrollProgress * 100)}%` }}
+                className="h-full bg-accent-red transition-[width] duration-100 ease-out rounded-full"
+                style={{ width: `${Math.max(5, scrollProgress * 100)}%` }}
               />
             </div>
 
-            {/* Arrow Buttons + Counter */}
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className={`w-10 h-10 flex items-center justify-center border transition-colors cursor-pointer ${
-                  canScrollLeft
-                    ? "border-zinc-300 dark:border-zinc-600 text-black dark:text-white hover:border-black dark:hover:border-white hover:bg-black/5 dark:hover:bg-white/10"
-                    : "border-zinc-200 dark:border-zinc-800 text-zinc-300 dark:text-zinc-700 cursor-not-allowed"
-                }`}
-                aria-label="Scroll left"
-              >
-                <FiChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className={`w-10 h-10 flex items-center justify-center border transition-colors cursor-pointer ${
-                  canScrollRight
-                    ? "border-zinc-300 dark:border-zinc-600 text-black dark:text-white hover:border-black dark:hover:border-white hover:bg-black/5 dark:hover:bg-white/10"
-                    : "border-zinc-200 dark:border-zinc-800 text-zinc-300 dark:text-zinc-700 cursor-not-allowed"
-                }`}
-                aria-label="Scroll right"
-              >
-                <FiChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            {/* Scroll hint */}
+            <p className="hidden md:block text-center text-xs text-secondary dark:text-zinc-500 mt-4 font-mono-label uppercase tracking-widest">
+              Cuộn để khám phá
+            </p>
           </div>
         </div>
       </div>
-
-      {/* Keyframe */}
-      <style jsx>{`
-        @keyframes cardFadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(16px) scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }
