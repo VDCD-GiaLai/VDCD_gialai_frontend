@@ -199,7 +199,7 @@ export function FeaturedProjectsSection() {
       className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 py-16"
     >
       {/* Section Header */}
-      <div className="max-w-[1800px] mx-auto px-4 md:px-6 mb-16 flex flex-col md:flex-row justify-between items-end">
+      <div className="max-w-[1800px] mx-auto px-4 md:px-6 mb-16 flex flex-col md:flex-row justify-between items-start">
         <div>
           <h2 className="font-heading text-4xl md:text-5xl font-black uppercase leading-tight text-black dark:text-white">
             Các dự án <br />

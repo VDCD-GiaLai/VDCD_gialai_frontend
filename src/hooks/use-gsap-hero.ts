@@ -34,7 +34,7 @@ export function useGsapHero(
     if (typeof window === "undefined") return 70;
     const w = window.innerWidth;
     if (w < 768) return 70; // larger cards on mobile, text covers bottom ~40%
-    if (w < 1024) return 60;
+    if (w < 1280) return 60;
     return 75;
   };
 
@@ -50,7 +50,7 @@ export function useGsapHero(
       cardWidthVal.current = width < 360 ? 130 : 145;
       cardHeightVal.current = 170;
       gapVal.current = 10;
-    } else if (width < 1024) {
+    } else if (width < 1280) {
       // Tablet: arrows split LEFT/RIGHT, cards after left arrow
       offsetTopVal.current = height - 210;
       offsetLeftVal.current = 20 + 44 + 12; // leftMargin + oneArrow + gap = 76
@@ -167,7 +167,7 @@ export function useGsapHero(
           opacity: 0,
           pointerEvents: "none",
         });
-      } else if (width < 1024) {
+      } else if (width < 1280) {
         // Tablet: full-width, arrows split LEFT/RIGHT via CSS flex
         gsap.set(pagination, {
           top: offsetTopVal.current + (cardHeightVal.current - 44) / 2,

@@ -15,12 +15,12 @@ export interface HeroSlideItem {
 
 export interface OrganizationStats {
   staff: number;
-  experts?: number;
-  provinces: number;
-  centers: number;
-  subsidiaries?: number;
-  partners?: number;
+  partners: number;
   projects: number;
+  provinces: number;
+  experts?: number;
+  centers?: number;
+  subsidiaries?: number;
 }
 
 export interface OrganizationInfo {

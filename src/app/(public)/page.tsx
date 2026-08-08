@@ -426,11 +426,14 @@ export default function LandingPage() {
           </div>
 
           {/* Right: Scorecard Grid with fine borders and inner paddings */}
-          <div className="stats-reveal lg:col-span-8 grid grid-cols-2 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs">
+          <div className="stats-reveal lg:col-span-8 grid grid-cols-2 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-none overflow-hidden shadow-xs">
             {/* Stat 1: Personnel */}
             <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
               <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
-                <AnimatedCounter target={1500} suffix="+" />
+                <AnimatedCounter
+                  target={orgInfo?.stats?.staff ?? 1500}
+                  suffix="+"
+                />
               </div>
               <div>
                 <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
@@ -442,25 +445,13 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Stat 2: R&D Centers */}
+            {/* Stat 2: Experts */}
             <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
               <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
-                <AnimatedCounter target={12} suffix="" />
-              </div>
-              <div>
-                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
-                  Viện & Trung Tâm R&D
-                </span>
-                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
-                  Hệ thống đơn vị nghiên cứu phát triển công nghệ chuyên sâu.
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 3: Tech Experts */}
-            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
-              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
-                <AnimatedCounter target={250} suffix="+" />
+                <AnimatedCounter
+                  target={orgInfo?.stats?.partners ?? 250}
+                  suffix="+"
+                />
               </div>
               <div>
                 <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
@@ -473,18 +464,39 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Stat 4: National Scale */}
+            {/* Stat 3: Provinces */}
             <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
               <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
-                <AnimatedCounter target={100} suffix="%" />
+                <AnimatedCounter
+                  target={orgInfo?.stats?.provinces ?? 30}
+                  suffix="+"
+                />
               </div>
               <div>
                 <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
-                  Phủ Sóng Toàn Quốc
+                  Tỉnh Thành
                 </span>
                 <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
                   Giải pháp công nghệ phục vụ trực tiếp cho hàng chục tỉnh
                   thành.
+                </p>
+              </div>
+            </div>
+
+            {/* Stat 4: Projects */}
+            <div className="p-8 md:p-12 bg-pure-surface dark:bg-zinc-900 space-y-3">
+              <div className="text-4xl md:text-6xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none">
+                <AnimatedCounter
+                  target={orgInfo?.stats?.projects ?? 100}
+                  suffix="+"
+                />
+              </div>
+              <div>
+                <span className="font-mono-label text-[10px] md:text-xs font-bold text-accent-red uppercase tracking-widest block">
+                  Dự Án
+                </span>
+                <p className="text-xs text-secondary dark:text-zinc-500 mt-1 leading-snug">
+                  Hệ thống dự án công nghệ triển khai trên toàn quốc.
                 </p>
               </div>
             </div>
