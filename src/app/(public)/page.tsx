@@ -9,7 +9,6 @@ import {
   FiMapPin,
   FiMail,
   FiCheckCircle,
-  FiClock,
   FiGlobe,
   FiDatabase,
   FiServer,
@@ -17,14 +16,12 @@ import {
   FiLayers,
   FiShield,
   FiCheck,
-  FiSend,
   FiTerminal,
-  FiActivity,
 } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
-import { VietnamMapSection } from "@/components/landing/vietnam-map-section";
+import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
+import { ProgramsSolutionsSection } from "@/components/landing/programs-solutions-section";
 import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
 import { PartnersSection } from "@/components/landing/partners-section";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
@@ -122,6 +119,9 @@ export default function LandingPage() {
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
       <GsapHero />
+
+      {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
+      <DigitalPioneerSection />
 
       {/* Introduction Section - Redesigned based on Taito.ai layout */}
       <section
@@ -394,14 +394,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <VietnamMapSection />
-
-      {/* Featured Projects */}
-      <FeaturedProjectsSection />
-
-      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
-      <EcosystemSection />
-
       {/* Năng lực hệ sinh thái (Highlights) - Floating Typography Scorecard Grid */}
       <section
         id="highlights"
@@ -503,6 +495,15 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Khối 4: Chương trình và giải pháp */}
+      <ProgramsSolutionsSection />
+
+      {/* Featured Projects */}
+      <FeaturedProjectsSection />
+
+      {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
+      <EcosystemSection />
 
       {/* Partners */}
       <PartnersSection />
