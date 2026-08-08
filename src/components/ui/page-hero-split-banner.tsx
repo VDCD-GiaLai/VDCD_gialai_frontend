@@ -141,6 +141,13 @@ export const PageHeroSplitBanner = ({
             {banner.subtitle}
           </p>
 
+          {/* Business License */}
+          {banner.businessLicense && (
+            <p className="text-white/50 text-[10px] md:text-xs leading-relaxed max-w-xl font-mono pt-1">
+              {banner.businessLicense}
+            </p>
+          )}
+
           {/* CTA Buttons */}
           {banner.ctaButtons && banner.ctaButtons.length > 0 && (
             <div className="flex flex-wrap gap-3 pt-2">
