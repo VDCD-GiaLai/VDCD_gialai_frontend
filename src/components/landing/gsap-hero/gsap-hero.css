@@ -27,25 +27,46 @@
   left: 0;
   top: 0;
   color: #ffffff;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 12px;
+  padding-right: 12px;
   pointer-events: none;
   z-index: 40;
 }
 
 .gsap-hero-container .content-place {
-  margin-top: 6px;
-  font-size: 11px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: #a1a1aa;
+}
+
+@media (max-width: 1023px) {
+  .gsap-hero-container .content-place {
+    display: none !important;
+  }
+}
+
+.gsap-hero-container .content-title-wrapper {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 13px;
+  line-height: 1.15;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .gsap-hero-container .content-title-1,
 .gsap-hero-container .content-title-2 {
   font-weight: 800;
-  font-size: 16px;
-  line-height: 1.1;
 }
 
 .gsap-hero-container .content-start {
@@ -57,7 +78,7 @@
 .gsap-hero-container .details {
   z-index: 22;
   position: absolute;
-  top: 35%;
+  top: 32%;
   left: 1rem;
   max-width: 650px;
   transform-origin: left center;
@@ -67,6 +88,61 @@
 @media (min-width: 768px) {
   .gsap-hero-container .details {
     left: 2rem;
+  }
+}
+
+/* Tablet responsive overrides (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .gsap-hero-container .details {
+    top: 12% !important;
+    left: 2rem !important;
+    right: 2rem !important;
+    max-width: 560px !important;
+  }
+
+  .gsap-hero-container .details > .desc {
+    margin-top: 12px !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    max-width: 480px !important;
+  }
+
+  .gsap-hero-container .details > .cta {
+    margin-top: 16px !important;
+  }
+
+  .gsap-hero-container .details > .cta > .discover {
+    height: 40px !important;
+    padding: 6px 24px !important;
+    font-size: 11px !important;
+  }
+
+  .gsap-hero-container .card-content {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .gsap-hero-container .content-start {
+    width: 16px !important;
+    height: 2px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .gsap-hero-container .content-title-wrapper {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  /* Split arrows: < on LEFT, > on RIGHT */
+  .gsap-hero-container .pagination {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .gsap-hero-container .pagination > .arrow-right {
+    margin-left: 0 !important;
   }
 }
 
@@ -206,11 +282,25 @@
   }
 
   .gsap-hero-container .card-content {
-    display: none !important;
+    display: block !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .gsap-hero-container .content-start {
+    width: 16px !important;
+    height: 2px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .gsap-hero-container .content-title-wrapper {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+    -webkit-line-clamp: 3 !important;
   }
 
   .gsap-hero-container .details {
-    top: 12% !important;
+    top: 8% !important;
     left: 1rem !important;
     right: 1rem !important;
     max-width: calc(100% - 2rem) !important;
@@ -227,34 +317,24 @@
   }
 
   .gsap-hero-container .details > .desc {
-    margin-top: 12px !important;
+    margin-top: 10px !important;
     font-size: 13px !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
     max-width: 95% !important;
   }
 
   .gsap-hero-container .details > .cta {
-    margin-top: 18px !important;
+    margin-top: 14px !important;
   }
 
   .gsap-hero-container .details > .cta > .discover {
-    height: 38px !important;
-    padding: 6px 22px !important;
-    font-size: 11px !important;
-  }
-
-  .gsap-hero-container .pagination {
-    left: 16px !important;
-    right: 16px !important;
-  }
-
-  .gsap-hero-container .pagination > .arrow {
-    width: 36px !important;
     height: 36px !important;
+    padding: 6px 18px !important;
+    font-size: 10px !important;
   }
 
-  .gsap-hero-container .pagination .progress-sub-container {
-    width: 100px;
-    margin-left: 12px;
+  /* Hide pagination arrows on mobile */
+  .gsap-hero-container .pagination {
+    display: none !important;
   }
 }

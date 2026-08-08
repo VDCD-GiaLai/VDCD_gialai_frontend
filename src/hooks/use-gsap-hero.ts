@@ -30,32 +30,40 @@ export function useGsapHero(
   const getCardContent = (index: number) =>
     containerRef.current?.querySelector(`#card-content-${index}`);
 
+  const getContentYOffset = () => {
+    if (typeof window === "undefined") return 70;
+    const w = window.innerWidth;
+    if (w < 768) return 70; // larger cards on mobile, text covers bottom ~40%
+    if (w < 1024) return 60;
+    return 75;
+  };
+
   const updateDimensions = () => {
     if (typeof window === "undefined" || !containerRef.current) return;
     const height = window.innerHeight;
     const width = window.innerWidth;
 
     if (width < 768) {
-      // Mobile offsets - optimized to fit screen
-      offsetTopVal.current = height - (height < 650 ? 160 : 185);
+      // Mobile: no arrows, cards from left edge, bigger
+      offsetTopVal.current = height - 195;
       offsetLeftVal.current = 16;
-      cardWidthVal.current = width < 360 ? 62 : 72;
-      cardHeightVal.current = width < 360 ? 90 : 105;
-      gapVal.current = 8;
+      cardWidthVal.current = width < 360 ? 130 : 145;
+      cardHeightVal.current = 170;
+      gapVal.current = 10;
     } else if (width < 1024) {
-      // Tablet offsets
-      offsetTopVal.current = height - 280;
-      offsetLeftVal.current = width - 390;
-      cardWidthVal.current = 110;
-      cardHeightVal.current = 160;
+      // Tablet: arrows split LEFT/RIGHT, cards after left arrow
+      offsetTopVal.current = height - 210;
+      offsetLeftVal.current = 20 + 44 + 12; // leftMargin + oneArrow + gap = 76
+      cardWidthVal.current = width < 850 ? 145 : 160;
+      cardHeightVal.current = 175;
       gapVal.current = 12;
     } else {
-      // Desktop offsets
-      offsetTopVal.current = height - 420;
-      offsetLeftVal.current = width - 820;
-      cardWidthVal.current = 180;
-      cardHeightVal.current = 260;
-      gapVal.current = 32;
+      // Desktop: cards on the right side, pagination below cards
+      offsetTopVal.current = height - 390;
+      offsetLeftVal.current = Math.max(width - 820, 500);
+      cardWidthVal.current = 175;
+      cardHeightVal.current = 255;
+      gapVal.current = 28;
     }
   };
 
@@ -123,7 +131,10 @@ export function useGsapHero(
         if (animated) {
           gsap.to(contentI, {
             x: posX,
-            y: offsetTopVal.current + cardHeightVal.current - 90,
+            y:
+              offsetTopVal.current +
+              cardHeightVal.current -
+              getContentYOffset(),
             width: cardWidthVal.current,
             opacity: 1,
             zIndex: 40,
@@ -133,7 +144,10 @@ export function useGsapHero(
         } else {
           gsap.set(contentI, {
             x: posX,
-            y: offsetTopVal.current + cardHeightVal.current - 90,
+            y:
+              offsetTopVal.current +
+              cardHeightVal.current -
+              getContentYOffset(),
             width: cardWidthVal.current,
             opacity: 1,
             zIndex: 40,
@@ -145,10 +159,33 @@ export function useGsapHero(
     // Pagination placement
     const pagination = containerRef.current.querySelector("#pagination");
     if (pagination) {
-      gsap.set(pagination, {
-        top: offsetTopVal.current + cardHeightVal.current + 24,
-        left: offsetLeftVal.current,
-      });
+      const width = window.innerWidth;
+
+      if (width < 768) {
+        // Mobile: hide arrows entirely
+        gsap.set(pagination, {
+          opacity: 0,
+          pointerEvents: "none",
+        });
+      } else if (width < 1024) {
+        // Tablet: full-width, arrows split LEFT/RIGHT via CSS flex
+        gsap.set(pagination, {
+          top: offsetTopVal.current + (cardHeightVal.current - 44) / 2,
+          left: 20,
+          width: width - 40,
+          opacity: 1,
+          pointerEvents: "auto",
+        });
+      } else {
+        // Desktop: arrows BELOW cards
+        gsap.set(pagination, {
+          top: offsetTopVal.current + cardHeightVal.current + 24,
+          left: offsetLeftVal.current,
+          width: "auto",
+          opacity: 1,
+          pointerEvents: "auto",
+        });
+      }
     }
   };
 
@@ -305,7 +342,10 @@ export function useGsapHero(
             if (contentPrv) {
               gsap.set(contentPrv, {
                 x: xNew,
-                y: offsetTopVal.current + cardHeightVal.current - 90,
+                y:
+                  offsetTopVal.current +
+                  cardHeightVal.current -
+                  getContentYOffset(),
                 width: cardWidthVal.current,
                 opacity: 1,
                 zIndex: 40,
@@ -344,7 +384,10 @@ export function useGsapHero(
             gsap.killTweensOf(contentI);
             gsap.to(contentI, {
               x: xNew,
-              y: offsetTopVal.current + cardHeightVal.current - 90,
+              y:
+                offsetTopVal.current +
+                cardHeightVal.current -
+                getContentYOffset(),
               width: cardWidthVal.current,
               opacity: 1,
               zIndex: 40,
@@ -493,7 +536,10 @@ export function useGsapHero(
             if (contentPrv) {
               gsap.set(contentPrv, {
                 x: xNew,
-                y: offsetTopVal.current + cardHeightVal.current - 90,
+                y:
+                  offsetTopVal.current +
+                  cardHeightVal.current -
+                  getContentYOffset(),
                 width: cardWidthVal.current,
                 opacity: 1,
                 zIndex: 40,
@@ -532,7 +578,10 @@ export function useGsapHero(
             gsap.killTweensOf(contentI);
             gsap.to(contentI, {
               x: xNew,
-              y: offsetTopVal.current + cardHeightVal.current - 90,
+              y:
+                offsetTopVal.current +
+                cardHeightVal.current -
+                getContentYOffset(),
               width: cardWidthVal.current,
               opacity: 1,
               zIndex: 40,
@@ -685,7 +734,10 @@ export function useGsapHero(
             if (contentPrv) {
               gsap.set(contentPrv, {
                 x: xNew,
-                y: offsetTopVal.current + cardHeightVal.current - 90,
+                y:
+                  offsetTopVal.current +
+                  cardHeightVal.current -
+                  getContentYOffset(),
                 width: cardWidthVal.current,
                 opacity: 1,
                 zIndex: 40,
