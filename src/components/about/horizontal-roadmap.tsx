@@ -153,19 +153,19 @@ export function HorizontalRoadmap() {
   return (
     <div ref={containerRef} className="relative h-[300vh] select-none">
       {/* Sticky full-screen container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-zinc-950">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-white dark:bg-zinc-950 transition-colors duration-300">
         {/* Title elements inside sticky viewport */}
         <div className="absolute top-12 left-12 z-20 space-y-2">
           <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block">
             LỘ TRÌNH PHÁT TRIỂN
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white font-heading leading-tight uppercase">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-zinc-900 dark:text-white font-heading leading-tight uppercase transition-colors duration-300">
             Hành trình kiến tạo giá trị thực
           </h2>
         </div>
 
         {/* Scroll percentage indicator line */}
-        <div className="absolute top-36 left-12 right-12 h-[1px] bg-zinc-800 z-15">
+        <div className="absolute top-36 left-12 right-12 h-[1px] bg-zinc-200 dark:bg-zinc-800 transition-colors duration-300 z-15">
           <motion.div
             style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
             className="h-full bg-accent-red w-full"
@@ -183,19 +183,19 @@ export function HorizontalRoadmap() {
               return (
                 <div
                   key={idx}
-                  className="w-[80vw] lg:w-[65vw] xl:w-[50vw] shrink-0 bg-zinc-900/50 backdrop-blur-md border border-zinc-800/80 p-8 rounded-3xl flex flex-col justify-between gap-6 relative group hover:border-accent-red/20 transition-colors duration-300"
+                  className="w-[80vw] lg:w-[65vw] xl:w-[50vw] shrink-0 bg-zinc-50/80 dark:bg-zinc-900/50 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 p-8 rounded-3xl flex flex-col justify-between gap-6 relative group hover:border-accent-red/20 transition-all duration-300"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-sm font-black text-accent-red bg-accent-red/10 px-3 py-1 border border-accent-red/20 rounded-md">
                         {item.period}
                       </span>
-                      <div className="p-2.5 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-accent-red group-hover:bg-accent-red/5 transition-colors">
+                      <div className="p-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-accent-red group-hover:bg-accent-red/5 transition-colors duration-300">
                         <IconComp className="w-5 h-5" />
                       </div>
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-bold text-white font-heading uppercase tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white font-heading uppercase tracking-tight transition-colors duration-300">
                       {item.title}
                     </h3>
 
@@ -203,12 +203,12 @@ export function HorizontalRoadmap() {
                       {item.tagline}
                     </span>
 
-                    <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+                    <p className="text-zinc-650 dark:text-zinc-400 text-sm md:text-base leading-relaxed transition-colors duration-300">
                       {item.desc}
                     </p>
                   </div>
 
-                  <div className="border-t border-zinc-800/80 pt-6">
+                  <div className="border-t border-zinc-200 dark:border-zinc-800/80 pt-6 transition-colors duration-300">
                     <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-3">
                       KEY MILESTONES ACHIEVED
                     </div>
@@ -216,7 +216,7 @@ export function HorizontalRoadmap() {
                       {item.achievements.map((ach, aIdx) => (
                         <li
                           key={aIdx}
-                          className="text-xs text-zinc-350 flex items-start gap-2.5"
+                          className="text-xs text-zinc-600 dark:text-zinc-350 flex items-start gap-2.5 transition-colors duration-300"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-accent-red shrink-0 mt-1" />
                           <span>{ach}</span>
@@ -226,7 +226,7 @@ export function HorizontalRoadmap() {
                   </div>
 
                   {/* Corner indicator */}
-                  <span className="absolute bottom-6 right-6 font-mono text-2xl font-black text-zinc-800 group-hover:text-accent-red/10 transition-colors duration-300">
+                  <span className="absolute bottom-6 right-6 font-mono text-2xl font-black text-zinc-300 dark:text-zinc-800 group-hover:text-accent-red/10 transition-colors duration-300">
                     {(idx + 1).toString().padStart(2, "0")}
                   </span>
                 </div>

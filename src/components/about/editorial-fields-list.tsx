@@ -167,13 +167,6 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
                   </div>
                 </div>
               </div>
-
-              {/* Right Column: Interactive Arrow Icon */}
-              <div className="hidden md:flex items-center justify-center shrink-0">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:bg-accent-red group-hover:border-accent-red transition-all duration-300 shadow-xs">
-                  <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
             </div>
           );
         })}
