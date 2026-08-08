@@ -39,9 +39,13 @@ const ACCEPTED_FILE_TYPES = [
   "application/pdf",
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
 ];
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 /* ── Component ───────────────────────────────────────── */
 
@@ -74,13 +78,15 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
     if (!file) return;
 
     if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-      setServerMessage("Chỉ chấp nhận tệp PDF, DOC hoặc DOCX.");
+      setServerMessage(
+        "Chỉ chấp nhận tệp PDF, DOC, DOCX hoặc ảnh (JPG, PNG, WEBP, GIF).",
+      );
       setStatus("error");
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      setServerMessage("Tệp đính kèm không được vượt quá 10MB.");
+      setServerMessage("Tệp đính kèm không được vượt quá 5MB.");
       setStatus("error");
       return;
     }
@@ -139,8 +145,17 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
       handleRemoveFile();
     } catch (err: any) {
       const errorData = err?.response?.data;
+      const errorCode = errorData?.code;
 
-      if (Array.isArray(errorData?.message)) {
+      if (errorCode === "EMAIL_RATE_LIMITED") {
+        setServerMessage(
+          "Bạn đã gửi quá nhiều email. Vui lòng thử lại sau 24 giờ.",
+        );
+      } else if (errorCode === "DISPOSABLE_EMAIL") {
+        setServerMessage("Email tạm thời không được chấp nhận.");
+      } else if (errorCode === "INVALID_EMAIL") {
+        setServerMessage("Địa chỉ email không hợp lệ.");
+      } else if (Array.isArray(errorData?.message)) {
         setServerMessage(errorData.message.join(". "));
       } else if (typeof errorData?.message === "string") {
         setServerMessage(errorData.message);
@@ -340,7 +355,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept=".pdf,.doc,.docx"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.gif"
                       onChange={handleFileChange}
                       className="hidden"
                       id="recruitment-cv-attachment"
@@ -376,7 +391,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                         aria-label="Đính kèm hồ sơ PDF, DOC hoặc DOCX"
                       >
                         <FiPaperclip className="w-3.5 h-3.5" />
-                        Đính kèm CV (PDF, DOC, DOCX — tối đa 10MB)
+                        Đính kèm CV (PDF, DOC, DOCX, JPG, PNG — tối đa 5MB)
                       </button>
                     )}
                   </div>
