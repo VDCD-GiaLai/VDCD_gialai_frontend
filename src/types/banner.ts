@@ -21,6 +21,8 @@ export interface PageBannerData {
   tag?: string;
   /** Optional CTA buttons rendered inside the hero */
   ctaButtons?: PageBannerCta[];
+  /** Optional business license information */
+  businessLicense?: string;
 }
 
 /**
