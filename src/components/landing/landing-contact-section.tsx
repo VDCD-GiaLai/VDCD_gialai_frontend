@@ -92,11 +92,11 @@ export function LandingContactSection() {
             <button
               type="button"
               onClick={() => {
-                window.dispatchEvent(new CustomEvent("open-mega-menu"));
+                router.push("/about-us");
               }}
               className="inline-flex items-center justify-between sm:justify-start gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-xl backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer w-full sm:w-auto"
             >
-              Khám phá giải pháp
+              Về chúng tôi
               <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
                 <ArrowUpRight className="w-4 h-4" weight="thin" />
               </span>
