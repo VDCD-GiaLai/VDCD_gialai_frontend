@@ -83,7 +83,7 @@ export default function AboutPage() {
       <HeroRadar />
 
       {/* Main Layout Container with spatial rhythm */}
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-6 md:pb-8 space-y-14 md:space-y-20">
         {/* 2. Bento Intro Section */}
         <BentoIntro orgInfo={orgInfo} />
 
@@ -101,8 +101,8 @@ export default function AboutPage() {
         <EcosystemNetwork stats={orgInfo?.stats} />
       </div>
 
-      {/* 5. Member Units Section (Đơn vị thành viên) - Tràn viền */}
-      <div className="py-4 md:py-8">
+      {/* 5. Member Units Section (Sức mạnh từ Hệ sinh thái) - Tràn viền */}
+      <div className="pt-0 pb-6 md:pb-10 -mt-4 md:-mt-8">
         <EcosystemSection />
       </div>
 
@@ -123,14 +123,14 @@ export default function AboutPage() {
             innerClassName="p-0"
           >
             <div className="p-8 md:p-16 space-y-6 relative overflow-hidden">
-              <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-2xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
-                Cùng VDCD Group chuyển đổi số tương lai của bạn
+              <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300 whitespace-nowrap">
+                Chuyển đổi số tương lai của bạn
               </h3>
 
               <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300">
                 Hãy liên hệ với chúng tôi để thiết kế các giải pháp công nghệ
                 tối ưu nhất dành riêng cho doanh nghiệp, cơ quan của bạn tại địa
-                bàn tỉnh Gia Lai và Tây Nguyên.
+                bàn tỉnh.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4 pt-4 relative z-10">
@@ -144,15 +144,18 @@ export default function AboutPage() {
                   </span>
                 </a>
 
-                <Link
-                  href="/solution"
-                  className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-xl backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("open-mega-menu"));
+                  }}
+                  className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-xl backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
                 >
                   Khám phá giải pháp
                   <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
                     <ArrowUpRight className="w-4 h-4" weight="thin" />
                   </span>
-                </Link>
+                </button>
               </div>
             </div>
           </Card>

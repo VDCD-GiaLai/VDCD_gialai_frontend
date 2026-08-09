@@ -131,8 +131,8 @@ export function ProgramsSolutionsSection() {
               Chương trình và giải pháp
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base mt-4 max-w-xl mx-auto leading-relaxed">
-              Kiến tạo hệ sinh thái đổi mới sáng tạo và chuyển giao công nghệ
-              tiên phong cho Gia Lai &amp; Tây Nguyên.
+              Các chương trình và giải pháp trọng tâm do Trung tâm Đổi mới Sáng
+              tạo Gia Lai thực hiện nhằm bứt phá công nghệ và nâng tầm khu vực.
             </p>
           </div>
 
