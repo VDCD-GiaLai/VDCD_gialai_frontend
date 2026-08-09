@@ -14,7 +14,7 @@ const fadeInUp = {
 };
 
 const GOOGLE_MAPS_EMBED_URL =
-  "https://maps.google.com/maps?q=01%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20Pleiku%2C%20Gia%20Lai&t=&z=16&ie=UTF8&iwloc=&output=embed";
+  "https://maps.google.com/maps?q=226%20%C4%90%E1%BB%91ng%20%C4%90a%2C%20Quy%20Nh%C6%A1n%2C%20Gia%20Lai&t=&z=16&ie=UTF8&iwloc=&output=embed";
 
 export function ContactMap() {
   return (
@@ -55,7 +55,7 @@ export function ContactMap() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Bản đồ văn phòng VDCD Gia Lai — 01 Trần Hưng Đạo, Pleiku, Gia Lai"
+                title="Bản đồ văn phòng VDCD Gia Lai — Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai"
                 className="absolute inset-0 w-full h-full"
               />
             </div>
