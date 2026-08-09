@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
-import { FiCalendar } from "react-icons/fi";
+import { Calendar } from "@phosphor-icons/react";
 import { formatDate } from "@/lib/utils";
 import { fetchFeaturedArticlesFromApi } from "@/services/article.service";
 import type { Article } from "@/types";
@@ -68,7 +68,7 @@ const PrimaryCard = ({ article }: PrimaryCardProps) => {
           )}
           {article.publishedAt && (
             <span className="inline-flex items-center gap-1.5 text-xs text-zinc-400 lg:text-zinc-300">
-              <FiCalendar className="w-3 h-3" />
+              <Calendar weight="thin" className="w-3 h-3" />
               {formatDate(article.publishedAt)}
             </span>
           )}

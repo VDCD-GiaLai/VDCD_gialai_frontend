@@ -4,7 +4,7 @@ import * as React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@phosphor-icons/react";
 import "./careers-hero-slider.css";
 
 /* ── Slide data ───────────────────────────────────────── */
@@ -236,7 +236,7 @@ export function CareersHeroSlider() {
             aria-label="Slide tiếp theo"
             type="button"
           >
-            <FiArrowRight />
+            <ArrowRight weight="thin" />
           </button>
         </div>
 

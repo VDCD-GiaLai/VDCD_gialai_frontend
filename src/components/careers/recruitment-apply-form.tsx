@@ -4,7 +4,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { FiSend, FiPaperclip, FiX, FiCheck, FiArrowLeft } from "react-icons/fi";
+import { PaperPlaneRight, Paperclip, X, Check, ArrowLeft } from "@phosphor-icons/react";
 import Link from "next/link";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
@@ -190,7 +190,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
             href="/careers#positions"
             className="inline-flex items-center gap-2 font-mono-label text-xs font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
           >
-            <FiArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft weight="thin" className="w-3.5 h-3.5" />
             Quay lại danh sách tuyển dụng
           </Link>
         </motion.div>
@@ -272,7 +272,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                     role="alert"
                   >
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 shrink-0">
-                      <FiCheck className="w-4 h-4" />
+                      <Check weight="thin" className="w-4 h-4" />
                     </div>
                     <p className="text-sm font-medium text-green-800 dark:text-green-300">
                       {serverMessage}
@@ -290,7 +290,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                     role="alert"
                   >
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 shrink-0">
-                      <FiX className="w-4 h-4" />
+                      <X weight="thin" className="w-4 h-4" />
                     </div>
                     <p className="text-sm font-medium text-red-800 dark:text-red-300">
                       {serverMessage}
@@ -365,7 +365,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
 
                     {attachedFile ? (
                       <div className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/40">
-                        <FiPaperclip className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0" />
+                        <Paperclip weight="thin" className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0" />
                         <span className="text-sm text-black dark:text-white truncate flex-1">
                           {attachedFile.name}
                         </span>
@@ -379,7 +379,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                           aria-label="Xóa tệp đính kèm"
                           disabled={isLoading}
                         >
-                          <FiX className="w-4 h-4" />
+                          <X weight="thin" className="w-4 h-4" />
                         </button>
                       </div>
                     ) : (
@@ -390,7 +390,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                         disabled={isLoading}
                         aria-label="Đính kèm hồ sơ PDF, DOC hoặc DOCX"
                       >
-                        <FiPaperclip className="w-3.5 h-3.5" />
+                        <Paperclip weight="thin" className="w-3.5 h-3.5" />
                         Đính kèm CV (PDF, DOC, DOCX, JPG, PNG — tối đa 5MB)
                       </button>
                     )}
@@ -412,7 +412,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                       ) : (
                         <>
                           Gửi hồ sơ
-                          <FiSend className="w-3.5 h-3.5 ml-2" />
+                          <PaperPlaneRight weight="thin" className="w-3.5 h-3.5 ml-2" />
                         </>
                       )}
                     </Button>

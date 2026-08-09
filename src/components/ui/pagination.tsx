@@ -7,7 +7,7 @@ import {
   PaginationItemType,
   PaginationItemRenderProps,
 } from "@heroui/react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export type PaginationProps = HeroPaginationProps;
@@ -33,7 +33,7 @@ function renderItem({
         )}
         onClick={onNext}
       >
-        <FiChevronRight className="w-4 h-4" />
+        <CaretRight weight="thin" className="w-4 h-4" />
       </button>
     );
   }
@@ -49,7 +49,7 @@ function renderItem({
         )}
         onClick={onPrevious}
       >
-        <FiChevronLeft className="w-4 h-4" />
+        <CaretLeft weight="thin" className="w-4 h-4" />
       </button>
     );
   }

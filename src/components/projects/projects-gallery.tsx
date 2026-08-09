@@ -8,7 +8,7 @@ import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
 import { fetchProjectsFromApi } from "@/services/project.service";
 import { useTransitionStore } from "@/store/transition-store";
 
-import { FiMapPin, FiArrowRight } from "react-icons/fi";
+import { MapPin, ArrowRight } from "@phosphor-icons/react";
 
 /* ────────────────────────────────────────────────────────
    Project Card — shared atomic component
@@ -105,7 +105,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
             <div className="overflow-hidden">
               <div className="flex flex-col gap-4 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                 <div className="flex items-center gap-2 text-sm text-zinc-300 font-mono-label">
-                  <FiMapPin className="text-accent-red" />
+                  <MapPin weight="thin" className="text-accent-red" />
                   <span>{project.location}</span>
                   <span className="opacity-50">·</span>
                   <span>{project.year}</span>
@@ -115,7 +115,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
                   <span className="relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
                     Xem chi tiết
                   </span>
-                  <FiArrowRight className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform" />
+                  <ArrowRight weight="thin" className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform" />
                 </div>
               </div>
             </div>

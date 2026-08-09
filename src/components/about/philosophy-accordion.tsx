@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { FiGlobe, FiTarget, FiShield } from "react-icons/fi";
+import { Globe, Crosshair, Shield } from "@phosphor-icons/react";
 
 interface PhilosophyAccordionProps {
   initialVariant?: "storytelling" | "formal";
@@ -25,7 +25,7 @@ export function PhilosophyAccordion({
       desc:
         missionText ||
         "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.",
-      icon: FiGlobe,
+      icon: Globe,
       bgImage: "/images/home/farm_area_view.webp",
     },
     {
@@ -34,14 +34,14 @@ export function PhilosophyAccordion({
       desc:
         visionText ||
         "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
-      icon: FiTarget,
+      icon: Crosshair,
       bgImage: "/images/home/hethongdothiso.webp",
     },
     {
       id: "03",
       title: "GIÁ TRỊ CỐT LÕI",
       desc: coreValuesText || "Sáng tạo – Chính trực – Hợp tác – Tác động",
-      icon: FiShield,
+      icon: Shield,
 
       bgImage: "/images/home/data_center.webp",
     },
@@ -105,7 +105,7 @@ export function PhilosophyAccordion({
                       : "border-white/10 text-white/60"
                   } flex items-center justify-center transition-colors duration-300`}
                 >
-                  <IconComponent className="w-5 h-5" />
+                  <IconComponent className="w-5 h-5" weight="thin" />
                 </div>
               </div>
 

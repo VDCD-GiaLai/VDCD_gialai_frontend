@@ -4,7 +4,7 @@ import * as React from "react";
 import { useEffect, useRef } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@phosphor-icons/react";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 import { fetchFeaturedProjectsFromApi } from "@/services/project.service";
@@ -47,7 +47,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="object-cover group-hover:scale-105 transition-all duration-700"
         src={project.img}
-        transformation={[{ width: 600, quality: 80, format: "auto" }]}
+        transformation={[{ width: 1200, quality: 90, format: "auto" }]}
       />
 
       {/* ── Animated border — draws clockwise on hover ── */}
@@ -131,7 +131,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
           {/* Arrow */}
           <div className="relative mt-4">
-            <FiArrowRight className="w-4 h-4 text-accent-red" />
+            <ArrowRight className="w-4 h-4 text-accent-red" weight="thin" />
           </div>
         </div>
       </div>
@@ -226,7 +226,7 @@ export function FeaturedProjectsSection() {
             href="/projects"
             className="inline-flex items-center gap-2 text-accent-red font-bold text-xs uppercase tracking-[0.25em] hover:opacity-70 transition-opacity"
           >
-            Xem tất cả <FiArrowRight className="w-4 h-4" />
+            Xem tất cả <ArrowRight className="w-4 h-4" weight="thin" />
           </Link>
         </div>
       </div>
