@@ -72,10 +72,10 @@ export function PhilosophyAccordion({
               key={index}
               onClick={() => setActiveIndex(index)}
               onMouseEnter={() => setActiveIndex(index)}
-              className={`relative cursor-pointer overflow-hidden rounded-3xl border border-zinc-200/50 dark:border-zinc-800/80 transition-all duration-500 ease-in-out flex flex-col justify-between p-8 text-white ${
+              className={`relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-6 md:p-8 text-white ${
                 isOpen
-                  ? "flex-[3.5] border-accent-red/30 shadow-lg"
-                  : "flex-1 border-zinc-200/20 dark:border-zinc-800/20 hover:border-accent-red/20"
+                  ? "flex-[3.5] shadow-md"
+                  : "flex-1 opacity-90 hover:opacity-100"
               }`}
             >
               {/* Background Image */}
@@ -89,23 +89,15 @@ export function PhilosophyAccordion({
                   loading="lazy"
                 />
               </div>
-              {/* Dark Overlay overlaying the image */}
+              {/* Overlay */}
               <div
                 className={`absolute inset-0 transition-colors duration-500 ${
-                  isOpen ? "bg-zinc-950/75" : "bg-zinc-950/60"
+                  isOpen ? "bg-black/40" : "bg-black/20"
                 }`}
               />
 
-              {/* Top part: Number index & Icon */}
-              <div className="flex items-center justify-between relative z-10">
-                <span
-                  className={`font-mono text-3xl font-black ${
-                    isOpen ? "text-accent-red" : "text-white/40"
-                  } transition-colors duration-300`}
-                >
-                  {item.id}
-                </span>
-
+              {/* Top part: Icon */}
+              <div className="flex items-center justify-end relative z-10">
                 <div
                   className={`p-3 rounded-full bg-white/10 border ${
                     isOpen
