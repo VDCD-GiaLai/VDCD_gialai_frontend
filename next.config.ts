@@ -34,10 +34,52 @@ const nextConfig: NextConfig = {
     optimizePackageImports: [
       "react-icons",
       "@heroui/react",
+      "@phosphor-icons/react",
       "framer-motion",
       "gsap",
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/:path*.webp",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/:path*.svg",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/favicons/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
+
