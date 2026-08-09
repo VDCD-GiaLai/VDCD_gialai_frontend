@@ -188,14 +188,23 @@ export default function LandingPage() {
               </p>
               <div className="space-y-4 font-mono-label text-xs text-secondary dark:text-zinc-300">
                 <p className="flex items-center gap-3">
-                  <FiMapPin className="text-accent-red text-base" />{" "}
+                  <FiMapPin
+                    className="text-accent-red text-base"
+                    role="none"
+                    aria-hidden="true"
+                  />{" "}
                   {orgInfo?.address || DEFAULT_ORGANIZATION_INFO.address}
                 </p>
                 <button
                   onClick={handleCopyEmail}
+                  aria-label="Sao chép địa chỉ email liên hệ"
                   className="flex items-center gap-3 hover:text-accent-red transition-colors cursor-pointer"
                 >
-                  <FiMail className="text-accent-red text-base" />
+                  <FiMail
+                    className="text-accent-red text-base"
+                    role="none"
+                    aria-hidden="true"
+                  />
                   {copiedEmail
                     ? "Đã sao chép!"
                     : orgInfo?.socialLinks?.email ||

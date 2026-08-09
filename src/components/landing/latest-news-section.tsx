@@ -153,9 +153,9 @@ export function LatestNewsSection() {
                 </div>
 
                 {/* Title */}
-                <h4 className="text-xs md:text-sm font-bold text-black dark:text-white leading-snug font-heading line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
+                <h3 className="text-xs md:text-sm font-bold text-black dark:text-white leading-snug font-heading line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
                   {a.title}
-                </h4>
+                </h3>
               </Link>
             ))}
           </div>

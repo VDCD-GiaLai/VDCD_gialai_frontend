@@ -297,3 +297,24 @@ button {
     background: rgba(24, 24, 27, 0.95) !important;
   }
 }
+
+/* ── Mobile Touch & Reduced Motion Optimizations ── */
+a,
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

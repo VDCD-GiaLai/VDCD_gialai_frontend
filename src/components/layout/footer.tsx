@@ -72,7 +72,11 @@ export async function Footer() {
                 aria-label="Trang Facebook chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2]/10 text-[#1877F2] hover:bg-[#1877F2] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#1877F2]/20"
               >
-                <FaFacebookF className="text-base" aria-hidden="true" />
+                <FaFacebookF
+                  className="text-base"
+                  role="none"
+                  aria-hidden="true"
+                />
               </a>
             )}
             {tiktok && (
@@ -83,7 +87,11 @@ export async function Footer() {
                 aria-label="Kênh TikTok chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:scale-110 transition-all duration-300 shadow-xs border border-zinc-200 dark:border-zinc-700"
               >
-                <FaTiktok className="text-base" aria-hidden="true" />
+                <FaTiktok
+                  className="text-base"
+                  role="none"
+                  aria-hidden="true"
+                />
               </a>
             )}
             {zalo && (
@@ -94,7 +102,7 @@ export async function Footer() {
                 aria-label="Kênh Zalo chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0068FF]/10 text-[#0068FF] hover:bg-[#0068FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#0068FF]/20"
               >
-                <SiZalo className="text-base" />
+                <SiZalo className="text-base" role="none" aria-hidden="true" />
               </a>
             )}
             {messenger && (
@@ -105,7 +113,11 @@ export async function Footer() {
                 aria-label="Kênh Messenger nhắn tin của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#00B2FF]/10 text-[#00B2FF] hover:bg-[#00B2FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#00B2FF]/20"
               >
-                <FiMessageCircle className="text-base" aria-hidden="true" />
+                <FiMessageCircle
+                  className="text-base"
+                  role="none"
+                  aria-hidden="true"
+                />
               </a>
             )}
           </div>
@@ -119,7 +131,11 @@ export async function Footer() {
           <div className="flex flex-col gap-4 text-sm text-secondary dark:text-zinc-400">
             <div className="group flex items-start gap-3 transition-colors duration-300">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <FiMapPin className="text-base" />
+                <FiMapPin
+                  className="text-base"
+                  role="none"
+                  aria-hidden="true"
+                />
               </div>
               <span className="leading-relaxed pt-1 select-all font-medium text-slate-600 dark:text-zinc-300 pr-4">
                 {address}
@@ -129,10 +145,15 @@ export async function Footer() {
             {hotline && (
               <a
                 href={`tel:${hotline}`}
+                aria-label={`Gọi điện hotline ${hotline}`}
                 className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
               >
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                  <FiPhone className="text-base" />
+                  <FiPhone
+                    className="text-base"
+                    role="none"
+                    aria-hidden="true"
+                  />
                 </div>
                 <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors">
                   {hotline}
@@ -142,10 +163,11 @@ export async function Footer() {
 
             <a
               href={`mailto:${email}`}
+              aria-label={`Gửi email đến ${email}`}
               className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <FiMail className="text-base" />
+                <FiMail className="text-base" role="none" aria-hidden="true" />
               </div>
               <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors break-all pr-4">
                 {email}
