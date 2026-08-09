@@ -50,9 +50,9 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
   return (
     <section className="space-y-16 select-none">
       {/* 2-Column Editorial Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Column: Authentic Photography (Larger Column, No Rounded Corners) */}
-        <div className="lg:col-span-7 relative group">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Left Column: Image (50% width: lg:col-span-6) */}
+        <div className="lg:col-span-6 relative group">
           <div className="relative aspect-[3/2] overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 shadow-lg transition-transform duration-700 hover:scale-[1.01]">
             <img
               src="/about-us/3A5A2610.webp"
@@ -64,22 +64,21 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
           </div>
         </div>
 
-        {/* Right Column: Editorial Corporate Content (Smaller Column) */}
-        <div className="lg:col-span-5 space-y-8">
-          <div className="space-y-4">
-            <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block">
-              TỔNG QUAN TẬP ĐOÀN
-            </span>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-zinc-950 dark:text-white font-heading leading-tight uppercase transition-colors duration-300">
-              Hành trình chuyển đổi từ thực địa đến không gian 3D số hóa
-            </h2>
+        {/* Right Column: Content (50% width: lg:col-span-6) */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-black tracking-tighter text-zinc-950 dark:text-white font-heading leading-tight uppercase transition-colors duration-300">
+              TRUNG TÂM ĐỔI MỚI SÁNG TẠO
+            </h1>
+            <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-black tracking-tighter text-accent-red font-heading leading-tight uppercase transition-colors duration-300">
+              GIA LAI
+            </h1>
+            <p className="font-mono text-xs text-zinc-400 dark:text-zinc-500 pt-1.5">
+              Mã số doanh nghiệp: {orgInfo?.businessLicenseNo || "4101443823"}
+            </p>
           </div>
 
           <div className="space-y-6 text-zinc-650 dark:text-zinc-400 text-sm leading-relaxed transition-colors duration-300">
-            <h3 className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight font-heading leading-snug transition-colors duration-300">
-              {orgInfo?.name || "Trung tâm Đổi mới Sáng tạo Gia Lai"}
-            </h3>
-
             {orgInfo?.description ? (
               <div
                 className="space-y-4"
@@ -105,45 +104,12 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
             )}
           </div>
 
-          <div className="border-t border-zinc-200 dark:border-zinc-800/80 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs font-mono text-zinc-400 transition-colors duration-300">
-            <span>
-              Mã số doanh nghiệp: {orgInfo?.businessLicenseNo || "4101443823"}
-            </span>
+          <div className="border-t border-zinc-200 dark:border-zinc-800/80 pt-6 flex justify-end items-center text-xs font-mono transition-colors duration-300">
             <span className="text-accent-red font-bold uppercase tracking-widest">
               VDCD GROUP · 2006 - 2026
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Row of Metrics (Swiss Design / Clean tabular layout) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-8 border-y border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
-        {stats.map((stat, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              delay: idx * 0.08,
-              duration: 0.5,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="space-y-2 group text-center flex flex-col items-center"
-          >
-            <div className="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white tracking-tighter leading-none group-hover:text-accent-red transition-colors duration-300">
-              <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-            </div>
-            <div className="space-y-1">
-              <h4 className="text-[10px] md:text-xs font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wider transition-colors duration-300">
-                {stat.label}
-              </h4>
-              <p className="text-[11px] text-zinc-500 dark:text-zinc-450 leading-relaxed max-w-[20ch] transition-colors duration-300">
-                {stat.desc}
-              </p>
-            </div>
-          </motion.div>
-        ))}
       </div>
     </section>
   );

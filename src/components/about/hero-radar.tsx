@@ -7,18 +7,18 @@ import Image from "next/image";
 export function HeroRadar() {
   return (
     <div className="relative w-full h-[55vh] min-h-[450px] overflow-hidden bg-zinc-950 flex flex-col justify-between p-6 md:p-12 select-none">
-      {/* 1. Background Image with Dark Overlay */}
+      {/* 1. Background Image */}
       <div className="absolute inset-0">
         <Image
           src="/images/home/farm_area_drone_view.webp"
           alt="Khung cảnh nông nghiệp Tây Nguyên"
           fill
           sizes="100vw"
-          className="object-cover object-center scale-105"
-          loading="lazy"
+          className="object-cover object-center"
+          priority
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-zinc-950/50 to-zinc-950 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />
 
       {/* 2. Top Header Content (Breadcrumbs) */}
       <div className="relative z-30">
@@ -35,12 +35,12 @@ export function HeroRadar() {
       </div>
 
       {/* 3. Bottom Headline & Spatial Info */}
-      <div className="relative z-30 flex flex-col md:flex-row md:items-end justify-between gap-6 w-full">
-        <div className="space-y-3 max-w-2xl">
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none font-heading">
-            VỀ CHÚNG TÔI
-          </h1>
-        </div>
+      <div className="relative z-30 flex items-center gap-6 w-full">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none font-heading shrink-0">
+          VỀ CHÚNG TÔI
+        </h1>
+        {/* 2px White line extending almost across the banner */}
+        <div className="h-[2px] bg-white flex-1 rounded-full opacity-90" />
       </div>
     </div>
   );

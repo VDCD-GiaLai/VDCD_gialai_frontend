@@ -2,7 +2,12 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Globe, Crosshair, Shield } from "@phosphor-icons/react";
+import {
+  Crosshair,
+  Shield,
+  GlobeHemisphereWestIcon,
+  TargetIcon,
+} from "@phosphor-icons/react";
 
 interface PhilosophyAccordionProps {
   initialVariant?: "storytelling" | "formal";
@@ -25,7 +30,7 @@ export function PhilosophyAccordion({
       desc:
         missionText ||
         "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.",
-      icon: Globe,
+      icon: GlobeHemisphereWestIcon,
       bgImage: "/images/home/farm_area_view.webp",
     },
     {
@@ -34,7 +39,7 @@ export function PhilosophyAccordion({
       desc:
         visionText ||
         "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
-      icon: Crosshair,
+      icon: TargetIcon,
       bgImage: "/images/home/hethongdothiso.webp",
     },
     {
@@ -73,9 +78,7 @@ export function PhilosophyAccordion({
               onClick={() => setActiveIndex(index)}
               onMouseEnter={() => setActiveIndex(index)}
               className={`relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-6 md:p-8 text-white ${
-                isOpen
-                  ? "flex-[3.5] shadow-md"
-                  : "flex-1 opacity-90 hover:opacity-100"
+                isOpen ? "flex-[3.5] shadow-md" : "flex-1 hover:brightness-105"
               }`}
             >
               {/* Background Image */}
@@ -89,23 +92,19 @@ export function PhilosophyAccordion({
                   loading="lazy"
                 />
               </div>
-              {/* Overlay */}
-              <div
-                className={`absolute inset-0 transition-colors duration-500 ${
-                  isOpen ? "bg-black/40" : "bg-black/20"
-                }`}
-              />
+              {/* Bottom text gradient for contrast without darkening the main image */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent z-0" />
 
-              {/* Top part: Icon */}
+              {/* Top part: High-contrast Icon */}
               <div className="flex items-center justify-end relative z-10">
                 <div
-                  className={`p-3 rounded-full bg-white/10 border ${
+                  className={`w-10 h-10 rounded-full backdrop-blur-md flex items-center justify-center transition-all duration-300 ${
                     isOpen
-                      ? "border-accent-red/20 text-accent-red bg-white/20"
-                      : "border-white/10 text-white/60"
-                  } flex items-center justify-center transition-colors duration-300`}
+                      ? "bg-accent-red text-white shadow-lg shadow-accent-red/30 scale-110"
+                      : "bg-black/40 border border-white/20 text-white hover:bg-black/60"
+                  }`}
                 >
-                  <IconComponent className="w-5 h-5" weight="thin" />
+                  <IconComponent className="w-5 h-5" weight="bold" />
                 </div>
               </div>
 
