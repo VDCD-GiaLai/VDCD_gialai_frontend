@@ -211,7 +211,11 @@ export function Header() {
               variant="light"
               radius="full"
               onClick={toggleTheme}
-              aria-label="Toggle Theme"
+              aria-label={
+                theme === "dark"
+                  ? "Chuyển sang giao diện sáng"
+                  : "Chuyển sang giao diện tối"
+              }
               className={`transition-colors duration-300 ${
                 showSolidHeader
                   ? "text-zinc-600 dark:text-zinc-400 hover:text-accent-red"
@@ -219,9 +223,9 @@ export function Header() {
               }`}
             >
               {theme === "dark" ? (
-                <Sun className="w-5 h-5" weight="thin" />
+                <Sun className="w-5 h-5" weight="thin" aria-hidden="true" />
               ) : (
-                <Moon className="w-5 h-5" weight="thin" />
+                <Moon className="w-5 h-5" weight="thin" aria-hidden="true" />
               )}
             </Button>
           )}
@@ -231,7 +235,7 @@ export function Header() {
             href="/company-profile"
             target="_blank"
             rel="noopener noreferrer"
-            startContent={<FiFileText className="w-4 h-4" />}
+            startContent={<FiFileText className="w-4 h-4" aria-hidden="true" />}
             className="hidden md:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-none"
           >
             Hồ sơ năng lực
@@ -243,7 +247,9 @@ export function Header() {
             variant="light"
             radius="full"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle Mobile Menu"
+            aria-label={
+              isMobileMenuOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng"
+            }
             className={`xl:hidden transition-colors duration-300 ${
               showSolidHeader
                 ? "text-zinc-600 dark:text-zinc-400 hover:text-accent-red"
@@ -251,9 +257,9 @@ export function Header() {
             }`}
           >
             {isMobileMenuOpen ? (
-              <X className="w-5 h-5" weight="thin" />
+              <X className="w-5 h-5" weight="thin" aria-hidden="true" />
             ) : (
-              <List className="w-5 h-5" weight="thin" />
+              <List className="w-5 h-5" weight="thin" aria-hidden="true" />
             )}
           </Button>
         </div>

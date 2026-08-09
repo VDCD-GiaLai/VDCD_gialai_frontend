@@ -33,7 +33,7 @@ function renderItem({
         )}
         onClick={onNext}
       >
-        <CaretRight weight="thin" className="w-4 h-4" />
+        <CaretRight weight="thin" className="w-4 h-4" aria-hidden="true" />
       </button>
     );
   }
@@ -49,14 +49,14 @@ function renderItem({
         )}
         onClick={onPrevious}
       >
-        <CaretLeft weight="thin" className="w-4 h-4" />
+        <CaretLeft weight="thin" className="w-4 h-4" aria-hidden="true" />
       </button>
     );
   }
 
   if (value === PaginationItemType.DOTS) {
     return (
-      <button key={key} className={className}>
+      <button key={key} className={className} aria-label="Các trang khác">
         ...
       </button>
     );

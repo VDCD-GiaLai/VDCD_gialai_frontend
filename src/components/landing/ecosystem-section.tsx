@@ -223,7 +223,7 @@ export function EcosystemSection() {
             className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/60 hover:bg-accent-red text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 shadow-xl disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-110"
             aria-label="Slide trước"
           >
-            <ArrowLeft className="w-5 h-5" weight="bold" />
+            <ArrowLeft className="w-5 h-5" weight="bold" aria-hidden="true" />
           </button>
 
           {/* Right Navigation Arrow */}
@@ -233,7 +233,7 @@ export function EcosystemSection() {
             className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/60 hover:bg-accent-red text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all duration-300 shadow-xl disabled:opacity-0 disabled:pointer-events-none cursor-pointer hover:scale-110"
             aria-label="Slide sau"
           >
-            <ArrowRight className="w-5 h-5" weight="bold" />
+            <ArrowRight className="w-5 h-5" weight="bold" aria-hidden="true" />
           </button>
 
           <div

@@ -86,7 +86,11 @@ const ContactInfoItem = ({
         </span>
       </div>
       {href && isExternal && (
-        <ArrowSquareOut weight="thin" className="w-3.5 h-3.5 text-secondary/40 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300 shrink-0 mt-1" />
+        <ArrowSquareOut
+          weight="thin"
+          className="w-3.5 h-3.5 text-secondary/40 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300 shrink-0 mt-1"
+          aria-hidden="true"
+        />
       )}
     </div>
   );
@@ -145,28 +149,28 @@ export function ContactForm({
     {
       name: "Facebook",
       url: facebookUrl,
-      icon: <FaFacebookF className="w-4 h-4" />,
+      icon: <FaFacebookF className="w-4 h-4" aria-hidden="true" />,
       colorClass:
         "border-[#1877F2]/30 text-[#1877F2] bg-[#1877F2]/10 hover:bg-[#1877F2] hover:text-white",
     },
     {
       name: "TikTok",
       url: tiktokUrl,
-      icon: <FaTiktok className="w-4 h-4" />,
+      icon: <FaTiktok className="w-4 h-4" aria-hidden="true" />,
       colorClass:
         "border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black",
     },
     {
       name: "Zalo",
       url: zaloUrl,
-      icon: <SiZalo className="w-4 h-4" />,
+      icon: <SiZalo className="w-4 h-4" aria-hidden="true" />,
       colorClass:
         "border-[#0068FF]/30 text-[#0068FF] bg-[#0068FF]/10 hover:bg-[#0068FF] hover:text-white",
     },
     {
       name: "Messenger",
       url: messengerUrl,
-      icon: <FiMessageCircle className="w-4 h-4" />,
+      icon: <FiMessageCircle className="w-4 h-4" aria-hidden="true" />,
       colorClass:
         "border-[#00B2FF]/30 text-[#00B2FF] bg-[#00B2FF]/10 hover:bg-[#00B2FF] hover:text-white",
     },
@@ -482,7 +486,10 @@ export function ContactForm({
 
                     {attachedFile ? (
                       <div className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/40">
-                        <Paperclip className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0" weight="thin" />
+                        <Paperclip
+                          className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0"
+                          weight="thin"
+                        />
                         <span className="text-sm text-black dark:text-white truncate flex-1">
                           {attachedFile.name}
                         </span>
@@ -529,7 +536,10 @@ export function ContactForm({
                       ) : (
                         <>
                           Gửi tin nhắn
-                          <PaperPlaneRight className="w-3.5 h-3.5 ml-2" weight="thin" />
+                          <PaperPlaneRight
+                            className="w-3.5 h-3.5 ml-2"
+                            weight="thin"
+                          />
                         </>
                       )}
                     </Button>

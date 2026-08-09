@@ -1,25 +1,34 @@
-# Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD Gia Lai)
+# Trung Tâm Đổi Mới Sáng Tạo Gia Lai
 
-> Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ tại tỉnh Gia Lai & Tây Nguyên.
+> Trung Tâm Đổi Mới Sáng Tạo Gia Lai kết nối công nghệ, chuyên gia và nguồn lực nhằm thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển hệ sinh thái công nghệ tại tỉnh Gia Lai & khu vực Tây Nguyên.
 
-## Giới thiệu & Định hướng
-Trung tâm Đổi mới Sáng tạo Gia Lai trực thuộc Tập đoàn VDCD (Viện Thiết kế Số Việt Nam). Trung tâm tập trung vào các giải pháp công nghệ trọng điểm:
-- Hạ tầng dữ liệu số & Data Center
-- Chuyển đổi số nông nghiệp & quản lý tài nguyên rừng
-- Số hóa đô thị thông minh & hệ thống Autotimelapse, UAV, VR360, AI
-- Ươm tạo doanh nghiệp khởi nghiệp & đào tạo nguồn nhân lực số
+## Website
 
-## Trang thông tin chính
-- **Trang chủ**: https://trungtamdoimoisangtao.com/
-- **Về chúng tôi**: https://trungtamdoimoisangtao.com/about-us
-- **Giải pháp công nghệ**: https://trungtamdoimoisangtao.com/solution
-- **Dự án tiêu biểu**: https://trungtamdoimoisangtao.com/projects
-- **Tin tức & Hoạt động**: https://trungtamdoimoisangtao.com/news
-- **Tuyển dụng**: https://trungtamdoimoisangtao.com/careers
-- **Liên hệ**: https://trungtamdoimoisangtao.com/contact
+- [Trang chủ](https://trungtamdoimoisangtao.com/)
+- [Giới thiệu](https://trungtamdoimoisangtao.com/about-us)
+- [Chương trình đổi mới](https://trungtamdoimoisangtao.com/programs)
+- [Giải pháp công nghệ](https://trungtamdoimoisangtao.com/solution)
+- [Dự án tiêu biểu](https://trungtamdoimoisangtao.com/projects)
+- [Tin tức & Sự kiện](https://trungtamdoimoisangtao.com/news)
+- [Tuyển dụng](https://trungtamdoimoisangtao.com/careers)
+- [Hồ sơ năng lực](https://trungtamdoimoisangtao.com/company-profile)
+- [Liên hệ](https://trungtamdoimoisangtao.com/contact)
 
-## Thông tin liên hệ
-- **Địa chỉ**: Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai
-- **Hotline**: 037.360.0099
-- **Email**: dmstgialai@vdcd.vn
-- **Website chính thức**: https://trungtamdoimoisangtao.com/
+## Programs
+
+- [Chương trình ươm tạo & hỗ trợ chuyển đổi số](https://trungtamdoimoisangtao.com/programs)
+- [Cơ hội việc làm & đào tạo nguồn nhân lực số](https://trungtamdoimoisangtao.com/careers)
+
+## Technology Solutions
+
+- [Giải pháp UAV](https://trungtamdoimoisangtao.com/solution/uav)
+- [Giải pháp AI](https://trungtamdoimoisangtao.com/solution/ai)
+- [Giải pháp Autotimelapse](https://trungtamdoimoisangtao.com/solution/autotimelapse)
+- [Giải pháp SmartScale](https://trungtamdoimoisangtao.com/solution/smartscale)
+- [Giải pháp VR360](https://trungtamdoimoisangtao.com/solution/vr360)
+- [Hạ tầng Data Center](https://trungtamdoimoisangtao.com/solution/data-center)
+
+## Policies
+
+- [Điều khoản sử dụng](https://trungtamdoimoisangtao.com/policies/dieu-khoan-su-dung)
+- [Chính sách bảo mật](https://trungtamdoimoisangtao.com/policies/chinh-sach-bao-mat)
