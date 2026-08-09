@@ -41,6 +41,11 @@
   transition: all 0.15s ease;
   position: relative;
   border: 1px solid transparent;
+  color: var(--color-on-surface-variant);
+}
+
+.dark .mega-menu-solution-item {
+  color: rgba(161, 161, 170, 1);
 }
 
 .mega-menu-solution-item:hover {
@@ -60,6 +65,7 @@
 .dark .mega-menu-solution-item[data-active="true"] {
   background: rgba(232, 0, 2, 0.1);
   border-color: rgba(232, 0, 2, 0.25);
+  color: #e80002;
 }
 
 /* ── Detail Column Content Transition ────────────────── */
