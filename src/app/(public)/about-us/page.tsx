@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  FiArrowUpRight,
-  FiMail,
-  FiCpu,
-  FiMap,
-  FiActivity,
-  FiSettings,
-} from "react-icons/fi";
+  ArrowUpRight,
+  Envelope,
+  Cpu,
+  MapTrifold,
+  Pulse,
+  Gear,
+} from "@phosphor-icons/react";
 import {
   fetchOrganizationInfoFromApi,
   type OrganizationInfo,
@@ -51,16 +51,16 @@ export default function AboutPage() {
     "/images/home/kientaotuonglai.webp",
   ];
 
-  const defaultIcons = [FiCpu, FiMap, FiActivity, FiSettings];
+  const defaultIcons = [Cpu, MapTrifold, Pulse, Gear];
 
   const displayFields =
     operationFields && operationFields.length > 0
       ? operationFields.map((field, idx) => {
           const iconMap: Record<string, any> = {
-            FiCpu,
-            FiMap,
-            FiActivity,
-            FiSettings,
+            FiCpu: Cpu,
+            FiMap: MapTrifold,
+            FiActivity: Pulse,
+            FiSettings: Gear,
           };
           const icon =
             (field.icon && iconMap[field.icon]) ||
@@ -132,7 +132,7 @@ export default function AboutPage() {
                 >
                   Gửi email liên hệ
                   <span className="w-8 h-8 rounded-full bg-white/10 dark:bg-zinc-100 flex items-center justify-center text-inherit group-hover:bg-white/20 transition-colors">
-                    <FiMail className="w-4 h-4" />
+                    <Envelope className="w-4 h-4" weight="thin" />
                   </span>
                 </a>
 
@@ -142,7 +142,7 @@ export default function AboutPage() {
                 >
                   Khám phá giải pháp
                   <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
-                    <FiArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4" weight="thin" />
                   </span>
                 </Link>
               </div>

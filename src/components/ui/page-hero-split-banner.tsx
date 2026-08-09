@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { fetchPageBannerFromApi } from "@/services/banner.service";
 import type { PageBannerData, PageBannerCta, PageKey } from "@/types/banner";
 import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
-import { FiArrowUpRight, FiArrowRight } from "react-icons/fi";
+import { ArrowUpRight, ArrowRight } from "@phosphor-icons/react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -65,9 +65,9 @@ export const PageHeroSplitBanner = ({
       : "inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-white/40 text-white font-mono-label text-[10px] md:text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-lg backdrop-blur-sm group";
 
     const arrowIcon = isPrimary ? (
-      <FiArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+      <ArrowRight weight="thin" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
     ) : (
-      <FiArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      <ArrowUpRight weight="thin" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     );
 
     if (isInternal && !cta.href.startsWith("#")) {

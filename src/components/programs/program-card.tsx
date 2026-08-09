@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import { APP_ROUTES } from "@/lib/constants";
 import type { Program } from "@/types";
 
@@ -80,7 +80,7 @@ export const ProgramCard = ({ program }: ProgramCardProps) => {
           {/* Read more */}
           <span className="inline-flex items-center gap-1.5 font-mono-label text-xs font-bold uppercase tracking-widest text-accent-red group-hover:gap-2.5 transition-all duration-300">
             Xem chi tiết
-            <FiArrowUpRight className="w-3.5 h-3.5" />
+            <ArrowUpRight weight="thin" className="w-3.5 h-3.5" />
           </span>
         </div>
       </Link>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowDown, FiMail } from "react-icons/fi";
+import { ArrowDown, Envelope } from "@phosphor-icons/react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -47,7 +47,7 @@ export function CareersCta() {
               aria-label="Xem các vị trí đang tuyển"
             >
               Xem vị trí tuyển dụng
-              <FiArrowDown className="w-4 h-4" />
+              <ArrowDown weight="thin" className="w-4 h-4" />
             </a>
             <a
               href="mailto:hr@vdcdgroup.vn"
@@ -55,7 +55,7 @@ export function CareersCta() {
               aria-label="Gửi email ứng tuyển"
             >
               Gửi hồ sơ qua email
-              <FiMail className="w-4 h-4" />
+              <Envelope weight="thin" className="w-4 h-4" />
             </a>
           </div>
         </motion.div>

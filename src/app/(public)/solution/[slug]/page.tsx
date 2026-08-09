@@ -4,7 +4,7 @@ import React, { use, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { FiArrowLeft, FiArrowUpRight, FiMail, FiPhone } from "react-icons/fi";
+import { ArrowLeft, ArrowUpRight, Envelope, Phone } from "@phosphor-icons/react";
 import {
   SOLUTION_DETAILS,
   type SolutionDetail,
@@ -168,7 +168,7 @@ export default function SolutionDetailPage({ params }: PageProps) {
             href="/solution"
             className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
           >
-            <FiArrowLeft className="w-4 h-4" /> Quay lại danh mục Giải pháp
+            <ArrowLeft weight="thin" className="w-4 h-4" /> Quay lại danh mục Giải pháp
           </Link>
         </div>
 
@@ -277,13 +277,13 @@ export default function SolutionDetailPage({ params }: PageProps) {
               href="mailto:dmstgialai@vdcd.vn"
               className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300"
             >
-              Gửi email liên hệ <FiMail className="w-4 h-4" />
+              Gửi email liên hệ <Envelope weight="thin" className="w-4 h-4" />
             </a>
             <Link
               href="/solution"
               className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
             >
-              Khám phá giải pháp khác <FiArrowUpRight className="w-4 h-4" />
+              Khám phá giải pháp khác <ArrowUpRight weight="thin" className="w-4 h-4" />
             </Link>
           </div>
         </section>

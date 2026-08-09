@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
-import { FiSearch, FiCalendar } from "react-icons/fi";
+import { MagnifyingGlass, Calendar } from "@phosphor-icons/react";
 import { Pagination } from "@/components/ui/pagination";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@heroui/react";
@@ -78,7 +78,7 @@ const VerticalCard = ({ article, priority = false }: VerticalCardProps) => {
             )}
             {article.publishedAt && (
               <span className="inline-flex items-center gap-1 text-[11px] text-secondary dark:text-zinc-500">
-                <FiCalendar className="w-3 h-3" />
+                <Calendar weight="thin" className="w-3 h-3" />
                 {formatDate(article.publishedAt)}
               </span>
             )}
@@ -145,7 +145,7 @@ const WideCard = ({ article }: WideCardProps) => {
               )}
               {article.publishedAt && (
                 <span className="inline-flex items-center gap-1 text-[11px] text-secondary dark:text-zinc-500">
-                  <FiCalendar className="w-3 h-3" />
+                  <Calendar weight="thin" className="w-3 h-3" />
                   {formatDate(article.publishedAt)}
                 </span>
               )}
@@ -406,7 +406,7 @@ export const NewsGrid = () => {
             </nav>
 
             <div className="relative flex-shrink-0">
-              <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary dark:text-zinc-500" />
+              <MagnifyingGlass weight="thin" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary dark:text-zinc-500" />
               <input
                 type="text"
                 placeholder="Tìm kiếm..."

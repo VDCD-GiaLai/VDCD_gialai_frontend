@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { FiSun, FiMoon, FiMenu, FiX, FiFileText } from "react-icons/fi";
+import { Sun, Moon, List, X, FileText } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
@@ -218,9 +218,9 @@ export function Header() {
               }`}
             >
               {theme === "dark" ? (
-                <FiSun className="w-5 h-5" />
+                <Sun className="w-5 h-5" weight="thin" />
               ) : (
-                <FiMoon className="w-5 h-5" />
+                <Moon className="w-5 h-5" weight="thin" />
               )}
             </Button>
           )}
@@ -228,7 +228,7 @@ export function Header() {
           <Button
             as={Link}
             href="/#capacity-profile"
-            startContent={<FiFileText className="w-4 h-4" />}
+            startContent={<FileText className="w-4 h-4" weight="thin" />}
             className="hidden md:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-none"
           >
             Hồ sơ năng lực
@@ -248,9 +248,9 @@ export function Header() {
             }`}
           >
             {isMobileMenuOpen ? (
-              <FiX className="w-5 h-5" />
+              <X className="w-5 h-5" weight="thin" />
             ) : (
-              <FiMenu className="w-5 h-5" />
+              <List className="w-5 h-5" weight="thin" />
             )}
           </Button>
         </div>
@@ -311,7 +311,7 @@ export function Header() {
           onClick={() => setIsMobileMenuOpen(false)}
           className="lg:hidden px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
         >
-          <FiFileText className="w-4 h-4" />
+          <FileText className="w-4 h-4" weight="thin" />
           Hồ sơ năng lực
         </Link>
       </div>

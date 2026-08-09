@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FiLock, FiMail, FiArrowRight } from "react-icons/fi";
+import { Lock, Envelope, ArrowRight } from "@phosphor-icons/react";
 import { loginSchema, LoginInput } from "@/schemas/auth.schema";
 import { AuthService } from "@/services/auth.service";
 import { useAuthStore } from "@/store/auth.store";
@@ -82,7 +82,7 @@ export default function LoginPage() {
             type="email"
             autoComplete="email"
             startContent={
-              <FiMail className="text-secondary dark:text-zinc-500 mr-1" />
+              <Envelope weight="thin" className="text-secondary dark:text-zinc-500 mr-1" />
             }
           />
 
@@ -94,7 +94,7 @@ export default function LoginPage() {
             type="password"
             autoComplete="current-password"
             startContent={
-              <FiLock className="text-secondary dark:text-zinc-500 mr-1" />
+              <Lock weight="thin" className="text-secondary dark:text-zinc-500 mr-1" />
             }
           />
 
@@ -105,7 +105,7 @@ export default function LoginPage() {
               isLoading={isLoading}
               className="w-full bg-accent-red text-white font-mono-label text-xs uppercase tracking-wider font-bold py-6 rounded-lg"
               trailingIcon={
-                !isLoading && <FiArrowRight className="w-3.5 h-3.5" />
+                !isLoading && <ArrowRight weight="thin" className="w-3.5 h-3.5" />
               }
             >
               Đăng nhập hệ thống

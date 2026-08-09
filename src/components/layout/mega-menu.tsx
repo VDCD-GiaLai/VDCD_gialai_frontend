@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { FiChevronDown, FiArrowRight } from "react-icons/fi";
+import { CaretDown, ArrowRight } from "@phosphor-icons/react";
 import {
   MEGA_MENU_PROGRAMS,
   MEGA_MENU_SOLUTIONS,
@@ -265,7 +265,7 @@ const SolutionDetail = ({
 
       <Link href={solution.cta.href} className="mega-menu-cta">
         {solution.cta.label}
-        <FiArrowRight className="w-3.5 h-3.5" />
+        <ArrowRight className="w-3.5 h-3.5" weight="thin" />
       </Link>
     </div>
   );
@@ -356,7 +356,7 @@ const MobileMegaMenu = ({
           aria-expanded={isProgramsOpen}
         >
           Chương trình
-          <FiChevronDown className="mega-menu-mobile-trigger-chevron" />
+          <CaretDown className="mega-menu-mobile-trigger-chevron" weight="thin" />
         </button>
         <div
           ref={programsContentRef}
@@ -386,7 +386,7 @@ const MobileMegaMenu = ({
           aria-expanded={isSolutionsOpen}
         >
           Giải pháp
-          <FiChevronDown className="mega-menu-mobile-trigger-chevron" />
+          <CaretDown className="mega-menu-mobile-trigger-chevron" weight="thin" />
         </button>
         <div
           ref={solutionsContentRef}
@@ -402,7 +402,8 @@ const MobileMegaMenu = ({
                 aria-expanded={activeSolutionId === solution.id}
               >
                 {solution.name}
-                <FiChevronDown
+                <CaretDown
+                  weight="thin"
                   className={`w-3 h-3 transition-transform duration-200 ${
                     activeSolutionId === solution.id ? "rotate-180" : ""
                   }`}
@@ -431,7 +432,7 @@ const MobileMegaMenu = ({
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-red mt-1"
                   >
                     {solution.cta.label}
-                    <FiArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5" weight="thin" />
                   </Link>
                 </div>
               )}

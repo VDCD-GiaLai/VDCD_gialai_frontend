@@ -98,9 +98,10 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
       <OptimizedImage
         src={logo}
         alt={name}
-        width={200}
-        height={80}
-        className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto max-w-[180px] sm:max-w-[200px] md:max-w-[240px] object-contain pointer-events-none select-none transition-all duration-300"
+        width={140}
+        height={40}
+        className="max-w-[130px] sm:max-w-[150px] md:max-w-[170px] object-contain pointer-events-none select-none transition-all duration-300"
+        style={{ height: "102px", width: "auto" }}
         loading="lazy"
       />
     </span>
@@ -143,9 +144,9 @@ export function PartnersSection() {
         }}
       />
 
-      <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16">
+      <div className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-5 md:py-14">
         {/* ── Header ─────────────────────────────────── */}
-        <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
+        <div className="max-w-5xl lg:max-w-[1400px] mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           {/* Subtitle */}
           <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-4">
             Khách hàng & Đối tác
@@ -153,15 +154,12 @@ export function PartnersSection() {
 
           {/* Title */}
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white mb-5 leading-[1.15] font-heading">
-            Đồng hành cùng những
-            <br className="hidden md:block" /> thương hiệu hàng đầu
+            Đồng hành cùng những thương hiệu hàng đầu
           </h2>
 
-          {/* Description */}
-          <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
-            VDCD tự hào là đối tác chiến lược của các tập đoàn, doanh nghiệp lớn
-            trong nước và quốc tế, cùng xây dựng hạ tầng và giải pháp công nghệ
-            tiên tiến.
+          {/* Description — 1 line on desktop */}
+          <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg lg:max-w-none lg:whitespace-nowrap mx-auto">
+            VDCD tự hào là đối tác chiến lược của các tập đoàn, doanh nghiệp lớn trong nước và quốc tế, cùng xây dựng hạ tầng và giải pháp công nghệ tiên tiến.
           </p>
         </div>
 

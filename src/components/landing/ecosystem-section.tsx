@@ -4,7 +4,7 @@ import * as React from "react";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
-import { FiArrowLeft, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import { SOLUTIONS } from "@/data/solution/solutions";
 import {
   fetchSolutionsFromApi,
@@ -69,7 +69,7 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
           {item.description}
         </p>
         <span className="inline-flex items-center gap-1.5 text-accent-red text-xs font-bold font-mono-label uppercase tracking-wider opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300 delay-75">
-          Tìm Hiểu Thêm <FiArrowUpRight className="w-3.5 h-3.5" />
+          Tìm Hiểu Thêm <ArrowUpRight className="w-3.5 h-3.5" weight="thin" />
         </span>
       </div>
     </LinkComponent>
@@ -193,7 +193,7 @@ export function EcosystemSection() {
     >
       <div
         ref={headerRef}
-        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
+        className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-5 md:py-8"
       >
         {/* ── Header row: title left, arrows right ── */}
         <div className="eco-header-reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
@@ -218,7 +218,7 @@ export function EcosystemSection() {
               className="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               aria-label="Trước"
             >
-              <FiArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" weight="thin" />
             </button>
             <button
               onClick={() => scroll("right")}
@@ -226,7 +226,7 @@ export function EcosystemSection() {
               className="w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               aria-label="Sau"
             >
-              <FiArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" weight="thin" />
             </button>
           </div>
         </div>
@@ -240,17 +240,6 @@ export function EcosystemSection() {
           {items.map((sol, i) => (
             <EcosystemCard key={sol.title} item={sol} index={i} />
           ))}
-        </div>
-
-        {/* ── Bottom CTA ── */}
-        <div className="eco-header-reveal mt-10 md:mt-14 text-center">
-          <Link
-            href="/solution"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-none border border-accent-red/20 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white transition-all duration-300 group"
-          >
-            Khám phá tất cả Giải pháp
-            <FiArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
-          </Link>
         </div>
       </div>
     </section>

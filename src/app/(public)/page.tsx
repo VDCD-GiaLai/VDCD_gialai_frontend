@@ -5,20 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import {
-  FiArrowRight,
-  FiMapPin,
-  FiMail,
-  FiCheckCircle,
-  FiGlobe,
-  FiDatabase,
-  FiServer,
-  FiCpu,
-  FiLayers,
-  FiShield,
-  FiCheck,
-  FiTerminal,
-} from "react-icons/fi";
+import { MapPin, Envelope } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
@@ -201,14 +188,14 @@ export default function LandingPage() {
               </p>
               <div className="space-y-4 font-mono-label text-xs text-secondary dark:text-zinc-300">
                 <p className="flex items-center gap-3">
-                  <FiMapPin className="text-accent-red text-base" />{" "}
+                  <MapPin className="text-accent-red text-base" weight="thin" />{" "}
                   {orgInfo?.address || DEFAULT_ORGANIZATION_INFO.address}
                 </p>
                 <button
                   onClick={handleCopyEmail}
                   className="flex items-center gap-3 hover:text-accent-red transition-colors cursor-pointer"
                 >
-                  <FiMail className="text-accent-red text-base" />
+                  <Envelope className="text-accent-red text-base" weight="thin" />
                   {copiedEmail
                     ? "Đã sao chép!"
                     : orgInfo?.socialLinks?.email ||
@@ -224,7 +211,7 @@ export default function LandingPage() {
                   router.push("/contact");
                 }}
                 className="bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs tracking-wider uppercase font-bold px-8 py-6 w-full md:w-auto"
-                trailingIcon={<FiMail className="w-4 h-4" />}
+                trailingIcon={<Envelope className="w-4 h-4" weight="thin" />}
               >
                 GỬI YÊU CẦU LIÊN HỆ
               </Button>

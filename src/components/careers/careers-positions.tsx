@@ -3,18 +3,18 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  FiSearch,
-  FiMapPin,
-  FiBriefcase,
-  FiClock,
-  FiDollarSign,
-  FiCalendar,
-  FiChevronDown,
-  FiUploadCloud,
-  FiCheckCircle,
-  FiInfo,
-  FiAlertCircle,
-} from "react-icons/fi";
+  MagnifyingGlass,
+  MapPin,
+  Briefcase,
+  Clock,
+  CurrencyCircleDollar,
+  Calendar,
+  CaretDown,
+  UploadSimple,
+  CheckCircle,
+  Info,
+  WarningCircle,
+} from "@phosphor-icons/react";
 import { EmptyState } from "@/components/ui/empty-state";
 import { OPEN_POSITIONS, DEPARTMENTS } from "@/data/careers.data";
 import { formatDate } from "@/lib/utils";
@@ -179,7 +179,7 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
     return (
       <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-xl p-6 text-center space-y-3">
         <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center">
-          <FiCheckCircle className="w-6 h-6" />
+          <CheckCircle className="w-6 h-6" weight="thin" />
         </div>
         <h4 className="text-base font-bold text-emerald-900 dark:text-emerald-200 font-heading">
           Nộp hồ sơ ứng tuyển thành công!
@@ -207,7 +207,7 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
 
       {errorMessage && (
         <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs rounded-lg flex items-center gap-2">
-          <FiAlertCircle className="w-4 h-4 shrink-0" />
+          <WarningCircle className="w-4 h-4 shrink-0" weight="thin" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -355,7 +355,7 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
             onChange={handleFileChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
-          <FiUploadCloud className="w-6 h-6 text-accent-red mx-auto mb-2" />
+          <UploadSimple className="w-6 h-6 text-accent-red mx-auto mb-2" weight="thin" />
           {cvFile ? (
             <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
               Đã chọn: {cvFile.name} ({Math.round(cvFile.size / 1024)} KB)
@@ -389,7 +389,7 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
 
       {/* ── [Phần Vàng] Thông Tin Bổ Sung (Sẽ bổ sung thông tin sau) ── */}
       <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700/80 rounded-xl p-4 flex items-start gap-3">
-        <FiInfo className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+        <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" weight="thin" />
         <div className="space-y-1">
           <h5 className="text-xs font-bold text-amber-900 dark:text-amber-200 uppercase tracking-wider font-heading">
             Thông tin bổ sung (Đánh giá hồ sơ & Phỏng vấn)
@@ -439,7 +439,8 @@ const JobCard = ({ job }: { job: JobPosition }) => {
             </h3>
             <div className="flex items-center gap-1.5 text-xs font-mono-label font-bold text-accent-red shrink-0 md:hidden">
               <span>{isExpanded ? "Thu gọn" : "Xem chi tiết"}</span>
-              <FiChevronDown
+              <CaretDown
+                weight="thin"
                 className={`w-4 h-4 transition-transform duration-300 ${
                   isExpanded ? "rotate-180" : ""
                 }`}
@@ -448,7 +449,7 @@ const JobCard = ({ job }: { job: JobPosition }) => {
           </div>
           <div className="flex flex-wrap items-center gap-3 text-xs text-secondary dark:text-zinc-400">
             <span className="inline-flex items-center gap-1.5 font-mono-label font-bold uppercase tracking-wider text-accent-red">
-              <FiBriefcase className="w-3.5 h-3.5" />
+              <Briefcase className="w-3.5 h-3.5" weight="thin" />
               {job.department}
             </span>
           </div>
@@ -456,12 +457,13 @@ const JobCard = ({ job }: { job: JobPosition }) => {
 
         <div className="hidden md:flex items-center gap-3 text-xs text-secondary dark:text-zinc-400 shrink-0">
           <span className="inline-flex items-center gap-1.5">
-            <FiCalendar className="w-3.5 h-3.5" />
+            <Calendar className="w-3.5 h-3.5" weight="thin" />
             {formatDate(job.postedDate)}
           </span>
           <span className="inline-flex items-center gap-1.5 text-xs font-mono-label font-bold text-accent-red ml-4">
             <span>{isExpanded ? "Thu gọn" : "Xem chi tiết"}</span>
-            <FiChevronDown
+            <CaretDown
+              weight="thin"
               className={`w-4 h-4 transition-transform duration-300 ${
                 isExpanded ? "rotate-180" : ""
               }`}
@@ -476,17 +478,17 @@ const JobCard = ({ job }: { job: JobPosition }) => {
 
       <div className="flex flex-wrap items-center gap-4 text-xs text-secondary dark:text-zinc-400 mb-5">
         <span className="inline-flex items-center gap-1.5">
-          <FiClock className="w-3.5 h-3.5" />
+          <Clock className="w-3.5 h-3.5" weight="thin" />
           {job.employmentType}
         </span>
         {job.salary && (
           <span className="inline-flex items-center gap-1.5">
-            <FiDollarSign className="w-3.5 h-3.5" />
+            <CurrencyCircleDollar className="w-3.5 h-3.5" weight="thin" />
             {job.salary}
           </span>
         )}
         <span className="inline-flex items-center gap-1.5">
-          <FiBriefcase className="w-3.5 h-3.5" />
+          <Briefcase className="w-3.5 h-3.5" weight="thin" />
           {job.experience}
         </span>
       </div>
@@ -737,7 +739,7 @@ export function CareersPositions() {
         >
           {/* Search */}
           <div className="relative max-w-xl">
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" />
+            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" weight="thin" />
             <input
               type="text"
               placeholder="Tìm kiếm vị trí, kỹ năng..."

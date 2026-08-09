@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FiDatabase } from "react-icons/fi";
+import { Database } from "@phosphor-icons/react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,7 @@ export interface EmptyStateProps {
 export function EmptyState({
   title = "Không có dữ liệu",
   description = "Hiện tại chưa có thông tin nào để hiển thị ở đây.",
-  icon = <FiDatabase className="w-12 h-12 text-secondary opacity-60" />,
+  icon = <Database weight="thin" className="w-12 h-12 text-secondary opacity-60" />,
   actionLabel,
   onAction,
   className,

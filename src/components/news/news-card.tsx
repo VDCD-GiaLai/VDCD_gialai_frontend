@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
-import { FiCalendar } from "react-icons/fi";
+import { Calendar } from "@phosphor-icons/react";
 import { formatDate } from "@/lib/utils";
 import type { Article } from "@/types";
 
@@ -65,7 +65,7 @@ export const NewsCard = ({ article }: NewsCardProps) => {
             )}
             {article.publishedAt && (
               <span className="inline-flex items-center gap-1.5 text-[11px] text-secondary dark:text-zinc-500">
-                <FiCalendar className="w-3 h-3" />
+                <Calendar weight="thin" className="w-3 h-3" />
                 {formatDate(article.publishedAt)}
               </span>
             )}

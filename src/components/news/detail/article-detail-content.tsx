@@ -5,13 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  FiCalendar,
-  FiTag,
-  FiArrowLeft,
-  FiShare2,
-  FiCopy,
-  FiCheck,
-} from "react-icons/fi";
+  Calendar,
+  Tag,
+  ArrowLeft,
+  ShareNetwork,
+  Copy,
+  Check,
+} from "@phosphor-icons/react";
 import { fetchArticleBySlugFromApi } from "@/services/article.service";
 import { formatDate, copyToClipboard } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -101,7 +101,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
           href="/news"
           className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300"
         >
-          <FiArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4" weight="thin" />
           Quay lại tin tức
         </Link>
       </div>
@@ -144,7 +144,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
               href="/news"
               className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
             >
-              <FiArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-3.5 h-3.5" weight="thin" />
               Quay lại tin tức
             </Link>
           </div>
@@ -158,7 +158,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
               )}
               {article.publishedAt && (
                 <span className="inline-flex items-center gap-1.5 text-xs text-secondary dark:text-zinc-500">
-                  <FiCalendar className="w-3.5 h-3.5" />
+                  <Calendar className="w-4 h-4" weight="thin" />
                   {formatDate(article.publishedAt)}
                 </span>
               )}
@@ -177,7 +177,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
                     key={tag}
                     className="inline-flex items-center gap-1 px-3 py-1 text-[11px] font-mono-label font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 rounded-full"
                   >
-                    <FiTag className="w-3 h-3" />
+                    <Tag className="w-3.5 h-3.5" weight="thin" />
                     {tag}
                   </span>
                 ))}
@@ -205,7 +205,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
                 className="share-button"
                 aria-label="Chia sẻ trên Facebook"
               >
-                <FiShare2 className="w-4 h-4" />
+                <ShareNetwork className="w-4 h-4" weight="thin" />
               </button>
               <button
                 type="button"
@@ -228,9 +228,9 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
                 aria-label="Sao chép liên kết"
               >
                 {isCopied ? (
-                  <FiCheck className="w-4 h-4 text-green-500" />
+                  <Check className="w-4 h-4 text-emerald-500" weight="thin" />
                 ) : (
-                  <FiCopy className="w-4 h-4" />
+                  <Copy className="w-4 h-4" weight="thin" />
                 )}
               </button>
             </div>
@@ -325,7 +325,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
               href="/news"
               className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
             >
-              <FiArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" weight="thin" />
               Xem tất cả bài viết
             </Link>
           </div>

@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FiClock, FiLayers, FiRadio, FiCpu } from "react-icons/fi";
+import { Clock, Stack, Broadcast, Cpu } from "@phosphor-icons/react";
 
 interface Milestone {
   period: string;
@@ -33,7 +33,7 @@ export function HorizontalRoadmap() {
       title: "Đo Đạc Bản Đồ & GIS Sơ Khởi",
       tagline: "Đại ngàn Tây Nguyên kì vĩ",
       desc: "Khởi đầu từ những đội khảo sát thực địa trắc địa truyền thống, vượt qua địa hình hiểm trở vùng núi Gia Lai để lập bản đồ lâm nghiệp, nông nghiệp sơ khởi.",
-      icon: FiClock,
+      icon: Clock,
       achievements: [
         "Thành lập đội kỹ sư đo đạc cơ bản",
         "Số hóa bản đồ lâm nghiệp quy mô huyện",
@@ -45,7 +45,7 @@ export function HorizontalRoadmap() {
       title: "Số Hóa Không Gian & UAV",
       tagline: "Làm chủ bầu trời số",
       desc: "Chuyển mình bứt phá, ứng dụng thiết bị bay không người lái (UAV/Drone) và công nghệ quét LiDAR, số hóa dữ liệu không gian quy mô lớn.",
-      icon: FiLayers,
+      icon: Stack,
       achievements: [
         "Sở hữu đội UAV quét LiDAR chuyên dụng",
         "Số hóa bản đồ 3D Gia Lai tỷ lệ lớn",
@@ -57,7 +57,7 @@ export function HorizontalRoadmap() {
       title: "Hệ Sinh Thái Số Đa Ngành",
       tagline: "Kỷ nguyên Digital Twin",
       desc: "Hiện tại bứt phá với nền tảng bản đồ số 3DG Platform, tích hợp dữ liệu AutoTimelapse giám sát biến động và các giải pháp đô thị thông minh IOC/DOC.",
-      icon: FiRadio,
+      icon: Broadcast,
       achievements: [
         "Hoàn thiện nền tảng 3DG Digital Twin",
         "Triển khai hệ thống IOC Gia Lai",
@@ -69,7 +69,7 @@ export function HorizontalRoadmap() {
       title: "Tự Chủ AI & Vươn Tầm Quốc Tế",
       tagline: "Định hình tương lai số",
       desc: "Định hướng làm chủ hoàn toàn chuỗi công nghệ, phát triển AI chuyên sâu phục vụ giám sát địa chất, bảo tồn rừng và chuyển giao mô hình ra quốc tế.",
-      icon: FiCpu,
+      icon: Cpu,
       achievements: [
         "Lắp ráp, chế tạo Drone tự chủ phần cứng",
         "Triển khai mô hình AI Lâm nghiệp",
@@ -90,7 +90,7 @@ export function HorizontalRoadmap() {
   if (isMobile) {
     // Vertical timeline layout on mobile screens
     return (
-      <section className="space-y-12 select-none px-4">
+      <section ref={containerRef} className="relative space-y-12 select-none px-4">
         <div>
           <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block mb-3">
             LỘ TRÌNH PHÁT TRIỂN
@@ -114,7 +114,7 @@ export function HorizontalRoadmap() {
                     <span className="font-mono text-xs font-black text-accent-red bg-accent-red/5 px-2 py-0.5 border border-accent-red/10 rounded">
                       {item.period}
                     </span>
-                    <IconComp className="w-4 h-4 text-zinc-400" />
+                    <IconComp className="w-4 h-4 text-zinc-400" weight="thin" />
                   </div>
 
                   <h3 className="text-lg font-bold text-zinc-900 dark:text-white font-heading uppercase">
@@ -191,7 +191,7 @@ export function HorizontalRoadmap() {
                         {item.period}
                       </span>
                       <div className="p-2.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-accent-red group-hover:bg-accent-red/5 transition-colors duration-300">
-                        <IconComp className="w-5 h-5" />
+                        <IconComp className="w-5 h-5" weight="thin" />
                       </div>
                     </div>
 

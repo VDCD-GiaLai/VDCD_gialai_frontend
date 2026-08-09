@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -51,7 +51,7 @@ export const NewsCta = () => {
                 aria-label="Liên hệ với VDCD"
               >
                 Liên hệ ngay
-                <FiArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight weight="thin" className="w-3.5 h-3.5" />
               </Link>
               <Link
                 href="/about-us"

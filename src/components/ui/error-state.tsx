@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FiAlertTriangle } from "react-icons/fi";
+import { WarningCircle } from "@phosphor-icons/react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +26,7 @@ export function ErrorState({
       )}
     >
       <div className="mb-4 w-16 h-16 rounded-full bg-danger/10 flex items-center justify-center">
-        <FiAlertTriangle className="w-8 h-8 text-danger" />
+        <WarningCircle weight="thin" className="w-8 h-8 text-danger" />
       </div>
       <h3 className="text-xl font-bold text-on-surface mb-2">{title}</h3>
       <p className="text-danger-500 max-w-sm text-sm mb-6 leading-relaxed">
