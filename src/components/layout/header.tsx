@@ -170,7 +170,11 @@ export function Header() {
           {megaMenu.desktop}
           <Link
             href="/projects"
-            className="hover:text-accent-red transition-colors"
+            className={`hover:text-accent-red transition-colors ${
+              pathname === "/projects" || pathname.startsWith("/projects/")
+                ? "text-accent-red font-semibold"
+                : ""
+            }`}
           >
             Dự án
           </Link>
@@ -274,7 +278,11 @@ export function Header() {
         <Link
           href="/about-us"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+          className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+            pathname === "/about-us"
+              ? "text-accent-red font-semibold bg-zinc-50 dark:bg-zinc-900/40"
+              : "text-zinc-800 dark:text-zinc-200"
+          }`}
         >
           Về chúng tôi
         </Link>
@@ -282,7 +290,11 @@ export function Header() {
         <Link
           href="/projects"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+          className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+            pathname === "/projects" || pathname.startsWith("/projects/")
+              ? "text-accent-red font-semibold bg-zinc-50 dark:bg-zinc-900/40"
+              : "text-zinc-800 dark:text-zinc-200"
+          }`}
         >
           Dự án
         </Link>
@@ -300,7 +312,11 @@ export function Header() {
         <Link
           href="/careers"
           onClick={() => setIsMobileMenuOpen(false)}
-          className="px-6 py-3.5 text-zinc-800 dark:text-zinc-200 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+          className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
+            pathname === "/careers" || pathname.startsWith("/careers/")
+              ? "text-accent-red font-semibold bg-zinc-50 dark:bg-zinc-900/40"
+              : "text-zinc-800 dark:text-zinc-200"
+          }`}
         >
           Tuyển dụng
         </Link>

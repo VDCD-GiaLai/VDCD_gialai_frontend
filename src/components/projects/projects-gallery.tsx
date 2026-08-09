@@ -4,8 +4,7 @@ import * as React from "react";
 import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
-import { fetchProjectsFromApi } from "@/services/project.service";
+import { type ProjectEntry } from "@/data/projects.data";
 import { useTransitionStore } from "@/store/transition-store";
 
 import { MapPin, ArrowRight } from "@phosphor-icons/react";
@@ -115,7 +114,10 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
                   <span className="relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
                     Xem chi tiết
                   </span>
-                  <ArrowRight weight="thin" className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform" />
+                  <ArrowRight
+                    weight="thin"
+                    className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform"
+                  />
                 </div>
               </div>
             </div>
@@ -127,110 +129,36 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 };
 
 /* ────────────────────────────────────────────────────────
-   Gallery Section — asymmetric editorial layout
+   Gallery Section — receives pre-filtered projects
    ──────────────────────────────────────────────────────── */
 
-export const ProjectsGallery = () => {
-  const [projects, setProjects] = React.useState<ProjectEntry[]>(PROJECTS_DATA);
-  const [selectedCategory, setSelectedCategory] =
-    React.useState<string>("Tất cả");
-  const [sortOrder, setSortOrder] = React.useState<"newest" | "oldest">(
-    "newest",
-  );
+interface ProjectsGalleryProps {
+  projects: ProjectEntry[];
+}
 
-  React.useEffect(() => {
-    fetchProjectsFromApi().then((data) => {
-      if (data && data.length > 0) {
-        setProjects(data);
-      }
-    });
-  }, []);
-
-  // Extract unique categories
-  const categories = React.useMemo(() => {
-    const cats = new Set(projects.map((p) => p.category));
-    return ["Tất cả", ...Array.from(cats)];
-  }, [projects]);
-
-  // Filter and sort
-  const displayedProjects = React.useMemo(() => {
-    let result = [...projects];
-
-    // Filter by category
-    if (selectedCategory !== "Tất cả") {
-      result = result.filter((p) => p.category === selectedCategory);
-    }
-
-    // Sort by year
-    result.sort((a, b) => {
-      const yearA = parseInt(a.year, 10) || 0;
-      const yearB = parseInt(b.year, 10) || 0;
-      return sortOrder === "newest" ? yearB - yearA : yearA - yearB;
-    });
-
-    return result;
-  }, [projects, selectedCategory, sortOrder]);
-
+export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
   return (
     <section
-      className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto pb-24"
+      className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto py-16 md:py-24"
       aria-label="Bộ sưu tập dự án"
     >
       {/* Section header */}
-      <div className="gallery-header mb-12">
-        <h2 className="gsap-reveal font-heading text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface dark:text-white leading-tight">
+      <div className="gallery-header mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6 md:pb-8">
+        <h2 className="gsap-reveal font-heading text-4xl md:text-6xl font-extrabold tracking-tighter text-on-surface dark:text-white leading-none">
           Tất cả dự án
         </h2>
-      </div>
-
-      {/* Controls: Filter & Sort */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12 border-b border-slate-200/50 dark:border-zinc-800/50 pb-6">
-        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
-          <span className="text-xs font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest hidden sm:inline-block whitespace-nowrap">
-            Phân loại:
-          </span>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full sm:w-auto bg-transparent border border-slate-200 dark:border-zinc-800 rounded-lg px-4 py-2 text-sm text-black dark:text-white font-medium focus:outline-none focus:border-accent-red focus:ring-1 focus:ring-accent-red transition-all cursor-pointer truncate max-w-full sm:max-w-[250px] md:max-w-[350px]"
-          >
-            {categories.map((cat) => (
-              <option
-                key={cat}
-                value={cat}
-                className="bg-white dark:bg-zinc-900"
-              >
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
-          <span className="text-xs font-mono-label text-secondary dark:text-zinc-500 uppercase tracking-widest hidden sm:inline-block whitespace-nowrap">
-            Sắp xếp:
-          </span>
-          <select
-            value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(e.target.value as "newest" | "oldest")
-            }
-            className="w-full sm:w-auto bg-transparent border border-slate-200 dark:border-zinc-800 rounded-lg px-4 py-2 text-sm text-black dark:text-white font-medium focus:outline-none focus:border-accent-red focus:ring-1 focus:ring-accent-red transition-all cursor-pointer"
-          >
-            <option value="newest" className="bg-white dark:bg-zinc-900">
-              Mới nhất
-            </option>
-            <option value="oldest" className="bg-white dark:bg-zinc-900">
-              Cũ nhất
-            </option>
-          </select>
+        <div className="gsap-reveal flex items-center gap-4">
+          <span className="hidden md:block w-16 h-[1px] bg-zinc-300 dark:bg-zinc-700"></span>
+          <p className="text-secondary dark:text-zinc-400 text-xs md:text-sm font-mono uppercase tracking-[0.2em]">
+            [{projects.length}] dự án
+          </p>
         </div>
       </div>
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayedProjects.length > 0 ? (
-          displayedProjects.map((proj) => (
+        {projects.length > 0 ? (
+          projects.map((proj) => (
             <ProjectCard
               key={proj.id}
               project={proj}
@@ -244,8 +172,8 @@ export const ProjectsGallery = () => {
               Không tìm thấy dự án
             </h3>
             <p className="text-secondary dark:text-zinc-500 max-w-md">
-              Chưa có dự án nào thuộc phân loại "{selectedCategory}". Vui lòng
-              chọn phân loại khác.
+              Không có dự án nào phù hợp với tiêu chí tìm kiếm. Vui lòng thử lại
+              với từ khóa hoặc bộ lọc khác.
             </p>
           </div>
         )}
