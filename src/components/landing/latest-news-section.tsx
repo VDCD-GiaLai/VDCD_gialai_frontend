@@ -67,7 +67,7 @@ export function LatestNewsSection() {
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
-              transformation={[{ width: 800, quality: 80, format: "auto" }]}
+              transformation={[{ width: 1200, quality: 90, format: "auto" }]}
             />
           </div>
 
@@ -130,7 +130,7 @@ export function LatestNewsSection() {
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     transformation={[
-                      { width: 400, quality: 80, format: "auto" },
+                      { width: 800, quality: 90, format: "auto" },
                     ]}
                   />
                   {/* Diamond accent badge */}
