@@ -86,7 +86,7 @@ function buildDefaultTransformation(
 ): Transformation[] {
   const tr: Record<string, string | number> = {
     format: "auto", // AVIF/WebP auto-negotiation
-    quality: quality ?? 90,
+    quality: quality ?? 75,
   };
 
   if (width) {
