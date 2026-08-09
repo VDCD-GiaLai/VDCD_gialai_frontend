@@ -40,7 +40,60 @@ const DesktopMegaMenu = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /* ── Close when clicking outside ── */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  /* ── Keyboard support ── */
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setIsOpen(false);
+    }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setIsOpen((prev) => !prev);
+    }
+  }, []);
+
+  /* ── Close on route change ── */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
+  /* ── Listen for global open-mega-menu trigger ── */
+  useEffect(() => {
+    const handleOpenMenu = () => {
+      setIsOpen(true);
+    };
+    window.addEventListener("open-mega-menu", handleOpenMenu);
+    return () => window.removeEventListener("open-mega-menu", handleOpenMenu);
+  }, []);
+
+  const handleSolutionHover = useCallback((solutionId: string) => {
+    setActiveSolutionId(solutionId);
+  }, []);
+
+  const handleSolutionClick = useCallback((solutionId: string) => {
+    setActiveSolutionId(solutionId);
+  }, []);
 
   const activeSolution = MEGA_MENU_SOLUTIONS.find(
     (s) => s.id === activeSolutionId,
@@ -91,64 +144,6 @@ const DesktopMegaMenu = ({
     }
   }, [pathname]);
 
-  /* ── Hover handlers with delay ── */
-  const handleMouseEnter = useCallback(() => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-    setIsOpen(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    closeTimerRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 150);
-  }, []);
-
-  /* ── Keyboard support ── */
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      setIsOpen(false);
-    }
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setIsOpen((prev) => !prev);
-    }
-  }, []);
-
-  /* ── Close on route change ── */
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(false);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [pathname]);
-
-  /* ── Listen for global open-mega-menu trigger ── */
-  useEffect(() => {
-    const handleOpenMenu = () => {
-      setIsOpen(true);
-    };
-    window.addEventListener("open-mega-menu", handleOpenMenu);
-    return () => window.removeEventListener("open-mega-menu", handleOpenMenu);
-  }, []);
-
-  /* ── Cleanup timer on unmount ── */
-  useEffect(() => {
-    return () => {
-      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    };
-  }, []);
-
-  const handleSolutionHover = useCallback((solutionId: string) => {
-    setActiveSolutionId(solutionId);
-  }, []);
-
-  const handleSolutionClick = useCallback((solutionId: string) => {
-    setActiveSolutionId(solutionId);
-  }, []);
-
   const isActiveRoute =
     pathname === "/programs" ||
     pathname.startsWith("/programs/") ||
@@ -156,12 +151,7 @@ const DesktopMegaMenu = ({
     pathname.startsWith("/solution/");
 
   return (
-    <div
-      ref={containerRef}
-      className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div ref={containerRef} className="relative">
       {/* ── Trigger ── */}
       <button
         type="button"
@@ -170,6 +160,7 @@ const DesktopMegaMenu = ({
         }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
+        onClick={() => setIsOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
