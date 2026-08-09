@@ -53,6 +53,15 @@ const PartnersSection = dynamic(
     })),
   { ssr: false },
 );
+const EcosystemCollaborationSection = dynamic(
+  () =>
+    import("@/components/landing/ecosystem-collaboration-section").then(
+      (m) => ({
+        default: m.EcosystemCollaborationSection,
+      }),
+    ),
+  { ssr: false },
+);
 const EcosystemSection = dynamic(
   () =>
     import("@/components/landing/ecosystem-section").then((m) => ({
@@ -530,6 +539,9 @@ export default function LandingPage() {
 
       {/* Featured Projects */}
       <FeaturedProjectsSection />
+
+      {/* Khối 6: Đồng hành cùng hệ sinh thái đổi mới sáng tạo */}
+      <EcosystemCollaborationSection />
 
       {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
       <EcosystemSection />
