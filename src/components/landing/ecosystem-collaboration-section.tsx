@@ -1,6 +1,11 @@
 "use client";
 
-import { Bank, Buildings, RocketLaunch, GraduationCap } from "@phosphor-icons/react";
+import {
+  Bank,
+  Buildings,
+  RocketLaunch,
+  GraduationCap,
+} from "@phosphor-icons/react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 /* ────────────────────────────────────────────────────────
@@ -57,12 +62,11 @@ export function EcosystemCollaborationSection() {
         {/* ── Section Header ── */}
         <div className="eco-collab-reveal mb-14 md:mb-20 max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-[#0a2540] dark:text-white font-heading leading-tight">
-            Đồng hành cùng hệ sinh thái đổi mới sáng tạo
+            Đồng hành cùng Trung tâm Đổi mới Sáng tạo
           </h2>
           <p className="text-[#425466] dark:text-zinc-400 text-sm md:text-base mt-4 leading-relaxed max-w-xl font-light">
             Trung tâm kết nối và đồng hành cùng bốn nhóm đối tượng trọng tâm
-            trong hệ sinh thái đổi mới sáng tạo tại Gia Lai và khu vực Tây
-            Nguyên.
+            trong hệ sinh thái đổi mới sáng tạo tại Gia Lai
           </p>
         </div>
 

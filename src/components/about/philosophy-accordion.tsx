@@ -56,12 +56,12 @@ export function PhilosophyAccordion({
     <section className="space-y-8 select-none">
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="max-w-2xl">
+        <div className="w-full">
           <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block mb-3">
             TRIẾT LÝ HOẠT ĐỘNG
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-zinc-950 dark:text-white font-heading leading-tight transition-colors duration-300">
-            Kim chỉ nam dẫn lối thành công
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-zinc-950 dark:text-white font-heading leading-tight transition-colors duration-300 whitespace-nowrap">
+            Sứ mệnh - Tầm nhìn - Giá trị cốt lõi
           </h2>
         </div>
       </div>

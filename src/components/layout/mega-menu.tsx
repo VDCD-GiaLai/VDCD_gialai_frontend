@@ -75,12 +75,21 @@ const DesktopMegaMenu = ({
   /* ── Content fade transition ── */
   useEffect(() => {
     // When activeSolution changes, fade out then swap content
-    setVisibleSolutionId("");
     const timer = setTimeout(() => {
       setVisibleSolutionId(activeSolutionId);
     }, 50);
     return () => clearTimeout(timer);
   }, [activeSolutionId]);
+
+  /* ── Close on route change ── */
+  const prevPathnameRef = useRef(pathname);
+  useEffect(() => {
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      const timer = setTimeout(() => setIsOpen(false), 0);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
 
   /* ── Hover handlers with delay ── */
   const handleMouseEnter = useCallback(() => {
@@ -110,8 +119,20 @@ const DesktopMegaMenu = ({
 
   /* ── Close on route change ── */
   useEffect(() => {
-    setIsOpen(false);
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
+
+  /* ── Listen for global open-mega-menu trigger ── */
+  useEffect(() => {
+    const handleOpenMenu = () => {
+      setIsOpen(true);
+    };
+    window.addEventListener("open-mega-menu", handleOpenMenu);
+    return () => window.removeEventListener("open-mega-menu", handleOpenMenu);
+  }, []);
 
   /* ── Cleanup timer on unmount ── */
   useEffect(() => {
@@ -356,7 +377,10 @@ const MobileMegaMenu = ({
           aria-expanded={isProgramsOpen}
         >
           Chương trình
-          <CaretDown className="mega-menu-mobile-trigger-chevron" weight="thin" />
+          <CaretDown
+            className="mega-menu-mobile-trigger-chevron"
+            weight="thin"
+          />
         </button>
         <div
           ref={programsContentRef}
@@ -386,7 +410,10 @@ const MobileMegaMenu = ({
           aria-expanded={isSolutionsOpen}
         >
           Giải pháp
-          <CaretDown className="mega-menu-mobile-trigger-chevron" weight="thin" />
+          <CaretDown
+            className="mega-menu-mobile-trigger-chevron"
+            weight="thin"
+          />
         </button>
         <div
           ref={solutionsContentRef}

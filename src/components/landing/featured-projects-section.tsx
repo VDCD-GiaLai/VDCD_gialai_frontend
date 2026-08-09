@@ -220,7 +220,7 @@ export function FeaturedProjectsSection() {
         />
         <div className="flex flex-col items-start md:items-end gap-3 mt-6 md:mt-0">
           <p className="max-w-xs text-sm text-secondary dark:text-zinc-400 uppercase tracking-widest leading-loose md:text-right">
-            Những công trình tiêu biểu VDCD đã triển khai trên khắp cả nước.
+            Những công trình tiêu biểu đã triển khai trên khắp cả nước.
           </p>
           <Link
             href="/projects"
