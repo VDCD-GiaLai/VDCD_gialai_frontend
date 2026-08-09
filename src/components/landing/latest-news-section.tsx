@@ -108,7 +108,10 @@ export function LatestNewsSection() {
             >
               Xem tất cả
               <span className="w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
-                <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+                <ArrowRight
+                  className="w-3 h-3 -rotate-45 text-accent-red"
+                  weight="thin"
+                />
               </span>
             </Link>
           </div>
@@ -135,7 +138,10 @@ export function LatestNewsSection() {
                   />
                   {/* Diamond accent badge */}
                   <span className="absolute bottom-2 right-2 w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
-                    <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+                    <ArrowRight
+                      className="w-3 h-3 -rotate-45 text-accent-red"
+                      weight="thin"
+                    />
                   </span>
                 </div>
 
@@ -150,9 +156,9 @@ export function LatestNewsSection() {
                 </div>
 
                 {/* Title */}
-                <h4 className="text-xs md:text-sm font-bold text-black dark:text-white leading-snug font-heading line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
+                <h3 className="text-xs md:text-sm font-bold text-black dark:text-white leading-snug font-heading line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
                   {a.title}
-                </h4>
+                </h3>
               </Link>
             ))}
           </div>

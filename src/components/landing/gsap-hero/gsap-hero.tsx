@@ -95,8 +95,17 @@ export function GsapHero() {
             </div>
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
-              <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <ArrowRight className="w-4 h-4" weight="thin" />
+              <a
+                href="#about"
+                aria-label="Tìm hiểu thêm về VDCD Gia Lai"
+                className="discover pointer-events-auto"
+              >
+                Tìm hiểu thêm{" "}
+                <ArrowRight
+                  className="w-4 h-4"
+                  weight="thin"
+                  aria-hidden="true"
+                />
               </a>
             </div>
           </div>
@@ -113,8 +122,17 @@ export function GsapHero() {
             </div>
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
-              <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <ArrowRight className="w-4 h-4" weight="thin" />
+              <a
+                href="#about"
+                aria-label="Tìm hiểu thêm về VDCD Gia Lai (Chi tiết)"
+                className="discover pointer-events-auto"
+              >
+                Tìm hiểu thêm{" "}
+                <ArrowRight
+                  className="w-4 h-4"
+                  weight="thin"
+                  aria-hidden="true"
+                />
               </a>
             </div>
           </div>
