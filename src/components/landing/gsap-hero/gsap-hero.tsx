@@ -65,6 +65,7 @@ export function GsapHero() {
               priority={idx === 0}
               fetchPriority={idx === 0 ? "high" : "auto"}
               loading={idx === 0 ? "eager" : "lazy"}
+              quality={idx === 0 ? 85 : 75}
             />
           </div>
           {/* Card Content Overlay */}

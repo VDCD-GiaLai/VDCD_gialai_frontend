@@ -230,6 +230,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
+        {/* Preload LCP hero image for fast mobile paint */}
+        <link
+          rel="preload"
+          as="image"
+          type="image/webp"
+          href="/images/home/kientaotuonglai.webp"
+          fetchPriority="high"
+        />
+
         {/* Organization & WebSite Structured Data */}
         <script
           type="application/ld+json"
