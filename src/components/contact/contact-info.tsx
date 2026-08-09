@@ -2,23 +2,10 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import {
-  MapPin,
-  Phone,
-  Envelope,
-  Clock,
-  ArrowSquareOut,
-  ChatCircle,
-  FacebookLogo,
-  TiktokLogo,
-} from "@phosphor-icons/react";
-
-/* Zalo — no Phosphor equivalent */
-const ZaloIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 48 48" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M24 2C11.8 2 2 11.8 2 24s9.8 22 22 22 22-9.8 22-22S36.2 2 24 2zm8.4 31.2c-.5.7-1.2 1-2 .9-.6-.1-1-.4-1.5-.8l-4.4-3.6c-.3-.2-.5-.2-.8 0l-3 2.1c-1.6 1.1-3 1-4.3-.3-1.6-1.6-2.5-3.5-2.7-5.7-.1-1.2.3-2.2 1.3-2.8.5-.3 1-.3 1.5 0 .8.4 1.2 1.1 1.4 2 .2 1 .7 1.8 1.5 2.4.3.2.5.2.8 0l6.5-5.3c.7-.6 1.3-1.3 1.5-2.2.3-1.4-.2-2.5-1.4-3.2-1.5-.9-3.1-.8-4.6 0-2.3 1.3-4 3.2-5.3 5.4-.2.4-.5.5-.9.3-.8-.4-1.5-.9-2-1.6-.3-.4-.3-.8 0-1.2 1.7-2.8 3.9-5 6.8-6.5 2.1-1.1 4.3-1.5 6.7-1 2.4.5 4 2 4.7 4.4.6 2.1.1 4-1.2 5.6-.5.6-1.1 1.1-1.7 1.5l-3.8 3.1c-.2.2-.3.3-.1.5l3.5 4.3c.4.5.5 1 .4 1.6z" />
-  </svg>
-);
+import { ArrowSquareOut, Clock } from "@phosphor-icons/react";
+import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -125,28 +112,28 @@ export function ContactInfo({
     {
       name: "Facebook",
       url: facebookUrl,
-      icon: <FacebookLogo weight="thin" className="w-5 h-5" />,
+      icon: <FaFacebookF className="w-4 h-4" />,
       colorClass:
         "border-[#1877F2]/30 text-[#1877F2] bg-[#1877F2]/10 hover:bg-[#1877F2] hover:text-white",
     },
     {
       name: "TikTok",
       url: tiktokUrl,
-      icon: <TiktokLogo weight="thin" className="w-5 h-5" />,
+      icon: <FaTiktok className="w-4 h-4" />,
       colorClass:
         "border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black",
     },
     {
       name: "Zalo",
       url: zaloUrl,
-      icon: <ZaloIcon className="w-5 h-5" />,
+      icon: <SiZalo className="w-4 h-4" />,
       colorClass:
         "border-[#0068FF]/30 text-[#0068FF] bg-[#0068FF]/10 hover:bg-[#0068FF] hover:text-white",
     },
     {
       name: "Messenger",
       url: messengerUrl,
-      icon: <ChatCircle weight="thin" className="w-5 h-5" />,
+      icon: <FiMessageCircle className="w-4 h-4" />,
       colorClass:
         "border-[#00B2FF]/30 text-[#00B2FF] bg-[#00B2FF]/10 hover:bg-[#00B2FF] hover:text-white",
     },
@@ -182,14 +169,14 @@ export function ContactInfo({
             variants={staggerContainer}
           >
             <ContactInfoItem
-              icon={<MapPin weight="thin" className="w-5 h-5" />}
+              icon={<FiMapPin className="w-5 h-5" />}
               label="Địa chỉ văn phòng"
               value={address}
               href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
               isExternal
             />
             <ContactInfoItem
-              icon={<Phone weight="thin" className="w-5 h-5" />}
+              icon={<FiPhone className="w-5 h-5" />}
               label="Hotline"
               value={hotline}
               href={`tel:${hotline.replace(/\s+/g, "")}`}
@@ -204,7 +191,7 @@ export function ContactInfo({
             variants={staggerContainer}
           >
             <ContactInfoItem
-              icon={<Envelope weight="thin" className="w-5 h-5" />}
+              icon={<FiMail className="w-5 h-5" />}
               label="Email"
               value={email}
               href={`mailto:${email}`}

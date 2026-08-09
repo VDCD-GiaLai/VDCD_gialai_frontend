@@ -1,22 +1,11 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  MapPin,
-  Envelope,
-  Phone,
-  ChatCircle,
-  ArrowUpRight,
-  FacebookLogo,
-  TiktokLogo,
-} from "@phosphor-icons/react/dist/ssr";
-
-/* Zalo has no Phosphor icon — tiny inline SVG */
-const ZaloIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 48 48" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M24 2C11.8 2 2 11.8 2 24s9.8 22 22 22 22-9.8 22-22S36.2 2 24 2zm8.4 31.2c-.5.7-1.2 1-2 .9-.6-.1-1-.4-1.5-.8l-4.4-3.6c-.3-.2-.5-.2-.8 0l-3 2.1c-1.6 1.1-3 1-4.3-.3-1.6-1.6-2.5-3.5-2.7-5.7-.1-1.2.3-2.2 1.3-2.8.5-.3 1-.3 1.5 0 .8.4 1.2 1.1 1.4 2 .2 1 .7 1.8 1.5 2.4.3.2.5.2.8 0l6.5-5.3c.7-.6 1.3-1.3 1.5-2.2.3-1.4-.2-2.5-1.4-3.2-1.5-.9-3.1-.8-4.6 0-2.3 1.3-4 3.2-5.3 5.4-.2.4-.5.5-.9.3-.8-.4-1.5-.9-2-1.6-.3-.4-.3-.8 0-1.2 1.7-2.8 3.9-5 6.8-6.5 2.1-1.1 4.3-1.5 6.7-1 2.4.5 4 2 4.7 4.4.6 2.1.1 4-1.2 5.6-.5.6-1.1 1.1-1.7 1.5l-3.8 3.1c-.2.2-.3.3-.1.5l3.5 4.3c.4.5.5 1 .4 1.6z" />
-  </svg>
-);
+import { FooterPartners } from "./footer-partners";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
+import { FaFacebookF, FaTiktok } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
 import { APP_ROUTES } from "@/lib/constants";
 import {
   fetchOrganizationInfoFromApi,
@@ -83,7 +72,7 @@ export async function Footer() {
                 aria-label="Trang Facebook chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2]/10 text-[#1877F2] hover:bg-[#1877F2] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#1877F2]/20"
               >
-                <FacebookLogo className="text-lg" weight="thin" aria-hidden="true" />
+                <FaFacebookF className="text-base" aria-hidden="true" />
               </a>
             )}
             {tiktok && (
@@ -94,7 +83,7 @@ export async function Footer() {
                 aria-label="Kênh TikTok chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:scale-110 transition-all duration-300 shadow-xs border border-zinc-200 dark:border-zinc-700"
               >
-                <TiktokLogo className="text-lg" weight="thin" aria-hidden="true" />
+                <FaTiktok className="text-base" aria-hidden="true" />
               </a>
             )}
             {zalo && (
@@ -105,7 +94,7 @@ export async function Footer() {
                 aria-label="Kênh Zalo chính thức của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0068FF]/10 text-[#0068FF] hover:bg-[#0068FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#0068FF]/20"
               >
-                <ZaloIcon className="w-[1.125rem] h-[1.125rem]" />
+                <SiZalo className="text-base" />
               </a>
             )}
             {messenger && (
@@ -116,7 +105,7 @@ export async function Footer() {
                 aria-label="Kênh Messenger nhắn tin của VDCD Gia Lai"
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-[#00B2FF]/10 text-[#00B2FF] hover:bg-[#00B2FF] hover:text-white hover:scale-110 transition-all duration-300 shadow-xs border border-[#00B2FF]/20"
               >
-                <ChatCircle className="text-lg" weight="thin" aria-hidden="true" />
+                <FiMessageCircle className="text-base" aria-hidden="true" />
               </a>
             )}
           </div>
@@ -130,7 +119,7 @@ export async function Footer() {
           <div className="flex flex-col gap-4 text-sm text-secondary dark:text-zinc-400">
             <div className="group flex items-start gap-3 transition-colors duration-300">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <MapPin className="text-base" weight="thin" />
+                <FiMapPin className="text-base" />
               </div>
               <span className="leading-relaxed pt-1 select-all font-medium text-slate-600 dark:text-zinc-300 pr-4">
                 {address}
@@ -143,7 +132,7 @@ export async function Footer() {
                 className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
               >
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                  <Phone className="text-base" weight="thin" />
+                  <FiPhone className="text-base" />
                 </div>
                 <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors">
                   {hotline}
@@ -156,7 +145,7 @@ export async function Footer() {
               className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <Envelope className="text-base" weight="thin" />
+                <FiMail className="text-base" />
               </div>
               <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors break-all pr-4">
                 {email}
@@ -229,49 +218,102 @@ export async function Footer() {
           </Link>
         </div>
 
-        {/* Column 5: Thông tin & Khác */}
+        {/* Column 5: Chính sách & Pháp lý */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Thông tin & Khác
+            Chính sách & Pháp lý
           </h3>
           <Link
-            href="/#news"
+            href="/policies/dieu-khoan-su-dung"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Tin tức & Sự kiện
+              Điều khoản sử dụng
             </span>
           </Link>
           <Link
-            href="/careers"
+            href="/policies/chinh-sach-bao-mat"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Tuyển dụng
+              Chính sách bảo mật
             </span>
           </Link>
           <Link
-            href="/contact"
+            href="/policies/hinh-thuc-thanh-toan"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Liên hệ hợp tác
+              Hình thức thanh toán
             </span>
           </Link>
           <Link
-            href={APP_ROUTES.LOGIN}
+            href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Cổng thông tin đối tác
+              Vận chuyển & Giao nhận
+            </span>
+          </Link>
+          <Link
+            href="/policies/chinh-sach-doi-tra"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Chính sách đổi trả
+            </span>
+          </Link>
+          <Link
+            href="/policies/tiep-nhan-giai-quyet-khieu-nai"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Giải quyết khiếu nại
             </span>
           </Link>
         </div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto border-t border-whisper-border/30 dark:border-zinc-800/40 pt-8 mt-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+      {/* ── Partner Logos (renders on all pages except Homepage & About-Us) ── */}
+      <FooterPartners />
+
+      <div className="max-w-[1600px] mx-auto border-t-2 border-slate-200/80 dark:border-zinc-800 pt-6 mt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <div className="flex flex-wrap items-center gap-4 text-slate-400 dark:text-zinc-500 font-medium">
+          <p>© {new Date().getFullYear()} VDCD Group. All rights reserved.</p>
+          <span className="hidden md:inline text-slate-300 dark:text-zinc-700">
+            •
+          </span>
+          <Link
+            href="/policies/chinh-sach-bao-mat"
+            className="hover:text-accent-red transition-colors"
+          >
+            Chính sách bảo mật
+          </Link>
+          <span className="text-slate-300 dark:text-zinc-700">•</span>
+          <Link
+            href="/policies/dieu-khoan-su-dung"
+            className="hover:text-accent-red transition-colors"
+          >
+            Điều khoản sử dụng
+          </Link>
+          <span className="text-slate-300 dark:text-zinc-700">•</span>
+          <Link
+            href="/policies/hinh-thuc-thanh-toan"
+            className="hover:text-accent-red transition-colors"
+          >
+            Thanh toán
+          </Link>
+        </div>
         <p className="text-slate-400 dark:text-zinc-500 font-medium">
-          © {new Date().getFullYear()} VDCD Group. All rights reserved.
+          Developed & Designed by{" "}
+          <a
+            href="https://looperslab.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-600 dark:text-zinc-300 hover:text-accent-red font-semibold transition-colors"
+          >
+            LoopersLab
+          </a>
         </p>
       </div>
     </footer>

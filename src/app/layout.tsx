@@ -64,7 +64,9 @@ export const metadata: Metadata = {
       { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
@@ -131,6 +133,14 @@ const jsonLdSchema = {
         "@id": `${SITE_URL}/#organization`,
       },
       inLanguage: "vi-VN",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${SITE_URL}/news?search={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ],
 };
@@ -149,18 +159,52 @@ export default function RootLayout({
     >
       <head>
         {/* Favicon Declarations */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="48x48"
+          href="/favicon-48x48.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
 
         {/* Canonical Link */}
         <link rel="canonical" href="https://trungtamdoimoisangtao.com/" />
 
+        {/* WebMCP & AI Agent Search Integration */}
+        <meta
+          name="webmcp:search"
+          content="https://trungtamdoimoisangtao.com/news?search={query}"
+        />
+        <meta
+          name="mcp-server"
+          content="https://trungtamdoimoisangtao.com/api/mcp"
+        />
+
         {/* Preconnect & DNS Prefetch */}
         <link rel="dns-prefetch" href="//ik.imagekit.io" />
-        <link rel="preconnect" href="https://ik.imagekit.io" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://ik.imagekit.io"
+          crossOrigin="anonymous"
+        />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
