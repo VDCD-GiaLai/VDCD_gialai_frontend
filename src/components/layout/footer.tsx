@@ -187,7 +187,9 @@ export async function Footer() {
             </span>
           </Link>
           <a
-            href="#capacity-profile"
+            href="/company-profile"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
