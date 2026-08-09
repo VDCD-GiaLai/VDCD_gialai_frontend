@@ -3,14 +3,15 @@
 import * as React from "react";
 import { useRef } from "react";
 import { useProjectsGsap } from "@/hooks/use-projects-gsap";
-import { PageHeroBanner } from "@/components/ui/page-hero-banner";
-import { ProjectsWorkflow } from "./projects-workflow";
+import { ProjectsHeroBanner } from "./projects-hero-banner";
 import { ProjectsGallery } from "./projects-gallery";
+import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
+import { fetchProjectsFromApi } from "@/services/project.service";
 import "./projects.css";
 
 /**
  * Client-side container for the Projects page.
- * Composes all sections and initialises GSAP animations via the hook.
+ * Lifts search/filter state so hero banner controls feed into gallery.
  */
 export const ProjectsPageContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,37 +19,77 @@ export const ProjectsPageContent = () => {
   /* Initialise all GSAP animations scoped to this container */
   useProjectsGsap(containerRef);
 
+  /* ── Data ─────────────────────────────────────────── */
+  const [projects, setProjects] = React.useState<ProjectEntry[]>(PROJECTS_DATA);
+
+  React.useEffect(() => {
+    fetchProjectsFromApi().then((data) => {
+      if (data && data.length > 0) setProjects(data);
+    });
+  }, []);
+
+  /* ── Filter state ────────────────────────────────── */
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = React.useState("");
+  const [selectedLocation, setSelectedLocation] = React.useState("");
+
+  /* ── Derived: unique categories & locations ───────── */
+  const categories = React.useMemo(() => {
+    const cats = new Set(projects.map((p) => p.category));
+    return Array.from(cats).sort();
+  }, [projects]);
+
+  const locations = React.useMemo(() => {
+    const locs = new Set(projects.map((p) => p.location));
+    return Array.from(locs).sort();
+  }, [projects]);
+
+  /* ── Filtered projects ───────────────────────────── */
+  const filteredProjects = React.useMemo(() => {
+    let result = [...projects];
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter((p) => p.title.toLowerCase().includes(q));
+    }
+
+    if (selectedCategory) {
+      result = result.filter((p) => p.category === selectedCategory);
+    }
+
+    if (selectedLocation) {
+      result = result.filter((p) => p.location === selectedLocation);
+    }
+
+    // Sort newest first
+    result.sort((a, b) => {
+      const yearA = parseInt(a.year, 10) || 0;
+      const yearB = parseInt(b.year, 10) || 0;
+      return yearB - yearA;
+    });
+
+    return result;
+  }, [projects, searchQuery, selectedCategory, selectedLocation]);
+
   return (
     <div
       ref={containerRef}
       className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300"
     >
-      {/* 1 -- Hero */}
-      <PageHeroBanner pageKey="projects" showScrollCue />
+      {/* 1 -- Hero with search/filter */}
+      <ProjectsHeroBanner
+        categories={categories}
+        locations={locations}
+        searchQuery={searchQuery}
+        selectedCategory={selectedCategory}
+        selectedLocation={selectedLocation}
+        onSearchChange={setSearchQuery}
+        onCategoryChange={setSelectedCategory}
+        onLocationChange={setSelectedLocation}
+      />
 
-      {/* 2 -- Workflow (Hidden per user request) */}
-      {/* <ProjectsWorkflow /> */}
-
-      {/* 3 -- Transition (Hidden per user request) */}
-      {/* 
-      <div className="projects-transition">
-        <span className="gsap-reveal block font-heading text-[11px] font-bold tracking-[0.25em] uppercase text-accent-red mb-4">
-          Dự án
-        </span>
-        <h2 className="gsap-reveal font-heading text-2xl md:text-4xl font-extrabold tracking-tight text-on-surface dark:text-white leading-tight max-w-xl">
-          Kết quả chúng tôi
-          <br />
-          đã đạt được
-        </h2>
-        <p className="gsap-reveal mt-3 text-secondary dark:text-zinc-400 text-sm leading-relaxed max-w-md">
-          Hơn 50 công trình trọng điểm trên khắp Việt Nam — từ hạ tầng giao
-          thông, khu kinh tế đến bảo tồn di sản văn hóa.
-        </p>
-      </div> 
-      */}
-
-      {/* 4 -- Gallery */}
-      <ProjectsGallery />
+      {/* 2 -- Gallery (receives pre-filtered projects) */}
+      <ProjectsGallery projects={filteredProjects} />
     </div>
   );
 };

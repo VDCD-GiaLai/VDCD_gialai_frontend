@@ -11,11 +11,12 @@ const IMAGEKIT_URL_ENDPOINT =
   process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ?? "";
 
 /**
- * Regex to extract the path portion from a full ImageKit URL.
+ * Regex to extract the endpoint and path portion from a full ImageKit URL.
  * Example: "https://ik.imagekit.io/po0s6zxoj/vdcd/slides/img.jpg"
- *       →  "/vdcd/slides/img.jpg"
+ *       →  [1]: "https://ik.imagekit.io/po0s6zxoj"
+ *       →  [2]: "/vdcd/slides/img.jpg"
  */
-const IK_PATH_RE = /ik\.imagekit\.io\/[^/]+(.+)/;
+const IK_URL_RE = /(https:\/\/ik\.imagekit\.io\/[^/]+)(.+)/;
 
 /* ─────────────────────────────────────────────────────────────
    Types
@@ -39,25 +40,41 @@ function isImageKitUrl(url: string): boolean {
   return url.includes("ik.imagekit.io");
 }
 
+/** Extract ImageKit endpoint and path from a full URL */
+export function parseImageKitUrl(
+  url: string,
+): { endpoint: string; path: string } | null {
+  const match = url.match(IK_URL_RE);
+  return match ? { endpoint: match[1], path: match[2] } : null;
+}
+
 /** Extract ImageKit path from a full URL, or return null */
 export function extractImageKitPath(url: string): string | null {
-  const match = url.match(IK_PATH_RE);
-  return match ? match[1] : null;
+  const parsed = parseImageKitUrl(url);
+  return parsed ? parsed.path : null;
 }
 
 /**
  * Build a fully-transformed ImageKit URL using the `buildSrc` utility.
- * This avoids the @imagekit/next Image component entirely (which has
- * a naming conflict with the native browser `Image` constructor)
- * while still getting real-time CDN transformations.
  */
-function buildImageKitUrl(path: string, transforms: Transformation[]): string {
-  return buildSrc({
-    urlEndpoint: IMAGEKIT_URL_ENDPOINT,
-    src: path,
-    transformation: transforms,
-    transformationPosition: "query",
-  });
+function buildImageKitUrl(
+  path: string,
+  transforms: Transformation[],
+  endpoint?: string,
+): string {
+  const ep = endpoint || IMAGEKIT_URL_ENDPOINT;
+  if (!ep) return path; // no endpoint configured — return raw path
+  try {
+    return buildSrc({
+      urlEndpoint: ep,
+      src: path,
+      transformation: transforms,
+      transformationPosition: "query",
+    });
+  } catch {
+    // buildSrc internally constructs a URL; if input is malformed, fall back
+    return path;
+  }
 }
 
 /**
@@ -103,11 +120,13 @@ export function OptimizedImage({
   }
 
   // ── Route 1: ImageKit URL (full URL or relative path) ─────────
-  const ikPath = isImageKitUrl(src)
-    ? extractImageKitPath(src)
+  const parsedIk = isImageKitUrl(src) ? parseImageKitUrl(src) : null;
+  const ikPath = parsedIk
+    ? parsedIk.path
     : src.startsWith("/vdcd/")
       ? src
       : null;
+  const ikEndpoint = parsedIk ? parsedIk.endpoint : undefined;
 
   if (ikPath) {
     // Build transformation: prefer explicit, otherwise auto defaults
@@ -118,7 +137,7 @@ export function OptimizedImage({
       );
 
     // Build the final CDN URL with transformations baked in
-    const optimizedUrl = buildImageKitUrl(ikPath, transforms);
+    const optimizedUrl = buildImageKitUrl(ikPath, transforms, ikEndpoint);
 
     // Render via next/image with `unoptimized` since ImageKit already
     // handles format conversion, quality, and resize. This avoids the
