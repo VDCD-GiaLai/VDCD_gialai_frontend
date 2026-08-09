@@ -112,7 +112,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="relative flex items-center gap-2 mb-3">
             <div className="w-2 h-2 flex-shrink-0 bg-accent-red" />
             <span className="font-bold text-[10px] text-accent-red uppercase tracking-[0.3em]">
-              AutoTimelapse · VDCD
+              AutoTimelapse
             </span>
           </div>
 
