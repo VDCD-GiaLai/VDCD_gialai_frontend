@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FiMapPin, FiMail } from "react-icons/fi";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Envelope } from "@phosphor-icons/react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import {
@@ -88,17 +88,31 @@ export function LandingContactSection() {
             </div>
           </div>
 
-          <div className="flex lg:justify-end">
-            <Button
-              color="primary"
+          <div className="flex flex-col sm:flex-row gap-4 lg:justify-end w-full lg:w-auto relative z-10">
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-mega-menu"));
+              }}
+              className="inline-flex items-center justify-between sm:justify-start gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-xl backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer w-full sm:w-auto"
+            >
+              Khám phá giải pháp
+              <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+                <ArrowUpRight className="w-4 h-4" weight="thin" />
+              </span>
+            </button>
+            <button
+              type="button"
               onClick={() => {
                 router.push("/contact");
               }}
-              className="bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs tracking-wider uppercase font-bold px-8 py-6 w-full md:w-auto"
-              trailingIcon={<FiMail className="w-4 h-4" />}
+              className="inline-flex items-center justify-between sm:justify-start gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 rounded-xl shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer w-full sm:w-auto"
             >
-              GỬI YÊU CẦU LIÊN HỆ
-            </Button>
+              Gửi yêu cầu liên hệ
+              <span className="w-8 h-8 rounded-full bg-white/10 dark:bg-zinc-100 flex items-center justify-center text-inherit group-hover:bg-white/20 transition-colors">
+                <Envelope className="w-4 h-4" weight="thin" />
+              </span>
+            </button>
           </div>
         </div>
       </div>
