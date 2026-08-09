@@ -236,7 +236,7 @@ export function CareersHeroSlider() {
             aria-label="Slide tiếp theo"
             type="button"
           >
-            <ArrowRight weight="thin" />
+            <ArrowRight weight="thin" aria-hidden="true" />
           </button>
         </div>
 
