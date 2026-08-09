@@ -216,41 +216,57 @@ export async function Footer() {
           </Link>
         </div>
 
-        {/* Column 5: Thông tin & Khác */}
+        {/* Column 5: Chính sách & Pháp lý */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Thông tin & Khác
+            Chính sách & Pháp lý
           </h3>
           <Link
-            href="/#news"
+            href="/policies/dieu-khoan-su-dung"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Tin tức & Sự kiện
+              Điều khoản sử dụng
             </span>
           </Link>
           <Link
-            href="/careers"
+            href="/policies/chinh-sach-bao-mat"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Tuyển dụng
+              Chính sách bảo mật
             </span>
           </Link>
           <Link
-            href="/contact"
+            href="/policies/hinh-thuc-thanh-toan"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Liên hệ hợp tác
+              Hình thức thanh toán
             </span>
           </Link>
           <Link
-            href={APP_ROUTES.LOGIN}
+            href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
           >
             <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Cổng thông tin đối tác
+              Vận chuyển & Giao nhận
+            </span>
+          </Link>
+          <Link
+            href="/policies/chinh-sach-doi-tra"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Chính sách đổi trả
+            </span>
+          </Link>
+          <Link
+            href="/policies/tiep-nhan-giai-quyet-khieu-nai"
+            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+              Giải quyết khiếu nại
             </span>
           </Link>
         </div>
@@ -259,10 +275,33 @@ export async function Footer() {
       {/* ── Partner Logos (renders on all pages except Homepage & About-Us) ── */}
       <FooterPartners />
 
-      <div className="max-w-[1600px] mx-auto border-t-2 border-slate-200/80 dark:border-zinc-800 pt-6 mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
-        <p className="text-slate-400 dark:text-zinc-500 font-medium">
-          © {new Date().getFullYear()} VDCD Group. All rights reserved.
-        </p>
+      <div className="max-w-[1600px] mx-auto border-t-2 border-slate-200/80 dark:border-zinc-800 pt-6 mt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <div className="flex flex-wrap items-center gap-4 text-slate-400 dark:text-zinc-500 font-medium">
+          <p>© {new Date().getFullYear()} VDCD Group. All rights reserved.</p>
+          <span className="hidden md:inline text-slate-300 dark:text-zinc-700">
+            •
+          </span>
+          <Link
+            href="/policies/chinh-sach-bao-mat"
+            className="hover:text-accent-red transition-colors"
+          >
+            Chính sách bảo mật
+          </Link>
+          <span className="text-slate-300 dark:text-zinc-700">•</span>
+          <Link
+            href="/policies/dieu-khoan-su-dung"
+            className="hover:text-accent-red transition-colors"
+          >
+            Điều khoản sử dụng
+          </Link>
+          <span className="text-slate-300 dark:text-zinc-700">•</span>
+          <Link
+            href="/policies/hinh-thuc-thanh-toan"
+            className="hover:text-accent-red transition-colors"
+          >
+            Thanh toán
+          </Link>
+        </div>
         <p className="text-slate-400 dark:text-zinc-500 font-medium">
           Developed & Designed by{" "}
           <a

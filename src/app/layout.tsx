@@ -159,6 +159,7 @@ export default function RootLayout({
     >
       <head>
         {/* Favicon Declarations */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="icon"
