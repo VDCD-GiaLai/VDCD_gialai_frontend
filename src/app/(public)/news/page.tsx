@@ -4,7 +4,7 @@ import { NewsPageContent } from "@/components/news/news-page-content";
 export const metadata: Metadata = {
   title: "Tin tức & Bài viết | VDCD Gia Lai — Đổi mới sáng tạo",
   description:
-    "Cập nhật tin tức, sự kiện và câu chuyện đổi mới sáng tạo từ VDCD Group — nơi công nghệ gặp gỡ phát triển bền vững tại Gia Lai & Tây Nguyên.",
+    "Cập nhật tin tức, sự kiện và câu chuyện đổi mới sáng tạo từ VDCD Group — nơi công nghệ gặp gỡ phát triển bền vững.",
   keywords: [
     "Tin tức VDCD",
     "VDCD Gia Lai",

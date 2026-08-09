@@ -29,7 +29,7 @@ export function PhilosophyAccordion({
       title: "SỨ MỆNH",
       desc:
         missionText ||
-        "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai và khu vực Tây Nguyên.",
+        "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai.",
       icon: GlobeHemisphereWestIcon,
       bgImage: "/images/home/farm_area_view.webp",
     },
@@ -38,7 +38,7 @@ export function PhilosophyAccordion({
       title: "TẦM NHÌN",
       desc:
         visionText ||
-        "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
+        "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực vào năm 2030.",
       icon: TargetIcon,
       bgImage: "/images/home/hethongdothiso.webp",
     },

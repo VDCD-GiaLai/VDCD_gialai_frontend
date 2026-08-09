@@ -14,11 +14,6 @@ const FeaturedProjectsSection = lazy(() =>
     default: m.FeaturedProjectsSection,
   })),
 );
-const PartnersSection = lazy(() =>
-  import("@/components/landing/partners-section").then((m) => ({
-    default: m.PartnersSection,
-  })),
-);
 const EcosystemCollaborationSection = lazy(() =>
   import("@/components/landing/ecosystem-collaboration-section").then((m) => ({
     default: m.EcosystemCollaborationSection,
@@ -72,11 +67,6 @@ export default function LandingPage() {
       {/* Khối 8: Tin tức và sự kiện */}
       <Suspense>
         <LatestNewsSection />
-      </Suspense>
-
-      {/* Partners */}
-      <Suspense>
-        <PartnersSection />
       </Suspense>
 
       {/* Contact */}

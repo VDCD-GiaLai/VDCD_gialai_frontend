@@ -173,7 +173,7 @@ export const POLICIES: Record<string, PolicyDocument> = {
           "Quý khách có thể gửi phản ánh / khiếu nại qua các kênh sau:",
           "• Hotline tiếp nhận: 0373600099",
           "• Email chuyên trách: dmstgialai@vdcd.vn",
-          "• Trụ sở trực tiếp: 226 Đống Đa, Pleiku, Gia Lai",
+          "• Trụ sở trực tiếp: 62A Diên Hồng, Phường Quy Nhơn, Gia Lai",
         ],
       },
       {

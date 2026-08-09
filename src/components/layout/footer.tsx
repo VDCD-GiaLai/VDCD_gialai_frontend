@@ -58,8 +58,7 @@ export async function Footer() {
             />
           </div>
           <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed max-w-[280px] -mt-4">
-            Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng tại Gia
-            Lai & Tây Nguyên.
+            Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.
           </p>
 
           {/* Social Links */}

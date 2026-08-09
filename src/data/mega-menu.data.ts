@@ -27,11 +27,13 @@ export interface MegaMenuSolution {
 /* ── Column 1 — Chương trình (fixed) ─────────────────── */
 
 export const MEGA_MENU_PROGRAMS: MegaMenuProgram[] = [
-  { label: "Ươm tạo", href: "/programs" },
-  { label: "Đào tạo", href: "/programs" },
-  { label: "Chuyển đổi số", href: "/programs" },
-  { label: "Kết nối chuyên gia", href: "/programs" },
-  { label: "Kết nối đầu tư", href: "/programs" },
+  { label: "Ươm tạo khởi nghiệp sáng tạo", href: "/programs" },
+  { label: "Đào tạo và phát triển nguồn nhân lực", href: "/programs" },
+  {
+    label: "Kết nối chuyên gia – doanh nghiệp – nhà đầu tư",
+    href: "/programs",
+  },
+  { label: "Tư vấn và chuyển đổi số", href: "/programs" },
   { label: "Hội thảo, sự kiện", href: "/programs" },
 ];
 

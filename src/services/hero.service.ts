@@ -134,8 +134,7 @@ export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
 
 export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
   name: "Trung tâm Đổi mới Sáng tạo Gia Lai",
-  tagline:
-    "Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng tại Gia Lai & Tây Nguyên.",
+  tagline: "Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.",
   description:
     "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
   mission:
@@ -143,7 +142,7 @@ export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
   vision:
     "Trở thành trung tâm công nghệ và ươm tạo doanh nghiệp số hàng đầu khu vực Tây Nguyên.",
   coreValues: "Sáng tạo - Tin cậy - Hiệu quả - Bền vững",
-  address: "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai",
+  address: "62A Diên Hồng, Phường Quy Nhơn, Tỉnh Gia Lai",
   stats: {
     staff: 1500,
     partners: 250,
