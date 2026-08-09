@@ -60,7 +60,7 @@ export function GsapHero() {
               src={slide.image}
               alt={slide.title + " " + slide.title2}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="100vw"
               className="object-cover"
               priority={idx === 0}
               fetchPriority={idx === 0 ? "high" : "auto"}
