@@ -22,8 +22,10 @@ import {
 import { HeroRadar } from "@/components/about/hero-radar";
 import { BentoIntro } from "@/components/about/bento-intro";
 import { PhilosophyAccordion } from "@/components/about/philosophy-accordion";
-import { EditorialFieldsList } from "@/components/about/editorial-fields-list";
-import { HorizontalRoadmap } from "@/components/about/horizontal-roadmap";
+import { CoreFunctions } from "@/components/about/core-functions";
+import { EcosystemNetwork } from "@/components/about/ecosystem-network";
+import { EcosystemSection } from "@/components/landing/ecosystem-section";
+import { DevelopmentOrientation } from "@/components/about/development-orientation";
 import { Card } from "@/components/ui/card";
 
 export default function AboutPage() {
@@ -92,17 +94,21 @@ export default function AboutPage() {
           coreValuesText={orgInfo?.coreValues}
         />
 
-        {/* 4. Editorial Fields List Section */}
-        <EditorialFieldsList fields={displayFields} />
+        {/* Core Functions Section */}
+        <CoreFunctions />
 
-        {/* 5. Horizontal Roadmap Timeline Section */}
-        {/* Full-width container breakout for Horizontal Scroll pinning */}
+        {/* 4. Ecosystem Network Section */}
+        <EcosystemNetwork stats={orgInfo?.stats} />
       </div>
 
-      <HorizontalRoadmap />
+      {/* 5. Member Units Section (Đơn vị thành viên) - Tràn viền */}
+      <EcosystemSection />
 
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 pb-24 pt-12">
-        {/* 6. Slate Dark CTA block */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-24 space-y-28 md:space-y-36">
+        {/* 6. Development Orientation Section (Định hướng phát triển) */}
+        <DevelopmentOrientation />
+
+        {/* 7. Slate Dark CTA block */}
         <motion.section
           className="relative text-center mt-12"
           initial={{ opacity: 0, y: 20 }}
