@@ -71,9 +71,6 @@ export function GsapHero() {
           {/* Card Content Overlay */}
           <div className="card-content" id={`card-content-${idx}`}>
             <div className="content-start bg-accent-red mb-1.5" />
-            <div className="content-place text-zinc-300 font-mono text-[9px] font-bold tracking-widest">
-              {slide.place}
-            </div>
             <div className="content-title-wrapper">
               <span className="content-title-1">{slide.title}</span>{" "}
               <span className="content-title-2">{slide.title2}</span>
