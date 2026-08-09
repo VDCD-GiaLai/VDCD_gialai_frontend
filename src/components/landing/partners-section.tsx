@@ -159,7 +159,9 @@ export function PartnersSection() {
 
           {/* Description — 1 line on desktop */}
           <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed max-w-lg lg:max-w-none lg:whitespace-nowrap mx-auto">
-            VDCD tự hào là đối tác chiến lược của các tập đoàn, doanh nghiệp lớn trong nước và quốc tế, cùng xây dựng hạ tầng và giải pháp công nghệ tiên tiến.
+            Tự hào là đối tác chiến lược của các tập đoàn, doanh nghiệp lớn
+            trong nước và quốc tế, cùng xây dựng hạ tầng và giải pháp công nghệ
+            tiên tiến.
           </p>
         </div>
 

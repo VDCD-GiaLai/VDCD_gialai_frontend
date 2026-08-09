@@ -121,7 +121,9 @@ export const PageHeroBanner = ({
         <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
           {/* Tag */}
           {banner.tag && (
-            <span className="page-hero-banner__tag">{banner.tag}</span>
+            <span className="page-hero-banner__tag !text-xs md:!text-sm">
+              {banner.tag}
+            </span>
           )}
 
           {/* Headline */}

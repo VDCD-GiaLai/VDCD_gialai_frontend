@@ -75,9 +75,9 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
   },
   contact: {
     image: "https://picsum.photos/id/368/1920/1080",
-    title: "Kết nối cùng\nVDCD Group",
+    title: "Kết nối cùng\nTrung tâm",
     subtitle:
-      "Hãy liên hệ với chúng tôi để được tư vấn về các giải pháp chuyển đổi số, hợp tác dự án, hoặc bất kỳ thông tin nào bạn cần. Đội ngũ VDCD luôn sẵn sàng hỗ trợ.",
+      "Hãy liên hệ với chúng tôi để được tư vấn về các giải pháp chuyển đổi số, hợp tác dự án, hoặc bất kỳ thông tin nào bạn cần. Đội ngũ Trung tâm Đổi mới Sáng tạo Gia Lai luôn sẵn sàng hỗ trợ.",
     tag: "Liên hệ",
     ctaButtons: [
       {

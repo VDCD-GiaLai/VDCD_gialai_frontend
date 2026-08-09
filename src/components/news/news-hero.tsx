@@ -20,6 +20,8 @@ const fadeInUp = {
   },
 };
 
+import Link from "next/link";
+
 /* ── Component ──────────────────────────────────────────── */
 
 export const NewsHero = () => {
@@ -47,27 +49,43 @@ export const NewsHero = () => {
   }, []);
 
   return (
-    <section className="news-hero" aria-label={banner.tag || "Tin tức"}>
-      {/* Background image */}
-      <div className="news-hero__image">
+    <div className="relative w-full h-[55vh] min-h-[450px] overflow-hidden bg-zinc-950 flex flex-col justify-between p-6 md:p-12 select-none">
+      {/* 1. Background Image */}
+      <div className="absolute inset-0">
         <OptimizedImage
           src={banner.image}
-          alt={banner.tag || banner.title}
+          alt={banner.title || "Tin tức & Bài viết"}
           fill
           priority
           sizes="100vw"
-          className="object-cover"
-          style={{ willChange: "transform" }}
+          className="object-cover object-center"
           transformation={[{ width: 1920, quality: 80, format: "auto" }]}
         />
       </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />
 
-      {/* Content — no CTA */}
-      <div className="news-hero__content">
-        <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          {banner.tag && <h1 className="news-hero__tag">{banner.tag}</h1>}
-        </motion.div>
+      {/* 2. Top Header Content (Breadcrumbs) */}
+      <div className="relative z-30">
+        <nav className="text-xs font-mono text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+          <Link
+            href="/"
+            className="hover:text-accent-red transition-colors focus-visible:ring-1 focus-visible:ring-accent-red focus-visible:outline-none"
+          >
+            Trang chủ
+          </Link>
+          <span className="text-zinc-600">/</span>
+          <span className="text-zinc-200">Tin tức & Bài viết</span>
+        </nav>
       </div>
-    </section>
+
+      {/* 3. Bottom Headline & White Line */}
+      <div className="relative z-30 flex items-center gap-6 w-full">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase leading-none font-heading shrink-0">
+          TIN TỨC & BÀI VIẾT
+        </h1>
+        {/* 2px White line extending almost across the banner */}
+        <div className="h-[2px] bg-white flex-1 rounded-full opacity-90" />
+      </div>
+    </div>
   );
 };

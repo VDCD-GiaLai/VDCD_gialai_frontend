@@ -69,8 +69,9 @@ export function DigitalPioneerSection() {
         {/* ── Top Row: Headline left + Body right ── */}
         <div className="pioneer-reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           {/* Left: Headline */}
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white font-heading leading-[1.15]">
-            Tiên phong công nghệ số &mdash; Làm chủ hiện trường trong tầm tay
+          <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-bold tracking-tighter text-black dark:text-white font-heading leading-[1.15]">
+            <span className="block">Tiên phong công nghệ số</span>
+            <span className="block">làm chủ hiện trường trong tầm tay</span>
           </h2>
 
           {/* Right: Body + CTA */}
@@ -87,7 +88,8 @@ export function DigitalPioneerSection() {
               href="/solution"
               className="inline-flex items-center gap-2 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
             >
-              Khám phá giải pháp <ArrowRight className="w-4 h-4" weight="thin" />
+              Khám phá giải pháp{" "}
+              <ArrowRight className="w-4 h-4" weight="thin" />
             </Link>
           </div>
         </div>
@@ -100,12 +102,12 @@ export function DigitalPioneerSection() {
             return (
               <div
                 key={s.key}
-                className="bg-canvas-white dark:bg-zinc-950 py-6 md:py-8 px-4 md:px-6 flex flex-col items-center text-center"
+                className="bg-canvas-white dark:bg-zinc-950 py-6 md:py-8 px-4 md:px-6 flex flex-col items-center text-center group cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900/80 transition-colors duration-300"
               >
-                <div className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter font-heading tabular-nums leading-none mb-3">
+                <div className="text-4xl md:text-5xl font-black text-black dark:text-white group-hover:text-accent-red tracking-tighter font-heading tabular-nums leading-none mb-3 transition-colors duration-300">
                   <AnimatedCounter target={val} suffix={s.suffix} />
                 </div>
-                <span className="text-xs text-secondary dark:text-zinc-400 leading-snug block">
+                <span className="text-xs text-secondary dark:text-zinc-400 group-hover:text-black dark:group-hover:text-zinc-200 leading-snug block transition-colors duration-300">
                   {s.label}
                 </span>
               </div>

@@ -103,12 +103,6 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
               </>
             )}
           </div>
-
-          <div className="border-t border-zinc-200 dark:border-zinc-800/80 pt-6 flex justify-end items-center text-xs font-mono transition-colors duration-300">
-            <span className="text-accent-red font-bold uppercase tracking-widest">
-              VDCD GROUP · 2006 - 2026
-            </span>
-          </div>
         </div>
       </div>
     </section>
