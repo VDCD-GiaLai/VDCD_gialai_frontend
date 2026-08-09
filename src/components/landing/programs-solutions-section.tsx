@@ -187,7 +187,7 @@ export function ProgramsSolutionsSection() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover object-center scale-105"
                       transformation={[
-                        { width: 600, quality: 80, format: "auto" },
+                        { width: 450, quality: 75, format: "auto" },
                       ]}
                     />
                   </div>
