@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FooterPartners } from "./footer-partners";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
 import { FaFacebookF, FaTiktok } from "react-icons/fa";
@@ -255,9 +256,23 @@ export async function Footer() {
         </div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto border-t border-whisper-border/30 dark:border-zinc-800/40 pt-8 mt-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+      {/* ── Partner Logos (renders on all pages except Homepage & About-Us) ── */}
+      <FooterPartners />
+
+      <div className="max-w-[1600px] mx-auto border-t-2 border-slate-200/80 dark:border-zinc-800 pt-6 mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
         <p className="text-slate-400 dark:text-zinc-500 font-medium">
           © {new Date().getFullYear()} VDCD Group. All rights reserved.
+        </p>
+        <p className="text-slate-400 dark:text-zinc-500 font-medium">
+          Developed & Designed by{" "}
+          <a
+            href="https://looperslab.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-600 dark:text-zinc-300 hover:text-accent-red font-semibold transition-colors"
+          >
+            LoopersLab
+          </a>
         </p>
       </div>
     </footer>
