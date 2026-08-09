@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { FiSearch } from "react-icons/fi";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Pagination } from "@/components/ui/pagination";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@heroui/react";
@@ -179,7 +179,7 @@ export const ProgramsGrid = () => {
         >
           {/* Search */}
           <div className="relative max-w-xl">
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" />
+            <MagnifyingGlass weight="thin" className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" />
             <input
               type="text"
               placeholder="Tìm kiếm chương trình..."

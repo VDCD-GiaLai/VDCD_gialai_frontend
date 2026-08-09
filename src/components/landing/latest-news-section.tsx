@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@phosphor-icons/react";
 import { fetchFeaturedArticlesFromApi } from "@/services/article.service";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import type { Article } from "@/types";
@@ -23,14 +23,16 @@ function categoryLabel(c?: string) {
 }
 
 /* ────────────────────────────────────────────────────────
-   COMPONENT
+   Sun Group–inspired News Layout
+   Row 1: Featured (image left + text right)
+   Row 2: CTA block left + 3 article cards right
    ──────────────────────────────────────────────────────── */
 
 export function LatestNewsSection() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    fetchFeaturedArticlesFromApi(3).then(setArticles);
+    fetchFeaturedArticlesFromApi(5).then(setArticles);
   }, []);
 
   const containerRef = useScrollReveal({
@@ -41,7 +43,7 @@ export function LatestNewsSection() {
   if (articles.length === 0) return null;
 
   const featured = articles[0];
-  const side = articles.slice(1, 3);
+  const rest = articles.slice(1, 5);
 
   return (
     <section
@@ -50,33 +52,15 @@ export function LatestNewsSection() {
     >
       <div
         ref={containerRef}
-        className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
+        className="max-w-[1600px] mx-auto px-4 md:px-8 py-5 md:py-7"
       >
-        {/* Header row */}
-        <div className="news-reveal flex items-end justify-between mb-8 md:mb-12">
-          <div>
-            <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
-              VDCD Group
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading">
-              Tin tức và sự kiện
-            </h2>
-          </div>
-          <Link
-            href="/news"
-            className="hidden md:inline-flex items-center gap-2 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
-          >
-            Xem tất cả <FiArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        {/* Grid: featured left + 2 stacked right */}
-        <div className="news-reveal grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
-          {/* Featured — tall card */}
-          <Link
-            href={`/news/${featured.slug}`}
-            className="group relative overflow-hidden h-[360px] md:h-[460px] block"
-          >
+        {/* ── ROW 1: Featured Article (image left + text right) ── */}
+        <Link
+          href={`/news/${featured.slug}`}
+          className="news-reveal group grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-zinc-200 dark:border-zinc-800 pb-5 md:pb-6 mb-5 md:mb-6"
+        >
+          {/* Image */}
+          <div className="relative h-[220px] md:h-[280px] overflow-hidden">
             <OptimizedImage
               src={featured.thumbnail || "/images/placeholder.webp"}
               alt={featured.title}
@@ -85,76 +69,93 @@ export function LatestNewsSection() {
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               transformation={[{ width: 800, quality: 80, format: "auto" }]}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-              <span className="inline-block text-[10px] font-bold text-accent-red font-mono-label uppercase tracking-widest mb-2">
+          </div>
+
+          {/* Text */}
+          <div className="flex flex-col justify-center px-0 pt-5 lg:pt-0 lg:px-8 xl:px-12">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-[10px] font-bold text-accent-red font-mono-label uppercase tracking-widest">
                 {categoryLabel(featured.category)}
               </span>
-              <span className="text-[10px] text-zinc-400 ml-3">
+              <span className="text-[10px] text-secondary dark:text-zinc-500">
                 ● {fmtDate(featured.publishedAt)}
               </span>
-              <h3 className="text-lg md:text-xl font-bold text-white leading-snug font-heading mt-1 line-clamp-2 group-hover:text-accent-red/90 transition-colors">
-                {featured.title}
-              </h3>
-              {featured.metaDescription && (
-                <p className="text-xs text-zinc-300 leading-relaxed mt-2 line-clamp-2 hidden md:block">
-                  {featured.metaDescription}
-                </p>
-              )}
             </div>
-          </Link>
+            <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white leading-snug font-heading line-clamp-3 group-hover:text-accent-red transition-colors duration-300">
+              {featured.title}
+            </h3>
+            {featured.metaDescription && (
+              <p className="text-sm text-secondary dark:text-zinc-400 leading-relaxed mt-2 line-clamp-2">
+                {featured.metaDescription}
+              </p>
+            )}
+          </div>
+        </Link>
 
-          {/* Right stack */}
-          <div className="flex flex-col gap-5 md:gap-6">
-            {side.map((a) => (
+        {/* ── ROW 2: CTA block left + article cards grid right ── */}
+        <div className="news-reveal grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-5 md:gap-6">
+          {/* Left: Branding CTA Block */}
+          <div className="flex flex-col justify-center lg:border-r border-zinc-200 dark:border-zinc-800 lg:pr-8">
+            <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
+              VDCD Group
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+              Tin Tức
+            </h2>
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-2 mt-4 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
+            >
+              Xem tất cả
+              <span className="w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
+                <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+              </span>
+            </Link>
+          </div>
+
+          {/* Right: Grid of article cards — fills available space */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {rest.map((a) => (
               <Link
                 key={a.id}
                 href={`/news/${a.slug}`}
-                className="group flex gap-4 md:gap-5 h-auto md:h-[217px] overflow-hidden border border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/40 hover:border-accent-red/20 transition-colors"
+                className="group flex flex-col"
               >
-                {/* Thumb */}
-                <div className="relative w-[140px] md:w-[220px] shrink-0 overflow-hidden">
+                {/* Thumbnail */}
+                <div className="relative aspect-[3/2] overflow-hidden mb-2">
                   <OptimizedImage
                     src={a.thumbnail || "/images/placeholder.webp"}
                     alt={a.title}
                     fill
-                    sizes="220px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                     transformation={[
                       { width: 400, quality: 80, format: "auto" },
                     ]}
                   />
+                  {/* Diamond accent badge */}
+                  <span className="absolute bottom-2 right-2 w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
+                    <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+                  </span>
                 </div>
-                {/* Text */}
-                <div className="flex flex-col justify-center py-4 pr-4 md:py-5 md:pr-6 min-w-0">
+
+                {/* Meta */}
+                <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-bold text-accent-red font-mono-label uppercase tracking-widest">
                     {categoryLabel(a.category)}
                   </span>
-                  <span className="text-[10px] text-secondary dark:text-zinc-500 mt-0.5">
+                  <span className="text-[10px] text-secondary dark:text-zinc-500">
                     ● {fmtDate(a.publishedAt)}
                   </span>
-                  <h3 className="text-sm md:text-base font-bold text-black dark:text-white leading-snug font-heading mt-2 line-clamp-2 group-hover:text-accent-red transition-colors">
-                    {a.title}
-                  </h3>
-                  {a.metaDescription && (
-                    <p className="text-xs text-secondary dark:text-zinc-400 leading-relaxed mt-1.5 line-clamp-2 hidden md:block">
-                      {a.metaDescription}
-                    </p>
-                  )}
                 </div>
+
+                {/* Title */}
+                <h4 className="text-xs md:text-sm font-bold text-black dark:text-white leading-snug font-heading line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
+                  {a.title}
+                </h4>
               </Link>
             ))}
           </div>
-        </div>
-
-        {/* Mobile CTA */}
-        <div className="mt-8 text-center md:hidden">
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-2 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest"
-          >
-            Xem tất cả <FiArrowRight className="w-4 h-4" />
-          </Link>
         </div>
       </div>
     </section>

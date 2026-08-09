@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowUpRight } from "react-icons/fi";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface ServiceCardProps {
@@ -69,7 +69,7 @@ export function ServiceCard({
             <div className="service-more-link-wrap style-link mt-auto pt-4 flex items-center border-t border-zinc-50 dark:border-zinc-900/60">
               <span className="service-more-link inline-flex items-center gap-1 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest group-hover:text-accent-red transition-colors duration-300">
                 Tìm Hiểu Thêm
-                <FiArrowUpRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight weight="thin" className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
           </div>

@@ -9,12 +9,12 @@ import {
   useSpring,
 } from "framer-motion";
 import {
-  FiCpu,
-  FiMap,
-  FiActivity,
-  FiSettings,
-  FiArrowRight,
-} from "react-icons/fi";
+  Cpu,
+  MapTrifold,
+  Pulse,
+  Gear,
+  ArrowRight,
+} from "@phosphor-icons/react";
 
 interface FieldItem {
   title: string;
@@ -44,7 +44,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
     {
       title: "Công nghệ số & Chuyển đổi số",
       desc: "Lập mô hình dữ liệu không gian 3D thời gian thực thông qua nền tảng số 3DG Platform. Tích hợp phân tích dữ liệu lớn và AI để tối ưu hóa quản trị hạ tầng, vận hành đô thị thông minh.",
-      icon: FiCpu,
+      icon: Cpu,
       techKeywords: [
         "Digital Twin",
         "3DG Platform",
@@ -56,7 +56,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
     {
       title: "Khảo sát, Đo đạc & Số hóa bản đồ",
       desc: "Bay quét LiDAR và khảo sát trắc địa chuyên sâu bằng UAV để thành lập bản đồ địa hình tỷ lệ lớn (1/500). Số hóa đồng bộ cơ sở dữ liệu địa chính, hạ tầng kỹ thuật và lâm nghiệp Tây Nguyên.",
-      icon: FiMap,
+      icon: MapTrifold,
       techKeywords: [
         "UAV Mapping",
         "GIS Integration",
@@ -68,7 +68,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
     {
       title: "Hạ tầng & Điều hành thông minh",
       desc: "Tích hợp và xây dựng trung tâm điều hành thông minh (IOC/DOC) hỗ trợ ra quyết định. Giám sát tự động tiến độ công trình xây dựng và biến động hiện trường thông qua hệ thống AutoTimelapse.",
-      icon: FiActivity,
+      icon: Pulse,
       techKeywords: [
         "IOC/DOC",
         "AutoTimelapse",
@@ -80,7 +80,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
     {
       title: "Nghiên cứu, Sản xuất & Chế tạo phần cứng",
       desc: "Nghiên cứu chế tạo robot công nghiệp, lắp ráp các hệ thống thiết bị bay không người lái chuyên dụng, camera thông minh tích hợp AI và phần cứng IoT điều khiển tự chủ công nghệ.",
-      icon: FiSettings,
+      icon: Gear,
       techKeywords: [
         "Robotics",
         "Industrial Drone",
@@ -143,7 +143,7 @@ export function EditorialFieldsList({ fields }: EditorialFieldsListProps) {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-500 group-hover:text-accent-red group-hover:bg-accent-red/5 group-hover:border-accent-red/10 rounded-xl transition-all duration-300">
-                      <IconComp className="w-5 h-5" />
+                      <IconComp className="w-5 h-5" weight="thin" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white group-hover:text-accent-red transition-colors duration-300 font-heading leading-tight uppercase">
                       {field.title}

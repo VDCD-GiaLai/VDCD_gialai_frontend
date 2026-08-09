@@ -4,22 +4,22 @@ import * as React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  FiTrendingUp,
-  FiMonitor,
-  FiBookOpen,
-  FiAward,
-  FiGlobe,
-  FiHeart,
-} from "react-icons/fi";
+  TrendUp,
+  Desktop,
+  BookOpen,
+  Trophy,
+  Globe,
+  Heart,
+} from "@phosphor-icons/react";
 import { BENEFITS } from "@/data/careers.data";
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  FiTrendingUp,
-  FiMonitor,
-  FiBookOpen,
-  FiAward,
-  FiGlobe,
-  FiHeart,
+const ICON_MAP: Record<string, React.ComponentType<any>> = {
+  FiTrendingUp: TrendUp,
+  FiMonitor: Desktop,
+  FiBookOpen: BookOpen,
+  FiAward: Trophy,
+  FiGlobe: Globe,
+  FiHeart: Heart,
 };
 
 const BENEFIT_IMAGES: Record<string, string> = {
@@ -76,7 +76,7 @@ export function CareersBenefits() {
           variants={staggerContainer}
         >
           {BENEFITS.map((benefit, idx) => {
-            const IconComponent = ICON_MAP[benefit.icon] || FiGlobe;
+            const IconComponent = ICON_MAP[benefit.icon] || Globe;
             const imageUrl =
               BENEFIT_IMAGES[benefit.title] ||
               "https://picsum.photos/id/180/800/500";
@@ -99,7 +99,7 @@ export function CareersBenefits() {
                     />
                     <div className="absolute inset-0 background-gradient bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20">
-                      <IconComponent className="w-5 h-5 text-accent-red" />
+                      <IconComponent className="w-5 h-5 text-accent-red" weight="thin" />
                     </div>
                   </div>
 

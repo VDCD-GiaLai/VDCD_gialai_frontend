@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRef } from "react";
 import Image from "next/image";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@phosphor-icons/react";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
 import { fetchHeroSlidesFromApi } from "@/services/hero.service";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
@@ -60,7 +60,7 @@ export function GsapHero() {
               src={slide.image}
               alt={slide.title + " " + slide.title2}
               fill
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
               priority={idx === 0}
               fetchPriority={idx === 0 ? "high" : "auto"}
@@ -96,7 +96,7 @@ export function GsapHero() {
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
               <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+                Tìm hiểu thêm <ArrowRight className="w-4 h-4" weight="thin" />
               </a>
             </div>
           </div>
@@ -114,7 +114,7 @@ export function GsapHero() {
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
               <a href="#about" className="discover pointer-events-auto">
-                Tìm hiểu thêm <FiArrowRight className="w-4 h-4" />
+                Tìm hiểu thêm <ArrowRight className="w-4 h-4" weight="thin" />
               </a>
             </div>
           </div>

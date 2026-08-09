@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiArrowLeft, FiShare2, FiCopy, FiCheck } from "react-icons/fi";
+import { ArrowLeft, ShareNetwork, Copy, Check } from "@phosphor-icons/react";
 import { fetchProgramBySlugFromApi } from "@/services/program.service";
 import { formatDate, copyToClipboard } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
@@ -85,7 +85,7 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
           href={APP_ROUTES.PROGRAMS}
           className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300"
         >
-          <FiArrowLeft className="w-4 h-4" />
+          <ArrowLeft weight="thin" className="w-4 h-4" />
           Quay lại chương trình
         </Link>
       </div>
@@ -123,7 +123,7 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
               href={APP_ROUTES.PROGRAMS}
               className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
             >
-              <FiArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft weight="thin" className="w-3.5 h-3.5" />
               Quay lại chương trình
             </Link>
           </div>
@@ -170,7 +170,7 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
                 className="share-button"
                 aria-label="Chia sẻ trên Facebook"
               >
-                <FiShare2 className="w-4 h-4" />
+                <ShareNetwork weight="thin" className="w-4 h-4" />
               </button>
               <button
                 type="button"
@@ -179,9 +179,9 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
                 aria-label="Sao chép liên kết"
               >
                 {isCopied ? (
-                  <FiCheck className="w-4 h-4 text-green-500" />
+                  <Check weight="thin" className="w-4 h-4 text-green-500" />
                 ) : (
-                  <FiCopy className="w-4 h-4" />
+                  <Copy weight="thin" className="w-4 h-4" />
                 )}
               </button>
             </div>
@@ -244,7 +244,7 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
               href={APP_ROUTES.PROGRAMS}
               className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
             >
-              <FiArrowLeft className="w-4 h-4" />
+              <ArrowLeft weight="thin" className="w-4 h-4" />
               Xem tất cả chương trình
             </Link>
           </div>

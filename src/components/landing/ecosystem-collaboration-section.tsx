@@ -1,6 +1,6 @@
 "use client";
 
-import { FiGrid, FiBriefcase, FiZap, FiBookOpen } from "react-icons/fi";
+import { Bank, Buildings, RocketLaunch, GraduationCap } from "@phosphor-icons/react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 /* ────────────────────────────────────────────────────────
@@ -9,22 +9,22 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const ECOSYSTEM_ITEMS = [
   {
-    icon: FiGrid,
+    icon: Bank,
     title: "Cơ quan quản lý",
     body: "Hỗ trợ số hóa quy trình hành chính, giám sát dữ liệu hiện trường và ra quyết định dựa trên dữ liệu cho các sở ban ngành và cơ quan chính quyền.",
   },
   {
-    icon: FiBriefcase,
+    icon: Buildings,
     title: "Doanh nghiệp",
     body: "Tư vấn chiến lược chuyển đổi số, tích hợp giải pháp công nghệ vào vận hành và mở rộng năng lực cạnh tranh trên thị trường.",
   },
   {
-    icon: FiZap,
+    icon: RocketLaunch,
     title: "Startup & dự án khởi nghiệp",
     body: "Ươm tạo ý tưởng, kết nối nguồn lực đầu tư và cung cấp hạ tầng kỹ thuật để đưa sản phẩm ra thị trường nhanh hơn.",
   },
   {
-    icon: FiBookOpen,
+    icon: GraduationCap,
     title: "Trường đại học & tổ chức nghiên cứu",
     body: "Hợp tác nghiên cứu ứng dụng, chuyển giao công nghệ và phát triển nguồn nhân lực chất lượng cao cho khu vực.",
   },
@@ -79,7 +79,7 @@ export function EcosystemCollaborationSection() {
               >
                 {/* Icon — large, clean, accent-colored */}
                 <div className="w-10 h-10 flex items-center justify-center text-accent-red">
-                  <Icon className="w-8 h-8" strokeWidth={1.5} />
+                  <Icon className="w-8 h-8" weight="thin" />
                 </div>
 
                 {/* Title with left accent bar at column edge */}

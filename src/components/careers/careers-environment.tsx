@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { FiUser } from "react-icons/fi";
+import { User } from "@phosphor-icons/react";
 import { EMPLOYEE_STORIES } from "@/data/careers.data";
 
 const fadeInUp = {
@@ -123,7 +123,7 @@ export function CareersEnvironment() {
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800/60">
                 <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center shrink-0">
-                  <FiUser className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
+                  <User weight="thin" className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-black dark:text-white font-heading">

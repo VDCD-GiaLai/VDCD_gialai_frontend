@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@phosphor-icons/react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import {
@@ -87,7 +87,7 @@ export function DigitalPioneerSection() {
               href="/solution"
               className="inline-flex items-center gap-2 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
             >
-              Khám phá giải pháp <FiArrowRight className="w-4 h-4" />
+              Khám phá giải pháp <ArrowRight className="w-4 h-4" weight="thin" />
             </Link>
           </div>
         </div>
