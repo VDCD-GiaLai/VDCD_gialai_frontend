@@ -1,17 +1,9 @@
 "use client";
 
 import * as React from "react";
-import {
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import { useState, useCallback } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 
 /* ────────────────────────────────────────────────────────
    DATA
@@ -107,12 +99,7 @@ const CATEGORIES: Category[] = [
 
 export function ProgramsSolutionsSection() {
   const [activeId, setActiveId] = useState<string>(CATEGORIES[0].id);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  /* refs for GSAP horizontal scroll */
-  const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cardsWrapperRef = useRef<HTMLDivElement>(null);
+  const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
   const active = CATEGORIES.find((c) => c.id === activeId) ?? CATEGORIES[0];
 
@@ -128,114 +115,18 @@ export function ProgramsSolutionsSection() {
 
   const handleSwitch = useCallback((id: string) => {
     setActiveId(id);
+    setActiveCardIndex(0);
   }, []);
-
-  /* ── GSAP ScrollTrigger: horizontal scroll driven by vertical scroll ── */
-  useLayoutEffect(() => {
-    if (!sectionRef.current || !trackRef.current || !cardsWrapperRef.current)
-      return;
-
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      /* Reduced motion: just show everything, no scroll animation */
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set("[data-card]", { autoAlpha: 1 });
-      });
-
-      /* Normal motion + desktop: horizontal scroll */
-      mm.add(
-        "(prefers-reduced-motion: no-preference) and (min-width: 768px)",
-        () => {
-          /* We need to wait a tick for cards to render after category switch */
-          const cards = gsap.utils.toArray<HTMLElement>(
-            "[data-card]",
-            cardsWrapperRef.current!,
-          );
-          if (cards.length === 0) return;
-
-          /* Calculate how far we need to scroll horizontally */
-          const calcScrollDistance = () => {
-            const wrapper = cardsWrapperRef.current!;
-            return wrapper.scrollWidth - wrapper.clientWidth;
-          };
-
-          const tween = gsap.to(cardsWrapperRef.current!, {
-            x: () => -calcScrollDistance(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: trackRef.current!,
-              start: "top 25%",
-              end: () => `+=${calcScrollDistance() + window.innerHeight * 0.3}`,
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              onUpdate: (self) => {
-                setScrollProgress(self.progress);
-              },
-            },
-          });
-
-          /* Entry animation for cards */
-          cards.forEach((card, i) => {
-            gsap.from(card, {
-              autoAlpha: 0,
-              y: 30,
-              scale: 0.97,
-              duration: 0.6,
-              ease: "power3.out",
-              delay: i * 0.08,
-              scrollTrigger: {
-                trigger: sectionRef.current!,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-              },
-            });
-          });
-
-          return () => {
-            tween.kill();
-          };
-        },
-      );
-
-      /* Mobile: no horizontal scroll, just a vertical stack with stagger reveal */
-      mm.add("(max-width: 767px)", () => {
-        const cards = gsap.utils.toArray<HTMLElement>(
-          "[data-card]",
-          cardsWrapperRef.current!,
-        );
-        cards.forEach((card, i) => {
-          gsap.from(card, {
-            autoAlpha: 0,
-            y: 24,
-            duration: 0.5,
-            ease: "power3.out",
-            delay: i * 0.06,
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          });
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [activeId]); // Re-initialize when category changes
 
   return (
     <section
-      ref={sectionRef}
       id="programs-solutions"
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
     >
-      <div ref={containerRef} className="py-16 md:py-24">
+      <div ref={containerRef} className="py-3 md:py-8">
         {/* ── Section Header ── */}
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-10 md:mb-14">
-          <div className="ps-reveal text-center mb-10">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-8 md:mb-10">
+          <div className="ps-reveal text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
               Chương trình và giải pháp
             </h2>
@@ -270,71 +161,73 @@ export function ProgramsSolutionsSection() {
           </div>
         </div>
 
-        {/* ── Horizontal Scroll Track ── */}
-        <div ref={trackRef} className="ps-reveal relative overflow-hidden">
-          <div
-            ref={cardsWrapperRef}
-            className="flex gap-4 md:gap-6 px-4 md:px-8 will-change-transform"
-            style={{
-              /* On desktop: inline layout for horizontal scroll.
-                 On mobile: we override to vertical via the className below. */
-              paddingLeft: "max(1rem, calc((100vw - 1600px) / 2 + 2rem))",
-              paddingRight: "max(1rem, calc((100vw - 1600px) / 2 + 2rem))",
-            }}
-          >
-            {active.items.map((item, idx) => (
-              <div
-                key={`${activeId}-${idx}`}
-                data-card
-                className="group relative shrink-0 w-[280px] md:w-[320px] lg:w-[360px] aspect-[3/4] overflow-hidden cursor-pointer"
-              >
-                {/* Background Image */}
-                <OptimizedImage
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="360px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  transformation={[{ width: 360, quality: 80, format: "auto" }]}
-                />
+        {/* ── Horizontal Accordion Cards (hover to expand, like Kim chỉ nam) ── */}
+        <div className="ps-reveal max-w-[1600px] mx-auto px-4 md:px-8">
+          <div className="flex flex-col md:flex-row gap-3 w-full min-h-[380px] md:min-h-[420px] items-stretch">
+            {active.items.map((item, idx) => {
+              const isOpen = activeCardIndex === idx;
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 group-hover:from-black/90 transition-all duration-500" />
+              return (
+                <div
+                  key={`${activeId}-${idx}`}
+                  onClick={() => setActiveCardIndex(idx)}
+                  onMouseEnter={() => setActiveCardIndex(idx)}
+                  className={`relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-6 md:p-8 text-white ${
+                    isOpen
+                      ? "flex-[3.5] shadow-md"
+                      : "flex-1 opacity-90 hover:opacity-100"
+                  }`}
+                >
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <OptimizedImage
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-center scale-105"
+                      transformation={[
+                        { width: 600, quality: 80, format: "auto" },
+                      ]}
+                    />
+                  </div>
 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  {/* Description - revealed on hover */}
-                  <p className="text-zinc-300 text-xs leading-relaxed mb-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    {item.description}
-                  </p>
+                  {/* Dark Overlay */}
+                  <div
+                    className={`absolute inset-0 transition-colors duration-500 ${
+                      isOpen ? "bg-black/40" : "bg-black/20"
+                    }`}
+                  />
 
-                  {/* Title */}
-                  <h3 className="text-white text-base md:text-lg font-bold font-heading leading-snug">
-                    {item.title}
-                  </h3>
+                  {/* Bottom: Text Content */}
+                  <div className="space-y-3 relative z-10 mt-8">
+                    <h3 className="text-lg md:text-xl font-bold text-white tracking-tight font-heading leading-snug uppercase">
+                      {item.title}
+                    </h3>
+
+                    {/* Smooth collapse container — shown on active/hover */}
+                    <div
+                      className={`transition-all duration-500 overflow-hidden ${
+                        isOpen
+                          ? "max-h-[200px] opacity-100 mt-2"
+                          : "max-h-0 opacity-0 pointer-events-none"
+                      }`}
+                    >
+                      <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Corner accent line */}
+                  <span
+                    className={`absolute top-0 right-0 h-1 bg-accent-red transition-all duration-500 ${
+                      isOpen ? "w-1/3" : "w-0"
+                    }`}
+                  />
                 </div>
-
-                {/* Index Badge */}
-                <div className="absolute top-5 left-6">
-                  <span className="font-mono text-[11px] font-bold text-white/50 tabular-nums">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Progress Bar ── */}
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mt-8">
-          <div className="ps-reveal">
-            {/* Progress Bar */}
-            <div className="h-[0.5px] bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-accent-red transition-[width] duration-100 ease-out rounded-full"
-                style={{ width: `${Math.max(5, scrollProgress * 100)}%` }}
-              />
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
