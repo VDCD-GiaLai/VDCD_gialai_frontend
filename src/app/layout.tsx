@@ -158,6 +158,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Google Search Console Verification */}
+        <meta
+          name="google-site-verification"
+          content="OHDk64-l82grYN7qxgpHNqvavI8LupO3hDA6gd-zeeA"
+        />
+
         {/* Favicon Declarations */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicons/favicon.ico" />
