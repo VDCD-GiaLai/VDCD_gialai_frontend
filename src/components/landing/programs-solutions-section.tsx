@@ -123,7 +123,7 @@ export function ProgramsSolutionsSection() {
       id="programs-solutions"
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
     >
-      <div ref={containerRef} className="py-10 md:py-14">
+      <div ref={containerRef} className="py-3 md:py-8">
         {/* ── Section Header ── */}
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-8 md:mb-10">
           <div className="ps-reveal text-center mb-8">
