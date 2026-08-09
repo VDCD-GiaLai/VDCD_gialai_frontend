@@ -226,8 +226,10 @@ export function Header() {
           )}
 
           <Button
-            as={Link}
-            href="/#capacity-profile"
+            as="a"
+            href="/company-profile"
+            target="_blank"
+            rel="noopener noreferrer"
             startContent={<FiFileText className="w-4 h-4" />}
             className="hidden md:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-none"
           >
@@ -306,14 +308,16 @@ export function Header() {
         >
           Liên hệ
         </Link>
-        <Link
-          href="/#capacity-profile"
+        <a
+          href="/company-profile"
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={() => setIsMobileMenuOpen(false)}
           className="lg:hidden px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
         >
           <FiFileText className="w-4 h-4" />
           Hồ sơ năng lực
-        </Link>
+        </a>
       </div>
     </header>
   );
