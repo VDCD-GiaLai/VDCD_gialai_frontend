@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useMegaMenu } from "@/components/layout/mega-menu";
+import { FiFileText } from "react-icons/fi";
 
 const emptySubscribe = () => () => {};
 
