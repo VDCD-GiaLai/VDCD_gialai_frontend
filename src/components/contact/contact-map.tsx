@@ -34,7 +34,7 @@ export function ContactMap() {
             id="contact-map-heading"
             className="text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white font-heading"
           >
-            Văn phòng VDCD Gia Lai
+            Văn phòng Trung tâm Đổi mới Sáng tạo Gia Lai
           </h2>
         </motion.div>
 

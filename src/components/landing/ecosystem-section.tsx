@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import { SOLUTIONS } from "@/data/solution/solutions";
@@ -200,18 +201,39 @@ export function EcosystemSection() {
         ref={headerRef}
         className="relative max-w-[1600px] mx-auto px-4 md:px-8 py-5 md:py-8"
       >
-        {/* ── Header row: title ── */}
-        <div className="eco-header-reveal max-w-xl mb-10 md:mb-14">
-          <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-3">
-            VDCD Group
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white leading-[1.15] font-heading">
-            Đơn vị thành viên
-          </h2>
-          <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed mt-3 max-w-lg">
-            12 đơn vị chuyên biệt, một hệ sinh thái đồng bộ — từ khảo sát, thiết
-            kế, giám sát đến AI và sản xuất nội dung số.
-          </p>
+        {/* ── Header row: title left, logo centered in space ── */}
+        <div className="eco-header-reveal flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 md:mb-14">
+          <div className="max-w-xl">
+            <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-3">
+              VDCD Group
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white leading-[1.15] font-heading">
+              Sức mạnh từ Hệ sinh thái
+            </h2>
+            <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed mt-3 max-w-lg">
+              Là 1 trong 12 trung tâm thuộc hệ sinh thái VDCD Group, thừa hưởng
+              trọn vẹn năng lực đồng bộ từ khảo sát, thiết kế, giám sát kỹ thuật
+              cho đến ứng dụng AI và sản xuất nội dung số.
+            </p>
+          </div>
+
+          {/* VDCD Group Logo centered in the middle of space */}
+          <div className="relative w-[220px] sm:w-[280px] md:w-[320px] h-[70px] sm:h-[85px] md:h-[95px] shrink-0 self-center md:mx-auto">
+            <Image
+              src="/logo.svg"
+              alt="VDCD Group Logo"
+              fill
+              sizes="320px"
+              className="object-contain object-center dark:hidden"
+            />
+            <Image
+              src="/logo-white.svg"
+              alt="VDCD Group Logo"
+              fill
+              sizes="320px"
+              className="object-contain object-center hidden dark:block"
+            />
+          </div>
         </div>
 
         {/* ── Horizontal Scroll Track with Side Nav Buttons ── */}

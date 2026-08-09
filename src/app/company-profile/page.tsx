@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FiArrowLeft, FiExternalLink } from "react-icons/fi";
 import { DownloadPdfButton } from "./download-button";
+import { PdfViewer } from "./pdf-viewer";
 
 /* ── Config ────────────────────────────────────────────── */
 
@@ -67,18 +68,8 @@ export default function CompanyProfilePage() {
         </div>
       </header>
 
-      {/* ── PDF viewer ─────────────────────────────────── */}
-      <main className="flex-1 relative">
-        {/* Subtle inner shadow to frame the viewer */}
-        <div className="absolute inset-0 pointer-events-none z-10 shadow-[inset_0_1px_3px_rgba(0,0,0,0.06)]" />
-
-        <iframe
-          src={PDF_URL}
-          title="Hồ sơ năng lực VDCD Group"
-          className="w-full h-[calc(100dvh-56px)] border-0"
-          loading="lazy"
-        />
-      </main>
+      {/* ── PDF viewer (iOS-aware) ─────────────────────── */}
+      <PdfViewer url={PDF_URL} title="Hồ sơ năng lực VDCD Group" />
     </div>
   );
 }
