@@ -143,7 +143,7 @@ export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
   vision:
     "Trở thành trung tâm công nghệ và ươm tạo doanh nghiệp số hàng đầu khu vực Tây Nguyên.",
   coreValues: "Sáng tạo - Tin cậy - Hiệu quả - Bền vững",
-  address: "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai",
+  address: "01 Trần Hưng Đạo, Pleiku, Gia Lai",
   stats: {
     staff: 1500,
     partners: 250,
