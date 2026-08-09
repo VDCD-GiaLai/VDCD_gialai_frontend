@@ -82,8 +82,8 @@ export default function AboutPage() {
       {/* 1. Hero Radar Grid Section */}
       <HeroRadar />
 
-      {/* Main Layout Container with Spatial rhythm */}
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-24 space-y-28 md:space-y-36">
+      {/* Main Layout Container with spatial rhythm */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
         {/* 2. Bento Intro Section */}
         <BentoIntro orgInfo={orgInfo} />
 
@@ -102,9 +102,11 @@ export default function AboutPage() {
       </div>
 
       {/* 5. Member Units Section (Đơn vị thành viên) - Tràn viền */}
-      <EcosystemSection />
+      <div className="py-4 md:py-8">
+        <EcosystemSection />
+      </div>
 
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-24 space-y-28 md:space-y-36">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
         {/* 6. Development Orientation Section (Định hướng phát triển) */}
         <DevelopmentOrientation />
 

@@ -43,7 +43,7 @@ export function LatestNewsSection() {
   if (articles.length === 0) return null;
 
   const featured = articles[0];
-  const rest = articles.slice(1, 5);
+  const rest = articles.slice(1, 4);
 
   return (
     <section
@@ -96,9 +96,6 @@ export function LatestNewsSection() {
         <div className="news-reveal grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-5 md:gap-6">
           {/* Left: Branding CTA Block */}
           <div className="flex flex-col justify-center lg:border-r border-zinc-200 dark:border-zinc-800 lg:pr-8">
-            <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
-              VDCD Group
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
               Tin Tức
             </h2>
@@ -108,13 +105,16 @@ export function LatestNewsSection() {
             >
               Xem tất cả
               <span className="w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
-                <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+                <ArrowRight
+                  className="w-3 h-3 -rotate-45 text-accent-red"
+                  weight="thin"
+                />
               </span>
             </Link>
           </div>
 
-          {/* Right: Grid of article cards — fills available space */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Right: Grid of article cards — 3 cards fill available space */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {rest.map((a) => (
               <Link
                 key={a.id}
@@ -135,7 +135,10 @@ export function LatestNewsSection() {
                   />
                   {/* Diamond accent badge */}
                   <span className="absolute bottom-2 right-2 w-5 h-5 border border-accent-red/40 rotate-45 flex items-center justify-center">
-                    <ArrowRight className="w-3 h-3 -rotate-45 text-accent-red" weight="thin" />
+                    <ArrowRight
+                      className="w-3 h-3 -rotate-45 text-accent-red"
+                      weight="thin"
+                    />
                   </span>
                 </div>
 

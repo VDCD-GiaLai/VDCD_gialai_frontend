@@ -157,7 +157,7 @@ export function CareersHeroSlider() {
             exit="exit"
           >
             <motion.span
-              className="careers-hero-slider__tag"
+              className="careers-hero-slider__tag !text-xs md:!text-sm"
               variants={childVariants}
             >
               {currentSlide.tag}
