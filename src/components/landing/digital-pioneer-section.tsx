@@ -22,16 +22,16 @@ const STATS = [
     label: "Cán bộ, Nhân sự",
   },
   {
-    key: "partners" as const,
+    key: "experts" as const,
     fallback: 250,
     suffix: "+",
     label: "Chuyên gia đa lĩnh vực",
   },
   {
-    key: "centers" as const,
+    key: "projects" as const,
     fallback: 12,
     suffix: "",
-    label: "Trung tâm nghiên cứu chuyên sâu",
+    label: "Dự án triển khai",
   },
   {
     key: "provinces" as const,

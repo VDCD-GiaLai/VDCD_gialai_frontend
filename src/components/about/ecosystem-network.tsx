@@ -9,6 +9,7 @@ interface EcosystemNetworkProps {
     staff?: number;
     experts?: number;
     centers?: number;
+    projects?: number;
     provinces?: number;
   };
 }
@@ -28,10 +29,10 @@ export function EcosystemNetwork({ stats }: EcosystemNetworkProps) {
       desc: "Năng lực R&D phần cứng, GIS, AI và chuyển đổi số",
     },
     {
-      value: stats?.centers || 12,
+      value: stats?.projects || 12,
       suffix: "",
-      label: "Trung tâm nghiên cứu chuyên sâu",
-      desc: "Đơn vị nghiên cứu & làm chủ các công nghệ lõi tiên tiến",
+      label: "Dự án trọng điểm",
+      desc: "Tham gia trực tiếp triển khai các dự án quy mô toàn quốc",
     },
     {
       value: stats?.provinces || 34,
