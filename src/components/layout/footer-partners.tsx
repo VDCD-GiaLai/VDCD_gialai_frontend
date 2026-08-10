@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   fetchPartnersFromApi,
   PartnerItem,
@@ -9,9 +10,11 @@ import {
 } from "@/services/partner.service";
 
 export function FooterPartners() {
+  const pathname = usePathname();
   const [partners, setPartners] = useState<PartnerItem[]>(MOCK_PARTNERS);
 
   useEffect(() => {
+    if (pathname === "/") return;
     let isMounted = true;
     fetchPartnersFromApi().then((data) => {
       if (isMounted && data && data.length > 0) {
@@ -21,7 +24,11 @@ export function FooterPartners() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [pathname]);
+
+  if (pathname === "/") {
+    return null;
+  }
 
   return (
     <div className="w-full border-t-2 border-slate-200/80 dark:border-zinc-800 py-3 mt-4">

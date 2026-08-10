@@ -65,14 +65,12 @@ export function GsapHero() {
               priority={idx === 0}
               fetchPriority={idx === 0 ? "high" : "auto"}
               loading={idx === 0 ? "eager" : "lazy"}
+              quality={idx === 0 ? 85 : 75}
             />
           </div>
           {/* Card Content Overlay */}
           <div className="card-content" id={`card-content-${idx}`}>
             <div className="content-start bg-accent-red mb-1.5" />
-            <div className="content-place text-zinc-300 font-mono text-[9px] font-bold tracking-widest">
-              {slide.place}
-            </div>
             <div className="content-title-wrapper">
               <span className="content-title-1">{slide.title}</span>{" "}
               <span className="content-title-2">{slide.title2}</span>

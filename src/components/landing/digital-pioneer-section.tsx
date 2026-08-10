@@ -30,7 +30,7 @@ const STATS = [
   {
     key: "projects" as const,
     fallback: 12,
-    suffix: "",
+    suffix: "+",
     label: "Dự án triển khai",
   },
   {

@@ -49,7 +49,7 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
           fill
           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover group-hover:scale-105 transition-transform duration-700"
-          transformation={[{ width: 600, quality: 80, format: "auto" }]}
+          transformation={[{ width: 450, quality: 75, format: "auto" }]}
         />
       </div>
 

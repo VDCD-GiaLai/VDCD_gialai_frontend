@@ -47,7 +47,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="object-cover group-hover:scale-105 transition-all duration-700"
         src={project.img}
-        transformation={[{ width: 1200, quality: 90, format: "auto" }]}
+        transformation={[{ width: 500, quality: 75, format: "auto" }]}
       />
 
       {/* ── Animated border — draws clockwise on hover ── */}
@@ -112,7 +112,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="relative flex items-center gap-2 mb-3">
             <div className="w-2 h-2 flex-shrink-0 bg-accent-red" />
             <span className="font-bold text-[10px] text-accent-red uppercase tracking-[0.3em]">
-              AutoTimelapse · VDCD
+              AutoTimelapse
             </span>
           </div>
 

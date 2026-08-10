@@ -57,10 +57,13 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   word-break: break-word;
   max-width: 100%;
   display: block;
+  height: 30px;
+  margin-top: 14px;
 }
 
 .gsap-hero-container .content-title-1,
@@ -131,6 +134,9 @@
     font-size: 11px !important;
     line-height: 1.2 !important;
     -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    height: 27px !important;
+    margin-top: 0 !important;
   }
 
   /* Split arrows: < on LEFT, > on RIGHT */
@@ -296,6 +302,9 @@
     font-size: 13px !important;
     line-height: 1.25 !important;
     -webkit-line-clamp: 3 !important;
+    line-clamp: 3 !important;
+    height: 49px !important;
+    margin-top: 0 !important;
   }
 
   .gsap-hero-container .details {

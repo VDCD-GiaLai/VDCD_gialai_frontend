@@ -6,7 +6,6 @@ import {
   RocketLaunch,
   GraduationCap,
 } from "@phosphor-icons/react";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 /* ────────────────────────────────────────────────────────
    DATA — Khối 6: Đồng hành cùng hệ sinh thái đổi mới sáng tạo
@@ -40,27 +39,14 @@ const ECOSYSTEM_ITEMS = [
    ──────────────────────────────────────────────────────── */
 
 export function EcosystemCollaborationSection() {
-  const containerRef = useScrollReveal({
-    targets: ".eco-collab-reveal",
-    options: {
-      y: 24,
-      blur: 4,
-      duration: 0.8,
-      ease: "power3.out",
-    },
-  });
-
   return (
     <section
       id="ecosystem-collaboration"
       className="border-t border-whisper-border/30 bg-[#f6f9fc] dark:bg-zinc-950 transition-colors duration-300"
     >
-      <div
-        ref={containerRef}
-        className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16"
-      >
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16">
         {/* ── Section Header ── */}
-        <div className="eco-collab-reveal mb-14 md:mb-20 max-w-2xl">
+        <div className="mb-14 md:mb-20 max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-[#0a2540] dark:text-white font-heading leading-tight">
             Đồng hành cùng Trung tâm Đổi mới Sáng tạo
           </h2>
@@ -71,10 +57,9 @@ export function EcosystemCollaborationSection() {
         </div>
 
         {/* ── 4-Column Detail Grid (Stripe Connect style) ── */}
-        <div className="eco-collab-reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {ECOSYSTEM_ITEMS.map((item, idx) => {
             const Icon = item.icon;
-            const isNotFirst = idx > 0;
 
             return (
               <div

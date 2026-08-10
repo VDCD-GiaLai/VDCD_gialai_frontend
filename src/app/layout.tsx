@@ -227,8 +227,26 @@ export default function RootLayout({
           href="https://ik.imagekit.io"
           crossOrigin="anonymous"
         />
+        <link
+          rel="dns-prefetch"
+          href="//vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net"
+        />
+        <link
+          rel="preconnect"
+          href="https://vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net"
+          crossOrigin="anonymous"
+        />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+        {/* Preload LCP hero image for fast mobile paint */}
+        <link
+          rel="preload"
+          as="image"
+          type="image/webp"
+          href="/images/home/kientaotuonglai.webp"
+          fetchPriority="high"
+        />
 
         {/* Organization & WebSite Structured Data */}
         <script

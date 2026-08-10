@@ -30,7 +30,7 @@ export function EcosystemNetwork({ stats }: EcosystemNetworkProps) {
     },
     {
       value: stats?.projects || 12,
-      suffix: "",
+      suffix: "+",
       label: "Dự án trọng điểm",
       desc: "Tham gia trực tiếp triển khai các dự án quy mô toàn quốc",
     },
