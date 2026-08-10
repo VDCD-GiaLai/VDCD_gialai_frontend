@@ -25,9 +25,9 @@ import Link from "next/link";
 /* ── Component ──────────────────────────────────────────── */
 
 export const NewsHero = () => {
-  const [banner, setBanner] = useState<PageBannerData>(
-    MOCK_PAGE_BANNERS["news"],
-  );
+  const mockBanner = MOCK_PAGE_BANNERS["news"];
+  const [banner, setBanner] = useState<PageBannerData>(mockBanner);
+  const [imgSrc, setImgSrc] = useState(mockBanner.image);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,7 +35,10 @@ export const NewsHero = () => {
     const loadBanner = async () => {
       try {
         const data = await fetchPageBannerFromApi("news");
-        if (!cancelled) setBanner(data);
+        if (!cancelled) {
+          setBanner(data);
+          setImgSrc(data.image);
+        }
       } catch {
         // Fallback already set in initial state
       }
@@ -53,13 +56,14 @@ export const NewsHero = () => {
       {/* 1. Background Image */}
       <div className="absolute inset-0">
         <OptimizedImage
-          src={banner.image}
+          src={imgSrc}
           alt={banner.title || "Tin tức & Bài viết"}
           fill
           priority
           sizes="100vw"
           className="object-cover object-center"
           transformation={[{ width: 1920, quality: 80, format: "auto" }]}
+          onError={() => setImgSrc(mockBanner.image)}
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />
