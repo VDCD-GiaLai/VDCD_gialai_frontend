@@ -10,13 +10,52 @@ export function useGsapHero(
   slides: GsapHeroSlide[],
 ) {
   // Keep order and buffer state in refs so they are stable across clicks
-  const orderRef = useRef([0, 1, 2, 3, 4]);
+  const slidesRef = useRef(slides);
+  const orderRef = useRef(slides.map((_, i) => i));
   const detailsEvenRef = useRef(true);
   const isAnimatingRef = useRef(false);
   const autoplayTweenRef = useRef<any>(null);
 
   // React state to reflect the active slide in the UI (specifically for class toggle like active-bg)
   const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    slidesRef.current = slides;
+    if (orderRef.current.length !== slides.length) {
+      orderRef.current = slides.map((_, i) => i);
+    }
+    const currentActiveSlide = slides[orderRef.current[0]];
+    if (currentActiveSlide && containerRef.current) {
+      const detailsActive = detailsEvenRef.current
+        ? "#details-even"
+        : "#details-odd";
+      const activeEl = containerRef.current.querySelector(detailsActive);
+      if (activeEl) {
+        const textEl = activeEl.querySelector(".text");
+        const title1El = activeEl.querySelector(".title-1");
+        const title2El = activeEl.querySelector(".title-2");
+        const descEl = activeEl.querySelector(".desc");
+
+        if (textEl && textEl.textContent !== currentActiveSlide.place) {
+          textEl.textContent = currentActiveSlide.place;
+        }
+        if (title1El && title1El.textContent !== currentActiveSlide.title) {
+          title1El.textContent = currentActiveSlide.title;
+        }
+        if (title2El && title2El.textContent !== currentActiveSlide.title2) {
+          title2El.textContent = currentActiveSlide.title2;
+        }
+        if (descEl && descEl.textContent !== currentActiveSlide.desc) {
+          descEl.textContent = currentActiveSlide.desc;
+        }
+      }
+    }
+  }, [slides, containerRef]);
+
+  const getMaxVisibleThumbs = () => {
+    if (typeof window === "undefined") return 3;
+    return window.innerWidth < 1280 ? 4 : 3;
+  };
 
   // Layout parameters refs for resize handling
   const offsetTopVal = useRef(200);
@@ -58,9 +97,9 @@ export function useGsapHero(
       cardHeightVal.current = 175;
       gapVal.current = 12;
     } else {
-      // Desktop: cards on the right side, pagination below cards
+      // Desktop: 3 cards on the right side, pagination below cards
       offsetTopVal.current = height - 390;
-      offsetLeftVal.current = Math.max(width - 820, 500);
+      offsetLeftVal.current = Math.max(width - 640, 500);
       cardWidthVal.current = 175;
       cardHeightVal.current = 255;
       gapVal.current = 28;
@@ -94,10 +133,11 @@ export function useGsapHero(
       gsap.set(contentActive, { x: 0, y: 0, opacity: 0 });
     }
 
-    // Rest of cards positioned normally
+    // Rest of cards positioned normally (only first 3 visible)
     rest.forEach((i, index) => {
       const cardI = getCard(i);
       const contentI = getCardContent(i);
+      const isVisible = index < getMaxVisibleThumbs();
       const posX =
         offsetLeftVal.current + index * (cardWidthVal.current + gapVal.current);
 
@@ -109,7 +149,9 @@ export function useGsapHero(
             y: offsetTopVal.current,
             width: cardWidthVal.current,
             height: cardHeightVal.current,
-            zIndex: 30,
+            zIndex: isVisible ? 30 : 5,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
             borderRadius: 12,
             duration: 0.8,
             ease: "sine.inOut",
@@ -120,7 +162,9 @@ export function useGsapHero(
             y: offsetTopVal.current,
             width: cardWidthVal.current,
             height: cardHeightVal.current,
-            zIndex: 30,
+            zIndex: isVisible ? 30 : 5,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
             borderRadius: 12,
           });
         }
@@ -136,8 +180,9 @@ export function useGsapHero(
               cardHeightVal.current -
               getContentYOffset(),
             width: cardWidthVal.current,
-            opacity: 1,
-            zIndex: 40,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
+            zIndex: isVisible ? 40 : 5,
             duration: 0.8,
             ease: "sine.inOut",
           });
@@ -149,8 +194,9 @@ export function useGsapHero(
               cardHeightVal.current -
               getContentYOffset(),
             width: cardWidthVal.current,
-            opacity: 1,
-            zIndex: 40,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
+            zIndex: isVisible ? 40 : 5,
           });
         }
       }
@@ -222,7 +268,7 @@ export function useGsapHero(
         : "#details-even";
 
       const activeIdxVal = order[0];
-      const activeSlide = slides[activeIdxVal];
+      const activeSlide = slidesRef.current[activeIdxVal];
 
       // Update React state for index (affects active-bg class)
       setActiveIdx(activeIdxVal);
@@ -326,13 +372,16 @@ export function useGsapHero(
             const xNew =
               offsetLeftVal.current +
               (rest.length - 1) * (cardWidthVal.current + gapVal.current);
+            const isVisible = rest.length - 1 < getMaxVisibleThumbs();
             if (cardPrv) {
               gsap.set(cardPrv, {
                 x: xNew,
                 y: offsetTopVal.current,
                 width: cardWidthVal.current,
                 height: cardHeightVal.current,
-                zIndex: 30,
+                zIndex: isVisible ? 30 : 5,
+                opacity: isVisible ? 1 : 0,
+                pointerEvents: isVisible ? "auto" : "none",
                 borderRadius: 12,
                 scale: 1,
               });
@@ -347,8 +396,9 @@ export function useGsapHero(
                   cardHeightVal.current -
                   getContentYOffset(),
                 width: cardWidthVal.current,
-                opacity: 1,
-                zIndex: 40,
+                opacity: isVisible ? 1 : 0,
+                pointerEvents: isVisible ? "auto" : "none",
+                zIndex: isVisible ? 40 : 5,
               });
             }
 
@@ -360,6 +410,7 @@ export function useGsapHero(
       // Animating the rest of the thumbnails leftward
       rest.forEach((i, index) => {
         if (i !== prv) {
+          const isVisible = index < getMaxVisibleThumbs();
           const xNew =
             offsetLeftVal.current +
             index * (cardWidthVal.current + gapVal.current);
@@ -368,12 +419,14 @@ export function useGsapHero(
 
           if (cardI) {
             gsap.killTweensOf(cardI);
-            gsap.set(cardI, { zIndex: 30 });
+            gsap.set(cardI, { zIndex: isVisible ? 30 : 5 });
             gsap.to(cardI, {
               x: xNew,
               y: offsetTopVal.current,
               width: cardWidthVal.current,
               height: cardHeightVal.current,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * (index + 1),
@@ -389,8 +442,9 @@ export function useGsapHero(
                 cardHeightVal.current -
                 getContentYOffset(),
               width: cardWidthVal.current,
-              opacity: 1,
-              zIndex: 40,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
+              zIndex: isVisible ? 40 : 5,
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * (index + 1),
@@ -418,7 +472,7 @@ export function useGsapHero(
         : "#details-even";
 
       const activeIdxVal = order[0];
-      const activeSlide = slides[activeIdxVal];
+      const activeSlide = slidesRef.current[activeIdxVal];
 
       // Update React state for index (affects active-bg class)
       setActiveIdx(activeIdxVal);
@@ -527,6 +581,8 @@ export function useGsapHero(
                 width: cardWidthVal.current,
                 height: cardHeightVal.current,
                 zIndex: 30,
+                opacity: 1,
+                pointerEvents: "auto",
                 borderRadius: 12,
                 scale: 1,
               });
@@ -542,6 +598,7 @@ export function useGsapHero(
                   getContentYOffset(),
                 width: cardWidthVal.current,
                 opacity: 1,
+                pointerEvents: "auto",
                 zIndex: 40,
               });
             }
@@ -554,6 +611,7 @@ export function useGsapHero(
       // Animating the rest of the thumbnails rightward
       rest.forEach((i, index) => {
         if (i !== prv) {
+          const isVisible = index < getMaxVisibleThumbs();
           const xNew =
             offsetLeftVal.current +
             index * (cardWidthVal.current + gapVal.current);
@@ -562,12 +620,14 @@ export function useGsapHero(
 
           if (cardI) {
             gsap.killTweensOf(cardI);
-            gsap.set(cardI, { zIndex: 30 });
+            gsap.set(cardI, { zIndex: isVisible ? 30 : 5 });
             gsap.to(cardI, {
               x: xNew,
               y: offsetTopVal.current,
               width: cardWidthVal.current,
               height: cardHeightVal.current,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * index,
@@ -583,8 +643,9 @@ export function useGsapHero(
                 cardHeightVal.current -
                 getContentYOffset(),
               width: cardWidthVal.current,
-              opacity: 1,
-              zIndex: 40,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
+              zIndex: isVisible ? 40 : 5,
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * index,
@@ -718,13 +779,16 @@ export function useGsapHero(
             const xNew =
               offsetLeftVal.current +
               (newOrder.length - 2) * (cardWidthVal.current + gapVal.current);
+            const isVisible = newOrder.length - 2 < getMaxVisibleThumbs();
             if (cardPrv) {
               gsap.set(cardPrv, {
                 x: xNew,
                 y: offsetTopVal.current,
                 width: cardWidthVal.current,
                 height: cardHeightVal.current,
-                zIndex: 30,
+                zIndex: isVisible ? 30 : 5,
+                opacity: isVisible ? 1 : 0,
+                pointerEvents: isVisible ? "auto" : "none",
                 borderRadius: 12,
                 scale: 1,
               });
@@ -739,8 +803,9 @@ export function useGsapHero(
                   cardHeightVal.current -
                   getContentYOffset(),
                 width: cardWidthVal.current,
-                opacity: 1,
-                zIndex: 40,
+                opacity: isVisible ? 1 : 0,
+                pointerEvents: isVisible ? "auto" : "none",
+                zIndex: isVisible ? 40 : 5,
               });
             }
 
@@ -753,6 +818,7 @@ export function useGsapHero(
       const rest = newOrder.slice(1);
       rest.forEach((i, index) => {
         if (i !== oldActive) {
+          const isVisible = index < getMaxVisibleThumbs();
           const xNew =
             offsetLeftVal.current +
             index * (cardWidthVal.current + gapVal.current);
@@ -761,12 +827,14 @@ export function useGsapHero(
 
           if (cardI) {
             gsap.killTweensOf(cardI);
-            gsap.set(cardI, { zIndex: 30 });
+            gsap.set(cardI, { zIndex: isVisible ? 30 : 5 });
             gsap.to(cardI, {
               x: xNew,
               y: offsetTopVal.current,
               width: cardWidthVal.current,
               height: cardHeightVal.current,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * (index + 1),
@@ -777,10 +845,14 @@ export function useGsapHero(
             gsap.killTweensOf(contentI);
             gsap.to(contentI, {
               x: xNew,
-              y: offsetTopVal.current + cardHeightVal.current - 90,
+              y:
+                offsetTopVal.current +
+                cardHeightVal.current -
+                getContentYOffset(),
               width: cardWidthVal.current,
-              opacity: 1,
-              zIndex: 40,
+              opacity: isVisible ? 1 : 0,
+              pointerEvents: isVisible ? "auto" : "none",
+              zIndex: isVisible ? 40 : 5,
               duration: 1.0,
               ease: "sine.inOut",
               delay: 0.05 * (index + 1),
@@ -835,7 +907,7 @@ export function useGsapHero(
 
       // Initial load animations
       const activeEl = container.querySelector("#details-even");
-      const activeSlide = slides[orderRef.current[0]];
+      const activeSlide = slidesRef.current[orderRef.current[0]];
 
       if (activeEl) {
         const textEl = activeEl.querySelector(".text");
@@ -868,6 +940,7 @@ export function useGsapHero(
 
       const rest = orderRef.current.slice(1);
       rest.forEach((i, index) => {
+        const isVisible = index < getMaxVisibleThumbs();
         const card = getCard(i);
         const content = getCardContent(i);
         if (card) {
@@ -876,6 +949,8 @@ export function useGsapHero(
               offsetLeftVal.current +
               400 +
               index * (cardWidthVal.current + gapVal.current),
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
           });
         }
         if (content) {
@@ -885,6 +960,8 @@ export function useGsapHero(
               400 +
               index * (cardWidthVal.current + gapVal.current),
             width: cardWidthVal.current,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
           });
         }
       });
@@ -903,6 +980,7 @@ export function useGsapHero(
       });
 
       rest.forEach((i, index) => {
+        const isVisible = index < getMaxVisibleThumbs();
         const card = getCard(i);
         const content = getCardContent(i);
         const posX =
@@ -912,6 +990,8 @@ export function useGsapHero(
         if (card) {
           gsap.to(card, {
             x: posX,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
             duration: 1.0,
             ease: "sine.inOut",
             delay: startDelay + 0.05 * index,
@@ -921,6 +1001,8 @@ export function useGsapHero(
           gsap.to(content, {
             x: posX,
             width: cardWidthVal.current,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
             duration: 1.0,
             ease: "sine.inOut",
             delay: startDelay + 0.05 * index,
