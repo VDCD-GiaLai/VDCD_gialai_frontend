@@ -18,6 +18,7 @@ interface LeaderProfile {
   name: string;
   role: string;
   eyebrow: string;
+  quote?: string;
   bio: string[];
   experience: string;
   expertise: string[];
@@ -30,6 +31,9 @@ const leaders: LeaderProfile[] = [
     name: "Ông Cao Quân Vũ",
     role: "Phó Chủ tịch HĐQT kiêm Tổng Giám đốc",
     eyebrow: "LÃNH ĐẠO ĐIỀU HÀNH",
+    avatarSrc: "/about-us/sep-cao-quan-vu.webp",
+    quote:
+      "Kết nối công nghệ, chuyên gia và nguồn lực nhằm đưa các giải pháp số đi vào thực tiễn, đồng hành cùng sự phát triển bền vững của Gia Lai và khu vực Tây Nguyên.",
     bio: [
       "Với tầm nhìn chiến lược và sứ mệnh thúc đẩy đổi mới sáng tạo, Ông Cao Quân Vũ dẫn dắt Trung tâm Đổi mới Sáng tạo Gia Lai trở thành đầu mối kết nối công nghệ, chuyên gia và nguồn lực cho sự phát triển kinh tế số của tỉnh Gia Lai và khu vực Tây Nguyên.",
       "Dưới sự lãnh đạo của Ông, Trung tâm đã xây dựng và triển khai các giải pháp chuyển đổi số toàn diện, từ hạ tầng dữ liệu đến nền tảng phân tích thông minh, phục vụ cả cơ quan quản lý nhà nước và doanh nghiệp trên địa bàn.",
@@ -103,6 +107,23 @@ function LeadershipCard({
               {leader.role}
             </p>
           </div>
+
+          {/* Executive Dialogue / Quote Block */}
+          {leader.quote && (
+            <div className="relative p-5 sm:p-6 bg-zinc-50 dark:bg-zinc-900/60 border-l-2 border-accent-red max-w-2xl transition-colors duration-300">
+              <div className="flex items-start gap-2.5">
+                <span className="text-2xl sm:text-3xl font-heading font-black text-accent-red select-none leading-none shrink-0 -mt-0.5">
+                  “
+                </span>
+                <p className="text-sm sm:text-base text-zinc-800 dark:text-zinc-200 italic font-sans leading-relaxed flex-1">
+                  {leader.quote}
+                  <span className="text-2xl sm:text-3xl font-heading font-black text-accent-red select-none leading-none inline-block ml-1.5 align-baseline">
+                    ”
+                  </span>
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Bio Paragraphs */}
           <div className="space-y-4 max-w-2xl">

@@ -18,9 +18,10 @@ import { MapPin, ArrowRight } from "@phosphor-icons/react";
 interface ProjectCardProps {
   project: ProjectEntry;
   aspectClass: string;
+  index?: number;
 }
 
-const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
+const ProjectCard = ({ project, aspectClass, index = 1 }: ProjectCardProps) => {
   const router = useRouter();
   const startTransition = useTransitionStore((s) => s.startTransition);
 
@@ -59,7 +60,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 
   return (
     <div
-      className="group relative block cursor-pointer overflow-hidden rounded-none bg-zinc-950 shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/40 transition-all duration-500 select-none"
+      className="project-card group relative block cursor-pointer overflow-hidden rounded-none bg-zinc-950 shadow-md shadow-black/20 hover:shadow-2xl transition-shadow duration-500 select-none"
       role="link"
       tabIndex={0}
       aria-label={`Xem dự án ${project.title}`}
@@ -83,39 +84,72 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
 
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Floating Top Badges */}
-        <div className="absolute top-4 right-4 z-10 flex items-center justify-end pointer-events-none">
-          <span className="text-[11px] font-mono text-zinc-200 bg-black/50 backdrop-blur-md px-2.5 py-1 shadow-sm">
-            {project.year}
-          </span>
+        {/* ── Default bottom: gradient + title ── */}
+        <div className="project-card-default-bottom absolute bottom-0 left-0 right-0 z-10 transition-transform transition-opacity duration-500 ease-in-out">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+          <div className="relative px-6 pb-5 pt-12">
+            <div className="flex items-center gap-1.5 text-zinc-300 text-xs font-mono mb-1.5">
+              <MapPin weight="fill" className="text-accent-red w-3.5 h-3.5" />
+              <span>{project.location}</span>
+              <span className="opacity-40">·</span>
+              <span className="uppercase text-[10px] tracking-wider text-accent-red font-bold">
+                {project.category}
+              </span>
+            </div>
+            <h3 className="font-heading text-lg md:text-xl font-bold uppercase leading-snug line-clamp-2 text-white">
+              {project.title}
+            </h3>
+            <div className="mt-3 h-px bg-white/20" />
+          </div>
         </div>
 
-        {/* Bottom Text Content */}
-        <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end z-10">
-          <div className="flex items-center gap-1.5 text-zinc-300 text-xs font-mono mb-2">
-            <MapPin weight="fill" className="text-accent-red w-3.5 h-3.5" />
-            <span>{project.location}</span>
-            <span className="opacity-40">·</span>
-            <span className="uppercase text-[10px] tracking-wider text-zinc-400">
-              {project.category}
+        {/* ── White/Dark Data Panel — slides UP on hover ── */}
+        <div className="project-card-hover-panel absolute bottom-0 left-0 right-0 z-20 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md transition-transform transition-opacity duration-500 ease-in-out">
+          {/* Panel content wrapper */}
+          <div className="relative overflow-hidden px-6 pt-5 pb-6">
+            {/* Decorative number */}
+            <span
+              aria-hidden="true"
+              className="absolute top-0 right-0 font-black leading-none select-none pointer-events-none text-black/5 dark:text-white/5"
+              style={{
+                fontSize: "10rem",
+                lineHeight: 1,
+                transform: "translateX(25%) translateY(-10%)",
+              }}
+            >
+              {index}
             </span>
-          </div>
 
-          <h3 className="font-heading text-xl md:text-2xl font-extrabold text-white leading-tight mb-3 group-hover:text-accent-red transition-colors duration-300 line-clamp-2">
-            {project.title}
-          </h3>
+            {/* Tag */}
+            <div className="relative flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 flex-shrink-0 bg-accent-red" />
+              <span className="font-bold text-[10px] text-accent-red uppercase tracking-[0.25em]">
+                {project.category}
+              </span>
+              <span className="text-[10px] font-mono text-zinc-400 ml-auto">
+                {project.year}
+              </span>
+            </div>
 
-          <div className="flex items-center gap-2 text-xs font-bold text-white/90 group-hover:text-accent-red uppercase tracking-wider transition-colors">
-            <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover:after:w-full after:transition-all after:duration-300">
-              Xem chi tiết
-            </span>
-            <ArrowRight
-              weight="bold"
-              className="w-3.5 h-3.5 text-accent-red transform group-hover:translate-x-1.5 transition-transform duration-300"
-            />
+            {/* Title */}
+            <h3 className="relative font-heading text-base font-bold uppercase leading-snug line-clamp-2 text-black dark:text-white mb-2">
+              {project.title}
+            </h3>
+
+            {/* Description */}
+            {project.description && (
+              <p className="relative text-xs leading-relaxed line-clamp-2 text-secondary dark:text-zinc-400">
+                {project.description}
+              </p>
+            )}
+
+            {/* Arrow */}
+            <div className="relative mt-4 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-accent-red">
+                Xem chi tiết
+              </span>
+              <ArrowRight className="w-4 h-4 text-accent-red" weight="bold" />
+            </div>
           </div>
         </div>
       </div>
@@ -178,10 +212,11 @@ export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {paginatedProjects.length > 0 ? (
-          paginatedProjects.map((proj) => (
+          paginatedProjects.map((proj, idx) => (
             <ProjectCard
               key={proj.id}
               project={proj}
+              index={(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}
               aspectClass="prj-card__image-wrapper--landscape"
             />
           ))

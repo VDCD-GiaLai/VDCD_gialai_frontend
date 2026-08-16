@@ -11,7 +11,7 @@ import type { PageBannerData, PageKey } from "@/types/banner";
 export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
   projects: {
     image:
-      "https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited-768x576.jpg",
+      "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg",
     title: "Những công trình\nkiến tạo giá trị",
     subtitle:
       "Mỗi dự án là một hành trình đồng hành cùng khách hàng — từ khảo sát thực địa đến giám sát thi công, chuyển đổi số hóa và bàn giao giải pháp bền vững.",

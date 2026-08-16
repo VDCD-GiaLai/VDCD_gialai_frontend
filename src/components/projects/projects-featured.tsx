@@ -14,7 +14,7 @@ interface ProjectsFeaturedProps {
 
 /* ── Big Card (50% left side) ────────────────────────── */
 
-const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
+export const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
   <Link
     href={`/projects/${project.id}`}
     className="group relative block w-full h-[450px] sm:h-[520px] lg:h-full min-h-[480px] lg:min-h-[560px] overflow-hidden rounded-none bg-zinc-950 select-none transition-all duration-500"
@@ -41,30 +41,41 @@ const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
       </div>
 
       <div>
-        <div className="flex items-center gap-2 text-zinc-300 text-xs font-mono mb-2">
-          <MapPin weight="fill" className="text-accent-red w-3.5 h-3.5" />
-          <span>{project.location}</span>
-          <span className="opacity-40">·</span>
-          <span className="uppercase text-[11px] tracking-wider text-zinc-400">
-            {project.category}
-          </span>
+        {/* Category & Title */}
+        <div className="transform transition-transform duration-500 ease-out group-hover:-translate-y-2">
+          <div className="flex items-center gap-2 text-zinc-300 text-xs font-mono mb-2">
+            <MapPin weight="fill" className="text-accent-red w-3.5 h-3.5" />
+            <span>{project.location}</span>
+            <span className="opacity-40">·</span>
+            <span className="uppercase text-[11px] tracking-wider text-accent-red font-bold">
+              {project.category}
+            </span>
+          </div>
+          <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight">
+            {project.title}
+          </h3>
         </div>
-        <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight mb-3 group-hover:text-accent-red transition-colors duration-300">
-          {project.title}
-        </h3>
-        {project.description && (
-          <p className="text-zinc-300 text-xs sm:text-sm line-clamp-2 leading-relaxed max-w-xl mb-4 opacity-90">
-            {project.description}
-          </p>
-        )}
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white group-hover:text-accent-red transition-colors">
-          <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover:after:w-full after:transition-all after:duration-300">
-            Xem chi tiết dự án
-          </span>
-          <ArrowRight
-            weight="bold"
-            className="w-4 h-4 text-accent-red transform group-hover:translate-x-1.5 transition-transform duration-300"
-          />
+
+        {/* Hidden Reveal Section using grid 0fr -> 1fr */}
+        <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+          <div className="overflow-hidden">
+            <div className="flex flex-col gap-4 pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+              {project.description && (
+                <p className="text-zinc-300 text-xs sm:text-sm line-clamp-2 leading-relaxed max-w-xl opacity-90">
+                  {project.description}
+                </p>
+              )}
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white group-hover:text-accent-red transition-colors group/btn w-fit">
+                <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
+                  Xem chi tiết dự án
+                </span>
+                <ArrowRight
+                  weight="bold"
+                  className="w-4 h-4 text-accent-red transform group-hover/btn:translate-x-1.5 transition-transform duration-300"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +84,7 @@ const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
 
 /* ── Small Card (50% right side stacked) ─────────────── */
 
-const FeaturedSmallCard = ({ project }: { project: ProjectEntry }) => (
+export const FeaturedSmallCard = ({ project }: { project: ProjectEntry }) => (
   <Link
     href={`/projects/${project.id}`}
     className="group relative block w-full h-[220px] sm:h-[260px] lg:h-1/2 overflow-hidden rounded-none bg-zinc-950 select-none flex-1 transition-all duration-500"
@@ -97,25 +108,41 @@ const FeaturedSmallCard = ({ project }: { project: ProjectEntry }) => (
       </div>
 
       <div>
-        <div className="flex items-center gap-1.5 text-zinc-300 text-[11px] font-mono mb-1">
-          <MapPin weight="fill" className="text-accent-red w-3 h-3" />
-          <span>{project.location}</span>
-          <span className="opacity-40">·</span>
-          <span className="uppercase text-[10px] tracking-wider text-zinc-400">
-            {project.category}
-          </span>
+        {/* Category & Title */}
+        <div className="transform transition-transform duration-500 ease-out group-hover:-translate-y-2">
+          <div className="flex items-center gap-1.5 text-zinc-300 text-[11px] font-mono mb-1">
+            <MapPin weight="fill" className="text-accent-red w-3 h-3" />
+            <span>{project.location}</span>
+            <span className="opacity-40">·</span>
+            <span className="uppercase text-[10px] tracking-wider text-accent-red font-bold">
+              {project.category}
+            </span>
+          </div>
+          <h3 className="font-heading text-lg sm:text-xl font-extrabold text-white leading-snug line-clamp-2">
+            {project.title}
+          </h3>
         </div>
-        <h3 className="font-heading text-lg sm:text-xl font-extrabold text-white leading-snug group-hover:text-accent-red transition-colors duration-300 line-clamp-2 mb-2">
-          {project.title}
-        </h3>
-        <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/90 group-hover:text-accent-red transition-colors">
-          <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover:after:w-full after:transition-all after:duration-300">
-            Chi tiết
-          </span>
-          <ArrowRight
-            weight="bold"
-            className="w-3.5 h-3.5 text-accent-red transform group-hover:translate-x-1.5 transition-transform duration-300"
-          />
+
+        {/* Hidden Reveal Section using grid 0fr -> 1fr */}
+        <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+          <div className="overflow-hidden">
+            <div className="flex flex-col gap-3 pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+              {project.description && (
+                <p className="text-zinc-300 text-xs line-clamp-2 leading-relaxed opacity-90">
+                  {project.description}
+                </p>
+              )}
+              <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white/90 group-hover:text-accent-red transition-colors group/btn w-fit">
+                <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
+                  Chi tiết
+                </span>
+                <ArrowRight
+                  weight="bold"
+                  className="w-3.5 h-3.5 text-accent-red transform group-hover/btn:translate-x-1.5 transition-transform duration-300"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -310,7 +310,8 @@
 }
 
 .prj-card__image-wrapper--landscape {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
+  min-height: 380px;
 }
 
 .prj-card__image-wrapper--portrait {
