@@ -18,7 +18,7 @@ export interface AnimatedCounterProps {
 export function AnimatedCounter({
   target,
   suffix = "",
-  duration = 2,
+  duration = 3.2,
 }: AnimatedCounterProps) {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) =>
@@ -33,7 +33,7 @@ export function AnimatedCounter({
     if (!inView) return;
     const ctrl = animate(count, target, {
       duration,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.25, 1, 0.5, 1],
     });
     return ctrl.stop;
   }, [inView, target, duration, count]);

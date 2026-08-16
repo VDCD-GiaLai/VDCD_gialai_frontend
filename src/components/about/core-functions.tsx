@@ -78,14 +78,14 @@ export function CoreFunctions() {
                 duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group relative flex flex-col justify-start gap-5 p-6 md:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl transition-all duration-300"
+              className="group relative flex flex-col justify-start gap-5 p-6 md:p-8 border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl transition-all duration-300"
             >
               {/* Top: Serial Number & Icon */}
               <div className="flex items-center justify-between">
                 <span className="font-mono text-2xl font-black text-accent-red opacity-80 group-hover:opacity-100 transition-opacity">
                   {item.id}
                 </span>
-                <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-accent-red group-hover:text-white transition-colors duration-300">
+                <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-accent-red group-hover:text-white transition-colors duration-300">
                   <Icon className="w-5 h-5" />
                 </div>
               </div>

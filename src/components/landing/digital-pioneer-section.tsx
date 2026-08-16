@@ -4,46 +4,11 @@ import * as React from "react";
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { OrganizationStatsGrid } from "@/components/ui/organization-stats-grid";
 import {
   fetchOrganizationInfoFromApi,
   type OrganizationInfo,
 } from "@/services/hero.service";
-
-/* ────────────────────────────────────────────────────────
-   STATS DATA (updated per user spec)
-   ──────────────────────────────────────────────────────── */
-
-const STATS = [
-  {
-    key: "staff" as const,
-    fallback: 1500,
-    suffix: "+",
-    label: "Cán bộ, Nhân sự",
-  },
-  {
-    key: "experts" as const,
-    fallback: 250,
-    suffix: "+",
-    label: "Chuyên gia đa lĩnh vực",
-  },
-  {
-    key: "projects" as const,
-    fallback: 12,
-    suffix: "+",
-    label: "Dự án triển khai",
-  },
-  {
-    key: "provinces" as const,
-    fallback: 34,
-    suffix: "",
-    label: "Tỉnh, thành hiện diện",
-  },
-];
-
-/* ────────────────────────────────────────────────────────
-   COMPONENT — Khối 2+3 merged
-   ──────────────────────────────────────────────────────── */
 
 export function DigitalPioneerSection() {
   const [orgInfo, setOrgInfo] = React.useState<OrganizationInfo | null>(null);
@@ -94,26 +59,13 @@ export function DigitalPioneerSection() {
           </div>
         </div>
 
-        {/* ── Bottom Row: 4 Stats ── */}
-        <div className="pioneer-reveal grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-200 dark:bg-zinc-800 border-t border-zinc-200 dark:border-zinc-800 mt-8 md:mt-12">
-          {STATS.map((s) => {
-            const val = (orgInfo?.stats as any)?.[s.key] ?? s.fallback;
-
-            return (
-              <div
-                key={s.key}
-                className="bg-canvas-white dark:bg-zinc-950 py-6 md:py-8 px-4 md:px-6 flex flex-col items-center text-center group cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900/80 transition-colors duration-300"
-              >
-                <div className="text-4xl md:text-5xl font-black text-black dark:text-white group-hover:text-accent-red tracking-tighter font-heading tabular-nums leading-none mb-3 transition-colors duration-300">
-                  <AnimatedCounter target={val} suffix={s.suffix} />
-                </div>
-                <span className="text-xs text-secondary dark:text-zinc-400 group-hover:text-black dark:group-hover:text-zinc-200 leading-snug block transition-colors duration-300">
-                  {s.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+        {/* ── Bottom Row: 4 Stats Unified Grid ── */}
+        <OrganizationStatsGrid
+          stats={orgInfo?.stats}
+          showDescription={true}
+          itemBgClassName="bg-canvas-white dark:bg-zinc-950 hover:bg-zinc-100/80 dark:hover:bg-zinc-900/80"
+          className="pioneer-reveal mt-8 md:mt-12"
+        />
       </div>
     </section>
   );

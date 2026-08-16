@@ -75,7 +75,7 @@ export function DevelopmentOrientation() {
           </p>
 
           {/* Aerial drone map view image of Gia Lai with subtle data lines */}
-          <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 group shadow-md aspect-[16/10]">
+          <div className="relative overflow-hidden border border-zinc-200 dark:border-zinc-800 group shadow-md aspect-[16/10]">
             <Image
               src="/images/home/farm_area_drone_view.webp"
               alt="Gia Lai từ trên cao - Nền tảng dữ liệu số"
@@ -104,7 +104,7 @@ export function DevelopmentOrientation() {
                   duration: 0.5,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="group relative p-6 md:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl transition-all duration-300"
+                className="group relative p-6 md:p-8 border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/40 hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex flex-col sm:flex-row sm:items-start gap-6">
                   {/* Number & Icon */}
@@ -112,7 +112,7 @@ export function DevelopmentOrientation() {
                     <span className="font-mono text-2xl font-black text-accent-red opacity-90 group-hover:opacity-100 transition-opacity">
                       {item.id}
                     </span>
-                    <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-accent-red group-hover:text-white transition-colors duration-300">
+                    <div className="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:bg-accent-red group-hover:text-white transition-colors duration-300">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
