@@ -26,7 +26,6 @@ import { CoreFunctions } from "@/components/about/core-functions";
 import { EcosystemNetwork } from "@/components/about/ecosystem-network";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
 import { DevelopmentOrientation } from "@/components/about/development-orientation";
-import { Card } from "@/components/ui/card";
 
 export default function AboutPage() {
   const [orgInfo, setOrgInfo] = useState<OrganizationInfo | null>(null);
@@ -83,7 +82,7 @@ export default function AboutPage() {
       <HeroRadar />
 
       {/* Main Layout Container with spatial rhythm */}
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-6 md:pb-8 space-y-14 md:space-y-20">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-6 md:pb-8 space-y-14 md:space-y-20">
         {/* 2. Bento Intro Section */}
         <BentoIntro orgInfo={orgInfo} />
 
@@ -106,7 +105,7 @@ export default function AboutPage() {
         <EcosystemSection />
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
         {/* 6. Development Orientation Section (Định hướng phát triển) */}
         <DevelopmentOrientation />
 
@@ -118,47 +117,42 @@ export default function AboutPage() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <Card
-            className="hover:border-accent-red/20 transition-all duration-500 overflow-hidden"
-            innerClassName="p-0"
-          >
-            <div className="p-8 md:p-16 space-y-6 relative overflow-hidden">
-              <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300 whitespace-nowrap">
-                Chuyển đổi số tương lai của bạn
-              </h3>
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-16 space-y-6 relative overflow-hidden transition-all duration-300">
+            <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300 whitespace-nowrap">
+              Chuyển đổi số tương lai của bạn
+            </h3>
 
-              <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300">
-                Hãy liên hệ với chúng tôi để thiết kế các giải pháp công nghệ
-                tối ưu nhất dành riêng cho doanh nghiệp, cơ quan của bạn tại địa
-                bàn tỉnh.
-              </p>
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300">
+              Hãy liên hệ với chúng tôi để thiết kế các giải pháp công nghệ tối
+              ưu nhất dành riêng cho doanh nghiệp, cơ quan của bạn tại địa bàn
+              tỉnh.
+            </p>
 
-              <div className="flex flex-wrap justify-center gap-4 pt-4 relative z-10">
-                <a
-                  href="mailto:dmstgialai@vdcd.vn"
-                  className="inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 rounded-xl shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
-                >
-                  Gửi email liên hệ
-                  <span className="w-8 h-8 rounded-full bg-white/10 dark:bg-zinc-100 flex items-center justify-center text-inherit group-hover:bg-white/20 transition-colors">
-                    <Envelope className="w-4 h-4" weight="thin" />
-                  </span>
-                </a>
+            <div className="flex flex-wrap justify-center gap-4 pt-4 relative z-10">
+              <a
+                href="mailto:dmstgialai@vdcd.vn"
+                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
+              >
+                Gửi email liên hệ
+                <span className="w-8 h-8 bg-white/10 dark:bg-zinc-100 flex items-center justify-center text-inherit group-hover:bg-white/20 transition-colors">
+                  <Envelope className="w-4 h-4" weight="thin" />
+                </span>
+              </a>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    window.dispatchEvent(new CustomEvent("open-mega-menu"));
-                  }}
-                  className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-xl backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
-                >
-                  Khám phá giải pháp
-                  <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
-                    <ArrowUpRight className="w-4 h-4" weight="thin" />
-                  </span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("open-mega-menu"));
+                }}
+                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
+              >
+                Khám phá giải pháp
+                <span className="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+                  <ArrowUpRight className="w-4 h-4" weight="thin" />
+                </span>
+              </button>
             </div>
-          </Card>
+          </div>
         </motion.section>
       </div>
     </div>

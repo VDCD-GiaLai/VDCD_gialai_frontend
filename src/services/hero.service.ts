@@ -168,7 +168,7 @@ export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
   name: "Trung tâm Đổi mới Sáng tạo Gia Lai",
   tagline: "Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.",
   description:
-    "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
+    "<p>Là cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, Trung tâm Đổi mới Sáng tạo Gia Lai đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai và khu vực Tây Nguyên.</p><p>Trung tâm Đổi mới Sáng tạo Gia Lai kết nối công nghệ, chuyên gia và nguồn lực từ hệ sinh thái VDCD Group nhằm đưa các giải pháp số vào thực tiễn. Từ thu thập dữ liệu hiện trường, phân tích, quản lý đến hỗ trợ ra quyết định, Trung tâm đồng hành cùng cơ quan quản lý và doanh nghiệp trong quá trình đổi mới, chuyển đổi số và nâng cao hiệu quả hoạt động.</p>",
   mission:
     "Thúc đẩy đổi mới sáng tạo, hỗ trợ doanh nghiệp và chuyển đổi số cho tỉnh Gia Lai.",
   vision:
