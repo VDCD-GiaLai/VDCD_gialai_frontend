@@ -5,9 +5,12 @@ import { useEffect, useState } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { fetchPageBannerFromApi } from "@/services/banner.service";
+import {
+  fetchPageBannerFromApi,
+  getCachedPageBanner,
+  MOCK_PAGE_BANNERS,
+} from "@/services/banner.service";
 import type { PageBannerData, PageBannerCta, PageKey } from "@/types/banner";
-import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
 import { ArrowUpRight, ArrowRight } from "@phosphor-icons/react";
 
 const fadeInUp = {
@@ -31,9 +34,10 @@ export const PageHeroSplitBanner = ({
   bannerData: bannerDataOverride,
   ariaLabel,
 }: PageHeroSplitBannerProps) => {
-  const [banner, setBanner] = useState<PageBannerData>(
-    bannerDataOverride || MOCK_PAGE_BANNERS[pageKey],
-  );
+  const [banner, setBanner] = useState<PageBannerData>(() => {
+    if (bannerDataOverride) return bannerDataOverride;
+    return getCachedPageBanner(pageKey) || MOCK_PAGE_BANNERS[pageKey];
+  });
 
   useEffect(() => {
     if (bannerDataOverride) return;
@@ -65,9 +69,15 @@ export const PageHeroSplitBanner = ({
       : "inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-white/40 text-white font-mono-label text-[10px] md:text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 rounded-lg backdrop-blur-sm group";
 
     const arrowIcon = isPrimary ? (
-      <ArrowRight weight="thin" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+      <ArrowRight
+        weight="thin"
+        className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+      />
     ) : (
-      <ArrowUpRight weight="thin" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      <ArrowUpRight
+        weight="thin"
+        className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      />
     );
 
     if (isInternal && !cta.href.startsWith("#")) {

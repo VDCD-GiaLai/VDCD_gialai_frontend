@@ -5,9 +5,12 @@ import { useEffect, useState } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { fetchPageBannerFromApi } from "@/services/banner.service";
+import {
+  fetchPageBannerFromApi,
+  getCachedPageBanner,
+  MOCK_PAGE_BANNERS,
+} from "@/services/banner.service";
 import type { PageBannerData, PageBannerCta, PageKey } from "@/types/banner";
-import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
 import "./page-hero-banner.css";
 
 /* ── Animation variants ─────────────────────────────── */
@@ -43,9 +46,10 @@ export const PageHeroBanner = ({
   ariaLabel,
   showScrollCue = false,
 }: PageHeroBannerProps) => {
-  const [banner, setBanner] = useState<PageBannerData>(
-    bannerDataOverride || MOCK_PAGE_BANNERS[pageKey],
-  );
+  const [banner, setBanner] = useState<PageBannerData>(() => {
+    if (bannerDataOverride) return bannerDataOverride;
+    return getCachedPageBanner(pageKey) || MOCK_PAGE_BANNERS[pageKey];
+  });
 
   useEffect(() => {
     if (bannerDataOverride) return;

@@ -103,33 +103,65 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
 ];
 
+let cachedHeroSlides: HeroSlideItem[] | null = null;
+let heroSlidesPromise: Promise<HeroSlideItem[]> | null = null;
+
+export function getCachedHeroSlides(): HeroSlideItem[] | null {
+  return cachedHeroSlides;
+}
+
 export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
   if (USE_MOCK_DATA) {
+    cachedHeroSlides = MOCK_HERO_SLIDES;
     return MOCK_HERO_SLIDES;
   }
-  try {
-    const res = await fetch(`${API_BASE_URL}/slides`, { cache: "no-store" });
-    if (res.ok) {
-      const body = await res.json();
-      const items = body.data || body;
-      if (Array.isArray(items) && items.length > 0) {
-        return items.map((slide, idx) => ({
-          id: slide.id || String(idx + 1),
-          title: slide.title,
-          subtitle: slide.subtitle || "Tập đoàn VDCD",
-          description: slide.description || "",
-          tag: slide.tag || "DỰ ÁN TRỌNG ĐIỂM",
-          location: slide.subtitle || slide.location || "Việt Nam",
-          image: slide.imageUrl || slide.image || "",
-          statValue: slide.statValue || "100%",
-          statLabel: slide.statLabel || "Tiến độ",
-        }));
-      }
-    }
-  } catch (err) {
-    console.warn("Failed to fetch slides from API, fallback to mock:", err);
+  if (cachedHeroSlides) {
+    return cachedHeroSlides;
   }
-  return MOCK_HERO_SLIDES;
+  if (heroSlidesPromise) {
+    return heroSlidesPromise;
+  }
+
+  heroSlidesPromise = (async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/slides`, { cache: "no-store" });
+      if (res.ok) {
+        const body = await res.json();
+        const items = body.data || body;
+        if (Array.isArray(items) && items.length > 0) {
+          const mapped = items.map((slide, idx) => ({
+            id: slide.id || String(idx + 1),
+            title: slide.title,
+            subtitle: slide.subtitle || "Tập đoàn VDCD",
+            description: slide.description || "",
+            tag: slide.tag || "DỰ ÁN TRỌNG ĐIỂM",
+            location: slide.subtitle || slide.location || "Việt Nam",
+            image: slide.imageUrl || slide.image || "",
+            statValue: slide.statValue || "100%",
+            statLabel: slide.statLabel || "Tiến độ",
+          }));
+          cachedHeroSlides = mapped;
+          if (typeof window !== "undefined") {
+            mapped.forEach((s) => {
+              if (s.image) {
+                const img = new Image();
+                img.src = s.image;
+              }
+            });
+          }
+          return mapped;
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to fetch slides from API, fallback to mock:", err);
+    } finally {
+      heroSlidesPromise = null;
+    }
+    cachedHeroSlides = MOCK_HERO_SLIDES;
+    return MOCK_HERO_SLIDES;
+  })();
+
+  return heroSlidesPromise;
 }
 
 export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {

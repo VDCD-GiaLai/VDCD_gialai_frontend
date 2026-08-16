@@ -4,8 +4,11 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { motion } from "framer-motion";
-import { fetchPageBannerFromApi } from "@/services/banner.service";
-import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
+import {
+  fetchPageBannerFromApi,
+  getCachedPageBanner,
+  MOCK_PAGE_BANNERS,
+} from "@/services/banner.service";
 import type { PageBannerData } from "@/types/banner";
 
 /* ── Animation variants ─────────────────────────────────── */
@@ -26,7 +29,7 @@ import Link from "next/link";
 
 export const NewsHero = () => {
   const [banner, setBanner] = useState<PageBannerData>(
-    MOCK_PAGE_BANNERS["news"],
+    () => getCachedPageBanner("news") || MOCK_PAGE_BANNERS["news"],
   );
 
   useEffect(() => {

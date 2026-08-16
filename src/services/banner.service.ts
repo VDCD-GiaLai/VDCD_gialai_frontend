@@ -162,9 +162,52 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
 };
 
 /* ──────────────────────────────────────────────────────────
+   In-memory Cache & Image Preload for Page Banners
+   Prevents flashing mock image when revisiting or switching pages
+   ────────────────────────────────────────────────────────── */
+
+const pageBannerCache = new Map<PageKey, PageBannerData>();
+const pageBannerPromises = new Map<PageKey, Promise<PageBannerData>>();
+
+/** Synchronously retrieve cached banner data if available */
+export const getCachedPageBanner = (
+  pageKey: PageKey,
+): PageBannerData | null => {
+  return pageBannerCache.get(pageKey) || null;
+};
+
+/** Preload image in browser memory for instant display */
+const preloadBannerImage = (imageUrl: string) => {
+  if (typeof window !== "undefined" && imageUrl) {
+    const img = new Image();
+    img.src = imageUrl;
+  }
+};
+
+const ALL_PAGE_KEYS: PageKey[] = [
+  "projects",
+  "programs",
+  "news",
+  "contact",
+  "careers",
+  "about",
+  "solutions",
+];
+
+/** Prefetch all page banners in background for instant navigation */
+export const prefetchAllPageBanners = () => {
+  if (typeof window === "undefined" || USE_MOCK_DATA) return;
+  ALL_PAGE_KEYS.forEach((key) => {
+    if (!pageBannerCache.has(key) && !pageBannerPromises.has(key)) {
+      fetchPageBannerFromApi(key).catch(() => {});
+    }
+  });
+};
+
+/* ──────────────────────────────────────────────────────────
    Fetch page banner data.
-   In development mode, returns mock data.
-   In production, attempts to fetch from API first.
+   In development mode or when mock enabled, returns mock data.
+   Caches API result in memory to prevent mock flashing on revisits.
    ────────────────────────────────────────────────────────── */
 
 export const fetchPageBannerFromApi = async (
@@ -173,35 +216,57 @@ export const fetchPageBannerFromApi = async (
   const fallback = MOCK_PAGE_BANNERS[pageKey];
 
   if (USE_MOCK_DATA) {
+    pageBannerCache.set(pageKey, fallback);
     return fallback;
   }
 
-  try {
-    const res = await fetch(`${API_BASE_URL}/page-banners/${pageKey}`, {
-      cache: "no-store",
-    });
-
-    if (res.ok) {
-      const body = await res.json();
-      const data = body.data || body;
-
-      if (data && data.imageUrl) {
-        return {
-          image: data.imageUrl || fallback.image,
-          title: data.title || fallback.title,
-          subtitle: data.subtitle || fallback.subtitle,
-          tag: data.tag || fallback.tag,
-          ctaButtons: data.ctaButtons || fallback.ctaButtons,
-          businessLicense: data.businessLicense || fallback.businessLicense,
-        };
-      }
-    }
-  } catch (err) {
-    console.warn(
-      `Failed to fetch banner for page '${pageKey}', fallback to mock:`,
-      err,
-    );
+  // Return cached result immediately if present
+  if (pageBannerCache.has(pageKey)) {
+    return pageBannerCache.get(pageKey)!;
   }
 
-  return fallback;
+  // Deduplicate concurrent fetch requests for the same page
+  if (pageBannerPromises.has(pageKey)) {
+    return pageBannerPromises.get(pageKey)!;
+  }
+
+  const fetchPromise = (async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/page-banners/${pageKey}`, {
+        cache: "no-store",
+      });
+
+      if (res.ok) {
+        const body = await res.json();
+        const data = body.data || body;
+
+        if (data && data.imageUrl) {
+          const bannerData: PageBannerData = {
+            image: data.imageUrl || fallback.image,
+            title: data.title || fallback.title,
+            subtitle: data.subtitle || fallback.subtitle,
+            tag: data.tag || fallback.tag,
+            ctaButtons: data.ctaButtons || fallback.ctaButtons,
+            businessLicense: data.businessLicense || fallback.businessLicense,
+          };
+          pageBannerCache.set(pageKey, bannerData);
+          preloadBannerImage(bannerData.image);
+          return bannerData;
+        }
+      }
+    } catch (err) {
+      console.warn(
+        `Failed to fetch banner for page '${pageKey}', fallback to mock:`,
+        err,
+      );
+    } finally {
+      pageBannerPromises.delete(pageKey);
+    }
+
+    pageBannerCache.set(pageKey, fallback);
+    return fallback;
+  })();
+
+  pageBannerPromises.set(pageKey, fetchPromise);
+  return fetchPromise;
 };
