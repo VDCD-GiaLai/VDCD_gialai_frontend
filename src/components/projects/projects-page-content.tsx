@@ -4,7 +4,6 @@ import * as React from "react";
 import { useRef } from "react";
 import { useProjectsGsap } from "@/hooks/use-projects-gsap";
 import { ProjectsHeroBanner } from "./projects-hero-banner";
-import { ProjectsFeatured } from "./projects-featured";
 import { ProjectsGallery } from "./projects-gallery";
 import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
 import { fetchProjectsFromApi } from "@/services/project.service";
@@ -79,10 +78,7 @@ export const ProjectsPageContent = () => {
       {/* 1 -- Editorial Hero */}
       <ProjectsHeroBanner />
 
-      {/* 2 -- Featured Projects (1 big card 50% left, 2 cards 50% right) */}
-      <ProjectsFeatured projects={projects} />
-
-      {/* 3 -- Gallery */}
+      {/* 2 -- Gallery */}
       <ProjectsGallery projects={filteredProjects} />
     </div>
   );
