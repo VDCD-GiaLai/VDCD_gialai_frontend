@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   MagnifyingGlassPlus,
   ArrowsCounterClockwise,
-  ArrowRight,
 } from "@phosphor-icons/react";
 
 interface BentoIntroProps {
@@ -92,7 +90,7 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
     "Hội nghị Xúc tiến đầu tư tỉnh Gia Lai năm 2026 diễn ra vào ngày 28/3/2026 tại Trung tâm Hội nghị tỉnh (số 01 Nguyễn Tất Thành, phường Quy Nhơn)";
 
   return (
-    <section className="space-y-16 select-none">
+    <section className="select-none">
       {/* 2-Row Synchronized Grid: Row 1 = Image & Main Content, Row 2 = Caption & Leadership */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-10 lg:gap-x-12 gap-y-4 items-stretch">
         {/* ── ROW 1 - LEFT: Image with Scroll-to-Zoom (lg:col-span-6) ── */}
@@ -104,7 +102,7 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onDoubleClick={handleDoubleClick}
-            className={`relative aspect-[3/2] overflow-hidden bg-zinc-950 shadow-md group transition-all duration-300 hover:shadow-xl ${
+            className={`relative overflow-hidden bg-zinc-950 shadow-md group transition-all duration-300 hover:shadow-xl ${
               scale > 1
                 ? isDragging
                   ? "cursor-grabbing"
@@ -210,50 +208,6 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
             <p className="text-xs sm:text-[13px] text-zinc-650 dark:text-zinc-400 italic leading-relaxed">
               {eventCaption}
             </p>
-          </div>
-        </div>
-
-        {/* ── ROW 2 - RIGHT: Executive Leadership Block (lg:col-span-6, Perfectly Aligned with Caption) ── */}
-        <div className="lg:col-span-6 flex items-center">
-          <div className="w-full min-h-[72px] flex items-center justify-between gap-3 sm:gap-4 py-1">
-            {/* Left: Avatar Monogram + Details */}
-            <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-              {/* CQV Monogram Avatar — Square, Editorial */}
-              <div className="w-11 h-11 bg-accent-red/10 flex items-center justify-center text-accent-red font-mono text-xs sm:text-sm font-bold shrink-0 tracking-wider">
-                CQV
-              </div>
-
-              {/* Title & Role */}
-              <div className="min-w-0">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-accent-red font-bold block leading-tight">
-                  LÃNH ĐẠO ĐIỀU HÀNH
-                </span>
-                <h4 className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-heading leading-tight truncate">
-                  Ông Cao Quân Vũ
-                </h4>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-sans leading-tight truncate">
-                  Phó Chủ tịch HĐQT kiêm Tổng Giám đốc
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Text Link Action */}
-            <Link
-              href="/leadership"
-              className="inline-flex items-center gap-1.5 text-accent-red hover:text-accent-red/80 text-xs sm:text-sm font-semibold transition-colors duration-300 shrink-0 cursor-pointer group"
-            >
-              <span className="hidden sm:inline group-hover:underline underline-offset-2">
-                Xem thông tin lãnh đạo
-              </span>
-              <span className="sm:hidden group-hover:underline underline-offset-2">
-                Xem
-              </span>
-              <ArrowRight
-                size={13}
-                weight="bold"
-                className="transition-transform group-hover:translate-x-0.5"
-              />
-            </Link>
           </div>
         </div>
       </div>
