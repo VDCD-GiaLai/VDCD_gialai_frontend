@@ -139,7 +139,7 @@ export function Header() {
     >
       <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
         <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
-          <div className="relative w-[180px] sm:w-[240px] h-[50px] sm:h-[68px]">
+          <div className="relative sm:w-[300px] sm:h-[80px] w-[220px] h-[80px]">
             <Image
               alt="VDCD Logo"
               fill
@@ -161,8 +161,8 @@ export function Header() {
         >
           <Link
             href="/about-us"
-            className={`hover:text-accent-red transition-colors ${
-              pathname === "/about-us" ? "text-accent-red font-semibold" : ""
+            className={`hover:text-primary transition-colors ${
+              pathname === "/about-us" ? "text-primary font-semibold" : ""
             }`}
           >
             Về chúng tôi
@@ -170,9 +170,9 @@ export function Header() {
           {megaMenu.desktop}
           <Link
             href="/projects"
-            className={`hover:text-accent-red transition-colors ${
+            className={`hover:text-primary transition-colors ${
               pathname === "/projects" || pathname.startsWith("/projects/")
-                ? "text-accent-red font-semibold"
+                ? "text-primary font-semibold"
                 : ""
             }`}
           >
@@ -180,9 +180,9 @@ export function Header() {
           </Link>
           <Link
             href="/news"
-            className={`hover:text-accent-red transition-colors ${
+            className={`hover:text-primary transition-colors ${
               pathname === "/news" || pathname.startsWith("/news/")
-                ? "text-accent-red font-semibold"
+                ? "text-primary font-semibold"
                 : ""
             }`}
           >
@@ -190,16 +190,16 @@ export function Header() {
           </Link>
           <Link
             href="/careers"
-            className={`hover:text-accent-red transition-colors ${
-              pathname === "/careers" ? "text-accent-red font-semibold" : ""
+            className={`hover:text-primary transition-colors ${
+              pathname === "/careers" ? "text-primary font-semibold" : ""
             }`}
           >
             Tuyển dụng
           </Link>
           <Link
             href="/contact"
-            className={`hover:text-accent-red transition-colors ${
-              pathname === "/contact" ? "text-accent-red font-semibold" : ""
+            className={`hover:text-primary transition-colors ${
+              pathname === "/contact" ? "text-primary font-semibold" : ""
             }`}
           >
             Liên hệ

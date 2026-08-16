@@ -43,10 +43,10 @@ export interface OrganizationInfo {
 export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   {
     id: "1",
-    title: "KIẾN TẠO HỆ SINH THÁI SỐ",
-    subtitle: "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI",
+    title: "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI",
+    subtitle: "",
     description:
-      "Cầu nối thúc đẩy khởi nghiệp sáng tạo, chuyển giao công nghệ lõi và xây dựng hạ tầng kỹ thuật số đồng bộ, đồng hành cùng sự phát triển kinh tế số của tỉnh Gia Lai.",
+      "Kết nối công nghệ, chuyên gia và doanh nghiệp, thúc đẩy chuyển đổi số và phát triển hệ sinh thái khởi nghiệp đổi mới sáng tạo tại địa phương.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
     image: "/images/home/kientaotuonglai.webp",
@@ -55,10 +55,10 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "2",
-    title: "NÔNG NGHIỆP THÔNG MINH",
-    subtitle: "NÔNG NGHIỆP CÔNG NGHỆ CAO",
+    title: "SỐ HÓA DỮ LIỆU ĐẤT ĐAI",
+    subtitle: "",
     description:
-      "Ứng dụng các giải pháp số hóa IoT, tự động hóa và AI nhằm tối ưu hóa chuỗi giá trị, nâng cao năng suất và gia tăng giá trị bền vững cho nông sản chủ lực Gia Lai.",
+      "Ứng dụng UAV và AI xây dựng bản đồ số hiện trạng 2D/3D, nhận diện ranh thửa và tích hợp trên phần mềm 3DGIS phục vụ đối soát, quản lý dữ liệu đất đai.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
     image: "/images/home/farm_area_drone_view.webp",
@@ -67,10 +67,10 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "3",
-    title: "HỆ THỐNG ĐÔ THỊ SỐ",
-    subtitle: "QUẢN LÝ ĐÔ THỊ THÔNG MINH",
+    title: "QUẢN LÍ TÀI NGUYÊN VÀ MÔI TRƯỜNG",
+    subtitle: "",
     description:
-      "Giải pháp quản lý, giám sát và điều hành đô thị thông minh IOC giúp tối ưu hóa dịch vụ công cộng và hỗ trợ ra quyết định kịp thời cho chính quyền và doanh nghiệp.",
+      "Kết hợp UAV, AI, AutoTimelapse và phần mềm 3DGIS trong khảo sát, kiểm kê, giám sát biến động và hỗ trợ quản lý tài nguyên, môi trường.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
     image: "/images/home/hethongdothiso.webp",
@@ -79,10 +79,10 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "4",
-    title: "TRUNG TÂM DỮ LIỆU VÙNG",
-    subtitle: "HẠ TẦNG KỸ THUẬT SỐ",
+    title: "ĐÔ THỊ THÔNG MINH",
+    subtitle: "",
     description:
-      "Hạ tầng lưu trữ đám mây và xử lý dữ liệu lớn chuẩn quốc tế, đảm bảo tính an toàn, bảo mật tối đa và khả năng mở rộng không giới hạn cho các tổ chức, doanh nghiệp.",
+      "Kết nối camera AI và AutoTimelapse để thu thập dữ liệu hiện trường, tích hợp trên phần mềm AutoTimelapse Pro, hỗ trợ giám sát, quản lý và nâng cao hiệu quả điều hành đô thị.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
     image: "/images/home/data_center.webp",
@@ -91,10 +91,10 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "5",
-    title: "LIÊN KẾT PHÁT TRIỂN",
-    subtitle: "HỆ SINH THÁI VDCD GROUP",
+    title: "TRUNG TÂM DỮ LIỆU VÙNG",
+    subtitle: "",
     description:
-      "Hội tụ năng lực công nghệ lõi và nguồn lực tài chính bền vững trong hệ sinh thái, làm cầu nối vững chắc đưa các giải pháp hiện đại đi vào thực tiễn cuộc sống.",
+      "Hạ tầng Data Center phục vụ lưu trữ, tích hợp và chia sẻ dữ liệu tập trung, kết nối các hệ thống và hỗ trợ khai thác dữ liệu phục vụ quản lý, điều hành.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "Gia Lai",
     image: "/images/home/quynhon_herobanner.webp",
@@ -132,14 +132,16 @@ export async function fetchHeroSlidesFromApi(): Promise<HeroSlideItem[]> {
           const mapped = items.map((slide, idx) => ({
             id: slide.id || String(idx + 1),
             title: slide.title,
-            subtitle: slide.subtitle || "Tập đoàn VDCD",
+            subtitle: slide.subtitle || "",
             description: slide.description || "",
             tag: slide.tag || "DỰ ÁN TRỌNG ĐIỂM",
-            location: slide.subtitle || slide.location || "Việt Nam",
+            location: slide.subtitle || "",
             image: slide.imageUrl || slide.image || "",
             statValue: slide.statValue || "100%",
             statLabel: slide.statLabel || "Tiến độ",
+            order: slide.order ?? idx,
           }));
+          mapped.sort((a, b) => Number(a.order) - Number(b.order));
           cachedHeroSlides = mapped;
           if (typeof window !== "undefined") {
             mapped.forEach((s) => {

@@ -122,6 +122,7 @@ export const ProgramsGrid = () => {
   }, [currentPage, activeFieldId, searchQuery]);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     handleFetch();
   }, [handleFetch]);
 
@@ -179,7 +180,10 @@ export const ProgramsGrid = () => {
         >
           {/* Search */}
           <div className="relative max-w-xl">
-            <MagnifyingGlass weight="thin" className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" />
+            <MagnifyingGlass
+              weight="thin"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500"
+            />
             <input
               type="text"
               placeholder="Tìm kiếm chương trình..."

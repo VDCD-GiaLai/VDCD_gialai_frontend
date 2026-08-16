@@ -27,7 +27,7 @@ export function GsapHero() {
             s.description ||
             "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
           image: s.image || (s as any).imageUrl || "",
-          place: s.subtitle || s.location || "VIỆT NAM",
+          place: s.subtitle || s.location || "",
         };
       });
     }
@@ -47,7 +47,7 @@ export function GsapHero() {
               s.description ||
               "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
             image: s.image || (s as any).imageUrl || "",
-            place: s.subtitle || s.location || "VIỆT NAM",
+            place: s.subtitle || s.location || "",
           };
         });
         setSlides(mapped);
@@ -106,11 +106,11 @@ export function GsapHero() {
             <div className="place-box">
               <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
             </div>
-            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-7xl font-heading">
-              <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
+              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
-            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-7xl font-heading">
-              <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
+              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
@@ -133,10 +133,10 @@ export function GsapHero() {
             <div className="place-box">
               <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
             </div>
-            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-7xl font-heading">
+            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
               <div className="title-1 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
-            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-7xl font-heading">
+            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
               <div className="title-2 font-bold tracking-tighter uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
