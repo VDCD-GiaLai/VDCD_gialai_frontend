@@ -13,13 +13,18 @@ import type { PageBannerData } from "@/types/banner";
 
 /* ── Component ──────────────────────────────────────── */
 
+const PROJECT_HERO_IMAGE =
+  "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg";
+
 export function ProjectsHeroBanner() {
   const fallbackBanner = MOCK_PAGE_BANNERS["projects"];
   const [banner, setBanner] = useState<PageBannerData>(
     () => getCachedPageBanner("projects") || fallbackBanner,
   );
   const [imgSrc, setImgSrc] = useState(
-    () => (getCachedPageBanner("projects") || fallbackBanner).image,
+    () =>
+      (getCachedPageBanner("projects") || fallbackBanner).image ||
+      PROJECT_HERO_IMAGE,
   );
 
   useEffect(() => {
@@ -53,7 +58,7 @@ export function ProjectsHeroBanner() {
           sizes="100vw"
           className="object-cover object-center"
           transformation={[{ width: 1920, quality: 80, format: "auto" }]}
-          onError={() => setImgSrc(fallbackBanner.image)}
+          onError={() => setImgSrc(PROJECT_HERO_IMAGE)}
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />

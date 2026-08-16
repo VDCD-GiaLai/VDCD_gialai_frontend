@@ -32,32 +32,6 @@ export function DigitalPioneerSection() {
         className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-14"
       >
         {/* ── Top Row: Headline left + Body right ── */}
-        <div className="pioneer-reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-          {/* Left: Headline */}
-          <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-bold tracking-tighter text-black dark:text-white font-heading leading-[1.15]">
-            <span className="block">Tiên phong công nghệ số</span>
-            <span className="block">làm chủ hiện trường trong tầm tay</span>
-          </h2>
-
-          {/* Right: Body + CTA */}
-          <div className="space-y-5">
-            <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
-              Trung tâm Đổi mới Sáng tạo Gia Lai kết nối công nghệ, chuyên gia
-              và nguồn lực từ hệ sinh thái VDCD Group nhằm đưa các giải pháp số
-              vào thực tiễn. Từ thu thập dữ liệu hiện trường, phân tích, quản lý
-              đến hỗ trợ ra quyết định, Trung tâm đồng hành cùng cơ quan quản lý
-              và doanh nghiệp trong quá trình đổi mới, chuyển đổi số và nâng cao
-              hiệu quả hoạt động.
-            </p>
-            <Link
-              href="/solution"
-              className="inline-flex items-center gap-2 text-accent-red font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
-            >
-              Khám phá giải pháp{" "}
-              <ArrowRight className="w-4 h-4" weight="thin" />
-            </Link>
-          </div>
-        </div>
 
         {/* ── Bottom Row: 4 Stats Unified Grid ── */}
         <OrganizationStatsGrid
