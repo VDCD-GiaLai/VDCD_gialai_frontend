@@ -355,7 +355,10 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
             onChange={handleFileChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
-          <UploadSimple className="w-6 h-6 text-accent-red mx-auto mb-2" weight="thin" />
+          <UploadSimple
+            className="w-6 h-6 text-accent-red mx-auto mb-2"
+            weight="thin"
+          />
           {cvFile ? (
             <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
               Đã chọn: {cvFile.name} ({Math.round(cvFile.size / 1024)} KB)
@@ -389,7 +392,10 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
 
       {/* ── [Phần Vàng] Thông Tin Bổ Sung (Sẽ bổ sung thông tin sau) ── */}
       <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700/80 rounded-xl p-4 flex items-start gap-3">
-        <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" weight="thin" />
+        <Info
+          className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5"
+          weight="thin"
+        />
         <div className="space-y-1">
           <h5 className="text-xs font-bold text-amber-900 dark:text-amber-200 uppercase tracking-wider font-heading">
             Thông tin bổ sung (Đánh giá hồ sơ & Phỏng vấn)
@@ -706,7 +712,7 @@ export function CareersPositions() {
   return (
     <section
       id="positions"
-      className="py-16 md:py-24 scroll-mt-28"
+      className="py-8 md:py-12 scroll-mt-28"
       aria-labelledby="positions-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
@@ -739,7 +745,10 @@ export function CareersPositions() {
         >
           {/* Search */}
           <div className="relative max-w-xl">
-            <MagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500" weight="thin" />
+            <MagnifyingGlass
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary dark:text-zinc-500"
+              weight="thin"
+            />
             <input
               type="text"
               placeholder="Tìm kiếm vị trí, kỹ năng..."

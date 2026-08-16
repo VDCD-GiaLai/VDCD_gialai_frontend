@@ -54,7 +54,10 @@ const ContactInfoItem = ({
         </span>
       </div>
       {href && isExternal && (
-        <ArrowSquareOut weight="thin" className="w-3.5 h-3.5 text-secondary/40 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300 shrink-0 mt-1" />
+        <ArrowSquareOut
+          weight="thin"
+          className="w-3.5 h-3.5 text-secondary/40 dark:text-zinc-600 group-hover:text-accent-red transition-colors duration-300 shrink-0 mt-1"
+        />
       )}
     </motion.div>
   );
@@ -140,7 +143,7 @@ export function ContactInfo({
   ];
 
   return (
-    <section className="py-16 md:py-24" aria-labelledby="contact-info-heading">
+    <section className="py-8 md:py-12" aria-labelledby="contact-info-heading">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         <motion.div
           className="mb-12"

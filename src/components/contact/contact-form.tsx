@@ -297,7 +297,7 @@ export function ContactForm({
   return (
     <section
       id="contact-form"
-      className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/20"
+      className="py-8 md:py-12 bg-zinc-50/50 dark:bg-zinc-900/20"
       aria-labelledby="contact-form-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">

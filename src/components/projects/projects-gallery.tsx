@@ -193,7 +193,7 @@ export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
 
   return (
     <section
-      className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto py-16 md:py-24"
+      className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto py-8 md:py-12"
       aria-label="Bộ sưu tập dự án"
     >
       {/* Section header */}
