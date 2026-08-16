@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import { motion } from "framer-motion";
 import {
   fetchPageBannerFromApi,
   getCachedPageBanner,
@@ -11,25 +11,15 @@ import {
 } from "@/services/banner.service";
 import type { PageBannerData } from "@/types/banner";
 
-/* ── Animation variants ─────────────────────────────────── */
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-import Link from "next/link";
-
 /* ── Component ──────────────────────────────────────────── */
 
 export const NewsHero = () => {
+  const fallbackBanner = MOCK_PAGE_BANNERS["news"];
   const [banner, setBanner] = useState<PageBannerData>(
-    () => getCachedPageBanner("news") || MOCK_PAGE_BANNERS["news"],
+    () => getCachedPageBanner("news") || fallbackBanner,
+  );
+  const [imgSrc, setImgSrc] = useState(
+    () => (getCachedPageBanner("news") || fallbackBanner).image,
   );
 
   useEffect(() => {
@@ -66,7 +56,7 @@ export const NewsHero = () => {
           sizes="100vw"
           className="object-cover object-center"
           transformation={[{ width: 1920, quality: 80, format: "auto" }]}
-          onError={() => setImgSrc(mockBanner.image)}
+          onError={() => setImgSrc(fallbackBanner.image)}
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />
