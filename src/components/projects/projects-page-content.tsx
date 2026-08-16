@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRef } from "react";
 import { useProjectsGsap } from "@/hooks/use-projects-gsap";
 import { ProjectsHeroBanner } from "./projects-hero-banner";
+import { ProjectsFeatured } from "./projects-featured";
 import { ProjectsGallery } from "./projects-gallery";
 import { PROJECTS_DATA, type ProjectEntry } from "@/data/projects.data";
 import { fetchProjectsFromApi } from "@/services/project.service";
@@ -11,7 +12,6 @@ import "./projects.css";
 
 /**
  * Client-side container for the Projects page.
- * Lifts search/filter state so hero banner controls feed into gallery.
  */
 export const ProjectsPageContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,19 +76,13 @@ export const ProjectsPageContent = () => {
       ref={containerRef}
       className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300"
     >
-      {/* 1 -- Hero with search/filter */}
-      <ProjectsHeroBanner
-        categories={categories}
-        locations={locations}
-        searchQuery={searchQuery}
-        selectedCategory={selectedCategory}
-        selectedLocation={selectedLocation}
-        onSearchChange={setSearchQuery}
-        onCategoryChange={setSelectedCategory}
-        onLocationChange={setSelectedLocation}
-      />
+      {/* 1 -- Editorial Hero */}
+      <ProjectsHeroBanner />
 
-      {/* 2 -- Gallery (receives pre-filtered projects) */}
+      {/* 2 -- Featured Projects (1 big card 50% left, 2 cards 50% right) */}
+      <ProjectsFeatured projects={projects} />
+
+      {/* 3 -- Gallery */}
       <ProjectsGallery projects={filteredProjects} />
     </div>
   );

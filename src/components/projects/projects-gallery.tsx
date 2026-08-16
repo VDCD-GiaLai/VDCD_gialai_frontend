@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { type ProjectEntry } from "@/data/projects.data";
 import { useTransitionStore } from "@/store/transition-store";
+import { Pagination } from "@/components/ui/pagination";
 
 import { MapPin, ArrowRight } from "@phosphor-icons/react";
 
@@ -58,7 +59,7 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
 
   return (
     <div
-      className="group relative block cursor-pointer overflow-hidden rounded-xl bg-black"
+      className="group relative block cursor-pointer overflow-hidden rounded-none bg-zinc-950 shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/40 transition-all duration-500 select-none"
       role="link"
       tabIndex={0}
       aria-label={`Xem dự án ${project.title}`}
@@ -79,48 +80,42 @@ const ProjectCard = ({ project, aspectClass }: ProjectCardProps) => {
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Text Content */}
-        <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end">
-          {/* Category & Title */}
-          <div className="transform transition-transform duration-500 ease-out group-hover:-translate-y-2">
-            <div className="flex items-end gap-2 mb-3">
-              <span className="font-heading text-xs font-bold tracking-[0.2em] uppercase text-accent-red">
-                {project.category}
-              </span>
-            </div>
-            <h3 className="font-heading text-xl md:text-2xl font-bold text-white leading-tight">
-              {project.title}
-            </h3>
+        {/* Floating Top Badges */}
+        <div className="absolute top-4 right-4 z-10 flex items-center justify-end pointer-events-none">
+          <span className="text-[11px] font-mono text-zinc-200 bg-black/50 backdrop-blur-md px-2.5 py-1 shadow-sm">
+            {project.year}
+          </span>
+        </div>
+
+        {/* Bottom Text Content */}
+        <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end z-10">
+          <div className="flex items-center gap-1.5 text-zinc-300 text-xs font-mono mb-2">
+            <MapPin weight="fill" className="text-accent-red w-3.5 h-3.5" />
+            <span>{project.location}</span>
+            <span className="opacity-40">·</span>
+            <span className="uppercase text-[10px] tracking-wider text-zinc-400">
+              {project.category}
+            </span>
           </div>
 
-          {/* Hidden Reveal Section using grid 0fr -> 1fr trick */}
-          <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
-            <div className="overflow-hidden">
-              <div className="flex flex-col gap-4 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                <div className="flex items-center gap-2 text-sm text-zinc-300 font-mono-label">
-                  <MapPin weight="thin" className="text-accent-red" />
-                  <span>{project.location}</span>
-                  <span className="opacity-50">·</span>
-                  <span>{project.year}</span>
-                </div>
+          <h3 className="font-heading text-xl md:text-2xl font-extrabold text-white leading-tight mb-3 group-hover:text-accent-red transition-colors duration-300 line-clamp-2">
+            {project.title}
+          </h3>
 
-                <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider group/btn w-fit">
-                  <span className="relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-accent-red group-hover/btn:after:w-full after:transition-all after:duration-300">
-                    Xem chi tiết
-                  </span>
-                  <ArrowRight
-                    weight="thin"
-                    className="text-accent-red transform group-hover/btn:translate-x-1 transition-transform"
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center gap-2 text-xs font-bold text-white/90 group-hover:text-accent-red uppercase tracking-wider transition-colors">
+            <span className="relative after:content-[''] after:absolute after:-bottom-0.5 after:left-0 after:w-0 after:h-[1.5px] after:bg-accent-red group-hover:after:w-full after:transition-all after:duration-300">
+              Xem chi tiết
+            </span>
+            <ArrowRight
+              weight="bold"
+              className="w-3.5 h-3.5 text-accent-red transform group-hover:translate-x-1.5 transition-transform duration-300"
+            />
           </div>
         </div>
       </div>
@@ -136,7 +131,32 @@ interface ProjectsGalleryProps {
   projects: ProjectEntry[];
 }
 
+const ITEMS_PER_PAGE = 9;
+
 export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [prevProjects, setPrevProjects] = React.useState(projects);
+
+  if (prevProjects !== projects) {
+    setPrevProjects(projects);
+    setCurrentPage(1);
+  }
+
+  const totalPages = Math.ceil(projects.length / ITEMS_PER_PAGE);
+
+  const paginatedProjects = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return projects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [projects, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const galleryElement = document.querySelector(".gallery-section");
+    if (galleryElement) {
+      galleryElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       className="gallery-section px-4 md:px-8 max-w-[1600px] mx-auto py-16 md:py-24"
@@ -157,8 +177,8 @@ export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.length > 0 ? (
-          projects.map((proj) => (
+        {paginatedProjects.length > 0 ? (
+          paginatedProjects.map((proj) => (
             <ProjectCard
               key={proj.id}
               project={proj}
@@ -166,7 +186,7 @@ export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
             />
           ))
         ) : (
-          <div className="col-span-full py-24 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-zinc-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-zinc-800">
+          <div className="col-span-full py-24 flex flex-col items-center justify-center text-center bg-slate-50 dark:bg-zinc-900/50 rounded-none border border-dashed border-slate-200 dark:border-zinc-800">
             <span className="text-4xl mb-4">🔍</span>
             <h3 className="text-xl font-bold text-black dark:text-white mb-2">
               Không tìm thấy dự án
@@ -178,6 +198,18 @@ export const ProjectsGallery = ({ projects }: ProjectsGalleryProps) => {
           </div>
         )}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-12 flex justify-center">
+          <Pagination
+            total={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showControls
+          />
+        </div>
+      )}
     </section>
   );
 };
