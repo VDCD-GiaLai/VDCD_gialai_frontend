@@ -4,7 +4,13 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { PaperPlaneRight, Paperclip, X, Check, ArrowLeft } from "@phosphor-icons/react";
+import {
+  PaperPlaneRight,
+  Paperclip,
+  X,
+  Check,
+  ArrowLeft,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
@@ -175,7 +181,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
   return (
     <section
       id="recruitment-apply"
-      className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-900/20"
+      className="py-8 md:py-12 bg-zinc-50/50 dark:bg-zinc-900/20"
       aria-labelledby="recruitment-apply-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
@@ -365,7 +371,10 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
 
                     {attachedFile ? (
                       <div className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/40">
-                        <Paperclip weight="thin" className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0" />
+                        <Paperclip
+                          weight="thin"
+                          className="w-4 h-4 text-secondary dark:text-zinc-400 shrink-0"
+                        />
                         <span className="text-sm text-black dark:text-white truncate flex-1">
                           {attachedFile.name}
                         </span>
@@ -412,7 +421,10 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                       ) : (
                         <>
                           Gửi hồ sơ
-                          <PaperPlaneRight weight="thin" className="w-3.5 h-3.5 ml-2" />
+                          <PaperPlaneRight
+                            weight="thin"
+                            className="w-3.5 h-3.5 ml-2"
+                          />
                         </>
                       )}
                     </Button>

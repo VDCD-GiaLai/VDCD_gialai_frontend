@@ -30,7 +30,7 @@ const GALLERY_LABELS = [
 
 export function CareersEnvironment() {
   return (
-    <section className="py-16 md:py-24" aria-labelledby="environment-heading">
+    <section className="py-8 md:py-12" aria-labelledby="environment-heading">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         {/* Gallery Header */}
         <motion.div
@@ -123,7 +123,10 @@ export function CareersEnvironment() {
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800/60">
                 <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center shrink-0">
-                  <User weight="thin" className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
+                  <User
+                    weight="thin"
+                    className="w-4 h-4 text-zinc-500 dark:text-zinc-400"
+                  />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-black dark:text-white font-heading">

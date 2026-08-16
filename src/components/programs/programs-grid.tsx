@@ -147,7 +147,7 @@ export const ProgramsGrid = () => {
   return (
     <section
       id="programs-list"
-      className="py-16 md:py-24 scroll-mt-28"
+      className="py-8 md:py-12 scroll-mt-28"
       aria-labelledby="programs-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">

@@ -48,7 +48,7 @@ const staggerContainer = {
 
 export function CareersBenefits() {
   return (
-    <section className="py-16 md:py-24" aria-labelledby="benefits-heading">
+    <section className="py-8 md:py-12" aria-labelledby="benefits-heading">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         <motion.div
           className="mb-12"
@@ -99,7 +99,10 @@ export function CareersBenefits() {
                     />
                     <div className="absolute inset-0 background-gradient bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20">
-                      <IconComponent className="w-5 h-5 text-accent-red" weight="thin" />
+                      <IconComponent
+                        className="w-5 h-5 text-accent-red"
+                        weight="thin"
+                      />
                     </div>
                   </div>
 

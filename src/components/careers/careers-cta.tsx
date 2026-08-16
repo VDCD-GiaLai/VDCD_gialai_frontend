@@ -17,7 +17,7 @@ const fadeInUp = {
 
 export function CareersCta() {
   return (
-    <section className="py-16 md:py-24" aria-label="Kêu gọi ứng tuyển">
+    <section className="py-8 md:py-12" aria-label="Kêu gọi ứng tuyển">
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">
         <motion.div
           className="p-8 md:p-16 bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-100 dark:border-zinc-900/80 text-center"
