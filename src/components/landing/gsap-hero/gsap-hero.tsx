@@ -5,13 +5,34 @@ import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
-import { fetchHeroSlidesFromApi } from "@/services/hero.service";
+import {
+  fetchHeroSlidesFromApi,
+  getCachedHeroSlides,
+} from "@/services/hero.service";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
 
 export function GsapHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [slides, setSlides] = React.useState<GsapHeroSlide[]>(GSAP_HERO_SLIDES);
+  const [slides, setSlides] = React.useState<GsapHeroSlide[]>(() => {
+    const cached = getCachedHeroSlides();
+    if (cached && cached.length > 0) {
+      return cached.map((s) => {
+        const parts = s.title.split(" ");
+        const mid = Math.ceil(parts.length / 2);
+        return {
+          title: parts.slice(0, mid).join(" "),
+          title2: parts.slice(mid).join(" ") || "Dự án VDCD",
+          desc:
+            s.description ||
+            "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
+          image: s.image || (s as any).imageUrl || "",
+          place: s.subtitle || s.location || "VIỆT NAM",
+        };
+      });
+    }
+    return GSAP_HERO_SLIDES;
+  });
 
   React.useEffect(() => {
     fetchHeroSlidesFromApi().then((apiSlides) => {

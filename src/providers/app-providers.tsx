@@ -6,6 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "@/lib/query-client";
+import { prefetchAllPageBanners } from "@/services/banner.service";
 
 const emptySubscribe = () => () => {};
 
@@ -15,6 +16,10 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     () => true,
     () => false,
   );
+
+  React.useEffect(() => {
+    prefetchAllPageBanners();
+  }, []);
 
   // Avoid Hydration mismatch
   if (!mounted) {

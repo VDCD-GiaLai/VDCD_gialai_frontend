@@ -3,9 +3,12 @@
 import * as React from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { MagnifyingGlass } from "@phosphor-icons/react";
-import { fetchPageBannerFromApi } from "@/services/banner.service";
+import {
+  fetchPageBannerFromApi,
+  getCachedPageBanner,
+  MOCK_PAGE_BANNERS,
+} from "@/services/banner.service";
 import type { PageBannerData } from "@/types/banner";
-import { MOCK_PAGE_BANNERS } from "@/services/banner.service";
 
 /* ── Props ───────────────────────────────────────────── */
 
@@ -33,7 +36,7 @@ export function ProjectsHeroBanner({
   onLocationChange,
 }: ProjectsHeroBannerProps) {
   const [banner, setBanner] = React.useState<PageBannerData>(
-    MOCK_PAGE_BANNERS["projects"],
+    () => getCachedPageBanner("projects") || MOCK_PAGE_BANNERS["projects"],
   );
 
   /* Local draft state for filters */
