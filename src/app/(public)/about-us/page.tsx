@@ -25,7 +25,6 @@ import { PhilosophyAccordion } from "@/components/about/philosophy-accordion";
 import { CoreFunctions } from "@/components/about/core-functions";
 import { EcosystemNetwork } from "@/components/about/ecosystem-network";
 import { EcosystemSection } from "@/components/landing/ecosystem-section";
-import { DevelopmentOrientation } from "@/components/about/development-orientation";
 
 export default function AboutPage() {
   const [orgInfo, setOrgInfo] = useState<OrganizationInfo | null>(null);
@@ -106,9 +105,6 @@ export default function AboutPage() {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
-        {/* 6. Development Orientation Section (Định hướng phát triển) */}
-        <DevelopmentOrientation />
-
         {/* 7. Slate Dark CTA block */}
         <motion.section
           className="relative text-center mt-12"
