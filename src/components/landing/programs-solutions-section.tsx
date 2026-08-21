@@ -24,29 +24,30 @@ interface Category {
 const CATEGORIES: Category[] = [
   {
     id: "programs",
-    label: "Chương trình",
+    label: "Hoạt động",
     items: [
       {
         title: "Ươm tạo khởi nghiệp sáng tạo",
-        image: "/images/home/sol_startup.webp",
+        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
         description:
           "Hỗ trợ ý tưởng từ giai đoạn hình thành đến thương mại hóa.",
       },
       {
-        title: "Đào tạo và phát triển nhân lực",
-        image: "/images/home/sol_training.webp",
+        title: "Đào tạo",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/gen-h-hoat-dong-dau-tu-xay-dung.avif",
         description:
           "Nâng cao kỹ năng số, quản trị dữ liệu cho cán bộ địa phương.",
       },
       {
-        title: "Kết nối chuyên gia – doanh nghiệp – nhà đầu tư",
-        image: "/images/home/sol_networking.webp",
+        title: "Kết nối chuyên gia",
+        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG",
         description:
           "Xây dựng mạng lưới liên kết đa bên, chuyển giao công nghệ.",
       },
       {
         title: "Tư vấn chuyển đổi số",
-        image: "/images/home/sol_digital_transform.webp",
+        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9155.jpg",
         description:
           "Đánh giá hiện trạng, lộ trình và triển khai giải pháp số.",
       },
@@ -58,7 +59,8 @@ const CATEGORIES: Category[] = [
     items: [
       {
         title: "UAV",
-        image: "/images/home/sol_uav.webp",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/d0dfe840-acc3-41b1-95e9-e2c6c08ed09f.png",
         description:
           "Khảo sát, lập bản đồ và giám sát hiện trường bằng thiết bị bay.",
       },
@@ -70,7 +72,7 @@ const CATEGORIES: Category[] = [
       },
       {
         title: "Autotimelapse",
-        image: "/images/home/sol_timelapse.webp",
+        image: "https://ik.imagekit.io/huy01040104/vdcd/images/bn4.jpg",
         description: "Giám sát tiến độ công trình theo thời gian thực tự động.",
       },
       {
@@ -80,7 +82,8 @@ const CATEGORIES: Category[] = [
       },
       {
         title: "VR360",
-        image: "/images/home/sol_vr360.webp",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/1787304501513_3700802451179916895_3700802451179916895_3d63d6265db5417bcd75772c8ec42ef2.jpg",
         description:
           "Tái hiện không gian thực tế ảo 360° phục vụ du lịch, BĐS.",
       },
@@ -128,11 +131,11 @@ export function ProgramsSolutionsSection() {
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-8 md:mb-10">
           <div className="ps-reveal text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
-              Chương trình và giải pháp
+              Hoạt động và giải pháp
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base mt-4 max-w-xl mx-auto leading-relaxed">
-              Các chương trình và giải pháp trọng tâm do Trung tâm Đổi mới Sáng
-              tạo Gia Lai thực hiện nhằm bứt phá công nghệ và nâng tầm khu vực.
+              Các hoạt động và giải pháp trọng tâm do Trung tâm Đổi mới Sáng tạo
+              Gia Lai thực hiện nhằm bứt phá công nghệ và nâng tầm khu vực.
             </p>
           </div>
 

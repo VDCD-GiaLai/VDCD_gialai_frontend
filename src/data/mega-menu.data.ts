@@ -6,18 +6,12 @@ export interface MegaMenuProgram {
   href: string;
 }
 
-/** A section within a solution's detail panel (Column 3) */
-export interface MegaMenuSolutionSection {
-  title: string;
-  items: string[];
-}
-
 /** A solution item for Column 2 (selector) + Column 3 (detail) */
 export interface MegaMenuSolution {
   id: string;
   name: string;
   slug: string;
-  sections: MegaMenuSolutionSection[];
+  items: string[];
   cta: {
     label: string;
     href: string;
@@ -44,15 +38,14 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "uav",
     name: "UAV",
     slug: "uav",
-    sections: [
-      {
-        title: "Khảo sát & bản đồ",
-        items: ["Khảo sát địa hình", "Bản đồ 2D/3D", "LiDAR"],
-      },
-      {
-        title: "Đo lường & kiểm kê",
-        items: ["Đo diện tích", "Đo thể tích"],
-      },
+    items: [
+      "Bay quét 3D, trắc địa số và thành lập bản đồ",
+      "Scan vật thể",
+      "Tài nguyên và khoáng sản",
+      "Lâm nghiệp và nông nghiệp",
+      "Công trình và hạ tầng",
+      "Điện và năng lượng",
+      "Phòng, chống thiên tai",
     ],
     cta: { label: "Xem giải pháp UAV", href: "/solution" },
   },
@@ -60,11 +53,12 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "ai",
     name: "AI",
     slug: "ai",
-    sections: [
-      {
-        title: "Trí tuệ nhân tạo",
-        items: ["Nhận diện hình ảnh", "Phân tích dữ liệu"],
-      },
+    items: [
+      "Nhận diện và số hóa ranh giới thửa đất",
+      "Nhận diện, đếm và phân loại đối tượng",
+      "Giám sát giao thông và đô thị thông minh",
+      "Phát hiện biến động và cảnh báo bất thường",
+      "Kiểm kê tài nguyên, rừng và cây trồng",
     ],
     cta: { label: "Xem giải pháp AI", href: "/solution" },
   },
@@ -72,11 +66,12 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "autotimelapse",
     name: "Autotimelapse",
     slug: "autotimelapse",
-    sections: [
-      {
-        title: "Giám sát tự động",
-        items: ["Camera thông minh", "Timelapse tiến độ"],
-      },
+    items: [
+      "Công trình xây dựng",
+      "Nông nghiệp",
+      "Môi trường và khí hậu",
+      "Du lịch và trải nghiệm",
+      "Giám sát an ninh",
     ],
     cta: { label: "Xem giải pháp Autotimelapse", href: "/solution" },
   },
@@ -84,11 +79,13 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "vr360",
     name: "VR360",
     slug: "vr360",
-    sections: [
-      {
-        title: "Thực tế ảo",
-        items: ["Tour 360°", "Mô hình 3D"],
-      },
+    items: [
+      "Bất động sản, kiến trúc và xây dựng",
+      "Du lịch, khách sạn và khu nghỉ dưỡng",
+      "Di tích, bảo tàng và không gian văn hóa",
+      "Showroom, cửa hàng và triển lãm",
+      "Giáo dục, đào tạo và văn phòng",
+      "Nhà máy và khu công nghiệp",
     ],
     cta: { label: "Xem giải pháp VR360", href: "/solution" },
   },
@@ -96,11 +93,12 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "smartscale",
     name: "SmartScale",
     slug: "smartscale",
-    sections: [
-      {
-        title: "Trạm cân thông minh",
-        items: ["Quản lý từ xa", "Chống gian lận"],
-      },
+    items: [
+      "Khai thác khoáng sản và vật liệu xây dựng",
+      "Nhà máy sản xuất và khu công nghiệp",
+      "Vận tải, logistics, cảng và kho bãi",
+      "Nông nghiệp, chăn nuôi và nông sản",
+      "Năng lượng và sinh khối",
     ],
     cta: { label: "Xem giải pháp SmartScale", href: "/solution" },
   },
@@ -108,11 +106,8 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     id: "data-center",
     name: "Data Center",
     slug: "data-center",
-    sections: [
-      {
-        title: "Trung tâm dữ liệu",
-        items: ["Hạ tầng HPC", "Đào tạo AI"],
-      },
+    items: [
+      "Hạ tầng lưu trữ, xử lý, tích hợp và chia sẻ dữ liệu tập trung, phục vụ vận hành các hệ thống và nền tảng công nghệ.",
     ],
     cta: { label: "Xem giải pháp Data Center", href: "/solution" },
   },

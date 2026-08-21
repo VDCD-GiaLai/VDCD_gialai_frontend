@@ -48,8 +48,9 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     description:
       "Kết nối công nghệ, chuyên gia và doanh nghiệp, thúc đẩy chuyển đổi số và phát triển hệ sinh thái khởi nghiệp đổi mới sáng tạo tại địa phương.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
-    location: "Gia Lai",
-    image: "/images/home/kientaotuonglai.webp",
+    location: "",
+    image:
+      "https://ik.imagekit.io/huy01040104/vdcd/slides/81B72404-9A7A-4E02-B5C6-4D8AA67AF50F.PNG",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -60,8 +61,9 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     description:
       "Ứng dụng UAV và AI xây dựng bản đồ số hiện trạng 2D/3D, nhận diện ranh thửa và tích hợp trên phần mềm 3DGIS phục vụ đối soát, quản lý dữ liệu đất đai.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
-    location: "Gia Lai",
-    image: "/images/home/farm_area_drone_view.webp",
+    location: "",
+    image:
+      "https://ik.imagekit.io/huy01040104/vdcd/slides/1787306535077_3700802451179916895_3700802451179916895_037ebe9d346999769ffc084ad20f5b11.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -72,8 +74,9 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     description:
       "Kết hợp UAV, AI, AutoTimelapse và phần mềm 3DGIS trong khảo sát, kiểm kê, giám sát biến động và hỗ trợ quản lý tài nguyên, môi trường.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
-    location: "Gia Lai",
-    image: "/images/home/hethongdothiso.webp",
+    location: "",
+    image:
+      "https://ik.imagekit.io/huy01040104/vdcd/slides/24514AFA-9CB5-4DC3-98A5-EEA103201F96.png",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -84,8 +87,9 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     description:
       "Kết nối camera AI và AutoTimelapse để thu thập dữ liệu hiện trường, tích hợp trên phần mềm AutoTimelapse Pro, hỗ trợ giám sát, quản lý và nâng cao hiệu quả điều hành đô thị.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
-    location: "Gia Lai",
-    image: "/images/home/data_center.webp",
+    location: "",
+    image:
+      "https://ik.imagekit.io/huy01040104/vdcd/slides/1787299720814-0726f0dd007a.png?updatedAt=1787299723551",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
@@ -96,8 +100,8 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     description:
       "Hạ tầng Data Center phục vụ lưu trữ, tích hợp và chia sẻ dữ liệu tập trung, kết nối các hệ thống và hỗ trợ khai thác dữ liệu phục vụ quản lý, điều hành.",
     tag: "DỰ ÁN TRỌNG ĐIỂM",
-    location: "Gia Lai",
-    image: "/images/home/quynhon_herobanner.webp",
+    location: "",
+    image: "https://ik.imagekit.io/huy01040104/vdcd/slides/data_center.jpg",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
