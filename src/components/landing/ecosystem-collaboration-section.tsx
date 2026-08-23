@@ -44,7 +44,7 @@ export function EcosystemCollaborationSection() {
       id="ecosystem-collaboration"
       className="border-t border-whisper-border/30 bg-[#f6f9fc] dark:bg-zinc-950 transition-colors duration-300"
     >
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-4 md:py-8">
         {/* ── Section Header ── */}
         <div className="mb-14 md:mb-20 max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-[#0a2540] dark:text-white font-heading leading-tight">
