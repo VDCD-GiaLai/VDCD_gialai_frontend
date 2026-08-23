@@ -69,6 +69,7 @@
 .gsap-hero-container .content-title-1,
 .gsap-hero-container .content-title-2 {
   font-weight: 800;
+  display: block;
 }
 
 .gsap-hero-container .content-start {

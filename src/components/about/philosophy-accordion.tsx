@@ -29,7 +29,7 @@ export function PhilosophyAccordion({
       title: "SỨ MỆNH",
       desc:
         missionText ||
-        "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển bền vững cho tỉnh Gia Lai.",
+        "Đưa công nghệ đến gần hơn với thực tế, tạo ra những giá trị thiết thực cho người dân, doanh nghiệp và địa phương.",
       icon: GlobeHemisphereWestIcon,
       bgImage: "/images/home/farm_area_view.webp",
     },
@@ -38,17 +38,21 @@ export function PhilosophyAccordion({
       title: "TẦM NHÌN",
       desc:
         visionText ||
-        "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực vào năm 2030.",
+        "Từ Gia Lai, kết nối những con người dám nghĩ, dám làm để cùng tạo nên những thay đổi tích cực bằng công nghệ.",
       icon: TargetIcon,
-      bgImage: "/images/home/hethongdothiso.webp",
+      bgImage:
+        "https://ik.imagekit.io/huy01040104/vdcd/images/dia-diem-du-lich-gia-lai-2.jpg",
     },
     {
       id: "03",
       title: "GIÁ TRỊ CỐT LÕI",
-      desc: coreValuesText || "Sáng tạo – Chính trực – Hợp tác – Tác động",
+      desc:
+        coreValuesText ||
+        "Bắt đầu từ thực tế, đổi mới bằng hành động và đồng hành đến khi tạo ra giá trị thật",
       icon: Shield,
 
-      bgImage: "/images/home/data_center.webp",
+      bgImage:
+        "https://ik.imagekit.io/huy01040104/vdcd/images/e176ed08f460c637915788d8ecf23152.jpg",
     },
   ];
 
@@ -58,7 +62,7 @@ export function PhilosophyAccordion({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="w-full">
           <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block mb-3">
-            TRIẾT LÝ HOẠT ĐỘNG
+            NỀN TẢNG PHÁT TRIỂN
           </span>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-zinc-950 dark:text-white font-heading leading-tight transition-colors duration-300 whitespace-nowrap">
             Sứ mệnh - Tầm nhìn - Giá trị cốt lõi
@@ -90,6 +94,7 @@ export function PhilosophyAccordion({
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover object-center scale-105"
                   loading="lazy"
+                  quality={100}
                 />
               </div>
               {/* Bottom text gradient for contrast without darkening the main image */}
