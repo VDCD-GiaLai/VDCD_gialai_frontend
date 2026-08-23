@@ -29,6 +29,11 @@ const LatestNewsSection = lazy(() =>
     default: m.LatestNewsSection,
   })),
 );
+const PartnersSection = lazy(() =>
+  import("@/components/landing/partners-section").then((m) => ({
+    default: m.PartnersSection,
+  })),
+);
 
 export default function LandingPage() {
   return (
@@ -67,6 +72,11 @@ export default function LandingPage() {
       {/* Khối 8: Tin tức và sự kiện */}
       <Suspense>
         <LatestNewsSection />
+      </Suspense>
+
+      {/* Partners */}
+      <Suspense>
+        <PartnersSection />
       </Suspense>
 
       {/* Contact */}
