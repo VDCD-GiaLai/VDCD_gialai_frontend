@@ -175,12 +175,13 @@ export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
   tagline: "Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.",
   businessLicenseNo: "4101443823",
   description:
-    "<p>Trung tâm Đổi mới Sáng tạo Gia Lai được phát triển theo mô hình xã hội hóa, hướng đến thúc đẩy chuyển đổi số, ứng dụng công nghệ và phát triển hệ sinh thái đổi mới sáng tạo tại Gia Lai.</p>\n<p>1- Trung tâm tập trung phát triển Trung tâm dữ liệu vùng; triển khai các giải pháp UAV, AI, GIS, BIM và phần mềm quản trị, phục vụ số hóa, quản lý, điều hành và khai thác dữ liệu trong các lĩnh vực trọng điểm.</p>\n<p>\n<p>2- Trung tâm thực hiện vai trò kết nối cơ quan quản lý, doanh nghiệp, startup, chuyên gia, đơn vị công nghệ và nhà đầu tư, tạo môi trường hợp tác, thử nghiệm và đưa các giải pháp công nghệ vào ứng dụng thực tế.</p>\n<p>3- Trung tâm triển khai các hoạt động ươm tạo, đào tạo, tư vấn chuyển đổi số, hỗ trợ doanh nghiệp và phát triển nguồn nhân lực số, góp phần xây dựng hệ sinh thái đổi mới sáng tạo gắn với nhu cầu phát triển của Gia Lai.</p>",
+    "<p>Trung tâm Đổi mới Sáng tạo Gia Lai được phát triển theo mô hình xã hội hóa, hướng đến thúc đẩy chuyển đổi số, ứng dụng công nghệ và phát triển hệ sinh thái đổi mới sáng tạo tại Gia Lai.</p>\n<p>1. Trung tâm tập trung phát triển Trung tâm dữ liệu vùng; triển khai các giải pháp UAV, AI, GIS, BIM và phần mềm quản trị, phục vụ số hóa, quản lý, điều hành và khai thác dữ liệu trong các lĩnh vực trọng điểm.</p>\n<p>\n<p>2. Trung tâm thực hiện vai trò kết nối cơ quan quản lý, doanh nghiệp, startup, chuyên gia, đơn vị công nghệ và nhà đầu tư, tạo môi trường hợp tác, thử nghiệm và đưa các giải pháp công nghệ vào ứng dụng thực tế.</p>\n<p>3. Trung tâm triển khai các hoạt động ươm tạo, đào tạo, tư vấn chuyển đổi số, hỗ trợ doanh nghiệp và phát triển nguồn nhân lực số, góp phần xây dựng hệ sinh thái đổi mới sáng tạo gắn với nhu cầu phát triển của Gia Lai.</p>",
   mission:
-    "Thúc đẩy đổi mới sáng tạo, hỗ trợ doanh nghiệp và chuyển đổi số cho tỉnh Gia Lai.",
+    "Đưa công nghệ đến gần hơn với thực tế, tạo ra những giá trị thiết thực cho người dân, doanh nghiệp và địa phương",
   vision:
-    "Trở thành trung tâm công nghệ và ươm tạo doanh nghiệp số hàng đầu khu vực Tây Nguyên.",
-  coreValues: "Sáng tạo - Tin cậy - Hiệu quả - Bền vững",
+    "Từ Gia Lai, kết nối những con người dám nghĩ, dám làm để cùng tạo nên những thay đổi tích cực bằng công nghệ",
+  coreValues:
+    "Bắt đầu từ thực tế, đổi mới bằng hành động và đồng hành đến khi tạo ra giá trị thật",
   address: "62A Diên Hồng, Phường Quy Nhơn, Tỉnh Gia Lai",
   stats: {
     staff: 1500,

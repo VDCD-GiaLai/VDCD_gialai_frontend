@@ -712,7 +712,7 @@ export function CareersPositions() {
   return (
     <section
       id="positions"
-      className="py-8 md:py-12 scroll-mt-28"
+      className="pb-8 pt-2 md:pb-12 scroll-mt-28"
       aria-labelledby="positions-heading"
     >
       <div className="max-w-[1600px] mx-auto px-4 md:px-8">

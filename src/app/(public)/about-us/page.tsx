@@ -104,14 +104,14 @@ export default function AboutPage() {
       </div>
 
       {/* 5. Member Units Section (Sức mạnh từ Hệ sinh thái) - Tràn viền */}
-      <div className="pt-0 pb-6 md:pb-10 -mt-4 md:-mt-8">
+      <div className="pt-0 -mt-4 md:-mt-8">
         <EcosystemSection />
       </div>
 
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
         {/* 7. Slate Dark CTA block */}
         <motion.section
-          className="relative text-center mt-12"
+          className="relative text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
