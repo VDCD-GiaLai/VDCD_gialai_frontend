@@ -14,22 +14,42 @@ import "./gsap-hero.css";
 
 export function GsapHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const splitTitle = (raw: string): [string, string] => {
+    if (raw.includes("\n")) {
+      const [line1, ...rest] = raw.split("\n");
+      return [line1, rest.join(" ")];
+    }
+    const parts = raw.split(" ");
+    const mid = Math.ceil(parts.length / 2);
+    return [
+      parts.slice(0, mid).join(" "),
+      parts.slice(mid).join(" ") || "Dự án VDCD",
+    ];
+  };
+
+  const mapSlide = (s: {
+    title: string;
+    description?: string;
+    subtitle?: string;
+    location?: string;
+    image?: string;
+    imageUrl?: string;
+  }): GsapHeroSlide => {
+    const [title, title2] = splitTitle(s.title);
+    return {
+      title,
+      title2,
+      desc:
+        s.description || "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
+      image: s.image || s.imageUrl || "",
+      place: s.subtitle || s.location || "",
+    };
+  };
+
   const [slides, setSlides] = React.useState<GsapHeroSlide[]>(() => {
     const cached = getCachedHeroSlides();
     if (cached && cached.length > 0) {
-      return cached.map((s) => {
-        const parts = s.title.split(" ");
-        const mid = Math.ceil(parts.length / 2);
-        return {
-          title: parts.slice(0, mid).join(" "),
-          title2: parts.slice(mid).join(" ") || "Dự án VDCD",
-          desc:
-            s.description ||
-            "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
-          image: s.image || (s as any).imageUrl || "",
-          place: s.subtitle || s.location || "",
-        };
-      });
+      return cached.map(mapSlide);
     }
     return GSAP_HERO_SLIDES;
   });
@@ -37,20 +57,7 @@ export function GsapHero() {
   React.useEffect(() => {
     fetchHeroSlidesFromApi().then((apiSlides) => {
       if (apiSlides && apiSlides.length > 0) {
-        const mapped: GsapHeroSlide[] = apiSlides.map((s) => {
-          const parts = s.title.split(" ");
-          const mid = Math.ceil(parts.length / 2);
-          return {
-            title: parts.slice(0, mid).join(" "),
-            title2: parts.slice(mid).join(" ") || "Dự án VDCD",
-            desc:
-              s.description ||
-              "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
-            image: s.image || (s as any).imageUrl || "",
-            place: s.subtitle || s.location || "",
-          };
-        });
-        setSlides(mapped);
+        setSlides(apiSlides.map(mapSlide));
       }
     });
   }, []);

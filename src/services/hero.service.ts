@@ -43,7 +43,7 @@ export interface OrganizationInfo {
 export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   {
     id: "1",
-    title: "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI",
+    title: "TRUNG TÂM ĐỔI MỚI \nSÁNG TẠO GIA LAI",
     subtitle: "",
     description:
       "Kết nối công nghệ, chuyên gia và doanh nghiệp, thúc đẩy chuyển đổi số và phát triển hệ sinh thái khởi nghiệp đổi mới sáng tạo tại địa phương.",
@@ -56,7 +56,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "2",
-    title: "SỐ HÓA DỮ LIỆU ĐẤT ĐAI",
+    title: "SỐ HÓA\nDỮ LIỆU ĐẤT ĐAI",
     subtitle: "",
     description:
       "Ứng dụng UAV và AI xây dựng bản đồ số hiện trạng 2D/3D, nhận diện ranh thửa và tích hợp trên phần mềm 3DGIS phục vụ đối soát, quản lý dữ liệu đất đai.",
@@ -69,7 +69,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "3",
-    title: "QUẢN LÍ TÀI NGUYÊN VÀ MÔI TRƯỜNG",
+    title: "QUẢN LÍ TÀI NGUYÊN \nVÀ MÔI TRƯỜNG",
     subtitle: "",
     description:
       "Kết hợp UAV, AI, AutoTimelapse và phần mềm 3DGIS trong khảo sát, kiểm kê, giám sát biến động và hỗ trợ quản lý tài nguyên, môi trường.",
@@ -82,7 +82,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "4",
-    title: "ĐÔ THỊ THÔNG MINH",
+    title: "ĐÔ THỊ\nTHÔNG MINH",
     subtitle: "",
     description:
       "Kết nối camera AI và AutoTimelapse để thu thập dữ liệu hiện trường, tích hợp trên phần mềm AutoTimelapse Pro, hỗ trợ giám sát, quản lý và nâng cao hiệu quả điều hành đô thị.",
@@ -95,7 +95,7 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   },
   {
     id: "5",
-    title: "TRUNG TÂM DỮ LIỆU VÙNG",
+    title: "TRUNG TÂM\nDỮ LIỆU VÙNG",
     subtitle: "",
     description:
       "Hạ tầng Data Center phục vụ lưu trữ, tích hợp và chia sẻ dữ liệu tập trung, kết nối các hệ thống và hỗ trợ khai thác dữ liệu phục vụ quản lý, điều hành.",
