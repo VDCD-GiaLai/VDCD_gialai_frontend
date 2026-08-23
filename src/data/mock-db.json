@@ -394,12 +394,12 @@
   "projects": [
     {
       "id": "van-phong-khanh-hoa",
-      "title": "Vân Phong – Khánh Hòa",
-      "category": "Bản đồ số",
-      "location": "Khánh Hòa",
+      "title": "Sân bay Quốc tế Long Thành",
+      "category": "Giám sát số",
+      "location": "Đồng Nai",
       "year": "2024",
-      "description": "Khảo sát địa hình dự án Vân Phong – Khánh Hòa. Trọn gói sản phẩm trắc địa toàn diện phục vụ quy hoạch khu kinh tế chiến lược.",
-      "coverImage": "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg",
+      "description": "Giám sát tiến độ thi công Cảng hàng không Quốc tế Long Thành. Ứng dụng giải pháp AutoTimelapse 4K, bản đồ số GIS và bay quét LiDAR đa tầng phục vụ chỉ đạo điều hành.",
+      "coverImage": "/projects/san-bay-long-thanh.jpg",
       "layout": "landscape-full",
       "detail": {
         "challenge": "Khu kinh tế Vân Phong nằm ở phía Bắc tỉnh Khánh Hòa, với tổng quy mô các dự án lên đến hàng nghìn hecta. Bay quét địa hình được tiến hành với mục đích thu hình ảnh tổng quan về khu vực, phục vụ việc định hướng quy hoạch và lên concept cho các mục tiêu thiết kế về sau.",

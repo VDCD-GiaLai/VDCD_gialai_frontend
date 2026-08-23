@@ -120,66 +120,65 @@ export const WORKFLOW_STAGES: WorkflowStage[] = [
    ──────────────────────────────────────────────────────── */
 
 export const PROJECTS_DATA: ProjectEntry[] = [
-  /* ── 1. Vân Phong – Khánh Hòa ──────────────────────── */
+  /* ── 1. Sân bay Quốc tế Long Thành ─────────────────── */
   {
     id: "van-phong-khanh-hoa",
-    title: "Vân Phong – Khánh Hòa",
-    category: "Bản đồ số",
-    location: "Khánh Hòa",
+    title: "Sân bay Quốc tế Long Thành",
+    category: "Giám sát số",
+    location: "Đồng Nai",
     year: "2024",
     description:
-      "Khảo sát địa hình dự án Vân Phong – Khánh Hòa. Trọn gói sản phẩm trắc địa toàn diện phục vụ quy hoạch khu kinh tế chiến lược.",
-    coverImage:
-      "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg",
+      "Giám sát tiến độ thi công Cảng hàng không Quốc tế Long Thành. Ứng dụng giải pháp AutoTimelapse 4K, bản đồ số GIS và bay quét LiDAR đa tầng phục vụ chỉ đạo điều hành.",
+    coverImage: "/projects/san-bay-long-thanh.jpg",
     layout: "landscape-full",
     challenge:
-      "Khu kinh tế Vân Phong nằm ở phía Bắc tỉnh Khánh Hòa, với tổng quy mô các dự án lên đến hàng nghìn hecta. Bay quét địa hình được tiến hành với mục đích thu hình ảnh tổng quan về khu vực, phục vụ việc định hướng quy hoạch và lên concept cho các mục tiêu thiết kế về sau.",
+      "Cảng hàng không Quốc tế Long Thành là đại dự án trọng điểm quốc gia với diện tích lên đến 5.000 hecta. Công tác giám sát thi công yêu cầu thu thập dữ liệu hình ảnh 4K liên tục 24/7 từ nhiều góc độ, đồng thời bay quét định kỳ để tính toán khối lượng đào đắp và đo đạc độ lún địa chất.",
     services: [
-      "Khảo sát thành lập bản vẽ 2D",
-      "Khảo sát thành lập bản vẽ 3D",
-      "Bản vẽ địa hình 1/500",
-      "Bay quét Drone chuyên nghiệp",
+      "AutoTimelapse 4K 24/7",
+      "Khảo sát địa hình LiDAR 3D",
+      "Bản đồ số GIS thời gian thực",
+      "Báo cáo tiến độ đa nền tảng",
     ],
-    discipline: "Khảo sát địa hình & Trắc địa",
+    discipline: "Giám sát công trình & Trắc địa số",
     galleryImages: [
       {
-        src: "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg",
-        caption: "Toàn cảnh khu kinh tế Vân Phong từ trên cao",
+        src: "/projects/san-bay-long-thanh.jpg",
+        caption: "Toàn cảnh đại công trường Sân bay Long Thành từ trên cao",
         size: "large",
       },
       {
         src: "https://vdcd.vn/wp-content/uploads/2025/11/z6230086515847_880a32e4555a0e1a2092fafe725ba010-1-edited-1024x768.jpg",
-        caption: "Khảo sát thực địa tại Vân Phong",
+        caption: "Trạm giám sát AutoTimelapse tại hiện trường",
         size: "small",
       },
       {
         src: "https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited.jpg",
-        caption: "Drone bay quét địa hình khu vực ven biển",
+        caption: "Drone bay quét địa hình đường băng và nhà ga",
         size: "small",
       },
       {
         src: "https://vdcd.vn/wp-content/uploads/2025/11/z6246996465902_d2b58a023e87326b3d6b828d09049fa4-1024x618-1.jpg",
-        caption: "Bản đồ địa hình số khu kinh tế",
+        caption: "Mô hình số hóa 3D địa hình khu vực nhà ga hành khách",
         size: "large",
       },
       {
         src: "https://vdcd.vn/wp-content/uploads/2025/11/z6249184485226_65353c2131876581d63d52ac58854302-1024x683-1.jpg",
-        caption: "Đội ngũ khảo sát tại hiện trường",
+        caption: "Đội ngũ chuyên gia kỹ thuật VDCD tại hiện trường",
         size: "small",
       },
       {
         src: "https://vdcd.vn/wp-content/uploads/2025/11/IMG_7134-edited-2048x1536-1-1024x768.jpg",
-        caption: "Thiết bị bay quét LiDAR",
+        caption: "Thiết bị bay quét LiDAR chuyên dụng",
         size: "small",
       },
     ],
     technicalHighlights: [
-      { label: "Diện tích khảo sát", value: "Hàng nghìn ha" },
-      { label: "Địa hình cấp 1", value: "600 ha/ngày" },
-      { label: "Địa hình cấp 6", value: "100 ha/ngày" },
-      { label: "Sản phẩm bàn giao", value: "2D, 3D, 1/500" },
-      { label: "Công nghệ", value: "Drone + LiDAR" },
-      { label: "Chủ đầu tư", value: "Sun Group" },
+      { label: "Diện tích quy hoạch", value: "5.000 ha" },
+      { label: "Công suất thiết kế", value: "100tr khách/năm" },
+      { label: "Tổng mức đầu tư", value: "16 tỷ USD" },
+      { label: "Giám sát thi công", value: "24/7 AutoTimelapse" },
+      { label: "Công nghệ", value: "Drone + LiDAR 3D" },
+      { label: "Chủ đầu tư", value: "ACV" },
     ],
     transformationBefore:
       "https://vdcd.vn/wp-content/uploads/2025/11/L1003913-1-1024x683-1.jpg",
