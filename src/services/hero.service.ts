@@ -50,7 +50,8 @@ export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
     tag: "DỰ ÁN TRỌNG ĐIỂM",
     location: "",
     image:
-      "https://ik.imagekit.io/huy01040104/vdcd/slides/81B72404-9A7A-4E02-B5C6-4D8AA67AF50F.PNG",
+      // "https://ik.imagekit.io/huy01040104/vdcd/slides/81B72404-9A7A-4E02-B5C6-4D8AA67AF50F.PNG",
+      "https://ik.imagekit.io/huy01040104/vdcd/slides/9a6a2f5e-4b3a-45fc-8945-b6c29db8ebb5.png",
     statValue: "100%",
     statLabel: "Tiến độ",
   },
