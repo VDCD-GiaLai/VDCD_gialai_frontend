@@ -139,7 +139,7 @@ export function ProjectsHeroBanner() {
               <span>{currentSlide.location}</span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white uppercase tracking-tight font-heading group-hover/title:text-accent-red transition-colors">
+            <h2 className="text-xl sm:text-xl md:text-5xl font-extrabold text-white uppercase tracking-tight font-heading group-hover/title:text-accent-red transition-colors">
               {currentSlide.title}
             </h2>
 
@@ -154,11 +154,7 @@ export function ProjectsHeroBanner() {
           </Link>
 
           <div className="flex items-center gap-4 w-full">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none font-heading shrink-0">
-              DỰ ÁN
-            </h1>
-            {/* 2px White line extending across */}
-            <div className="h-[2px] bg-white flex-1 rounded-full opacity-90" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-white uppercase leading-none font-heading shrink-0"></h1>
           </div>
         </div>
 
