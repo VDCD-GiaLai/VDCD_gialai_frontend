@@ -68,7 +68,7 @@ export function FeaturedProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 py-16"
+      className="border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 pt-16 pb-4"
     >
       {/* Section Header */}
       <div className="max-w-[1800px] mx-auto px-4 md:px-6 mb-12 flex flex-col md:flex-row justify-between items-start">

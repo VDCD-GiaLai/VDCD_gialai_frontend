@@ -170,7 +170,7 @@ export function LatestNewsSection() {
     >
       <div
         ref={containerRef}
-        className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-10 md:py-14 lg:py-16"
+        className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pb-8 pt-4 sm:py-10"
       >
         {/* ── 1. hotNews ── */}
         <div className="hotNews news-reveal grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 pb-8 sm:pb-10 md:pb-14 items-center">
