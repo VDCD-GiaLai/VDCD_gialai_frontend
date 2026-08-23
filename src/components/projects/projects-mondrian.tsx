@@ -27,7 +27,7 @@ export const ProjectsMondrian: React.FC<ProjectsMondrianProps> = ({
           <div>
             <div className="flex items-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-2">
               <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse" />
-              Trung tâm Đổi Mới và Sáng Tạo Gia Lai
+              Trung tâm Đổi Mới Sáng Tạo Gia Lai
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight font-heading text-black dark:text-white">
               TIÊU BIỂU

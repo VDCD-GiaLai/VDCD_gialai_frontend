@@ -35,7 +35,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
           <div>
             <div className="flex items-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-2">
               <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse" />
-              Trung tâm Đổi Mới và Sáng Tạo Gia Lai
+              Trung tâm Đổi Mới Sáng Tạo Gia Lai
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight font-heading text-black dark:text-white">
               NHỮNG DỰ ÁN TIÊU BIỂU
@@ -47,8 +47,6 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
         {displayProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-16 md:mb-24">
             {displayProjects.map((project, idx) => {
-              const itemNum = String(idx + 1).padStart(2, "0");
-
               // Varied architectural proportions per item:
               // 0: Wide Panorama (8 cols)
               // 1: Vertical Portrait (4 cols)
@@ -83,7 +81,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
               return (
                 <article
                   key={project.id}
-                  className={`group relative flex flex-col justify-between overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-md hover:shadow-2xl transition-all duration-500 select-none ${colSpanClass}`}
+                  className={`group relative flex flex-col justify-end overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-md hover:shadow-2xl transition-all duration-500 select-none ${colSpanClass}`}
                 >
                   <Link
                     href={`/projects/${project.id}`}
@@ -103,13 +101,6 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </Link>
-
-                  {/* Top Watermark / Number */}
-                  <div className="relative z-20 flex items-center justify-between p-5 pointer-events-none">
-                    <span className="font-mono text-xs font-bold text-white/90 bg-black/40 backdrop-blur-md px-2.5 py-1 border border-white/10">
-                      {itemNum}
-                    </span>
-                  </div>
 
                   {/* ── Default Bottom State (Fades out on hover) ── */}
                   <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 transition-all duration-500 ease-in-out group-hover:opacity-0 group-hover:translate-y-4 pointer-events-none">
@@ -135,19 +126,6 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
                   {/* ── Liquid Glass Hover Panel (Slides up on hover) ── */}
                   <div className="absolute bottom-0 inset-x-0 z-20 bg-white/75 dark:bg-zinc-950/75 backdrop-blur-lg backdrop-saturate-150 border-t border-white/50 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_8px_32px_0_rgba(0,0,0,0.12)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_32px_0_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 pointer-events-none">
                     <div className="relative overflow-hidden p-5 sm:p-6 text-black dark:text-white">
-                      {/* Watermark Index Number */}
-                      <span
-                        aria-hidden="true"
-                        className="absolute top-0 right-0 font-black leading-none select-none pointer-events-none text-black/5 dark:text-white/5 font-heading"
-                        style={{
-                          fontSize: "6.5rem",
-                          lineHeight: 1,
-                          transform: "translateX(15%) translateY(-10%)",
-                        }}
-                      >
-                        {itemNum}
-                      </span>
-
                       {/* Location */}
                       <div className="relative flex items-center gap-1.5 text-xs font-mono text-zinc-600 dark:text-zinc-400 mb-2">
                         <MapPin
@@ -204,14 +182,13 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
 
             {/* Headline */}
             <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
-              Hơn 50+ Công trình Trọng điểm trên Toàn Quốc
+              Hơn 100+ Công trình Trọng điểm trên Toàn Quốc
             </h3>
 
             {/* Description */}
             <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300 font-sans">
-              Ứng dụng giải pháp AutoTimelapse 4K 24/7, mô hình hóa dữ liệu BIM
-              LOD 400 và hệ sinh thái bản đồ số GIS động phục vụ quản lý chất
-              lượng và giám sát thi công chính xác.
+              Hãy liên hệ để kết nối công nghệ, chuyên gia và hệ sinh thái, cùng
+              đưa chuyển đổi số vào thực tiễn.
             </p>
 
             {/* Dual Action Buttons matching About Us */}
