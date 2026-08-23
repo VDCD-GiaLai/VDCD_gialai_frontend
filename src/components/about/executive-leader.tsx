@@ -52,9 +52,11 @@ export function ExecutiveLeader() {
                   “
                 </span>
                 <p className="text-xs sm:text-[13.5px] md:text-sm text-zinc-850 dark:text-zinc-200 italic font-sans leading-relaxed flex-1">
-                  Kết nối công nghệ và nguồn lực, kiến tạo nền tảng đổi mới sáng
-                  tạo cho Gia Lai và khu vực Tây Nguyên.
-                  <span className="text-2xl sm:text-3xl font-heading font-black text-accent-red select-none leading-none inline-block ml-1.5 align-baseline">
+                  Chúng tôi không bắt đầu từ những điều quá cao siêu. Chúng tôi
+                  bắt đầu từ những khó khăn thực tế của người dân, cơ quan quản
+                  lý và doanh nghiệp, để đưa công nghệ vào giải quyết những vấn
+                  đề thiết thực và góp phần nâng cao chất lượng cuộc sống.
+                  <span className="absolute text-2xl sm:text-3xl font-heading font-black text-accent-red select-none leading-none inline-block ml-1.5 align-baseline">
                     ”
                   </span>
                 </p>
@@ -62,7 +64,7 @@ export function ExecutiveLeader() {
             </div>
 
             {/* Action Link */}
-            <div className="flex justify-end pt-0.5">
+            <div className="flex justify-end pt-0.5 hidden">
               <Link
                 href="/leadership"
                 className="inline-flex items-center gap-1.5 text-accent-red hover:text-accent-red/80 text-xs sm:text-sm font-semibold transition-colors duration-300 shrink-0 cursor-pointer group"

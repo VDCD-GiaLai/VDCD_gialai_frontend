@@ -549,7 +549,7 @@ export function useGsapHero(
 
       if (cardActive) {
         gsap.killTweensOf(cardActive);
-        gsap.set(cardActive, { zIndex: 20 });
+        gsap.set(cardActive, { zIndex: 20, opacity: 1, scale: 1 });
       }
 
       const activeContent = getCardContent(active);

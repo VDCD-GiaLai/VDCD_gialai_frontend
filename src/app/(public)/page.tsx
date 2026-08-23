@@ -44,7 +44,7 @@ export default function LandingPage() {
         className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
       ></section>
 
-      {/* Khối 4: Chương trình và giải pháp */}
+      {/* Khối 4: Hoạt động và giải pháp */}
       <Suspense>
         <ProgramsSolutionsSection />
       </Suspense>

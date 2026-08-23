@@ -171,16 +171,16 @@ const DesktopMegaMenu = ({
       <div
         ref={panelRef}
         role="menu"
-        aria-label="Chương trình và Giải pháp"
+        aria-label="Hoạt động và Giải pháp"
         style={{ display: "none", opacity: 0 }}
         className="mega-menu-panel fixed left-0 right-0 top-20 z-50"
       >
         <div className="max-w-[1600px] mx-auto px-4 md:px-8">
           <div className="grid grid-cols-[1fr_auto_1fr_auto_1.3fr] gap-0 py-6">
-            {/* ── Column 1: Chương trình ── */}
+            {/* ── Column 1: Hoạt động ── */}
             <div className="pr-6" role="none">
-              <h3 className="mega-menu-col-header">Chương trình</h3>
-              <ul role="menu" aria-label="Chương trình">
+              <h3 className="mega-menu-col-header">Hoạt động</h3>
+              <ul role="menu" aria-label="Hoạt động">
                 {MEGA_MENU_PROGRAMS.map((program) => (
                   <li key={program.label} role="none">
                     <Link
@@ -260,20 +260,13 @@ const SolutionDetail = ({
     >
       <h3 className="mega-menu-col-header">{solution.name}</h3>
 
-      <div className="space-y-4">
-        {solution.sections.map((section) => (
-          <div key={section.title}>
-            <h4 className="mega-menu-section-title">{section.title}</h4>
-            <ul className="space-y-0.5">
-              {section.items.map((item) => (
-                <li key={item} className="mega-menu-section-item">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+      <ul className="space-y-0.5">
+        {solution.items.map((item) => (
+          <li key={item} className="mega-menu-section-item">
+            {item}
+          </li>
         ))}
-      </div>
+      </ul>
 
       <Link href={solution.cta.href} className="mega-menu-cta">
         {solution.cta.label}
@@ -429,20 +422,13 @@ const MobileMegaMenu = ({
               </button>
               {activeSolutionId === solution.id && (
                 <div className="pl-3 pb-2">
-                  {solution.sections.map((section) => (
-                    <div key={section.title} className="mb-2">
-                      <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1">
-                        {section.title}
-                      </p>
-                      {section.items.map((item) => (
-                        <p
-                          key={item}
-                          className="text-sm text-zinc-600 dark:text-zinc-400 py-0.5"
-                        >
-                          {item}
-                        </p>
-                      ))}
-                    </div>
+                  {solution.items.map((item) => (
+                    <p
+                      key={item}
+                      className="text-sm text-zinc-600 dark:text-zinc-400 py-0.5"
+                    >
+                      {item}
+                    </p>
                   ))}
                   <Link
                     href={solution.cta.href}

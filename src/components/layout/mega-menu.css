@@ -78,20 +78,6 @@
   opacity: 1;
 }
 
-/* ── Detail Section Title ────────────────────────────── */
-.mega-menu-section-title {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
-  color: var(--color-on-surface);
-  margin-bottom: 0.5rem;
-}
-
-.dark .mega-menu-section-title {
-  color: #f3f4f6;
-}
-
 /* ── Detail Section Item ─────────────────────────────── */
 .mega-menu-section-item {
   font-size: 0.8125rem;
