@@ -29,7 +29,7 @@ export function DigitalPioneerSection() {
     >
       <div
         ref={containerRef}
-        className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-14"
+        className="max-w-[1600px] mx-auto px-4 md:px-8 py-10"
       >
         {/* ── Top Row: Headline left + Body right ── */}
 
@@ -38,7 +38,7 @@ export function DigitalPioneerSection() {
           stats={orgInfo?.stats}
           showDescription={true}
           itemBgClassName="bg-canvas-white dark:bg-zinc-950 hover:bg-zinc-100/80 dark:hover:bg-zinc-900/80"
-          className="pioneer-reveal mt-8 md:mt-12"
+          className="pioneer-reveal mt-8"
         />
       </div>
     </section>

@@ -47,12 +47,9 @@ export function LandingContactSection() {
       id="contact"
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
     >
-      <div
-        ref={contactRef}
-        className="max-w-[1600px] mx-auto px-4 md:px-8 py-10 md:py-12"
-      >
+      <div ref={contactRef} className="max-w-[1600px] mx-auto px-4 md:px-8">
         {/* Contact Layout */}
-        <div className="contact-reveal bg-canvas-white dark:bg-zinc-900/40 rounded-2xl p-8 md:p-16 border border-whisper-border dark:border-zinc-800 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="contact-reveal bg-canvas-white dark:bg-zinc-900/40 rounded-2xl p-8 border border-whisper-border dark:border-zinc-800 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black dark:text-white mb-6">
               Sẵn sàng để đột phá?
