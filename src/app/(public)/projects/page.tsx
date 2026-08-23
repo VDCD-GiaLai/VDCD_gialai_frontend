@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dự án tiêu biểu | VDCD Group – Giám sát & Chuyển đổi số công trình",
     description:
-      "Hơn 50 công trình trọng điểm trên khắp Việt Nam — từ hạ tầng giao thông, khu kinh tế đến bảo tồn di sản.",
+      "Hơn 100+ công trình trọng điểm trên khắp Việt Nam — từ hạ tầng giao thông, khu kinh tế đến bảo tồn di sản.",
     type: "website",
   },
 };
