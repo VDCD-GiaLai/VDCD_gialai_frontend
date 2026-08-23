@@ -108,12 +108,14 @@ export function BentoIntro({ orgInfo }: BentoIntroProps) {
               TRUNG TÂM ĐỔI MỚI SÁNG TẠO{" "}
               <span className="text-accent-red">GIA LAI</span>
             </h1>
-            <p className="font-mono text-[#1b1b1d] font-medium text-sm">
-              <span className="text-zinc-950 font-bold">Tên viết tắt:</span>{" "}
+            <p className="font-mono text-[#1b1b1d] dark:text-zinc-300 font-medium text-sm">
+              <span className="text-zinc-950 dark:text-white font-bold">
+                Tên viết tắt:
+              </span>{" "}
               VDCD Gia Lai
             </p>
-            <p className="font-mono text-[#1b1b1d] font-medium text-sm">
-              <span className="text-zinc-950 font-bold">
+            <p className="font-mono text-[#1b1b1d] dark:text-zinc-300 font-medium text-sm">
+              <span className="text-zinc-950 dark:text-white font-bold">
                 Mã số doanh nghiệp:
               </span>{" "}
               {orgInfo?.businessLicenseNo || "4101443823"}
