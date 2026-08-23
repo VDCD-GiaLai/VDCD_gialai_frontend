@@ -31,7 +31,8 @@ export function PhilosophyAccordion({
         missionText ||
         "Đưa công nghệ đến gần hơn với thực tế, tạo ra những giá trị thiết thực cho người dân, doanh nghiệp và địa phương.",
       icon: GlobeHemisphereWestIcon,
-      bgImage: "/images/home/farm_area_view.webp",
+      bgImage:
+        "https://ik.imagekit.io/huy01040104/vdcd/slides/1787476500151_3700802451179916895_3700802451179916895_b57288b933db2297a1bfb3632ed678e9.jpg",
     },
     {
       id: "02",
@@ -57,7 +58,7 @@ export function PhilosophyAccordion({
   ];
 
   return (
-    <section className="space-y-8 select-none">
+    <section className="space-y-8 mb-10 select-none">
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="w-full">

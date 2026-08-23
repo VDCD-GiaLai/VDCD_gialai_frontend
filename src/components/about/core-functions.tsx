@@ -51,7 +51,7 @@ export function CoreFunctions() {
   ];
 
   return (
-    <section className="space-y-12 select-none">
+    <section className="space-y-12 mb-8 select-none">
       {/* Section Header */}
       <div className="max-w-3xl space-y-3">
         <span className="font-mono text-xs font-bold text-accent-red tracking-widest uppercase block">

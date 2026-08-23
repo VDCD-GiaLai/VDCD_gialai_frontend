@@ -84,7 +84,7 @@ export default function AboutPage() {
       {/* Main Layout Container with spatial rhythm */}
       <div className="max-w-[1600px] mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-6 md:pb-8 space-y-14 md:space-y-20">
         {/* 2. Bento Intro Section & Executive Leader */}
-        <div className="space-y-6 md:space-y-8">
+        <div className="mb-16">
           <BentoIntro orgInfo={orgInfo} />
           <ExecutiveLeader />
         </div>
@@ -108,7 +108,7 @@ export default function AboutPage() {
         <EcosystemSection />
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12 md:py-16 space-y-14 md:space-y-20">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-4 md:py-10 space-y-14 md:space-y-20">
         {/* 7. Slate Dark CTA block */}
         <motion.section
           className="relative text-center"
