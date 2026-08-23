@@ -64,7 +64,7 @@ export function ExecutiveLeader() {
             </div>
 
             {/* Action Link */}
-            <div className="flex justify-end pt-0.5">
+            <div className="flex justify-end pt-0.5 hidden">
               <Link
                 href="/leadership"
                 className="inline-flex items-center gap-1.5 text-accent-red hover:text-accent-red/80 text-xs sm:text-sm font-semibold transition-colors duration-300 shrink-0 cursor-pointer group"
