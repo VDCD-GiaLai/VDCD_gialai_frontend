@@ -164,20 +164,31 @@ button {
 }
 
 /* ── Partner Marquee Ticker ────────────────────────────── */
-@keyframes marquee-scroll {
+@keyframes marquee-scroll-left {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-scroll-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .marquee-container {
   overflow: hidden;
   position: relative;
-  /* Edge fade masks */
+  width: 100%;
+  /* Edge fade masks with hardware acceleration */
   mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -192,70 +203,95 @@ button {
     black 92%,
     transparent 100%
   );
+  transform: translateZ(0);
 }
 
 .marquee-track {
   display: flex;
   flex-wrap: nowrap;
   width: max-content;
-  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: marquee-scroll-left var(--marquee-duration, 50s) linear infinite;
+}
+
+.marquee-track-reverse {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: marquee-scroll-right var(--marquee-duration, 55s) linear infinite;
 }
 
 .marquee-half {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   gap: 1.5rem;
   padding-right: 1.5rem; /* matches gap so the seam is invisible */
+  backface-visibility: hidden;
 }
 
-.marquee-track:hover {
+.marquee-track:hover,
+.marquee-track-reverse:hover {
   animation-play-state: paused;
 }
 
 .marquee-item {
-  flex: 0 0 auto;
+  flex: 0 0 190px;
+  width: 190px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  padding: 1.25rem 2.25rem;
-  min-width: 180px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(6px);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 18px;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.85);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .marquee-item:hover {
-  border-color: rgba(232, 0, 2, 0.25);
-  transform: scale(1.06);
-  box-shadow: 0 8px 32px rgba(232, 0, 2, 0.1);
+  border-color: rgba(232, 0, 2, 0.35);
+  transform: scale(1.05) translateZ(0);
+  box-shadow: 0 8px 24px rgba(232, 0, 2, 0.1);
 }
 
 .dark .marquee-item {
   border-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(24, 24, 27, 0.65);
 }
 
 .dark .marquee-item:hover {
-  border-color: rgba(232, 0, 2, 0.4);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(232, 0, 2, 0.15);
+  border-color: rgba(232, 0, 2, 0.5);
+  background: rgba(39, 39, 42, 0.85);
+  box-shadow: 0 8px 24px rgba(232, 0, 2, 0.18);
 }
 
 @media (max-width: 768px) {
-  .marquee-track {
-    animation-duration: calc(var(--marquee-duration, 40s) * 1.3);
+  .marquee-track,
+  .marquee-track-reverse {
+    animation-duration: calc(var(--marquee-duration, 50s) * 1.2);
   }
 
   .marquee-half {
-    gap: 1.25rem;
-    padding-right: 1.25rem;
+    gap: 1rem;
+    padding-right: 1rem;
   }
 
   .marquee-item {
-    padding: 0.85rem 1.5rem;
-    min-width: 130px;
+    flex: 0 0 140px;
+    width: 140px;
+    height: 68px;
+    padding: 0.5rem 0.85rem;
     border-radius: 14px;
   }
 }

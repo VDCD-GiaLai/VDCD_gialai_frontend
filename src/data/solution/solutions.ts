@@ -194,3 +194,121 @@ export const CAPABILITY_SOLUTIONS: SolutionItem[] = [
       "Ứng dụng công nghệ tích hợp giúp cảnh báo sớm rủi ro thiên tai và hỗ trợ tìm kiếm cứu nạn",
   },
 ];
+
+/* ──────────────────────────────────────────────────────────
+ *  6 CÔNG NGHỆ CỐT LÕI  (hiện ở trang /solution)
+ * ────────────────────────────────────────────────────────── */
+export const CORE_TECH_SOLUTIONS: SolutionItem[] = [
+  {
+    title: "UAV - Khảo sát địa hình & Đo đạc trắc địa số",
+    slug: "uav",
+    href: "/solution/uav",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    description:
+      "Ứng dụng công nghệ UAV trong đo đạc trắc địa, thành lập bản đồ số 2D/3D, hỗ trợ thiết kế san lấp và số hóa hiện trạng.",
+  },
+  {
+    title: "AI - Trung tâm Phát triển Robot & AI",
+    slug: "ai",
+    href: "/solution/ai",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/floor.svg",
+    description:
+      "Nghiên cứu và ứng dụng công nghệ robot thông minh tích hợp trí tuệ nhân tạo trong giáo dục, sản xuất, logistics và dịch vụ.",
+  },
+  {
+    title: "AutoTimelapse - Giám sát thông minh 24/7",
+    slug: "autotimelapse",
+    href: "/solution/autotimelapse",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
+    description:
+      "Hệ thống Timelapse tự động hóa giám sát tiến độ công trình, nông nghiệp và môi trường, lưu trữ và chia sẻ dữ liệu trực tuyến.",
+  },
+  {
+    title: "VR360 - Không gian số trực quan",
+    slug: "vr360",
+    href: "/solution/vr360",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/Lotte-Mall-1-1-1-scaled.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
+    description:
+      "Số hóa không gian thực tế 360 độ phục vụ quản lý hiện trường, tham vấn quy hoạch và trình bày công trình.",
+  },
+  {
+    title: "SmartScale - Trạm cân thông minh",
+    slug: "smartscale",
+    href: "/solution/smartscale",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7903688360376_37c98f8dadd2f5e6419362c107fe4ca4-1-1024x509.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    description:
+      "Số hóa quy trình cân xe, tự động nhận diện biển số, ghi nhận trọng lượng và quản lý dữ liệu tập trung.",
+  },
+  {
+    title: "Data Center - Siêu máy tính & Đào tạo AI",
+    slug: "data-center",
+    href: "/solution/data-center",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    description:
+      "Hạ tầng tính toán hiệu năng cao HPC, nghiên cứu AI, đào tạo nhân lực và dịch vụ Colocation cho doanh nghiệp.",
+  },
+];
+
+/* ──────────────────────────────────────────────────────────
+ *  4 GIẢI PHÁP CHUYÊN NGÀNH MŨI NHỌN  (hiện ở trang /solution)
+ * ────────────────────────────────────────────────────────── */
+export const SPECIALIZED_SOLUTIONS: SolutionItem[] = [
+  {
+    title: "Số hóa dữ liệu đất đai",
+    slug: "so-hoa-du-lieu-dat-dai",
+    href: "/solution/so-hoa-du-lieu-dat-dai",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    description:
+      "Kết nối UAV, GNSS, AI và GIS để thu thập hiện trạng, lập bản đồ địa chính, chuẩn hóa hồ sơ và xây dựng cơ sở dữ liệu đất đai thống nhất.",
+  },
+  {
+    title: "Đô thị thông minh",
+    slug: "do-thi-thong-minh",
+    href: "/solution/do-thi-thong-minh",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
+    description:
+      "Camera AI, Autotimelapse, bản đồ số và nền tảng điều hành giám sát giao thông, an ninh, môi trường và quản lý hạ tầng đô thị.",
+  },
+  {
+    title: "Quản lý tài nguyên & Môi trường",
+    slug: "quan-ly-tai-nguyen-va-moi-truong",
+    href: "/solution/quan-ly-tai-nguyen-va-moi-truong",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2026/06/z7913610376494_aabfc4669de386a5916480d8fb3f34cd-1024x490.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    description:
+      "UAV, LiDAR, AI, Autotimelapse, cảm biến và 3DGIS phục vụ kiểm kê rừng, quản lý mỏ, mô phỏng ngập lụt và giám sát bãi thải.",
+  },
+  {
+    title: "Trung tâm dữ liệu vùng",
+    slug: "trung-tam-du-lieu-vung",
+    href: "/solution/trung-tam-du-lieu-vung",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+    iconUrl:
+      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    description:
+      "Hạ tầng Data Center chuyên biệt phục vụ lưu trữ, xử lý dữ liệu và dịch vụ Colocation tại Trung tâm Đổi mới Sáng tạo Gia Lai.",
+  },
+];

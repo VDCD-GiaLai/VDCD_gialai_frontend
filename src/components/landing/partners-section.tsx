@@ -99,10 +99,10 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
         src={logo}
         alt={name}
         width={140}
-        height={40}
-        className="max-w-[130px] sm:max-w-[150px] md:max-w-[170px] object-contain pointer-events-none select-none transition-all duration-300"
-        style={{ height: "102px", width: "auto" }}
-        loading="lazy"
+        height={48}
+        className="max-h-[46px] max-w-[130px] sm:max-h-[50px] sm:max-w-[145px] w-auto h-auto object-contain pointer-events-none select-none transition-transform duration-300 group-hover/logo:scale-105"
+        priority={false}
+        loading="eager"
       />
     </span>
   );
@@ -111,7 +111,7 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
 /** ────────────────────────────────────────────────
  *  Partners Section — continuous marquee ticker
  *  No scroll-triggered animations; logos scroll
- *  immediately and endlessly.
+ *  immediately and endlessly with 60-120fps GPU acceleration.
  *  ──────────────────────────────────────────────── */
 export function PartnersSection() {
   const [partnerList, setPartnerList] = React.useState<PartnerItem[]>(
@@ -125,7 +125,17 @@ export function PartnersSection() {
   React.useEffect(() => {
     fetchPartnersFromApi().then((items) => {
       if (items && items.length > 0) {
-        setPartnerList(items);
+        setPartnerList((prev) => {
+          if (
+            prev.length === items.length &&
+            prev.every(
+              (p, i) => p.name === items[i].name && p.logo === items[i].logo,
+            )
+          ) {
+            return prev;
+          }
+          return items;
+        });
       }
     });
   }, []);
@@ -173,12 +183,20 @@ export function PartnersSection() {
           >
             <div className="marquee-half">
               {partnerList.map((p, i) => (
-                <PartnerLogo key={`r1a-${i}`} name={p.name} logo={p.logo} />
+                <PartnerLogo
+                  key={`r1a-${p.id || i}-${p.name}`}
+                  name={p.name}
+                  logo={p.logo}
+                />
               ))}
             </div>
-            <div className="marquee-half">
+            <div className="marquee-half" aria-hidden="true">
               {partnerList.map((p, i) => (
-                <PartnerLogo key={`r1b-${i}`} name={p.name} logo={p.logo} />
+                <PartnerLogo
+                  key={`r1b-${p.id || i}-${p.name}`}
+                  name={p.name}
+                  logo={p.logo}
+                />
               ))}
             </div>
           </div>
@@ -187,20 +205,25 @@ export function PartnersSection() {
         {/* ── Marquee Ticker Row 2 (→ right, reversed) ── */}
         <div className="marquee-container">
           <div
-            className="marquee-track"
-            style={{
-              ["--marquee-duration" as string]: "55s",
-              animationDirection: "reverse",
-            }}
+            className="marquee-track-reverse"
+            style={{ ["--marquee-duration" as string]: "55s" }}
           >
             <div className="marquee-half">
               {[...partnerList].reverse().map((p, i) => (
-                <PartnerLogo key={`r2a-${i}`} name={p.name} logo={p.logo} />
+                <PartnerLogo
+                  key={`r2a-${p.id || i}-${p.name}`}
+                  name={p.name}
+                  logo={p.logo}
+                />
               ))}
             </div>
-            <div className="marquee-half">
+            <div className="marquee-half" aria-hidden="true">
               {[...partnerList].reverse().map((p, i) => (
-                <PartnerLogo key={`r2b-${i}`} name={p.name} logo={p.logo} />
+                <PartnerLogo
+                  key={`r2b-${p.id || i}-${p.name}`}
+                  name={p.name}
+                  logo={p.logo}
+                />
               ))}
             </div>
           </div>

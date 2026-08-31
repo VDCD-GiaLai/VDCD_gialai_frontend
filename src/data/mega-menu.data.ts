@@ -47,7 +47,7 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
       "Điện và năng lượng",
       "Phòng, chống thiên tai",
     ],
-    cta: { label: "Xem giải pháp UAV", href: "/solution" },
+    cta: { label: "Xem giải pháp UAV", href: "/solution/uav" },
   },
   {
     id: "ai",
@@ -60,7 +60,7 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
       "Phát hiện biến động và cảnh báo bất thường",
       "Kiểm kê tài nguyên, rừng và cây trồng",
     ],
-    cta: { label: "Xem giải pháp AI", href: "/solution" },
+    cta: { label: "Xem giải pháp AI", href: "/solution/ai" },
   },
   {
     id: "autotimelapse",
@@ -73,7 +73,10 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
       "Du lịch và trải nghiệm",
       "Giám sát an ninh",
     ],
-    cta: { label: "Xem giải pháp Autotimelapse", href: "/solution" },
+    cta: {
+      label: "Xem giải pháp Autotimelapse",
+      href: "/solution/autotimelapse",
+    },
   },
   {
     id: "vr360",
@@ -87,7 +90,7 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
       "Giáo dục, đào tạo và văn phòng",
       "Nhà máy và khu công nghiệp",
     ],
-    cta: { label: "Xem giải pháp VR360", href: "/solution" },
+    cta: { label: "Xem giải pháp VR360", href: "/solution/vr360" },
   },
   {
     id: "smartscale",
@@ -100,7 +103,7 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
       "Nông nghiệp, chăn nuôi và nông sản",
       "Năng lượng và sinh khối",
     ],
-    cta: { label: "Xem giải pháp SmartScale", href: "/solution" },
+    cta: { label: "Xem giải pháp SmartScale", href: "/solution/smartscale" },
   },
   {
     id: "data-center",
@@ -109,7 +112,7 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     items: [
       "Hạ tầng lưu trữ, xử lý, tích hợp và chia sẻ dữ liệu tập trung, phục vụ vận hành các hệ thống và nền tảng công nghệ.",
     ],
-    cta: { label: "Xem giải pháp Data Center", href: "/solution" },
+    cta: { label: "Xem giải pháp Data Center", href: "/solution/data-center" },
   },
 ];
 
