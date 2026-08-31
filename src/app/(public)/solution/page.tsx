@@ -2,7 +2,11 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { ServiceCard } from "@/components/ui/service-card";
-import { CAPABILITY_SOLUTIONS } from "@/data/solution/solutions";
+import {
+  CAPABILITY_SOLUTIONS,
+  CORE_TECH_SOLUTIONS,
+  SPECIALIZED_SOLUTIONS,
+} from "@/data/solution/solutions";
 import { fetchSolutionsFromApi } from "@/services/solution.service";
 import { gsap } from "@/lib/animations/register-gsap";
 import { PageHeroBanner } from "@/components/ui/page-hero-banner";
@@ -72,8 +76,78 @@ export default function SolutionsPage() {
       {/* Hero Banner — backend-ready */}
       <PageHeroBanner pageKey="solutions" ariaLabel="Giải pháp theo lĩnh vực" />
 
-      {/* Solutions Grid */}
-      <section className="max-w-[1600px] mx-auto px-4 md:px-8 py-16">
+      {/* ── Khối 1: Công nghệ Cốt lõi ── */}
+      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-16 pb-8">
+        <div className="mb-10">
+          <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
+            Công nghệ cốt lõi
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
+            6 Nền tảng Công nghệ
+          </h2>
+          <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
+            Các công nghệ trọng tâm được Trung tâm Đổi mới Sáng tạo Gia Lai
+            nghiên cứu, phát triển và ứng dụng.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+          {CORE_TECH_SOLUTIONS.map((sol) => (
+            <div key={sol.title} className="sol-card h-full">
+              <ServiceCard
+                title={sol.title}
+                href={sol.href}
+                imageUrl={sol.imageUrl}
+                iconUrl={sol.iconUrl || "/icons/cpu.svg"}
+                description={sol.description}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Khối 2: Giải pháp Chuyên ngành ── */}
+      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-8 pb-8">
+        <div className="mb-10">
+          <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
+            Giải pháp chuyên ngành
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
+            4 Giải pháp Mũi nhọn
+          </h2>
+          <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
+            Các giải pháp chuyên sâu kết hợp đa công nghệ, giải quyết bài toán
+            thực tiễn theo từng lĩnh vực.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
+          {SPECIALIZED_SOLUTIONS.map((sol) => (
+            <div key={sol.title} className="sol-card h-full">
+              <ServiceCard
+                title={sol.title}
+                href={sol.href}
+                imageUrl={sol.imageUrl}
+                iconUrl={sol.iconUrl || "/icons/cpu.svg"}
+                description={sol.description}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Khối 3: Giải pháp theo lĩnh vực (Existing) ── */}
+      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-8 pb-16">
+        <div className="mb-10">
+          <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
+            Giải pháp theo lĩnh vực
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
+            Năng lực giải pháp
+          </h2>
+          <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
+            Ứng dụng công nghệ vào các ngành kinh tế trọng điểm tại khu vực Tây
+            Nguyên và cả nước.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {solutions.map((sol) => (
             <div key={sol.title} className="sol-card h-full">
