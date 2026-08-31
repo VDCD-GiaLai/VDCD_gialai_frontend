@@ -1281,4 +1281,385 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       },
     ],
   },
+  "uom-tao-khoi-nghiep-sang-tao": {
+    slug: "uom-tao-khoi-nghiep-sang-tao",
+    title: "Ươm Tạo Khởi Nghiệp Sáng Tạo",
+    subtitle: "Từ ý tưởng đến mô hình có thể thử nghiệm và thương mại hóa",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image110.png?tr=w-1600,q-80,f-auto",
+    introText:
+      "Trung tâm Đổi mới Sáng tạo Gia Lai hỗ trợ cá nhân, nhóm dự án, startup, hợp tác xã và doanh nghiệp từng bước kiểm chứng ý tưởng, hoàn thiện mô hình kinh doanh, phát triển sản phẩm thử nghiệm và tiếp cận các nguồn lực phù hợp. Mục tiêu của chương trình không chỉ là hoàn thiện một bản kế hoạch, mà giúp dự án trả lời được những câu hỏi quan trọng: Sản phẩm giải quyết vấn đề gì? Ai sẵn sàng sử dụng? Mô hình có khả thi không? Và cần làm gì tiếp theo để đưa sản phẩm vào thực tế?",
+    accentColor: "#ea580c",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image110.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image115.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto",
+    ],
+    sections: [
+      {
+        title: "1. Ý tưởng tốt vẫn cần một lộ trình đúng",
+        description:
+          "Nhiều ý tưởng khởi nghiệp được hình thành từ những vấn đề gần gũi trong đời sống, sản xuất và nhu cầu của địa phương. Tuy nhiên, để biến ý tưởng thành một dự án có khả năng phát triển, đội ngũ sáng lập thường gặp phải những điểm nghẽn:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image110.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Chưa xác định rõ khách hàng và nhu cầu thực tế.",
+          "Chưa biết cách kiểm chứng tính khả thi của ý tưởng.",
+          "Sản phẩm còn ở dạng khái niệm, chưa có phiên bản thử nghiệm.",
+          "Mô hình kinh doanh và phương án tạo doanh thu chưa rõ ràng.",
+          "Thiếu kinh nghiệm về quản trị, tài chính, pháp lý và thị trường.",
+          "Chưa tiếp cận được công nghệ, chuyên gia và đối tác phù hợp.",
+          "Chưa có hồ sơ đủ thuyết phục để giới thiệu dự án.",
+        ],
+      },
+      {
+        title: "2. Đối tượng tham gia chương trình",
+        description:
+          "Chương trình ươm tạo mở rộng cho nhiều nhóm đối tượng có khát vọng đổi mới sáng tạo:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image115.png?tr=w-1000,q-80,f-auto",
+        layout: "card-grid",
+        points: [
+          "Cá nhân và nhóm có ý tưởng: Có ý tưởng giải quyết một vấn đề thực tế nhưng chưa biết bắt đầu hoặc chưa hình thành mô hình kinh doanh.",
+          "Startup và dự án khởi nghiệp: Đã có sản phẩm ban đầu, cần kiểm chứng thị trường, hoàn thiện mô hình hoặc chuẩn bị cho giai đoạn phát triển tiếp theo.",
+          "Sinh viên và nhóm nghiên cứu: Có sáng kiến, kết quả nghiên cứu hoặc sản phẩm công nghệ cần đánh giá khả năng ứng dụng và thương mại hóa.",
+          "Hợp tác xã và doanh nghiệp: Muốn đổi mới sản phẩm, quy trình, phương thức vận hành hoặc phát triển mô hình kinh doanh mới trên nền tảng công nghệ.",
+        ],
+      },
+      {
+        title: "3. Hành trình ươm tạo 6 bước chuẩn hóa",
+        description:
+          "Một quy trình đồng hành sát sao từ kiểm chứng vấn đề đến gọi vốn thành công:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1400,q-80,f-auto",
+        layout: "numbered-steps",
+        points: [
+          "01. Tiếp nhận và đánh giá: Tìm hiểu ý tưởng, đội ngũ, sản phẩm, thị trường dự kiến và những khó khăn dự án đang gặp phải. Kết quả đánh giá giúp xác định giai đoạn phát triển và nội dung cần ưu tiên.",
+          "02. Kiểm chứng vấn đề và khách hàng: Làm rõ đối tượng khách hàng, nhu cầu cần giải quyết và giá trị mà sản phẩm mang lại. Dự án được định hướng khảo sát, phỏng vấn và thu thập phản hồi từ người dùng thực tế.",
+          "03. Hoàn thiện mô hình kinh doanh: Xác định khách hàng mục tiêu, giá trị cốt lõi, nguồn doanh thu, cơ cấu chi phí, kênh tiếp cận thị trường và những nguồn lực cần thiết.",
+          "04. Phát triển sản phẩm thử nghiệm: Hỗ trợ dự án xây dựng mô hình mẫu, phiên bản khả dụng tối thiểu (MVP) hoặc bản chứng minh tính khả thi của giải pháp (POC). Kết nối với AI, UAV, GIS, 3D và Data Center.",
+          "05. Thử nghiệm và hoàn thiện: Đưa sản phẩm đến nhóm người dùng hoặc đối tác tiềm năng để thu thập phản hồi, đánh giá khả năng sử dụng và tiếp tục điều chỉnh sản phẩm, phương án vận hành.",
+          "06. Trình bày và kết nối nguồn lực: Hoàn thiện hồ sơ giới thiệu, nội dung thuyết trình và kế hoạch phát triển. Giới thiệu đến chuyên gia, doanh nghiệp, quỹ hỗ trợ hoặc nguồn lực đầu tư.",
+        ],
+      },
+      {
+        title: "4. Dự án được hỗ trợ những gì?",
+        description:
+          "Mỗi dự án có một điểm xuất phát khác nhau. Sau bước đánh giá ban đầu, Trung tâm sẽ đề xuất lộ trình phù hợp:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image115.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Sản phẩm và mô hình kinh doanh: Làm rõ vấn đề, giá trị khác biệt, khách hàng mục tiêu, phương thức tạo doanh thu và khả năng mở rộng của dự án.",
+          "Công nghệ và phát triển giải pháp: Kết nối đội ngũ kỹ thuật, công nghệ và hạ tầng phù hợp để hỗ trợ hoàn thiện sản phẩm mẫu hoặc phiên bản thử nghiệm.",
+          "Thị trường và vận hành: Xây dựng cách tiếp cận khách hàng, kế hoạch truyền thông, phương án vận hành, tài chính và sử dụng nguồn lực.",
+          "Chuyên gia và hệ sinh thái: Kết nối chuyên gia, cố vấn, doanh nghiệp, trường đại học, tổ chức nghiên cứu và đối tác hỗ trợ.",
+        ],
+      },
+      {
+        title: "5. Kết quả dự án hướng đến & Hệ sinh thái đồng hành",
+        description:
+          "Kết quả của chương trình được đánh giá bằng mức độ dự án hiểu thị trường rõ hơn, sản phẩm cụ thể hơn và xác định được bước đi tiếp theo:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Định vị và hồ sơ dự án rõ ràng, sản phẩm mẫu MVP / POC hoàn thiện.",
+          "Kết quả kiểm chứng nhu cầu khách hàng và kế hoạch tiếp cận thị trường.",
+          "Mô hình kinh doanh, phương án vận hành và tài chính ban đầu vững chắc.",
+          "Mạng lưới chuyên gia, doanh nghiệp và đối tác đầu tư phù hợp.",
+          "Kết nối hạ tầng UAV, AI, GIS, phần mềm và Data Center từ VDCD Group.",
+        ],
+      },
+    ],
+  },
+  "dao-tao-cong-nghe-va-chuyen-doi-so": {
+    slug: "dao-tao-cong-nghe-va-chuyen-doi-so",
+    title: "Đào Tạo Công Nghệ Và Chuyển Đổi Số",
+    subtitle:
+      "Chương trình đào tạo theo nhu cầu thực tế về chuyển đổi số, UAV, AI, GIS, BIM và quản trị dữ liệu",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1600,q-80,f-auto",
+    introText:
+      "Trung tâm Đổi mới Sáng tạo Gia Lai tổ chức các chương trình đào tạo, bồi dưỡng và nâng cao năng lực theo nhu cầu thực tế của cơ quan quản lý nhà nước, doanh nghiệp, hợp tác xã và lực lượng lao động trẻ. Nội dung được xây dựng theo từng nhóm đối tượng, kết hợp kiến thức nền tảng, tình huống thực tế và hoạt động thực hành, giúp người học có thể áp dụng trực tiếp vào công việc.",
+    accentColor: "#0284c7",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image57.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image62.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image107.png?tr=w-1200,q-80,f-auto",
+    ],
+    sections: [
+      {
+        title: "1. Đào tạo gắn với nhu cầu thực tế",
+        description:
+          "Nội dung đào tạo được xây dựng từ bài toán thực tế của địa phương, tổ chức theo nguyên tắc:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image57.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Đúng đối tượng: Nội dung phù hợp với vai trò và trình độ người học.",
+          "Thực tế và ứng dụng được: Giảm lý thuyết chung chung, tăng ví dụ, tình huống và thao tác trực tiếp.",
+          "Đồng hành sau đào tạo: Hướng dẫn áp dụng và kết nối giải pháp công nghệ khi đơn vị triển khai thực tế.",
+        ],
+      },
+      {
+        title: "2. Đối tượng đào tạo trọng tâm",
+        description:
+          "Các chương trình được tùy biến chuyên sâu cho từng nhóm học viên:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image62.png?tr=w-1000,q-80,f-auto",
+        layout: "card-grid",
+        points: [
+          "Cán bộ, công chức, viên chức: Nâng cao nhận thức về chuyển đổi số, quản trị dữ liệu và khả năng ứng dụng công nghệ trong công tác quản lý, điều hành và cung cấp dịch vụ công.",
+          "Lãnh đạo và quản lý doanh nghiệp: Hiểu đúng về chuyển đổi số, lựa chọn giải pháp phù hợp, xây dựng lộ trình và quản trị quá trình thay đổi trong doanh nghiệp.",
+          "Nhân sự kỹ thuật và vận hành: Nâng cao kỹ năng sử dụng phần mềm, thiết bị, quy trình số hóa và an toàn thông tin.",
+          "Hợp tác xã và hộ kinh doanh: Tiếp cận công nghệ số trong sản xuất nông nghiệp, quản lý bán hàng, truy xuất nguồn gốc và thương mại điện tử.",
+          "Sinh viên và người trẻ: Trang bị kỹ năng số thực tế, kiến thức về UAV, AI, GIS, lập trình và tư duy đổi mới sáng tạo để gia tăng cơ hội việc làm.",
+        ],
+      },
+      {
+        title: "3. Các chuyên đề đào tạo chuyên sâu",
+        description: "Các module đào tạo từ cơ bản đến nâng cao:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1400,q-80,f-auto",
+        layout: "numbered-steps",
+        points: [
+          "Chuyển đổi số và Quản trị dữ liệu: Nhận thức đúng về chuyển đổi số, rà soát quy trình và chuẩn hóa dữ liệu, an toàn và khai thác dữ liệu trong hoạt động cơ quan, doanh nghiệp.",
+          "Công nghệ UAV và Đo đạc trắc địa số: Kiến thức an toàn bay, quy trình thu thập dữ liệu bằng UAV, xử lý dữ liệu ảnh thành bản đồ 2D, 3D, ứng dụng trong địa chính, lâm nghiệp, nông nghiệp và giám sát công trình.",
+          "Trí tuệ nhân tạo (AI) và Tự động hóa: Ứng dụng AI trong phân tích hình ảnh, video, camera AI giám sát thông minh, tự động hóa quy trình nghiệp vụ.",
+          "Hệ thống Thông tin Địa lý (GIS) và Mô hình BIM: Quản trị dữ liệu không gian, xây dựng bản đồ số chuyên ngành, ứng dụng BIM trong quản lý dự án xây dựng và đô thị.",
+          "Khởi nghiệp và Đổi mới sáng tạo: Phương pháp phát triển ý tưởng, xây dựng mô hình kinh doanh, hoàn thiện sản phẩm thử nghiệm MVP.",
+        ],
+      },
+      {
+        title: "4. Quy trình tổ chức đào tạo 5 bước",
+        description:
+          "Quy trình khép kín đảm bảo chất lượng chuyển giao tri thức:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image107.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "01. Khảo sát nhu cầu: Trao đổi với đơn vị để xác định mục tiêu, đối tượng, thời lượng và kết quả kỳ vọng.",
+          "02. Xây dựng chương trình: Thiết kế nội dung, bài tập thực hành và tài liệu phù hợp với bài toán của người học.",
+          "03. Tổ chức đào tạo: Giảng viên và chuyên gia trực tiếp hướng dẫn, kết hợp thảo luận và giải quyết tình huống thực tế.",
+          "04. Thực hành và kiểm tra: Người học thực hành trên dữ liệu, phần mềm hoặc thiết bị thực tế để củng cố kỹ năng.",
+          "05. Đánh giá và đề xuất áp dụng: Tổng kết khóa học, đánh giá kết quả và đề xuất các bước triển khai tiếp theo.",
+        ],
+      },
+    ],
+  },
+  "ket-noi-chuyen-gia-va-he-sinh-thai": {
+    slug: "ket-noi-chuyen-gia-va-he-sinh-thai",
+    title: "Kết Nối Chuyên Gia Và Hệ Sinh Thái",
+    subtitle:
+      "Kết nối đúng chuyên môn – Tháo gỡ đúng nút thắt – Mở rộng cơ hội hợp tác",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image105.png?tr=w-1600,q-80,f-auto",
+    introText:
+      "Một vấn đề chỉ có thể được giải quyết hiệu quả khi đơn vị tiếp cận đúng người có chuyên môn phù hợp. Trung tâm Đổi mới Sáng tạo Gia Lai đóng vai trò đầu mối kết nối giữa cơ quan quản lý, doanh nghiệp, hợp tác xã, startup với mạng lưới chuyên gia, viện nghiên cứu, trường đại học và các tổ chức phát triển trong hệ sinh thái đổi mới sáng tạo.",
+    accentColor: "#6366f1",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image105.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image103.png?tr=w-1200,q-80,f-auto",
+    ],
+    sections: [
+      {
+        title: "1. Khi nào cần kết nối chuyên gia?",
+        description:
+          "Nhiều đơn vị gặp những nhu cầu cấp thiết cần sự đồng hành của chuyên gia:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image105.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Gặp bài toán kỹ thuật phức tạp nhưng chưa có nhân sự chuyên sâu.",
+          "Cần góc nhìn độc lập để đánh giá một giải pháp hoặc dự án.",
+          "Muốn đổi mới quy trình nhưng chưa biết bắt đầu từ đâu.",
+          "Cần đối tác có năng lực kỹ thuật để phối hợp triển khai.",
+          "Tìm kiếm chuyên gia đào tạo, chia sẻ hoặc tư vấn chuyên đề.",
+          "Muốn kết nối với các nguồn lực trong hệ sinh thái khởi nghiệp.",
+        ],
+      },
+      {
+        title: "2. Lĩnh vực chuyên gia kết nối trọng điểm",
+        description: "Mạng lưới chuyên gia đa ngành sẵn sàng hỗ trợ:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1000,q-80,f-auto",
+        layout: "card-grid",
+        points: [
+          "Công nghệ số và Chuyển đổi số: Hạ tầng công nghệ, trung tâm dữ liệu và an toàn thông tin; Phần mềm, ứng dụng và nền tảng quản lý; Tự động hóa, giám sát và cảnh báo thông minh; Trí tuệ nhân tạo (AI), thị giác máy tính và phân tích dữ liệu; UAV, GIS, trắc địa số và mô hình không gian 3D.",
+          "Đổi mới sáng tạo và Khởi nghiệp: Đánh giá ý tưởng và mô hình kinh doanh; Phát triển sản phẩm và ứng dụng công nghệ; Sở hữu trí tuệ và tiêu chuẩn chất lượng; Hồ sơ dự án và định hướng tiếp cận nguồn lực.",
+          "Chuyên ngành theo lĩnh vực: Đất đai, địa chính và tài nguyên môi trường; Nông nghiệp công nghệ cao và lâm nghiệp; Xây dựng, kiến trúc, quy hoạch và mô hình BIM; Đô thị thông minh, giao thông và chiếu sáng; Năng lượng tái tạo và quản lý hạ tầng.",
+        ],
+      },
+      {
+        title: "3. Hình thức kết nối linh hoạt",
+        description: "Các phương thức tương tác hiệu quả:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image103.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Trao đổi trực tiếp với chuyên gia: Thảo luận 1-1 hoặc theo nhóm nhỏ để làm rõ bài toán và tìm kiếm định hướng.",
+          "Hội đồng tư vấn chuyên môn: Tập hợp chuyên gia từ nhiều lĩnh vực để đánh giá một dự án, sản phẩm hoặc giải pháp phức tạp.",
+          "Hội thảo và tọa đàm chuyên đề: Tạo không gian trao đổi giữa các bên có cùng mối quan tâm về một chủ đề cụ thể.",
+          "Đồng hành theo dự án: Chuyên gia tham gia cố vấn kỹ thuật, đánh giá tiến độ hoặc chuyển giao công nghệ.",
+        ],
+      },
+      {
+        title: "4. Quy trình kết nối 5 bước",
+        description: "Đảm bảo tính thực chất và bảo mật thông tin:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image114.png?tr=w-1400,q-80,f-auto",
+        layout: "numbered-steps",
+        points: [
+          "01. Tiếp nhận nhu cầu: Tìm hiểu vấn đề, mục tiêu và kỳ vọng của đơn vị.",
+          "02. Phân tích bài toán: Làm rõ phạm vi, mức độ chuyên sâu và năng lực chuyên gia cần thiết.",
+          "03. Lựa chọn chuyên gia: Đề xuất chuyên gia hoặc tổ chức có kinh nghiệm phù hợp.",
+          "04. Tổ chức kết nối: Sắp xếp buổi làm việc, trao đổi hoặc khảo sát thực tế.",
+          "05. Theo dõi và mở rộng hợp tác: Hỗ trợ các bên duy trì liên lạc và triển khai các bước tiếp theo.",
+        ],
+      },
+    ],
+  },
+  "tu-van-chuyen-doi-so-cap-tinh": {
+    slug: "tu-van-chuyen-doi-so-cap-tinh",
+    title: "Tư Vấn Chuyển Đổi Số Cấp Tỉnh",
+    subtitle: "Tư vấn chuyển đổi số từ bài toán thực tế đến lộ trình khả thi",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1600,q-80,f-auto",
+    introText:
+      "Trung tâm Đổi mới Sáng tạo Gia Lai cung cấp dịch vụ tư vấn chuyển đổi số cho các sở, ban, ngành, ủy ban nhân dân các cấp, doanh nghiệp và tổ chức trên địa bàn tỉnh. Dịch vụ tập trung vào việc đánh giá đúng hiện trạng, xác định đúng bài toán ưu tiên, lựa chọn giải pháp công nghệ phù hợp và xây dựng lộ trình triển khai khả thi, giúp đơn vị tối ưu chi phí và tạo ra hiệu quả thực tế.",
+    accentColor: "#0891b2",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image109.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image111.png?tr=w-1200,q-80,f-auto",
+    ],
+    sections: [
+      {
+        title: "1. Chuyển đổi số nên bắt đầu từ đâu?",
+        description:
+          "Nhiều đơn vị muốn chuyển đổi số nhưng gặp phải những vướng mắc phổ biến:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Quy trình còn phụ thuộc nhiều vào thao tác thủ công.",
+          "Dữ liệu phân tán giữa hồ sơ, phần mềm và các phòng ban.",
+          "Hệ thống hiện có chưa kết nối hoặc khó mở rộng.",
+          "Việc tổng hợp báo cáo mất nhiều thời gian.",
+          "Khó theo dõi tiến độ và hoạt động theo thời gian thực.",
+          "Đã đầu tư công nghệ nhưng chưa khai thác hiệu quả.",
+          "Nhân sự chưa sẵn sàng tiếp nhận quy trình và công cụ mới.",
+          "Chưa có lộ trình và tiêu chí đánh giá rõ ràng.",
+        ],
+      },
+      {
+        title: "2. Tư vấn chuyển đổi số cấp tỉnh và liên ngành",
+        description:
+          "Chuyển đổi số cấp tỉnh đòi hỏi một lộ trình tổng thể và kết nối dữ liệu liên ngành:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image109.png?tr=w-1000,q-80,f-auto",
+        layout: "card-grid",
+        points: [
+          "Khảo sát hiện trạng chuyển đổi số tại các sở, ban, ngành.",
+          "Tổng hợp nhu cầu và mức độ sẵn sàng của từng đơn vị.",
+          "Rà soát quy trình, phần mềm và nguồn dữ liệu hiện có.",
+          "Xác định dữ liệu chuyên ngành và dữ liệu có thể chia sẻ.",
+          "Xây dựng danh mục nhiệm vụ chuyển đổi số theo mức độ ưu tiên.",
+          "Đề xuất kiến trúc tích hợp và nền tảng dữ liệu dùng chung.",
+          "Xây dựng dashboard theo dõi tiến độ và hỗ trợ điều hành.",
+          "Lựa chọn mô hình thí điểm trước khi triển khai diện rộng.",
+          "Đào tạo và chuyển giao cho đội ngũ vận hành tại địa phương.",
+        ],
+      },
+      {
+        title: "3. Nội dung tư vấn cốt lõi",
+        description: "Tập trung giải quyết bài toán thực chất:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image111.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Đánh giá hiện trạng và xác định ưu tiên: Khảo sát quy trình, dữ liệu, phần mềm, thiết bị, hạ tầng và nhân sự.",
+          "Số hóa quy trình và quản trị dữ liệu: Rà soát thao tác trùng lặp, chuẩn hóa dữ liệu phục vụ báo cáo và hỗ trợ ra quyết định.",
+          "Kiến trúc công nghệ và tích hợp hệ thống: Kết hợp UAV, AI, GIS, Camera AI, IoT, Dashboard và Data Center.",
+          "Thí điểm và mở rộng giải pháp: Xây dựng mô hình POC thử nghiệm, đo lường và nhân rộng.",
+        ],
+      },
+      {
+        title: "4. Quy trình tư vấn 5 bước",
+        description: "Lộ trình bài bản giúp kiểm soát rủi ro:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image4.png?tr=w-1400,q-80,f-auto",
+        layout: "numbered-steps",
+        points: [
+          "01. Tiếp nhận nhu cầu: Trao đổi về hiện trạng, khó khăn, mục tiêu và phạm vi cần tư vấn.",
+          "02. Khảo sát và phân tích: Đánh giá quy trình, dữ liệu, hệ thống, hạ tầng và nguồn lực liên quan.",
+          "03. Xây dựng danh mục ưu tiên: Xác định những bài toán có tính cấp thiết, khả thi và giá trị rõ ràng.",
+          "04. Đề xuất lộ trình và giải pháp: Xây dựng các giai đoạn triển khai, kiến trúc công nghệ và tiêu chí đánh giá.",
+          "05. Thí điểm, đánh giá và mở rộng: Thử nghiệm trong phạm vi phù hợp, đo lường kết quả và nhân rộng.",
+        ],
+      },
+    ],
+  },
+  "hoi-thao-su-kien": {
+    slug: "hoi-thao-su-kien",
+    title: "Hội Thảo & Sự Kiện Đổi Mới Sáng Tạo",
+    subtitle:
+      "Diễn đàn kết nối tri thức, chia sẻ xu hướng công nghệ mới và xúc tiến đổi mới sáng tạo",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1600,q-80,f-auto",
+    introText:
+      "Trung tâm Đổi mới Sáng tạo Gia Lai phối hợp cùng Sở Khoa học và Công nghệ tỉnh Gia Lai, các cơ quan ban ngành và đối tác công nghệ tổ chức các buổi hội thảo truyền thông chính sách, diễn đàn chia sẻ xu hướng công nghệ và sự kiện kết nối đầu tư nhằm thúc đẩy hệ sinh thái khởi nghiệp đổi mới sáng tạo trên địa bàn toàn tỉnh.",
+    accentColor: "#f43f5e",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image110.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image109.png?tr=w-1200,q-80,f-auto",
+    ],
+    sections: [
+      {
+        title: "1. Hội thảo truyền thông chính sách khởi nghiệp sáng tạo",
+        description:
+          "Tạo không gian kết nối giữa cơ quan quản lý, trường đại học, doanh nghiệp và cộng đồng khởi nghiệp:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Thảo luận những vấn đề về tiếp cận công nghệ, thị trường và cơ chế hỗ trợ.",
+          "Tăng cường mức độ liên kết giữa các thành phần trong hệ sinh thái số.",
+          "Phát biểu khai mạc và định hướng phát triển từ lãnh đạo Sở KH&CN tỉnh Gia Lai.",
+        ],
+      },
+      {
+        title: "2. Ký kết hợp tác và Kết nối đa bên",
+        description:
+          "Các sự kiện đánh dấu nhiều hoạt động ký kết hợp tác giữa các thành phần của hệ sinh thái:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-1000,q-80,f-auto",
+        layout: "split-image",
+        points: [
+          "Ký kết hợp tác giữa doanh nghiệp và các trường đại học, viện nghiên cứu.",
+          "Tạo cơ hội để sinh viên, nhà nghiên cứu và startup tiếp cận bài toán thực tế.",
+          "Xúc tiến nguồn lực đầu tư cho các dự án tiềm năng.",
+        ],
+      },
+      {
+        title: "3. Định hướng tổ chức sự kiện thực chất",
+        description:
+          "Số lượng sự kiện hay kết nối không phải là thước đo cuối cùng. Giá trị thực sự nằm ở những dự án được hình thành, những sản phẩm được ứng dụng và năng lực công nghệ được nâng cao cho địa phương.",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image109.png?tr=w-1400,q-80,f-auto",
+        layout: "full-width-image",
+        points: [
+          "Diễn đàn công nghệ chuyên sâu theo ngành: Nông nghiệp, Đô thị, Tài nguyên môi trường, Năng lượng.",
+          "TechFest Gia Lai & Ngày hội khởi nghiệp sáng tạo thường niên.",
+          "Triển lãm Demo Day trải nghiệm thực tế giải pháp Drone, AI, Robot, VR360.",
+        ],
+      },
+    ],
+  },
 };
