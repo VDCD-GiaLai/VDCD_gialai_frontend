@@ -74,15 +74,55 @@
   height: auto;
 }
 
-.program-content a {
+.program-content a:not(.program-cta-btn):not([class*="inline-flex"]) {
   color: var(--color-accent-red);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: opacity 0.2s;
 }
 
-.program-content a:hover {
+.program-content a:not(.program-cta-btn):not([class*="inline-flex"]):hover {
   opacity: 0.8;
+}
+
+/* ── Project Style CTA Block inside Program Content ────── */
+.program-content .project-style-cta a {
+  text-decoration: none !important;
+}
+
+.program-content .project-style-cta .cta-btn-primary {
+  background-color: #09090b !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.dark .program-content .project-style-cta .cta-btn-primary {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+  text-decoration: none !important;
+}
+
+.program-content .project-style-cta .cta-btn-primary:hover,
+.dark .program-content .project-style-cta .cta-btn-primary:hover {
+  background-color: var(--color-accent-red) !important;
+  color: #ffffff !important;
+}
+
+.program-content .project-style-cta .cta-btn-secondary {
+  color: #27272a !important;
+  border-color: rgba(228, 228, 231, 1) !important;
+  text-decoration: none !important;
+}
+
+.dark .program-content .project-style-cta .cta-btn-secondary {
+  color: #d4d4d8 !important;
+  border-color: rgba(63, 63, 70, 1) !important;
+}
+
+.program-content .project-style-cta .cta-btn-secondary:hover,
+.dark .program-content .project-style-cta .cta-btn-secondary:hover {
+  color: var(--color-accent-red) !important;
+  border-color: var(--color-accent-red) !important;
 }
 
 .program-content blockquote {
