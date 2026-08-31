@@ -21,14 +21,23 @@ export interface MegaMenuSolution {
 /* ── Column 1 — Chương trình (fixed) ─────────────────── */
 
 export const MEGA_MENU_PROGRAMS: MegaMenuProgram[] = [
-  { label: "Ươm tạo khởi nghiệp sáng tạo", href: "/programs" },
-  { label: "Đào tạo và phát triển nguồn nhân lực", href: "/programs" },
+  {
+    label: "Ươm tạo khởi nghiệp sáng tạo",
+    href: "/programs/uom-tao-khoi-nghiep-sang-tao",
+  },
+  {
+    label: "Đào tạo và phát triển nguồn nhân lực",
+    href: "/programs/dao-tao-cong-nghe-va-chuyen-doi-so",
+  },
   {
     label: "Kết nối chuyên gia – doanh nghiệp – nhà đầu tư",
-    href: "/programs",
+    href: "/programs/ket-noi-chuyen-gia-va-he-sinh-thai",
   },
-  { label: "Tư vấn và chuyển đổi số", href: "/programs" },
-  { label: "Hội thảo, sự kiện", href: "/programs" },
+  {
+    label: "Tư vấn và chuyển đổi số",
+    href: "/programs/tu-van-chuyen-doi-so-cap-tinh",
+  },
+  { label: "Hội thảo, sự kiện", href: "/programs/hoi-thao-su-kien" },
 ];
 
 /* ── Column 2 + 3 — Giải pháp (selector + detail) ────── */
