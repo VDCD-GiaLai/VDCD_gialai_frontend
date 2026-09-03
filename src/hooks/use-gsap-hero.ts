@@ -48,6 +48,15 @@ export function useGsapHero(
         if (descEl && descEl.textContent !== currentActiveSlide.desc) {
           descEl.textContent = currentActiveSlide.desc;
         }
+        const ctaEl = activeEl.querySelector(
+          ".discover",
+        ) as HTMLAnchorElement | null;
+        if (ctaEl) {
+          ctaEl.href = currentActiveSlide.ctaUrl || "/#";
+          if (currentActiveSlide.ctaText && ctaEl.childNodes[0]) {
+            ctaEl.childNodes[0].nodeValue = currentActiveSlide.ctaText + " ";
+          }
+        }
       }
     }
   }, [slides, containerRef]);
@@ -286,6 +295,15 @@ export function useGsapHero(
         if (title1El) title1El.textContent = activeSlide.title;
         if (title2El) title2El.textContent = activeSlide.title2;
         if (descEl) descEl.textContent = activeSlide.desc;
+        const ctaEl = activeEl.querySelector(
+          ".discover",
+        ) as HTMLAnchorElement | null;
+        if (ctaEl) {
+          ctaEl.href = activeSlide.ctaUrl || "/#";
+          if (activeSlide.ctaText && ctaEl.childNodes[0]) {
+            ctaEl.childNodes[0].nodeValue = activeSlide.ctaText + " ";
+          }
+        }
 
         gsap.killTweensOf([activeEl, textEl, title1El, title2El, descEl]);
 
@@ -490,6 +508,15 @@ export function useGsapHero(
         if (title1El) title1El.textContent = activeSlide.title;
         if (title2El) title2El.textContent = activeSlide.title2;
         if (descEl) descEl.textContent = activeSlide.desc;
+        const ctaEl = activeEl.querySelector(
+          ".discover",
+        ) as HTMLAnchorElement | null;
+        if (ctaEl) {
+          ctaEl.href = activeSlide.ctaUrl || "/#";
+          if (activeSlide.ctaText && ctaEl.childNodes[0]) {
+            ctaEl.childNodes[0].nodeValue = activeSlide.ctaText + " ";
+          }
+        }
 
         gsap.killTweensOf([activeEl, textEl, title1El, title2El, descEl]);
 
@@ -696,6 +723,15 @@ export function useGsapHero(
         if (title1El) title1El.textContent = activeSlide.title;
         if (title2El) title2El.textContent = activeSlide.title2;
         if (descEl) descEl.textContent = activeSlide.desc;
+        const ctaEl = activeEl.querySelector(
+          ".discover",
+        ) as HTMLAnchorElement | null;
+        if (ctaEl) {
+          ctaEl.href = activeSlide.ctaUrl || "/#";
+          if (activeSlide.ctaText && ctaEl.childNodes[0]) {
+            ctaEl.childNodes[0].nodeValue = activeSlide.ctaText + " ";
+          }
+        }
 
         gsap.killTweensOf([activeEl, textEl, title1El, title2El, descEl]);
 

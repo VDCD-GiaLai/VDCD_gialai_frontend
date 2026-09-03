@@ -1,0 +1,192 @@
+/* ── Slide Detail Blog & Visual Content Renderer Styles ──────────────── */
+
+.slide-detail-article {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* ── Typography and Heading Styles ────────────────────────── */
+.slide-blog-heading-2 {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  line-height: 1.35;
+  color: #011a42;
+  letter-spacing: -0.015em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(226, 232, 238, 0.9);
+}
+
+.dark .slide-blog-heading-2 {
+  color: #f8fafc;
+  border-bottom-color: rgba(63, 63, 70, 0.5);
+}
+
+.slide-blog-heading-3 {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.4;
+  color: #011a42;
+  letter-spacing: -0.01em;
+}
+
+.dark .slide-blog-heading-3 {
+  color: #f1f5f9;
+}
+
+.slide-blog-paragraph {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #2d3748;
+  font-weight: 400;
+}
+
+.dark .slide-blog-paragraph {
+  color: #cbd5e1;
+}
+
+.slide-blog-paragraph b,
+.slide-blog-paragraph strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dark .slide-blog-paragraph b,
+.dark .slide-blog-paragraph strong {
+  color: #ffffff;
+}
+
+.slide-blog-paragraph a {
+  color: #ca2a30;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.slide-blog-paragraph a:hover {
+  opacity: 0.8;
+}
+
+/* ── Figure & Image Caption ──────────────────────────────── */
+.slide-blog-figure {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.slide-blog-figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-blog-figure figcaption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: #6c7e96;
+  line-height: 1.5;
+}
+
+.dark .slide-blog-figure figcaption {
+  color: #94a3b8;
+}
+
+/* ── Section Block ────────────────────────────────────────── */
+.slide-blog-section {
+  position: relative;
+  border: 1px solid #e2e8ee;
+  background-color: rgba(249, 247, 252, 0.5);
+  border-radius: 0.875rem;
+  padding: 1.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.dark .slide-blog-section {
+  border-color: rgba(63, 63, 70, 0.6);
+  background-color: rgba(24, 24, 27, 0.45);
+}
+
+.slide-blog-section__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: #ca2a30;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.slide-blog-section__title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #011a42;
+}
+
+.dark .slide-blog-section__title {
+  color: #ffffff;
+}
+
+/* ── CTA Button ───────────────────────────────────────────── */
+.slide-blog-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ca2a30;
+  color: #ffffff;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(202, 42, 48, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.slide-blog-cta-btn:hover {
+  background-color: #b02227;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(202, 42, 48, 0.3);
+}
+
+/* ── List Block ───────────────────────────────────────────── */
+.slide-blog-list {
+  list-style-type: disc;
+  list-style-position: inside;
+  padding-left: 0.5rem;
+  color: #2d3748;
+}
+
+.dark .slide-blog-list {
+  color: #cbd5e1;
+}
+
+.slide-blog-list li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+/* ── Reading Progress Bar ─────────────────────────────────── */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #ca2a30;
+  transform-origin: 0%;
+  z-index: 100;
+}

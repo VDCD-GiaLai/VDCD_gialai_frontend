@@ -11,6 +11,8 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
+    "prebuild": "node scripts/sync-mock-data.mjs || true",
+    "sync:mock": "node scripts/sync-mock-data.mjs",
     "prepare": "husky"
   },
   "dependencies": {

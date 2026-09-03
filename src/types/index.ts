@@ -57,11 +57,14 @@ export interface SolutionItem {
 }
 
 export interface GsapHeroSlide {
+  id?: string;
   place: string;
   title: string;
   title2: string;
   desc: string;
   image: string;
+  ctaText?: string;
+  ctaUrl?: string;
 }
 
 /* ── Careers / Recruitment ─────────────────────────────── */
@@ -142,6 +145,7 @@ export interface Article {
   slug: string;
   content?: string;
   thumbnail?: string;
+  thumbnailFileId?: string;
   category?: string;
   tags?: string;
   metaTitle?: string;
@@ -189,6 +193,7 @@ export interface Program {
   shortDescription?: string;
   content?: string;
   thumbnail?: string;
+  thumbnailFileId?: string;
   field?: OperationField | null;
   metaTitle?: string;
   metaDescription?: string;
@@ -209,3 +214,7 @@ export interface ProgramListParams {
   limit?: number;
   fieldId?: string;
 }
+
+/* ── Slide Detail Blogs ──────────────────────────────── */
+
+export * from "./slide-detail-blog";

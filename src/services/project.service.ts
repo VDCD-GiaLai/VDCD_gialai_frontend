@@ -8,6 +8,7 @@ import {
 } from "@/data/projects.data";
 
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
+import { fetchWithFallback } from "@/lib/client-cache";
 
 export interface BackendProject {
   id: string;
@@ -36,7 +37,6 @@ export interface BackendProject {
     order: number;
     size?: string;
   }>;
-  // Detail fields from API
   challenge?: string;
   challengeImage?: string;
   services?: string[];
@@ -45,7 +45,6 @@ export interface BackendProject {
   transformationAfter?: string;
   technicalHighlights?: { label: string; value: string }[];
   nextProjectSlug?: string;
-  // Related data from API (findOneBySlug response)
   relatedArticles?: Array<{
     id: string;
     title: string;
@@ -64,7 +63,6 @@ export interface BackendProject {
 }
 
 export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
-  // Map gallery images from API images[]
   const galleryImages: ProjectGalleryImage[] = (bp.images || []).map(
     (img, i) => ({
       src: img.url,
@@ -81,7 +79,6 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     });
   }
 
-  // Map related articles
   const relatedArticles: RelatedArticle[] = (bp.relatedArticles || []).map(
     (a) => ({
       id: a.id,
@@ -92,7 +89,6 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     }),
   );
 
-  // Map related projects
   const relatedProjects: RelatedProject[] = (bp.relatedProjects || []).map(
     (p) => ({
       id: p.id,
@@ -135,23 +131,23 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
 export async function fetchProjectsFromApi(
   limit = 50,
 ): Promise<ProjectEntry[]> {
-  if (USE_MOCK_DATA) {
-    return PROJECTS_DATA.slice(0, limit);
-  }
-  try {
-    const res = await fetch(`${API_BASE_URL}/projects?limit=${limit}`, {
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    const body = await res.json();
-    const items: BackendProject[] = body.data?.data || body.data || body;
-    if (Array.isArray(items) && items.length > 0) {
-      return items.map((p) => mapBackendProjectToEntry(p));
-    }
-  } catch (err) {
-    console.warn("API fetch failed, fallback to local dataset:", err);
-  }
-  return PROJECTS_DATA.slice(0, limit);
+  return fetchWithFallback<ProjectEntry[]>({
+    key: `projects_list_${limit}`,
+    useMock: USE_MOCK_DATA,
+    fallback: () => PROJECTS_DATA.slice(0, limit),
+    fetcher: async () => {
+      const res = await fetch(`${API_BASE_URL}/projects?limit=${limit}`, {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      const body = await res.json();
+      const items: BackendProject[] = body.data?.data || body.data || body;
+      if (Array.isArray(items) && items.length > 0) {
+        return items.map((p) => mapBackendProjectToEntry(p));
+      }
+      throw new Error("No projects returned");
+    },
+  });
 }
 
 export async function fetchFeaturedProjectsFromApi(
@@ -163,25 +159,21 @@ export async function fetchFeaturedProjectsFromApi(
 export async function fetchProjectBySlugFromApi(
   slug: string,
 ): Promise<ProjectEntry | null> {
-  if (USE_MOCK_DATA) {
-    return getLocalProjectById(slug) || null;
-  }
-  try {
-    const res = await fetch(`${API_BASE_URL}/projects/${slug}`, {
-      cache: "no-store",
-    });
-    if (res.ok) {
+  return fetchWithFallback<ProjectEntry | null>({
+    key: `project_${slug}`,
+    useMock: USE_MOCK_DATA,
+    fallback: () => getLocalProjectById(slug) || null,
+    fetcher: async () => {
+      const res = await fetch(`${API_BASE_URL}/projects/${slug}`, {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
       const bp: BackendProject = body.data || body;
       if (bp && bp.slug) {
         return mapBackendProjectToEntry(bp);
       }
-    }
-  } catch (err) {
-    console.warn(
-      `API fetch for slug '${slug}' failed, fallback to local data:`,
-      err,
-    );
-  }
-  return getLocalProjectById(slug) || null;
+      throw new Error(`Project ${slug} not found`);
+    },
+  });
 }

@@ -207,28 +207,32 @@ button {
 }
 
 .marquee-track {
-  display: flex;
-  flex-wrap: nowrap;
-  width: max-content;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  animation: marquee-scroll-left var(--marquee-duration, 50s) linear infinite;
+  animation: marquee-scroll-left var(--marquee-duration, 45s) linear infinite;
 }
 
 .marquee-track-reverse {
-  display: flex;
-  flex-wrap: nowrap;
-  width: max-content;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  animation: marquee-scroll-right var(--marquee-duration, 55s) linear infinite;
+  animation: marquee-scroll-right var(--marquee-duration, 45s) linear infinite;
 }
 
 .marquee-half {
-  display: flex;
-  flex-wrap: nowrap;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  flex-shrink: 0 !important;
   align-items: center;
   gap: 1.5rem;
   padding-right: 1.5rem; /* matches gap so the seam is invisible */
