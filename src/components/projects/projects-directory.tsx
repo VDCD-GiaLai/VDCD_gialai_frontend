@@ -198,7 +198,7 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
                 className="inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
               >
                 Liên hệ tư vấn giải pháp
-                <span className="w-8 h-8 bg-white/10 dark:bg-zinc-100 flex items-center justify-center text-inherit group-hover:bg-white/20 transition-colors">
+                <span className="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
                   <Envelope className="w-4 h-4" weight="thin" />
                 </span>
               </Link>
@@ -208,10 +208,10 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
                 onClick={() => {
                   window.dispatchEvent(new CustomEvent("open-mega-menu"));
                 }}
-                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
+                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red dark:hover:border-accent-red dark:hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
               >
                 Khám phá giải pháp
-                <span className="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 transition-colors">
+                <span className="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 dark:group-hover:bg-white/20 transition-colors">
                   <ArrowUpRight className="w-4 h-4" weight="thin" />
                 </span>
               </button>

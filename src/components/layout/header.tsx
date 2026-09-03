@@ -25,17 +25,16 @@ export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  /** Pages with a full-viewport hero banner that need a transparent header */
-  const HERO_BANNER_PATHS = new Set([
-    "/",
-    "/programs",
-    "/solution",
-    "/projects",
-    "/news",
-    "/contact",
-    "/careers",
-  ]);
-  const hasHeroBanner = HERO_BANNER_PATHS.has(pathname);
+  /** Pages with a hero banner that need a transparent glass header at top */
+  const hasHeroBanner =
+    pathname === "/" ||
+    pathname === "/about-us" ||
+    pathname === "/contact" ||
+    pathname.startsWith("/programs") ||
+    pathname.startsWith("/solution") ||
+    pathname.startsWith("/projects") ||
+    pathname.startsWith("/news") ||
+    pathname.startsWith("/careers");
 
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -58,6 +57,17 @@ export function Header() {
 
     return () => st.kill();
   }, []);
+
+  /* ── Sync and refresh scroll state when route changes ── */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof window !== "undefined") {
+        setIsScrolled(window.scrollY > 50);
+      }
+      ScrollTrigger.refresh();
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   /* ── Mobile menu GSAP animation ── */
   const menuRef = useRef<HTMLDivElement>(null);
@@ -133,8 +143,8 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 w-full z-50 h-20 transition-all duration-300 ${
         showSolidHeader
-          ? "bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-sm"
-          : "bg-transparent backdrop-blur-[5px] border-b border-white/10"
+          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200/60 dark:border-zinc-800/60 shadow-sm"
+          : "bg-transparent backdrop-blur-[6px] border-b border-white/10"
       }`}
     >
       <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">

@@ -104,6 +104,7 @@ export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
             sizes="100vw"
             className="object-cover"
             priority
+            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         </div>

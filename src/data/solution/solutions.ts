@@ -4,7 +4,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung tâm Bản đồ số",
     href: "https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-800,q-85,f-auto",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -23,7 +24,8 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung Tâm Giám Sát Số",
     href: "https://autotimelapse.com",
-    imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
     description:
@@ -34,7 +36,7 @@ export const SOLUTIONS: SolutionItem[] = [
     href: "/solution/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
     description:
@@ -84,7 +86,7 @@ export const SOLUTIONS: SolutionItem[] = [
     title: "Máy Bay Việt",
     href: "https://maybayviet.com",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-768x432.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-800,q-85,f-auto",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
     description:
@@ -95,7 +97,7 @@ export const SOLUTIONS: SolutionItem[] = [
     href: "/solution/trung-tam-phat-trien-robot-ai",
     slug: "trung-tam-phat-trien-robot-ai",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
     iconUrl:
       "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/floor.svg",
     description:
