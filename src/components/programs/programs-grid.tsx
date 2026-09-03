@@ -90,7 +90,7 @@ export const ProgramsGrid = () => {
     loadFields();
   }, []);
 
-  /* ── Fetch programs when filters change ─────────────── */
+  /* -- Fetch programs when filters change -- */
   const handleFetch = React.useCallback(async () => {
     setIsLoading(true);
     try {

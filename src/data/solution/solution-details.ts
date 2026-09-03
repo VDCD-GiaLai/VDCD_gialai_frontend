@@ -30,19 +30,18 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Khảo Sát Địa Hình Bằng Flycam UAV Tại Gia Lai",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về khảo sát địa hình bằng Flycam UAV",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image5.jpg?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-1600,q-85,f-auto",
     introText:
       "Khảo sát địa hình bằng flycam là phương pháp sử dụng máy bay không người lái (UAV) để thu thập hình ảnh và dữ liệu không gian của khu vực cần khảo sát. Dữ liệu sau đó được xử lý bằng phần mềm chuyên dụng để tạo ra các sản phẩm bản đồ hoặc mô hình phục vụ công việc. So với cách khảo sát chỉ dựa vào thiết bị đo đạc mặt đất, UAV có khả năng bao quát khu vực rộng trong thời gian tương đối ngắn. Đây là lợi thế đáng chú ý đối với những công trình có diện tích lớn hoặc địa hình phức tạp.",
     accentColor: "#ea580c",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image5.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image9.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image79.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image75.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image77.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image1.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image97.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image85.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_don_vi_khao_sat_dia_hinh.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_uav.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_quet_3d.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -50,7 +49,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Trắc địa là lĩnh vực liên quan đến việc xác định vị trí, tọa độ, độ cao, hình dạng, kích thước và hướng của địa hình cũng như các đối tượng trên bề mặt Trái đất. Dữ liệu trắc địa là cơ sở quan trọng cho nhiều hoạt động xây dựng và quản lý đất đai.",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image9.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_don_vi_khao_sat_dia_hinh.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Nguồn dữ liệu trực quan: Khi kết hợp UAV với quy trình xử lý dữ liệu số, việc khảo sát có thể tạo ra nguồn dữ liệu trực quan hơn về hiện trạng khu vực.",
@@ -63,7 +62,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Một quy trình khảo sát hiệu quả cần được xây dựng dựa trên mục tiêu sử dụng dữ liệu ngay từ đầu. Việc xác định rõ yêu cầu giúp lựa chọn thiết bị, phương án thu thập và định dạng đầu ra phù hợp.",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image79.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-1000,q-85,f-auto",
         layout: "numbered-steps",
         points: [
           "Bước 1: Xác định mục đích và phạm vi khảo sát: Kỹ thuật viên trao đổi với chủ đầu tư để xác định mục tiêu dự án (khảo sát hiện trạng, thành lập bản đồ, thiết kế, quy hoạch hoặc xây dựng). Từ đó xác định phạm vi khu vực, loại dữ liệu cần thu thập và sản phẩm đầu ra để tối ưu chi phí.",
@@ -77,7 +76,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Dịch vụ khảo sát bằng UAV phù hợp với những đơn vị cần thu thập dữ liệu địa hình nhưng chưa có đầy đủ thiết bị hoặc nhân sự chuyên môn. Thay vì đầu tư toàn bộ hệ thống, doanh nghiệp có thể thuê đơn vị chuyên nghiệp thực hiện theo từng dự án.",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image75.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_uav.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Khảo sát nhanh địa bàn rộng: Khảo sát các công trình có diện tích lớn hoặc địa hình phức tạp trong thời gian ngắn.",
@@ -91,7 +90,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Dữ liệu thu thập từ UAV được xử lý thành nhiều dạng sản phẩm phục vụ công tác thiết kế, quy hoạch và xây dựng:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image1.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Thành lập bản đồ địa hình: Biên tập theo các tỷ lệ 1/500, 1/2.000, 1/5.000 phục vụ nghiên cứu và đánh giá hiện trạng khu vực.",
@@ -107,7 +106,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Trung tâm Đổi mới sáng tạo Gia Lai giới thiệu nhóm giải pháp máy bay không người lái phục vụ bay quét 3D, trắc địa số và thành lập bản đồ cho các lĩnh vực địa chính, thiết kế, san lấp, duyệt quy hoạch, xây dựng dân dụng và bảo tồn di sản.",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image97.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_quet_3d.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Quét 2D - 3D bằng UAV chuyên dụng độ chính xác centimet.",
@@ -121,7 +120,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Các lưu ý quan trọng để đảm bảo chất lượng sản phẩm khảo sát và kiểm soát chi phí:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image77.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_quet_3d.png?tr=w-1000,q-85,f-auto",
         layout: "card-grid",
         points: [
           "Xác định rõ mục đích sử dụng: Phục vụ quy hoạch sẽ có yêu cầu khác với thiết kế, san lấp hoặc quản lý hiện trạng.",
@@ -136,16 +135,14 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Trung Tâm Phát Triển Robot AI Tại Gia Lai",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về Trung Tâm Phát Triển Robot AI",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1600,q-85,f-auto",
     introText:
       "Trung tâm Phát triển Robot AI là đơn vị chuyên môn tập trung vào nghiên cứu, chế tạo và ứng dụng các giải pháp tự động hóa thông minh kết hợp trí tuệ nhân tạo. Đơn vị hướng đến việc giải quyết các bài toán thực tế trong sản xuất, nông nghiệp công nghệ cao, logistics và đào tạo nhân lực công nghệ cho khu vực Tây Nguyên.",
     accentColor: "#6366f1",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image70.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image71.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image53.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_ai.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ung_dung_ai.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -153,7 +150,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Trung tâm xây dựng lộ trình nghiên cứu và phát triển toàn diện:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_ai.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Nghiên cứu và phát triển robot thông minh tích hợp AI: Làm chủ thiết kế cơ khí chính xác và thuật toán điều khiển nhúng.",
@@ -168,7 +165,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Làm chủ từ khâu thiết kế phần cứng cơ khí, mạch điều khiển đến thuật toán phần mềm:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image70.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ung_dung_ai.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Xe tự hành AGV/AMR trong nhà xưởng: Định vị SLAM & LiDAR, nhận diện vật cản và tự động vận chuyển hàng hóa 24/7.",
@@ -181,7 +178,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Môi trường kết nối đào tạo, nghiên cứu chuyên sâu và chuyển giao tri thức cho địa phương:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image71.png?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Camera AI phân loại nông sản: Nhận diện độ chín, kích thước và phát hiện khuyết tật trên băng chuyền tự động >99%.",
@@ -194,7 +191,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Đồng hành cùng doanh nghiệp địa phương trong hành trình tự động hóa chuyển đổi số:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_ai.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Giải phóng sức lao động con người khỏi các khâu nặng nhọc, nguy hiểm.",
@@ -209,16 +206,16 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Giải Pháp Auto Timelapse Gia Lai Chuyên Nghiệp Hiện Đại",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về Auto Timelapse",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1600,q-85,f-auto",
     introText:
       "AutoTimelapse cung cấp giải pháp giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan. Hình ảnh độ phân giải siêu nét từ 8MP đến 61MP được đồng bộ liên tục lên nền tảng đám mây, giúp theo dõi, quản lý và truyền thông dự án hiệu quả.",
     accentColor: "#f59e0b",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image73.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image59.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image51.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image77.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_auto_timelapse.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -226,7 +223,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Được thiết kế đặc thù để ghi nhận mọi biến đổi của hiện trường liên tục theo chu kỳ:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Độ phân giải siêu nét từ 8MP đến 61MP: Đảm bảo hình ảnh sắc nét, phóng to không vỡ hạt, quan sát chi tiết biển số xe và từng hạng mục thi công.",
@@ -238,7 +235,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Hoàn hảo cho các dự án mới khởi công, vùng sâu vùng xa nơi chưa có lưới điện và internet:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image73.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Không cần kéo dây nguồn hay cáp mạng: Tích hợp tấm pin Solar và ắc quy Lithium dung lượng lớn hoạt động bền bỉ nhiều ngày mưa.",
@@ -251,7 +248,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Tua nhanh quá trình thi công qua nhiều tháng/năm chỉ trong một thước phim ấn tượng vài phút:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image59.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_auto_timelapse.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Tư liệu truyền thông đắt giá: Phục vụ báo cáo ban lãnh đạo, nhà đầu tư và quảng bá dự án trên mạng xã hội.",
@@ -264,7 +261,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Giải pháp linh hoạt phục vụ nhiều nhu cầu giám sát chuyên sâu:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image51.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Giám sát công trình xây dựng: Theo dõi tiến độ móng, cọc, kết cấu và an toàn lao động.",
@@ -279,16 +276,15 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Dịch Vụ VR360 Gia Lai Chuyên Nghiệp & Scan Vật Thể 3D",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về VR360 và Scan 3D",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image20.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-1600,q-85,f-auto",
     introText:
       "Dịch vụ VR360 và Scan 3D của VDCD Gia Lai ứng dụng công nghệ chụp ảnh toàn cảnh 360 độ trên không và mặt đất kết hợp công nghệ quét laser 3D độ chính xác cao. Giải pháp giúp số hóa toàn diện hiện trạng công trình, di tích lịch sử, bảo tàng và danh lam thắng cảnh, phục vụ hiệu quả cho xúc tiến du lịch, quy hoạch không gian và bảo tồn di sản văn hóa dân tộc.",
     accentColor: "#ec4899",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image20.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image52.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image48.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image40.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image18.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_chinh_xac.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_cong_nghe_cao.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_scan_3d.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -296,7 +292,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Tái hiện không gian thực tế sống động, cho phép người dùng tự do tham quan khám phá từ xa:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image20.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_cong_nghe_cao.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Góc nhìn toàn cảnh 360 độ trên không bằng Flycam và mặt đất bằng máy ảnh chuyên dụng.",
@@ -309,7 +305,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Quét 3D chi tiết từng milimet các cổ vật, hiện vật bảo tàng, tượng đài và công trình kiến trúc cổ:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image52.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_chinh_xac.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Tái hiện mô hình 3D chân thực: Xem cận cảnh từng hoa văn, chi tiết điêu khắc và cấu trúc vật liệu.",
@@ -322,7 +318,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Số hóa hệ sinh thái du lịch Gia Lai, kết nối các điểm danh lam thắng cảnh và di tích lịch sử.",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image48.png?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_scan_3d.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Quảng bá du lịch Gia Lai trên phạm vi toàn cầu không giới hạn khoảng cách địa lý.",
@@ -335,7 +331,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Trình chiếu các dự án bất động sản, khu đô thị và không gian triển lãm ảo:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image40.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Giúp các nhà đầu tư và người mua nhà hình dung rõ ràng không gian trước khi xây dựng.",
@@ -349,16 +345,15 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Dịch Vụ Smart Scale Gia Lai - Giải Pháp Đo Lường Thông Minh",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về Smart Scale",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-1600,q-85,f-auto",
     introText:
       "SmartScale là giải pháp toàn diện giúp số hóa quy trình cân xe tại các mỏ khoáng sản, nhà máy chế biến nông sản, khu công nghiệp và trạm thu gom vật tư. Hệ thống vận hành dựa trên sự phối hợp giữa thiết bị cân, camera AI nhận diện biển số đa góc và phần mềm quản lý tập trung trên Web/App, loại bỏ hoàn toàn các rủi ro gian lận và sai sót thủ công.",
     accentColor: "#059669",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image60.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image102.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image67.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image5.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_doanh_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_cong_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_thong_minh.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -367,7 +362,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Quy trình khép kín tự động hóa hoàn toàn chỉ trong vài giây:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_thong_minh.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Xe đi vào khu vực cân: Cảm biến phát hiện phương tiện tiếp cận bàn cân.",
@@ -382,7 +377,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Loại bỏ triệt để các hành vi gian lận tải trọng và thất thoát hàng hóa:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image60.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_cong_nghiep.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Cảnh báo xe đỗ sai vị trí trên bàn cân (chân bánh đè mép cân làm giảm số cân).",
@@ -395,7 +390,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Giám đốc và quản lý theo dõi doanh thu và sản lượng mọi lúc mọi nơi:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image102.png?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_doanh_nghiep.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Theo dõi sản lượng và doanh thu từng trạm cân trên điện thoại di động theo thời gian thực.",
@@ -409,7 +404,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Tư vấn cấu hình tối ưu chi phí và đáp ứng đúng nhu cầu vận hành thực tế:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image67.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Xác định lưu lượng xe: Lựa chọn cấu hình tốc độ cao cho các mỏ hoặc trạm có mật độ xe lớn.",
@@ -424,16 +419,15 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Data Center Gia Lai - Giải Pháp Trung Tâm Dữ Liệu Hiện Đại",
     subtitle: "Cùng VDCD Gia Lai tìm hiểu về Data Center",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1600,q-85,f-auto",
     introText:
       "Trung tâm Dữ liệu Siêu máy tính và Đào tạo AI VDCD tập trung phát triển nền tảng hạ tầng phục vụ các nhu cầu lưu trữ, xử lý dữ liệu lớn, tính toán hiệu năng cao (HPC) và đào tạo nguồn nhân lực công nghệ thông tin chuyên sâu. Đây là hạ tầng nền tảng quan trọng phục vụ chương trình chuyển đổi số của tỉnh Gia Lai và khu vực Tây Nguyên.",
     accentColor: "#8b5cf6",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image21.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image64.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image41.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu_data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
@@ -442,7 +436,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Cơ sở hạ tầng chuyên biệt vận hành liên tục 24/7/365 với các tiêu chuẩn an toàn cao nhất:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Hệ thống tủ Rack máy chủ tiêu chuẩn quốc tế: Bố trí luồng khí lạnh/nóng tối ưu tản nhiệt cho các cụm máy chủ mật độ cao.",
@@ -456,7 +450,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Năng lực tính toán cực lớn phục vụ các bài toán phức tạp:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image21.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu_data_center.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Xây dựng mô hình học máy (Machine Learning) và học sâu (Deep Learning).",
@@ -470,7 +464,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Một trung tâm kết hợp giữa hạ tầng tính toán hiện đại và đào tạo nhân lực thực chiến:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Đào tạo kỹ sư Trí tuệ Nhân tạo, Khoa học Dữ liệu và Xử lý Không gian thực tế.",
@@ -483,7 +477,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Cho thuê chỗ đặt máy chủ và lưu trữ đám mây an toàn cho doanh nghiệp:",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image64.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Tiết kiệm chi phí đầu tư phòng máy chủ riêng cho các doanh nghiệp và tổ chức.",
@@ -814,22 +808,23 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     subtitle:
       "Giải pháp nông nghiệp công nghệ cao kết hợp Drone, AutoTimelapse và Trạm cân SmartScale",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image45.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/nong_lam_nghiep.png?tr=w-1600,q-85,f-auto",
     introText:
       "Trong kỷ nguyên số, việc chuyển đổi phương thức sản xuất nông nghiệp truyền thống sang mô hình nông nghiệp thông minh là yêu cầu thiết yếu để nâng cao năng suất, tối ưu chi phí và gia tăng năng lực cạnh tranh. VDCD Group mang đến hệ sinh thái công nghệ khép kín, kết hợp sức mạnh của Thiết bị bay không người lái (UAV/Drone), Nền tảng giám sát tự động AutoTimelapse và Hệ thống Trạm cân thông minh, giúp số hóa toàn diện quy trình sản xuất từ khâu khảo sát quy hoạch đến thu hoạch và phân phối.",
     accentColor: "#16a34a",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image45.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image80.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image79.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/nong_lam_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/cong_nghe_cao_trong_nong_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/cong_nghe_nong_lam_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/giai_phap_nong_lam_nghiep.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ung_dung_cong_nghe_trong_nong_lam_nghiep.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title:
           "1. Ứng dụng Drone trong khảo sát, phân tích NDVI và chăm sóc cây trồng",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image80.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/cong_nghe_cao_trong_nong_nghiep.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Thành lập bản đồ địa hình và hiện trạng thửa ruộng chính xác.",
@@ -841,7 +836,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         title:
           "2. Nền tảng AutoTimelapse theo dõi chu kỳ sinh trưởng & Nhật ký canh tác",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image45.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/cong_nghe_nong_lam_nghiep.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Giám sát trực quan 24/7 quá trình phát triển của cây trồng, vật nuôi.",
@@ -852,7 +847,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "3. Trạm cân thông minh SmartScale quản lý xuất nhập nông sản",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/giai_phap_nong_lam_nghiep.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Quản lý tập trung toàn bộ trạm cân xe từ xa qua Web/App.",
@@ -866,20 +861,20 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Giám Sát An Ninh Toàn Diện",
     subtitle: "Hệ thống giám sát an ninh công nghệ cao AutoTimelapse 24/7",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image65.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1600,q-85,f-auto",
     introText:
       "Đảm bảo an ninh trật tự, bảo vệ tài sản tại các công trình trọng điểm, khu công nghiệp hay khu vực biên giới luôn là bài toán đòi hỏi sự giám sát liên tục và tính toàn vẹn của dữ liệu. Khắc phục những điểm mù của camera CCTV truyền thống, VDCD mang đến nền tảng giám sát an ninh AutoTimelapse tích hợp công nghệ chụp ảnh độ phân giải siêu cao, truyền tải không dây và điện toán đám mây.",
     accentColor: "#dc2626",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image65.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image78.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image58.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Giám sát trực quan 24/7 với độ nét siêu cao",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image65.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Độ phân giải siêu nét từ 8MP đến 61MP, nhận diện rõ biển số xe và khuôn mặt.",
@@ -890,7 +885,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Cảnh báo xâm nhập trái phép & Xử lý sự cố tức thời",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image78.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Video Timelapse tóm tắt diễn biến cả ngày chỉ trong vài phút.",
@@ -943,21 +938,19 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Khai Thác Khoáng Sản & Quản Lý Mỏ",
     subtitle: "Số hóa toàn diện và kiểm soát minh bạch hoạt động khai thác mỏ",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image24.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/khoang_san_tai_nguyen.png?tr=w-1600,q-85,f-auto",
     introText:
       "Quản lý, khai thác tài nguyên và khoáng sản là lĩnh vực đòi hỏi sự minh bạch cao độ về dữ liệu, tính chính xác trong đo đạc và đặc biệt là an toàn lao động. VDCD cung cấp giải pháp số hóa toàn diện khu vực mỏ bằng sự kết hợp giữa UAV, AutoTimelapse và Hệ thống Trạm cân thông minh SmartScale.",
     accentColor: "#f97316",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image24.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image25.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image102.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image38.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/khoang_san_tai_nguyen.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/tai_nguyen_thien_nhien.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Đo đạc & Tính toán trữ lượng mỏ bằng UAV 3D",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image24.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/khoang_san_tai_nguyen.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Thành lập bản đồ 3D toàn bộ khu mỏ và bãi tập kết.",
@@ -968,7 +961,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Trạm cân thông minh SmartScale chống gian lận",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image102.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/tai_nguyen_thien_nhien.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Nhận diện biển số tự động và giám sát 4 camera đa góc.",
@@ -984,21 +977,21 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     subtitle:
       "Số hóa không gian 3D, bảo tồn di sản văn hóa và trải nghiệm thực tế ảo VR360",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image20.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-1600,q-85,f-auto",
     introText:
       "Ứng dụng công nghệ bay quét 3D, thực tế ảo VR360 và GIS để số hóa các di tích lịch sử, danh lam thắng cảnh và hiện vật văn hóa tại Gia Lai, mở ra không gian trải nghiệm du lịch số tương tác sinh động cho du khách trong nước và quốc tế.",
     accentColor: "#ec4899",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image20.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image52.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image48.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image40.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_chinh_xac.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_cong_nghe_cao.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_scan_3d.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Tour thực tế ảo VR360",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image48.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_scan_3d.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Tương tác trực quan trên mọi thiết bị di động, máy tính, kính VR.",
@@ -1008,7 +1001,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Scan 3D bảo tồn hiện vật lịch sử",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image52.jpg?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d_chinh_xac.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Mô hình 3D xoay 360 độ chi tiết từng hoa văn hiện vật.",
@@ -1136,21 +1129,21 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Trung Tâm Dữ Liệu Vùng",
     subtitle: "Hạ tầng dữ liệu số tại Trung tâm Đổi mới Sáng tạo Gia Lai",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1600,q-85,f-auto",
     introText:
       "Trái tim số hóa cung cấp năng lực lưu trữ và tính toán hiệu năng cao phục vụ chuyển đổi số vùng Tây Nguyên.",
     accentColor: "#6366f1",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image21.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image64.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu_data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Hạ tầng Data Center tiêu chuẩn quốc tế",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Độ sẵn sàng 99.98% với hệ thống nguồn điện kép.",
@@ -1160,7 +1153,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Cụm siêu máy tính HPC & AI Vùng",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu_data_center.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Xử lý dữ liệu không gian 3D GIS và ảnh viễn thám.",
@@ -1175,20 +1168,20 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     subtitle:
       "Nghiên cứu chế tạo robot tự hành AGV, cánh tay robot và ứng dụng AI thông minh",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1600,q-85,f-auto",
     introText:
       "Tập trung nghiên cứu, chế tạo và tích hợp các giải pháp robot tự động hóa kết hợp thị giác máy tính và trí tuệ nhân tạo.",
     accentColor: "#6366f1",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image70.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image71.png?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_ai.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ung_dung_ai.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Nghiên cứu & Chế tạo Robot tự động hóa",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image98.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_ai.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Định vị SLAM & LiDAR tránh chướng ngại vật.",
@@ -1198,7 +1191,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Thị giác máy tính AI",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image70.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ung_dung_ai.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Phân loại nông sản theo màu sắc, độ chín.",
@@ -1212,20 +1205,21 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
     subtitle: "Hạ tầng tính toán hiệu năng cao HPC và đào tạo AI",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1600,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1600,q-85,f-auto",
     introText:
       "Hạ tầng tính toán hiệu năng cao HPC và trung tâm đào tạo nhân lực trí tuệ nhân tạo chuyên sâu.",
     accentColor: "#8b5cf6",
     galleryImages: [
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image21.png?tr=w-1200,q-80,f-auto",
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1200,q-80,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu_data_center.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu.png?tr=w-1200,q-85,f-auto",
     ],
     sections: [
       {
         title: "1. Hạ tầng Siêu máy tính HPC",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image28.png?tr=w-1000,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center.png?tr=w-1000,q-85,f-auto",
         layout: "split-image",
         points: [
           "Cụm máy chủ GPU phục vụ đào tạo mô hình AI.",
@@ -1235,7 +1229,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       {
         title: "2. Không gian Đào tạo Nhân lực AI",
         imageUrl:
-          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image63.jpg?tr=w-1400,q-80,f-auto",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/trung_tam_du_lieu.png?tr=w-1400,q-85,f-auto",
         layout: "full-width-image",
         points: [
           "Phòng Lab thực hành trực tiếp trên máy chủ.",

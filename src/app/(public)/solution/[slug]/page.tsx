@@ -255,6 +255,7 @@ export default function SolutionDetailPage({ params }: PageProps) {
             sizes="100vw"
             className="object-cover"
             priority
+            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-canvas-white dark:to-zinc-950" />
         </div>

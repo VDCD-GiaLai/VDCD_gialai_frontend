@@ -90,39 +90,102 @@
   text-decoration: none !important;
 }
 
+/* Primary CTA Button - Light Mode */
 .program-content .project-style-cta .cta-btn-primary {
   background-color: #09090b !important;
   color: #ffffff !important;
   text-decoration: none !important;
 }
 
+.program-content .project-style-cta .cta-btn-primary span,
+.program-content .project-style-cta .cta-btn-primary svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.program-content .project-style-cta .cta-btn-primary span:last-child {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Primary CTA Button - Dark Mode */
 .dark .program-content .project-style-cta .cta-btn-primary {
   background-color: #ffffff !important;
   color: #09090b !important;
   text-decoration: none !important;
 }
 
+.dark .program-content .project-style-cta .cta-btn-primary span,
+.dark .program-content .project-style-cta .cta-btn-primary svg {
+  color: #09090b !important;
+  stroke: #09090b !important;
+}
+
+.dark .program-content .project-style-cta .cta-btn-primary span:last-child {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Primary CTA Button - Hover (Both Modes) */
 .program-content .project-style-cta .cta-btn-primary:hover,
 .dark .program-content .project-style-cta .cta-btn-primary:hover {
   background-color: var(--color-accent-red) !important;
   color: #ffffff !important;
 }
 
+.program-content .project-style-cta .cta-btn-primary:hover span,
+.dark .program-content .project-style-cta .cta-btn-primary:hover span,
+.program-content .project-style-cta .cta-btn-primary:hover svg,
+.dark .program-content .project-style-cta .cta-btn-primary:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.program-content .project-style-cta .cta-btn-primary:hover span:last-child,
+.dark
+  .program-content
+  .project-style-cta
+  .cta-btn-primary:hover
+  span:last-child {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Secondary CTA Button - Light Mode */
 .program-content .project-style-cta .cta-btn-secondary {
   color: #27272a !important;
   border-color: rgba(228, 228, 231, 1) !important;
   text-decoration: none !important;
 }
 
+.program-content .project-style-cta .cta-btn-secondary span,
+.program-content .project-style-cta .cta-btn-secondary svg {
+  color: #27272a !important;
+  stroke: #27272a !important;
+}
+
+/* Secondary CTA Button - Dark Mode */
 .dark .program-content .project-style-cta .cta-btn-secondary {
   color: #d4d4d8 !important;
   border-color: rgba(63, 63, 70, 1) !important;
 }
 
+.dark .program-content .project-style-cta .cta-btn-secondary span,
+.dark .program-content .project-style-cta .cta-btn-secondary svg {
+  color: #d4d4d8 !important;
+  stroke: #d4d4d8 !important;
+}
+
+/* Secondary CTA Button - Hover */
 .program-content .project-style-cta .cta-btn-secondary:hover,
 .dark .program-content .project-style-cta .cta-btn-secondary:hover {
   color: var(--color-accent-red) !important;
   border-color: var(--color-accent-red) !important;
+}
+
+.program-content .project-style-cta .cta-btn-secondary:hover span,
+.dark .program-content .project-style-cta .cta-btn-secondary:hover span,
+.program-content .project-style-cta .cta-btn-secondary:hover svg,
+.dark .program-content .project-style-cta .cta-btn-secondary:hover svg {
+  color: var(--color-accent-red) !important;
+  stroke: var(--color-accent-red) !important;
 }
 
 .program-content blockquote {
