@@ -1,4 +1,5 @@
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
+import { fetchWithFallback } from "@/lib/client-cache";
 
 export interface ProvinceItem {
   id: string;
@@ -60,20 +61,21 @@ export const MOCK_PROVINCES: ProvinceItem[] = [
 ];
 
 export async function fetchProvincesFromApi(): Promise<ProvinceItem[]> {
-  if (USE_MOCK_DATA) {
-    return MOCK_PROVINCES;
-  }
-  try {
-    const res = await fetch(`${API_BASE_URL}/provinces`, { cache: "no-store" });
-    if (res.ok) {
+  return fetchWithFallback<ProvinceItem[]>({
+    key: "provinces_list",
+    useMock: USE_MOCK_DATA,
+    fallback: MOCK_PROVINCES,
+    fetcher: async () => {
+      const res = await fetch(`${API_BASE_URL}/provinces`, {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
       const items = body.data || body;
       if (Array.isArray(items) && items.length > 0) {
         return items;
       }
-    }
-  } catch (err) {
-    console.warn("Failed to fetch provinces from API, fallback to mock:", err);
-  }
-  return MOCK_PROVINCES;
+      throw new Error("No provinces returned");
+    },
+  });
 }

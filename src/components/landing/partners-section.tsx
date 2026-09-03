@@ -140,6 +140,10 @@ export function PartnersSection() {
     });
   }, []);
 
+  const half = Math.ceil(partnerList.length / 2);
+  const row1Partners = partnerList.slice(0, half);
+  const row2Partners = partnerList.slice(half);
+
   return (
     <section
       id="partners"
@@ -178,11 +182,11 @@ export function PartnersSection() {
         {/* ── Marquee Ticker Row 1 (→ left) ──────────── */}
         <div className="marquee-container mb-4">
           <div
-            className="marquee-track"
-            style={{ ["--marquee-duration" as string]: "50s" }}
+            className="marquee-track flex flex-row flex-nowrap w-max"
+            style={{ ["--marquee-duration" as string]: "45s" }}
           >
-            <div className="marquee-half">
-              {partnerList.map((p, i) => (
+            <div className="marquee-half flex flex-row flex-nowrap shrink-0">
+              {row1Partners.map((p, i) => (
                 <PartnerLogo
                   key={`r1a-${p.id || i}-${p.name}`}
                   name={p.name}
@@ -190,8 +194,11 @@ export function PartnersSection() {
                 />
               ))}
             </div>
-            <div className="marquee-half" aria-hidden="true">
-              {partnerList.map((p, i) => (
+            <div
+              className="marquee-half flex flex-row flex-nowrap shrink-0"
+              aria-hidden="true"
+            >
+              {row1Partners.map((p, i) => (
                 <PartnerLogo
                   key={`r1b-${p.id || i}-${p.name}`}
                   name={p.name}
@@ -202,14 +209,14 @@ export function PartnersSection() {
           </div>
         </div>
 
-        {/* ── Marquee Ticker Row 2 (→ right, reversed) ── */}
+        {/* ── Marquee Ticker Row 2 (→ right) ─────────── */}
         <div className="marquee-container">
           <div
-            className="marquee-track-reverse"
-            style={{ ["--marquee-duration" as string]: "55s" }}
+            className="marquee-track-reverse flex flex-row flex-nowrap w-max"
+            style={{ ["--marquee-duration" as string]: "45s" }}
           >
-            <div className="marquee-half">
-              {[...partnerList].reverse().map((p, i) => (
+            <div className="marquee-half flex flex-row flex-nowrap shrink-0">
+              {row2Partners.map((p, i) => (
                 <PartnerLogo
                   key={`r2a-${p.id || i}-${p.name}`}
                   name={p.name}
@@ -217,8 +224,11 @@ export function PartnersSection() {
                 />
               ))}
             </div>
-            <div className="marquee-half" aria-hidden="true">
-              {[...partnerList].reverse().map((p, i) => (
+            <div
+              className="marquee-half flex flex-row flex-nowrap shrink-0"
+              aria-hidden="true"
+            >
+              {row2Partners.map((p, i) => (
                 <PartnerLogo
                   key={`r2b-${p.id || i}-${p.name}`}
                   name={p.name}

@@ -28,21 +28,27 @@ export function GsapHero() {
   };
 
   const mapSlide = (s: {
+    id?: string;
     title: string;
     description?: string;
     subtitle?: string;
     location?: string;
     image?: string;
     imageUrl?: string;
+    ctaText?: string;
+    ctaUrl?: string;
   }): GsapHeroSlide => {
     const [title, title2] = splitTitle(s.title);
     return {
+      id: s.id,
       title,
       title2,
       desc:
         s.description || "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
       image: s.image || s.imageUrl || "",
       place: s.subtitle || s.location || "",
+      ctaText: s.ctaText || "Tìm hiểu thêm",
+      ctaUrl: s.ctaUrl || "/#",
     };
   };
 
@@ -122,11 +128,11 @@ export function GsapHero() {
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
               <a
-                href="#about"
-                aria-label="Tìm hiểu thêm về VDCD Gia Lai"
+                href={slides[0]?.ctaUrl || "/#"}
+                aria-label={slides[0]?.ctaText || "Tìm hiểu thêm"}
                 className="discover pointer-events-auto"
               >
-                Tìm hiểu thêm{" "}
+                {slides[0]?.ctaText || "Tìm hiểu thêm"}{" "}
                 <ArrowRight
                   className="w-4 h-4"
                   weight="thin"
@@ -149,11 +155,11 @@ export function GsapHero() {
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
               <a
-                href="#about"
-                aria-label="Tìm hiểu thêm về VDCD Gia Lai (Chi tiết)"
+                href={slides[0]?.ctaUrl || "/#"}
+                aria-label={slides[0]?.ctaText || "Tìm hiểu thêm (Chi tiết)"}
                 className="discover pointer-events-auto"
               >
-                Tìm hiểu thêm{" "}
+                {slides[0]?.ctaText || "Tìm hiểu thêm"}{" "}
                 <ArrowRight
                   className="w-4 h-4"
                   weight="thin"
