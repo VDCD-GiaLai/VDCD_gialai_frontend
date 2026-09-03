@@ -30,6 +30,9 @@ RUN pnpm run build
 FROM base AS runner
 WORKDIR /app
 
+# sharp requires native vips libraries for image optimization
+RUN apk add --no-cache vips-dev
+
 ENV NODE_ENV=production
 # Disable Next.js telemetry during runtime
 ENV NEXT_TELEMETRY_DISABLED=1
