@@ -6,6 +6,24 @@ import {
 } from "@/services/slide-detail-blog.service";
 import { MOCK_SLIDE_DETAIL_BLOGS } from "@/data/slide-detail-blog.data";
 import { SlideDetailContent } from "@/components/slides/detail/slide-detail-content";
+import type { SlideDetailBlogBlock } from "@/types";
+
+/** Extract the first image URL from content blocks (supports nested sections) */
+function findFirstImageInBlocks(
+  blocks?: SlideDetailBlogBlock[],
+): string | undefined {
+  if (!blocks) return undefined;
+  for (const block of blocks) {
+    if (block.type === "image" && block.url) return block.url;
+    if (block.type === "section" && block.children) {
+      const found = findFirstImageInBlocks(
+        block.children as SlideDetailBlogBlock[],
+      );
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
 
 /* ────────────────────────────────────────────────────────
    Dynamic Metadata
@@ -32,6 +50,10 @@ export async function generateMetadata({
     blog.excerpt ||
     "Thông tin chi tiết dự án và công nghệ chuyển đổi số tại VDCD Group";
 
+  // og:image priority: heroImageUrl → first image in content blocks → omit
+  const ogImage =
+    blog.heroImageUrl || findFirstImageInBlocks(blog.content?.blocks);
+
   return {
     title,
     description,
@@ -39,13 +61,13 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      ...(blog.heroImageUrl ? { images: [{ url: blog.heroImageUrl }] } : {}),
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(blog.heroImageUrl ? { images: [blog.heroImageUrl] } : {}),
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
   };
 }
