@@ -2,15 +2,10 @@
 
 import * as React from "react";
 import { useEffect, useRef, useState, useCallback } from "react";
-import { OptimizedImage } from "@/components/ui/optimized-image";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import { SOLUTIONS } from "@/data/solution/solutions";
-import {
-  fetchSolutionsFromApi,
-  type SolutionItem,
-} from "@/services/solution.service";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
@@ -26,6 +21,14 @@ interface EcoItem {
   href: string;
 }
 
+const ECOSYSTEM_ITEMS: EcoItem[] = SOLUTIONS.map((s) => ({
+  id: s.slug || s.href || s.title,
+  title: s.title,
+  description: s.description,
+  imageUrl: s.imageUrl,
+  href: s.href,
+}));
+
 /* ────────────────────────────────────────────────────────
    CARD — Sun Group-inspired: image bg + overlay + title + number watermark
    ──────────────────────────────────────────────────────── */
@@ -37,19 +40,26 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
   const linkProps = isExternal
     ? { href: item.href, target: "_blank", rel: "noopener noreferrer" }
     : { href: item.href };
-  const num = String(index + 1);
+  const num = String(index + 1).padStart(2, "0");
 
   return (
     <div className="eco-card group relative flex flex-col justify-between overflow-hidden bg-zinc-900 w-[85vw] sm:w-[50vw] lg:w-[25vw] h-[420px] md:h-[480px] shrink-0 select-none snap-start">
+      {/* Clickable Overlay Link covering whole card */}
+      <LinkComponent
+        {...(linkProps as any)}
+        className="absolute inset-0 z-15"
+        aria-label={item.title}
+      />
+
       {/* Background Image */}
       <div className="absolute inset-0">
-        <OptimizedImage
+        <Image
           src={item.imageUrl}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover group-hover:scale-105 transition-transform duration-700"
-          transformation={[{ width: 450, quality: 75, format: "auto" }]}
+          unoptimized={true}
         />
       </div>
 
@@ -64,19 +74,16 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
       <div className="relative z-10 p-5"></div>
 
       {/* Bottom: Title + Description + CTA Link */}
-      <div className="relative z-10 p-5 md:p-6 flex flex-col gap-3">
+      <div className="relative z-20 p-5 md:p-6 flex flex-col gap-3 pointer-events-none">
         <h3 className="text-base md:text-lg font-bold text-white leading-snug font-heading line-clamp-2">
           {item.title}
         </h3>
         <p className="text-xs text-zinc-300 leading-relaxed line-clamp-2 opacity-90 group-hover:opacity-100 transition-all duration-300">
           {item.description}
         </p>
-        <LinkComponent
-          {...(linkProps as any)}
-          className="inline-flex items-center gap-1.5 text-accent-red hover:text-white font-bold font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 w-fit cursor-pointer pt-1"
-        >
+        <span className="inline-flex items-center gap-1.5 text-accent-red group-hover:text-white font-bold font-mono-label text-xs uppercase tracking-wider transition-colors duration-300 w-fit pt-1">
           Tìm Hiểu Thêm <ArrowUpRight className="w-3.5 h-3.5" weight="bold" />
-        </LinkComponent>
+        </span>
       </div>
     </div>
   );
@@ -92,38 +99,7 @@ export function EcosystemSection() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const [items, setItems] = React.useState<EcoItem[]>(
-    SOLUTIONS.map((s) => ({
-      id: s.href || s.title,
-      title: s.title,
-      description: s.description,
-      imageUrl: s.imageUrl,
-      href: s.href,
-    })),
-  );
-
-  React.useEffect(() => {
-    fetchSolutionsFromApi(50).then((data) => {
-      if (data && data.length > 0) {
-        const apiItems: EcoItem[] = data.map((sol) => {
-          const fallback = SOLUTIONS.find(
-            (s) =>
-              s.title.toLowerCase() === sol.title.toLowerCase() ||
-              s.href.includes(sol.slug),
-          );
-          return {
-            id: sol.slug || sol.id,
-            title: sol.title,
-            description: sol.description || fallback?.description || "",
-            imageUrl:
-              sol.thumbnail || fallback?.imageUrl || "/images/home/sol_ai.webp",
-            href: sol.websiteUrl || `/solution/${sol.slug}`,
-          };
-        });
-        setItems(apiItems);
-      }
-    });
-  }, []);
+  const items = ECOSYSTEM_ITEMS;
 
   /* ── Scroll state tracking ── */
   const updateScrollState = useCallback(() => {
