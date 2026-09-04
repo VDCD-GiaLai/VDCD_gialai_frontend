@@ -3,122 +3,117 @@ import { SolutionItem } from "@/types";
 export const SOLUTIONS: SolutionItem[] = [
   {
     title: "Trung tâm Bản đồ số",
-    href: "https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do",
+    slug: "trung-tam-ban-do-so",
+    href: "/solution/trung-tam-ban-do-so",
     imageUrl:
       "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-800,q-85,f-auto",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
   },
   {
     title: "Viện Thiết Kế Số",
-    href: "https://bimv.vn/",
+    slug: "vien-thiet-ke-so",
+    href: "/solution/vien-thiet-ke-so",
     imageUrl:
       "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/house.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
   },
   {
     title: "Trung Tâm Giám Sát Số",
-    href: "https://autotimelapse.com",
+    slug: "trung-tam-giam-sat-so",
+    href: "/solution/trung-tam-giam-sat-so",
     imageUrl:
       "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/buildings.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
   },
   {
     title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
-    href: "/solution/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    href: "/solution/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     imageUrl:
       "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/brickwall.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
   },
   {
     title: "Viện Nghiên cứu công nghệ không gian và dưới nước",
-    href: "https://iig.vn",
+    slug: "vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
+    href: "/solution/vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
     imageUrl:
       "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
   },
   {
     title: "Trung tâm phần mềm VDCD – Soft",
-    href: "https://geneat.vn",
+    slug: "trung-tam-phan-mem-vdcd-soft",
+    href: "/solution/trung-tam-phan-mem-vdcd-soft",
     imageUrl:
       "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/engineer.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
   },
   {
     title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
-    href: "/solution/trung-tam-doi-moi-sang-tao-tinh",
     slug: "trung-tam-doi-moi-sang-tao-tinh",
+    href: "/solution/trung-tam-doi-moi-sang-tao-tinh",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/bed.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
   },
   {
     title: "Trung Tâm Chuyển giao Công Nghệ",
-    href: "/solution/trung-tam-chuyen-giao-cong-nghe",
     slug: "trung-tam-chuyen-giao-cong-nghe",
+    href: "/solution/trung-tam-chuyen-giao-cong-nghe",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
   },
   {
     title: "Máy Bay Việt",
-    href: "https://maybayviet.com",
+    slug: "may-bay-viet",
+    href: "/solution/may-bay-viet",
     imageUrl:
-      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-800,q-85,f-auto",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-800,q-85,f-auto",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
   },
   {
     title: "Trung tâm phát triển Robot & AI",
-    href: "/solution/trung-tam-phat-trien-robot-ai",
     slug: "trung-tam-phat-trien-robot-ai",
+    href: "/solution/trung-tam-phat-trien-robot-ai",
     imageUrl:
       "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/floor.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
   },
   {
     title: "Trung Tâm Sản Xuất Phim",
-    href: "https://vietflycam.vn/dich-vu/quay-phim-chup-anh-bang-flycam",
+    slug: "trung-tam-san-xuat-phim",
+    href: "/solution/trung-tam-san-xuat-phim",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/75474-768x576.jpg",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
   },
   {
     title: "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
-    href: "/solution/trung-tam-nghien-cuu-va-phat-trien-san-pham",
     slug: "trung-tam-nghien-cuu-va-phat-trien-san-pham",
+    href: "/solution/trung-tam-nghien-cuu-va-phat-trien-san-pham",
     imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
-    iconUrl:
-      "https://demo2wpopal.b-cdn.net/rebuilto/wp-content/uploads/2024/03/building.svg",
+    iconUrl: "/icons/cpu.svg",
     description:
       "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
   },

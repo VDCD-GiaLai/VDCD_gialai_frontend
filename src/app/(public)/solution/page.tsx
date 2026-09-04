@@ -3,9 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ServiceCard } from "@/components/ui/service-card";
 import {
-  CAPABILITY_SOLUTIONS,
   CORE_TECH_SOLUTIONS,
-  SPECIALIZED_SOLUTIONS,
+  SOLUTIONS as INITIAL_CENTERS,
 } from "@/data/solution/solutions";
 import { fetchSolutionsFromApi } from "@/services/solution.service";
 import { gsap } from "@/lib/animations/register-gsap";
@@ -22,28 +21,14 @@ interface SolutionItem {
 
 export default function SolutionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
-  const [solutions, setSolutions] =
-    useState<SolutionItem[]>(CAPABILITY_SOLUTIONS);
   const [coreSolutions, setCoreSolutions] =
     useState<SolutionItem[]>(CORE_TECH_SOLUTIONS);
-  const [specializedSolutions, setSpecializedSolutions] = useState<
-    SolutionItem[]
-  >(SPECIALIZED_SOLUTIONS);
+  const [centers, setCenters] = useState<SolutionItem[]>(INITIAL_CENTERS);
 
   useEffect(() => {
-    fetchSolutionsFromApi(100).then((items) => {
+    fetchSolutionsFromApi(50).then((items) => {
       if (items && items.length > 0) {
-        setSolutions(
-          items.map((sol) => ({
-            title: sol.title,
-            description: sol.description,
-            href: sol.websiteUrl || `/solution/${sol.slug}`,
-            imageUrl: sol.thumbnail || "/images/placeholder-solution.webp",
-            iconUrl: sol.icon || "/icons/cpu.svg",
-            slug: sol.slug,
-          })),
-        );
-
+        // Sync 6 core solutions if matched from API
         setCoreSolutions(
           CORE_TECH_SOLUTIONS.map((s) => {
             const match = items.find(
@@ -61,20 +46,21 @@ export default function SolutionsPage() {
           }),
         );
 
-        setSpecializedSolutions(
-          SPECIALIZED_SOLUTIONS.map((s) => {
+        // Sync 12 centers if matched from API
+        setCenters(
+          INITIAL_CENTERS.map((c) => {
             const match = items.find(
               (it) =>
-                it.slug === s.slug ||
-                it.title.toLowerCase() === s.title.toLowerCase(),
+                it.slug === c.slug ||
+                it.title.toLowerCase() === c.title.toLowerCase(),
             );
             return match
               ? {
-                  ...s,
-                  description: match.description || s.description,
-                  imageUrl: match.thumbnail || s.imageUrl,
+                  ...c,
+                  description: match.description || c.description,
+                  imageUrl: match.thumbnail || c.imageUrl,
                 }
-              : s;
+              : c;
           }),
         );
       }
@@ -82,7 +68,7 @@ export default function SolutionsPage() {
   }, []);
 
   useEffect(() => {
-    if (!pageRef.current || solutions.length === 0) return;
+    if (!pageRef.current) return;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -98,14 +84,14 @@ export default function SolutionsPage() {
           y: 20,
           duration: 0.5,
           ease: "power3.out",
-          stagger: 0.05,
-          delay: 0.2,
+          stagger: 0.04,
+          delay: 0.15,
         });
       });
     }, pageRef);
 
     return () => ctx.revert();
-  }, [solutions]);
+  }, [coreSolutions, centers]);
 
   return (
     <div
@@ -115,18 +101,18 @@ export default function SolutionsPage() {
       {/* Hero Banner — backend-ready */}
       <PageHeroBanner pageKey="solutions" ariaLabel="Giải pháp theo lĩnh vực" />
 
-      {/* ── Khối 1: Công nghệ Cốt lõi ── */}
-      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-16 pb-8">
+      {/* ── Khối 1: 6 Giải Pháp Công Nghệ Cốt Lõi ── */}
+      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-16 pb-12">
         <div className="mb-10">
           <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
             Công nghệ cốt lõi
           </span>
           <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
-            6 Nền tảng Công nghệ
+            6 Nền tảng Công nghệ Tiên phong
           </h2>
           <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
-            Các công nghệ trọng tâm được Trung tâm Đổi mới Sáng tạo Gia Lai
-            nghiên cứu, phát triển và ứng dụng.
+            Các công nghệ mũi nhọn được Trung tâm Đổi mới Sáng tạo Gia Lai
+            nghiên cứu, làm chủ và ứng dụng chuyển đổi số toàn diện.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
@@ -144,58 +130,29 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* ── Khối 2: Giải pháp Chuyên ngành ── */}
-      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-8 pb-8">
+      {/* ── Khối 2: 12 Trung Tâm Chuyên Sâu Trực Thuộc ── */}
+      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-8 pb-20 border-t border-whisper-border/50 dark:border-zinc-900">
         <div className="mb-10">
           <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
-            Giải pháp chuyên ngành
+            Hệ sinh thái Đổi mới Sáng tạo
           </span>
           <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
-            4 Giải pháp Mũi nhọn
+            12 Trung tâm Chuyên sâu Trực thuộc
           </h2>
           <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
-            Các giải pháp chuyên sâu kết hợp đa công nghệ, giải quyết bài toán
-            thực tiễn theo từng lĩnh vực.
+            Mạng lưới các trung tâm nghiên cứu, phát triển công nghệ và dịch vụ
+            chuyên sâu trực thuộc Trung tâm Đổi mới Sáng tạo Gia Lai.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-          {specializedSolutions.map((sol) => (
-            <div key={sol.title} className="sol-card h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+          {centers.map((center) => (
+            <div key={center.title} className="sol-card h-full">
               <ServiceCard
-                title={sol.title}
-                href={sol.href}
-                imageUrl={sol.imageUrl}
-                iconUrl={sol.iconUrl || "/icons/cpu.svg"}
-                description={sol.description}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Khối 3: Giải pháp theo lĩnh vực (Existing) ── */}
-      <section className="max-w-[1600px] mx-auto px-4 md:px-8 pt-8 pb-16">
-        <div className="mb-10">
-          <span className="font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase block mb-2">
-            Giải pháp theo lĩnh vực
-          </span>
-          <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white font-heading">
-            Năng lực giải pháp
-          </h2>
-          <p className="text-secondary dark:text-zinc-400 text-sm mt-2 max-w-2xl">
-            Ứng dụng công nghệ vào các ngành kinh tế trọng điểm tại khu vực Tây
-            Nguyên và cả nước.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {solutions.map((sol) => (
-            <div key={sol.title} className="sol-card h-full">
-              <ServiceCard
-                title={sol.title}
-                href={sol.href}
-                imageUrl={sol.imageUrl}
-                iconUrl={sol.iconUrl || "/icons/cpu.svg"}
-                description={sol.description}
+                title={center.title}
+                href={center.href}
+                imageUrl={center.imageUrl}
+                iconUrl={center.iconUrl || "/icons/cpu.svg"}
+                description={center.description}
               />
             </div>
           ))}

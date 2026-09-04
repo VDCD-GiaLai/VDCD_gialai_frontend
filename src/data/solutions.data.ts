@@ -10,193 +10,207 @@ export interface SolutionItem {
 }
 
 export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
+  /* ──────────────────────────────────────────────────────────
+   *  6 CÔNG NGHỆ CỐT LÕI (Hiển thị đầu tiên tại Home & Solutions)
+   * ────────────────────────────────────────────────────────── */
   {
-    id: "6e922f73-1e8a-4446-99e2-dbec49419db4",
-    title: "Nông nghiệp - Lâm nghiệp",
-    slug: "nong-nghiep-lam-nghiep",
-    description: "",
+    id: "sol-core-1",
+    title: "UAV - Khảo sát địa hình & Đo đạc trắc địa số",
+    slug: "uav",
+    description:
+      "Ứng dụng công nghệ UAV trong đo đạc trắc địa, thành lập bản đồ số 2D/3D, hỗ trợ thiết kế san lấp và số hóa hiện trạng.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Ban-sao-cua-IMG_2462-1024x768.jpg",
-    websiteUrl: "/solution/nong-nghiep-lam-nghiep",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/uav",
     isPublished: true,
   },
   {
-    id: "b7558158-7043-488f-b189-51bc1728035a",
-    title: "Máy Bay Việt",
-    slug: "may-bay-viet",
-    description: "",
+    id: "sol-core-2",
+    title: "AI - Trung tâm Phát triển Robot & AI",
+    slug: "ai",
+    description:
+      "Nghiên cứu và ứng dụng công nghệ robot thông minh tích hợp trí tuệ nhân tạo trong giáo dục, sản xuất, logistics và dịch vụ.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-768x432.jpg",
-    websiteUrl: "https://maybayviet.com",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/ai",
     isPublished: true,
   },
   {
-    id: "9446a120-855a-4f3c-a028-e3948cfe74b5",
+    id: "sol-core-3",
+    title: "AutoTimelapse - Giám sát thông minh 24/7",
+    slug: "autotimelapse",
+    description:
+      "Hệ thống Timelapse tự động hóa giám sát tiến độ công trình, nông nghiệp và môi trường, lưu trữ và chia sẻ dữ liệu trực tuyến.",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/autotimelapse",
+    isPublished: true,
+  },
+  {
+    id: "sol-core-4",
+    title: "VR360 - Không gian số trực quan & Scan 3D",
+    slug: "vr360",
+    description:
+      "Số hóa không gian thực tế 360 độ kết hợp quét laser 3D phục vụ quản lý hiện trường, xúc tiến du lịch và bảo tồn di sản.",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/vr360",
+    isPublished: true,
+  },
+  {
+    id: "sol-core-5",
+    title: "SmartScale - Trạm cân thông minh",
+    slug: "smartscale",
+    description:
+      "Số hóa quy trình cân xe, tự động nhận diện biển số, ghi nhận trọng lượng và quản lý dữ liệu tập trung chống gian lận.",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/smartscale",
+    isPublished: true,
+  },
+  {
+    id: "sol-core-6",
+    title: "Data Center - Siêu máy tính & Đào tạo AI",
+    slug: "data-center",
+    description:
+      "Hạ tầng tính toán hiệu năng cao HPC, nghiên cứu AI, đào tạo nhân lực và dịch vụ Colocation cho doanh nghiệp vùng.",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/data-center",
+    isPublished: true,
+  },
+
+  /* ──────────────────────────────────────────────────────────
+   *  12 TRUNG TÂM CHUYÊN SÂU TRỰC THUỘC HỆ SINH THÁI VDCD
+   * ────────────────────────────────────────────────────────── */
+  {
+    id: "center-1",
     title: "Trung tâm Bản đồ số",
     slug: "trung-tam-ban-do-so",
-    description: "",
-    thumbnail: "https://vdcd.vn/wp-content/uploads/2024/03/5-768x431.jpg",
-    websiteUrl:
-      "https://vietflycam.vn/dich-vu/bay-quet-3d-trac-dia-so-va-thanh-lap-ban-do",
-    isPublished: true,
-  },
-  {
-    id: "52a1acf2-6453-4eb5-9226-4a55b4a46b7c",
-    title: "Cứu hộ cứu nạn",
-    slug: "cuu-ho-cuu-nan-phong-chong-thien-tai",
-    description: "",
+    description:
+      "Cung cấp các dịch vụ bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình độ chính xác cao bằng máy bay không người lái.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7908953163351_e6a394ecff68dca617c06ebed9a5ecbc-1024x768.jpg",
-    websiteUrl: "/solution/cuu-ho-cuu-nan-phong-chong-thien-tai",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/trung-tam-ban-do-so",
     isPublished: true,
   },
   {
-    id: "179fa443-256e-487d-8028-c2fa16567181",
-    title: "Khai thác khoáng sản",
-    slug: "tai-nguyen-khai-thac-khoang-san",
-    description: "",
-    thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7903688360376_37c98f8dadd2f5e6419362c107fe4ca4-1-1024x509.jpg",
-    websiteUrl: "/solution/tai-nguyen-khai-thac-khoang-san",
-    isPublished: true,
-  },
-  {
-    id: "e39bd0a0-1f85-42fb-b9c3-268ad88bcb94",
-    title: "Điện - Năng lượng",
-    slug: "dien-nang-luong",
-    description: "",
-    thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Dien-gio-Quang-Tri-1-1410x720.jpg",
-    websiteUrl: "/solution/dien-nang-luong",
-    isPublished: true,
-  },
-  {
-    id: "2b1ea734-43ae-48f9-833e-dda1b7df1551",
-    title: "Giám sát an ninh",
-    slug: "an-ninh-giam-sat-an-ninh",
-    description: "",
-    thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7896992273679_a63ab25fd7af7b68be795587ac4a41fb-1-1024x683.jpg",
-    websiteUrl: "/solution/an-ninh-giam-sat-an-ninh",
-    isPublished: true,
-  },
-  {
-    id: "5ebe0e7b-1b5f-44a1-bd8a-d874625e2c7b",
-    title: "Trung Tâm Chuyển giao Công Nghệ",
-    slug: "trung-tam-chuyen-giao-cong-nghe",
-    description: "",
-    thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
-    websiteUrl: "https://vdcd.vn/services/trung-tam-chuyen-giao-cong-nghe/",
-    isPublished: true,
-  },
-  {
-    id: "f9ba2c8b-6f6b-4f4c-b259-f1c718e3544b",
-    title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
-    slug: "trung-tam-doi-moi-sang-tao-tinh",
-    description: "",
-    thumbnail: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
-    websiteUrl: "https://vdcd.vn/services/trung-tam-doi-moi-sang-tao-tinh/",
-    isPublished: true,
-  },
-  {
-    id: "4b124ed2-25ae-4e1d-b408-538f470043ec",
-    title: "Trung tâm phần mềm VDCD – Soft",
-    slug: "trung-tam-phan-mem-vdcd-soft",
-    description: "",
-    thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
-    websiteUrl: "https://geneat.vn",
-    isPublished: true,
-  },
-  {
-    id: "8601ae3f-e0e3-45c5-ba1c-e7de47b20abd",
-    title: "Trung Tâm Giám Sát Số",
-    slug: "trung-tam-giam-sat-so",
-    description: "",
-    thumbnail: "https://vdcd.vn/wp-content/uploads/2024/03/3123-768x512.jpg",
-    websiteUrl: "https://autotimelapse.com",
-    isPublished: true,
-  },
-  {
-    id: "72d9f19f-af32-4233-afe6-4d5e74d91a14",
+    id: "center-2",
     title: "Viện Thiết Kế Số",
     slug: "vien-thiet-ke-so",
-    description: "",
+    description:
+      "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
     thumbnail:
       "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
-    websiteUrl: "https://bimv.vn/",
+    websiteUrl: "/solution/vien-thiet-ke-so",
     isPublished: true,
   },
   {
-    id: "7b2d1698-d06a-4002-990d-f3557f027140",
-    title: "Trung tâm nghiên cứu và phát triển sản phẩm R&D",
-    slug: "trung-tam-nghien-cuu-va-phat-trien-san-pham-rd",
-    description: "",
+    id: "center-3",
+    title: "Trung Tâm Giám Sát Số",
+    slug: "trung-tam-giam-sat-so",
+    description:
+      "Cung cấp hệ thống Auto Timelapse giám sát thông minh tiến độ xây dựng công trình, nông nghiệp và môi trường một cách tự động, trực quan.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
-    websiteUrl:
-      "https://vdcd.vn/services/trung-tam-nghien-cuu-va-phat-trien-san-pham/",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/trung-tam-giam-sat-so",
     isPublished: true,
   },
   {
-    id: "b6b431e4-4ea6-4908-a38d-ad45e8e00df9",
-    title: "Trung tâm phát triển Robot & AI",
-    slug: "trung-tam-phat-trien-robot-ai",
-    description: "",
+    id: "center-4",
+    title: "Trung tâm Dữ liệu Siêu máy tính và Đào tạo AI",
+    slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
+    description:
+      "Xây dựng hạ tầng tính toán hiệu năng cao (HPC) và tổ chức các chương trình đào tạo trí tuệ nhân tạo chuyên sâu phục vụ chuyển đổi số doanh nghiệp.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/ImageForArticle_702_172159750532-768x432.jpg",
-    websiteUrl: "https://vdcd.vn/services/trung-tam-phat-trien-robot-ai/",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
     isPublished: true,
   },
   {
-    id: "2626ca50-c83c-4712-b055-620cf5996f33",
-    title: "Viện Nghiên cứu công nghệ không gian và dưới nước",
+    id: "center-5",
+    title: "Viện Nghiên cứu Công nghệ Không gian và Dưới nước",
     slug: "vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
-    description: "",
+    description:
+      "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
     thumbnail:
       "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg",
-    websiteUrl: "https://iig.vn",
+    websiteUrl: "/solution/vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
     isPublished: true,
   },
   {
-    id: "c159272a-0884-4e1a-b664-5f8e0ad78054",
-    title: "Trung tâm dữ liệu siêu máy tính và đào tạo AI",
-    slug: "trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai",
-    description: "",
+    id: "center-6",
+    title: "Trung tâm Phần mềm VDCD – Soft",
+    slug: "trung-tam-phan-mem-vdcd-soft",
+    description:
+      "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2025/10/z7173282299491_651f9e392555944f94acd55dab050480-768x576.jpg",
-    websiteUrl:
-      "https://vdcd.vn/services/trung-tam-du-lieu-sieu-may-tinh-va-dao-tao-ai/",
+      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
+    websiteUrl: "/solution/trung-tam-phan-mem-vdcd-soft",
     isPublished: true,
   },
   {
-    id: "ae1465ef-94da-46df-b35f-d254f9e5f008",
-    title: "Tài nguyên môi trường",
-    slug: "quan-ly-tai-nguyen-quan-trac-moi-truong",
-    description: "",
+    id: "center-7",
+    title: "Trung Tâm Đổi Mới Sáng Tạo Tỉnh",
+    slug: "trung-tam-doi-moi-sang-tao-tinh",
+    description:
+      "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
+    thumbnail: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
+    websiteUrl: "/solution/trung-tam-doi-moi-sang-tao-tinh",
+    isPublished: true,
+  },
+  {
+    id: "center-8",
+    title: "Trung Tâm Chuyển Giao Công Nghệ",
+    slug: "trung-tam-chuyen-giao-cong-nghe",
+    description:
+      "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/z7913610376494_aabfc4669de386a5916480d8fb3f34cd-1024x490.jpg",
-    websiteUrl: "/solution/quan-ly-tai-nguyen-quan-trac-moi-truong",
+      "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
+    websiteUrl: "/solution/trung-tam-chuyen-giao-cong-nghe",
     isPublished: true,
   },
   {
-    id: "e621aa78-097e-4b73-8d2c-8b74c433b100",
-    title: "Du lịch thông minh - Số hóa di sản",
-    slug: "du-lich-thong-minh-so-hoa-di-san",
-    description: "",
+    id: "center-9",
+    title: "Máy Bay Việt",
+    slug: "may-bay-viet",
+    description:
+      "Đơn vị cung cấp giải pháp máy bay không người lái phục vụ nông nghiệp thông minh, khảo sát công nghiệp và quay chụp chuyên nghiệp.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2026/06/Lotte-Mall-1-1-1-scaled.jpg",
-    websiteUrl: "/solution/du-lich-thong-minh-so-hoa-di-san",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/may-bay-viet",
     isPublished: true,
   },
   {
-    id: "5c7a3230-66c9-4e2e-beef-9cbf31a2421e",
+    id: "center-10",
+    title: "Trung tâm Phát triển Robot & AI",
+    slug: "trung-tam-phat-trien-robot-ai",
+    description:
+      "Nghiên cứu chế tạo các hệ thống cánh tay robot tự động hóa, xe tự hành (AGV) kết hợp trí tuệ nhân tạo nhận diện hình ảnh và tối ưu vận hành.",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
+    websiteUrl: "/solution/trung-tam-phat-trien-robot-ai",
+    isPublished: true,
+  },
+  {
+    id: "center-11",
     title: "Trung Tâm Sản Xuất Phim",
     slug: "trung-tam-san-xuat-phim",
-    description: "",
+    description:
+      "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
     thumbnail: "https://vdcd.vn/wp-content/uploads/2025/10/75474-768x576.jpg",
-    websiteUrl: "https://vietflycam.vn/dich-vu/quay-phim-chup-anh-bang-flycam",
+    websiteUrl: "/solution/trung-tam-san-xuat-phim",
+    isPublished: true,
+  },
+  {
+    id: "center-12",
+    title: "Trung tâm Nghiên cứu và Phát triển Sản phẩm R&D",
+    slug: "trung-tam-nghien-cuu-va-phat-trien-san-pham",
+    description:
+      "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
+    thumbnail:
+      "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
+    websiteUrl: "/solution/trung-tam-nghien-cuu-va-phat-trien-san-pham",
     isPublished: true,
   },
 ];

@@ -1656,4 +1656,382 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
       },
     ],
   },
+  "trung-tam-ban-do-so": {
+    slug: "trung-tam-ban-do-so",
+    title: "Trung Tâm Bản Đồ Số",
+    subtitle:
+      "Bay quét 3D, trắc địa số hóa và thành lập bản đồ địa hình đa tỷ lệ chuẩn quốc gia",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-1600,q-85,f-auto",
+    introText:
+      "Trung tâm Bản đồ số VDCD ứng dụng đồng bộ công nghệ định vị vệ tinh GNSS, máy bay không người lái chuyên dụng (UAV/Flycam), cảm biến LiDAR và thuật toán SfM để xây dựng bản đồ địa hình 2D/3D có độ chính xác cao. Toàn bộ quy trình đo đạc gắn liền với hệ thống mốc tọa độ Quốc gia VN-2000, cung cấp dữ liệu tin cậy cho công tác quy hoạch, thiết kế, thi công và quản lý tài nguyên tại Gia Lai.",
+    accentColor: "#ea580c",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/dich_vu_quet_3d.png?tr=w-1200,q-85,f-auto",
+      "https://vdcd.vn/wp-content/uploads/2024/03/5-1410x720.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Trắc địa số 2D, 3D & Biên tập bản đồ số đa tỷ lệ",
+        description:
+          "Ứng dụng các thiết bị bay không người lái công nghiệp kết hợp trạm mặt đất GPS RTK để thu thập dữ liệu không gian:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-1000,q-85,f-auto",
+        layout: "split-image",
+        points: [
+          "Thành lập bản đồ địa hình, hiện trạng với các tỷ lệ từ 1/200, 1/500, 1/2.000 đến 1/10.000.",
+          "Xây dựng mô hình số độ cao (DEM/DTM) và mô hình bề mặt (DSM) độ phân giải centimet.",
+          "Tái hiện không gian 3D Mesh trực quan phục vụ đối soát hiện trạng và đánh giá mặt bằng.",
+        ],
+      },
+      {
+        title: "2. Quy trình bay quét và kiểm soát chất lượng 4 bước",
+        description:
+          "Đảm bảo tiến độ thu thập nhanh gấp 5-10 lần phương pháp đo đạc truyền thống nhưng đạt độ chuẩn xác cao:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-1000,q-85,f-auto",
+        layout: "numbered-steps",
+        points: [
+          "Bước 1: Khảo sát thực địa và thiết lập lưới mốc GCP tọa độ quốc gia VN-2000.",
+          "Bước 2: Lập phương án bay tự động và vận hành UAV thu thập dữ liệu ảnh hàng không độ phân giải siêu nét.",
+          "Bước 3: Xử lý dữ liệu ảnh trên cụm máy chủ đồ họa bằng phần mềm trắc địa chuyên sâu.",
+          "Bước 4: Biên tập bản đồ CAD/GIS, kiểm tra dung sai kỹ thuật và bàn giao nền tảng lưu trữ số hóa.",
+        ],
+      },
+      {
+        title: "3. Ứng dụng thực tiễn trong phát triển kinh tế hạ tầng",
+        description:
+          "Dữ liệu bản đồ số là nền tảng cốt lõi cho mọi hoạt động quy hoạch và quản trị đất đai:",
+        imageUrl: "https://vdcd.vn/wp-content/uploads/2024/03/5-1410x720.jpg",
+        layout: "card-grid",
+        points: [
+          "Quy hoạch đô thị và khu công nghiệp: Cung cấp bản đồ nền trực quan cho các sở ban ngành và nhà đầu tư.",
+          "Tính toán khối lượng đào đắp san lấp: Đo đạc chính xác khối lượng mỏ khoáng sản, bãi chứa và nền đường thi công.",
+          "Quản lý lâm nghiệp và cây trồng: Đánh giá hiện trạng rừng, kiểm kê diện tích cà phê, cao su và phát hiện biến động tài nguyên.",
+          "Tích hợp liên thông hệ thống BIM & GIS: Dữ liệu chuẩn định dạng mở dễ dàng nhập vào các phần mềm quản lý điều hành.",
+        ],
+      },
+    ],
+  },
+  "vien-thiet-ke-so": {
+    slug: "vien-thiet-ke-so",
+    title: "Viện Thiết Kế Số",
+    subtitle:
+      "Ứng dụng đồng bộ công nghệ BIM, GIS và AI trong quy hoạch, kiến trúc & Digital Twin",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+    introText:
+      "Viện Thiết kế Số (Digital Design Institute) quy tụ các kiến trúc sư, kỹ sư kết cấu và chuyên gia công nghệ nhằm ứng dụng mô hình thông tin công trình BIM, GIS và trí tuệ nhân tạo AI vào toàn bộ vòng đời dự án. Từ khảo sát ý tưởng, thiết kế kỹ thuật, kiểm soát xung đột đến mô hình bản sao số Digital Twin, viện mang lại giải pháp số hóa toàn diện cho các chủ đầu tư và cơ quan quản lý.",
+    accentColor: "#2563eb",
+    galleryImages: [
+      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+      "https://vdcd.vn/wp-content/uploads/2024/03/z7156928098828_33a2c8c3a9e6e31e609ecae587efa5ea.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Mô hình thông tin công trình (BIM) & Kiểm soát xung đột",
+        description:
+          "Chuyển đổi hoàn toàn từ bản vẽ 2D rời rạc sang mô hình dữ liệu 3D tham số thông minh:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+        layout: "split-image",
+        points: [
+          "Phát hiện và triệt tiêu xung đột giữa kiến trúc, kết cấu và hệ thống cơ điện (MEP) trước khi ra hiện trường.",
+          "Bóc tách khối lượng vật tư tự động chính xác tuyệt đối, tiết kiệm 15-25% chi phí hao hụt thi công.",
+          "Mô phỏng tiến độ thi công 4D và quản lý chi phí 5D theo thời gian thực.",
+        ],
+      },
+      {
+        title: "2. Ứng dụng AI & Thực tế ảo (VR/AR) trong thiết kế quy hoạch",
+        description:
+          "Đột phá tư duy thiết kế nhờ sự hỗ trợ của các thuật toán tạo sinh và mô phỏng số:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2024/03/z7156928098828_33a2c8c3a9e6e31e609ecae587efa5ea.jpg",
+        layout: "split-image",
+        points: [
+          "AI phân tích hình thái đô thị, mật độ xây dựng, hướng nắng và vi khí hậu để tối ưu phương án kiến trúc.",
+          "Trình diễn không gian thực tế ảo giúp các cấp thẩm định và người dân dễ dàng tương tác với đồ án quy hoạch.",
+          "Tích hợp mô hình BIM vào hệ sinh thái 3D GIS phục vụ quản lý đô thị thông minh.",
+        ],
+      },
+      {
+        title: "3. 6 Giá trị ứng dụng nổi bật của Thiết Kế Số",
+        description:
+          "Lợi ích vượt trội mang lại cho các ban quản lý dự án và doanh nghiệp:",
+        layout: "card-grid",
+        points: [
+          "Minh bạch hóa hồ sơ dự án: Toàn bộ thông tin vật liệu, xuất xứ và quy cách được quản lý tập trung trên nền tảng CDE.",
+          "Tối ưu thời gian thẩm định: Rút ngắn 30-40% thời gian duyệt thiết kế nhờ mô hình trực quan.",
+          "Chuyển giao Digital Twin vận hành: Cung cấp dữ liệu số phục vụ bảo trì tòa nhà và hạ tầng kỹ thuật suốt vòng đời công trình.",
+          "Đào tạo và chuyển giao chuẩn BIM: Đã đào tạo thực chiến cho hơn 600 cán bộ kỹ thuật tại Gia Lai và các tỉnh lân cận.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-giam-sat-so": {
+    slug: "trung-tam-giam-sat-so",
+    title: "Trung Tâm Giám Sát Số",
+    subtitle:
+      "Bộ giải pháp AutoTimelapse giám sát – lưu trữ – số hóa dữ liệu thực tế 24/7",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1600,q-85,f-auto",
+    introText:
+      "Trung tâm Giám sát Số phát triển và làm chủ công nghệ AutoTimelapse – bộ giải pháp giám sát tự động trực tuyến ghi nhận hình ảnh và thông số môi trường liên tục theo chu kỳ. Được nghiên cứu từ năm 2017 cùng Viện Công nghệ Không gian & Dưới nước – ĐHBK Hà Nội, công nghệ đã triển khai tại hàng trăm công trình lớn, nông trường và khu vực sinh thái trên toàn quốc.",
+    accentColor: "#f59e0b",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1200,q-85,f-auto",
+      "https://vdcd.vn/wp-content/uploads/2024/03/3123-1410x720.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Thiết bị Camera chuyên dụng độ phân giải siêu nét",
+        description:
+          "Vận hành hoàn toàn tự động ngoài trời bất chấp điều kiện thời tiết khắc nghiệt:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/camera_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
+        layout: "split-image",
+        points: [
+          "Cảm biến hình ảnh cao cấp từ 8MP đến 61MP, zoom cận cảnh chi tiết từng góc công trường không vỡ hạt.",
+          "Tiêu chuẩn kháng nước, bụi bẩn IP67, vỏ thép chống ăn mòn và chịu được giông bão Tây Nguyên.",
+          "Tự động đồng bộ ảnh chụp lên máy chủ đám mây ngay sau khi chụp qua mạng 4G/5G độc lập.",
+        ],
+      },
+      {
+        title: "2. Vận hành độc lập bằng Pin Solar & Quản lý dữ liệu tập trung",
+        description:
+          "Giải pháp lý tưởng cho các dự án vùng sâu, vùng xa chưa có lưới điện và cáp mạng:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/he_thong_timelapse_tu_dong.png?tr=w-1000,q-85,f-auto",
+        layout: "split-image",
+        points: [
+          "Tích hợp tấm pin năng lượng mặt trời Solar và pin lưu trữ Lithium dung lượng cao, hoạt động bền bỉ suốt 7-10 ngày mưa liên tục.",
+          "Ban lãnh đạo theo dõi trực tuyến toàn bộ các dự án trên cùng một màn hình Dashboard Web/App.",
+          "Hệ thống tự động chiết xuất video Timelapse 4K/8K tua nhanh quá trình thi công phục vụ nghiệm thu và truyền thông.",
+        ],
+      },
+      {
+        title: "3. Ứng dụng đa lĩnh vực tại Gia Lai",
+        description:
+          "Không chỉ phục vụ xây dựng, AutoTimelapse mở rộng sang nông nghiệp và tài nguyên:",
+        layout: "card-grid",
+        points: [
+          "Giám sát tiến độ hạ tầng công trình: Minh bạch dữ liệu thi công, giải quyết tranh chấp tiến độ bằng tư liệu ảnh thực.",
+          "Nông nghiệp công nghệ cao: Ghi lại toàn bộ vòng đời cây sầu riêng, cà phê, hồ tiêu làm tư liệu truy xuất nguồn gốc video.",
+          "Quan trắc môi trường và hồ đập: Theo dõi mực nước lòng hồ thủy điện, giám sát sạt lở đồi núi mùa mưa bão.",
+          "Truyền thông quảng bá dự án: Tạo ra những thước phim tư liệu đắt giá cho chủ đầu tư và chính quyền địa phương.",
+        ],
+      },
+    ],
+  },
+  "vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc": {
+    slug: "vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
+    title: "Viện Nghiên Cứu Công Nghệ Không Gian Và Dưới Nước",
+    subtitle:
+      "Làm chủ thiết bị lặn tự hành, quan trắc viễn thám thủy văn và công nghệ không gian",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-1410x720.jpg",
+    introText:
+      "Viện Nghiên cứu Công nghệ Không gian và Dưới nước (IIG) là đơn vị nghiên cứu chuyên sâu liên kết cùng Đại học Bách Khoa Hà Nội và các viện đầu ngành. Viện tập trung chế tạo các thiết bị tự hành ngầm dưới nước (ROV/AUV), hệ thống cảm biến đo đạc thủy đạc và xử lý dữ liệu ảnh viễn thám vệ tinh phục vụ quốc phòng, an ninh năng lượng và phát triển kinh tế biển hồ.",
+    accentColor: "#0284c7",
+    galleryImages: [
+      "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-1410x720.jpg",
+      "https://vdcd.vn/wp-content/uploads/2025/11/z6246976510436_a1885eca27bd88117afc251ceab774be-edited-768x576.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Nghiên cứu & Chế tạo thiết bị tự hành dưới nước (ROV/AUV)",
+        description:
+          "Làm chủ công nghệ cơ điện tử ngầm và hệ thống truyền dẫn tín hiệu dưới nước:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-1410x720.jpg",
+        layout: "split-image",
+        points: [
+          "Robot lặn khảo sát đáy hồ thủy điện, đáy đập dâng và kiểm tra rạn nứt kết cấu công trình ngầm.",
+          "Cảm biến đo sonar đa tia (Multibeam) thành lập bản đồ địa hình đáy sông hồ với độ chuẩn xác cao.",
+          "Thu thập mẫu bùn lắng, đo độ đục và quan trắc chất lượng nước thời gian thực.",
+        ],
+      },
+      {
+        title: "2. Ứng dụng ảnh vệ tinh viễn thám và dữ liệu không gian",
+        description:
+          "Khai thác dữ liệu ảnh quang học và radar từ các chùm vệ tinh quan sát Trái đất:",
+        layout: "numbered-steps",
+        points: [
+          "Phân tích biến động diện tích rừng phòng hộ và cảnh báo sớm nguy cơ mất rừng đầu nguồn.",
+          "Mô phỏng lưu vực dòng chảy và dự báo ngập lụt hạ du cho các hồ thủy điện trên địa bàn tỉnh.",
+          "Đo đạc nhiệt độ mặt đất và độ ẩm đất phục vụ cảnh báo hạn hán trong sản xuất nông nghiệp.",
+        ],
+      },
+      {
+        title: "3. Hợp tác chuyển giao công nghệ cho vùng Tây Nguyên",
+        description:
+          "Ứng dụng trực tiếp các thành tựu khoa học vào đời sống kinh tế - xã hội địa phương:",
+        layout: "card-grid",
+        points: [
+          "Kiểm định an toàn hồ đập thủy điện: Giúp phát hiện sớm các nguy cơ rò rỉ, bồi lắng bùn cát đe dọa tuổi thọ công trình.",
+          "Bảo vệ tài nguyên nguồn nước: Xây dựng cơ sở dữ liệu số về trữ lượng nước ngầm và nước mặt phục vụ tưới tiêu.",
+          "Đào tạo kỹ sư chuyên ngành: Kết nối sinh viên các trường đại học thực tập trên các thiết bị đo đạc thực tế.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-phan-mem-vdcd-soft": {
+    slug: "trung-tam-phan-mem-vdcd-soft",
+    title: "Trung Tâm Phần Mềm VDCD – Soft",
+    subtitle:
+      "Thiết kế và phát triển hệ thống phần mềm quản trị doanh nghiệp, GIS chuyên ngành và ứng dụng di động",
+    imageUrl:
+      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-1410x720.png",
+    introText:
+      "Trung tâm phần mềm VDCD – Soft cung cấp dịch vụ nghiên cứu, lập trình, kiểm thử và chuyển giao các hệ sinh thái phần mềm số hóa theo yêu cầu. Chúng tôi chuyên sâu về hệ thống cơ sở dữ liệu GIS không gian, phần mềm quản lý điều hành cơ quan nhà nước, giải pháp ERP và ứng dụng di động giúp tối ưu hóa nguồn lực và hiện đại hóa quản trị doanh nghiệp.",
+    accentColor: "#4f46e5",
+    galleryImages: [
+      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-1410x720.png",
+    ],
+    sections: [
+      {
+        title: "1. Phát triển phần mềm quản lý điều hành chuyên biệt",
+        description:
+          "Thiết kế kiến trúc vi dịch vụ linh hoạt, bảo mật cao và tương thích đa nền tảng:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-1410x720.png",
+        layout: "split-image",
+        points: [
+          "Nền tảng quản lý hồ sơ đất đai và cơ sở dữ liệu không gian địa chính số.",
+          "Dashboard điều hành thông minh (IOC) tổng hợp chỉ số kinh tế - xã hội thời gian thực cho lãnh đạo tỉnh.",
+          "Hệ thống quản lý chuỗi cung ứng nông sản và truy xuất nguồn gốc nông hộ qua mã QR.",
+        ],
+      },
+      {
+        title: "2. Năng lực công nghệ hiện đại & Bảo mật thông tin",
+        description: "Tuân thủ các tiêu chuẩn phát triển phần mềm quốc tế:",
+        layout: "numbered-steps",
+        points: [
+          "Kiến trúc Cloud-Native: Triển khai linh hoạt trên hạ tầng đám mây nội bộ hoặc trung tâm dữ liệu dùng chung.",
+          "Bảo mật đa tầng: Mã hóa dữ liệu đường truyền, xác thực sinh trắc học và kiểm thử an toàn thông tin OWASP.",
+          "Tương thích thiết bị di động: Trải nghiệm mượt mà trên iOS, Android và các thiết bị thu thập thực địa cầm tay.",
+        ],
+      },
+      {
+        title: "3. 6 Lợi ích cốt lõi dành cho đối tác và khách hàng",
+        description:
+          "Đồng hành lâu dài cùng tiến trình chuyển đổi số của các cơ quan, đơn vị:",
+        layout: "card-grid",
+        points: [
+          "Tự động hóa 80% quy trình thủ công: Cắt giảm chi phí in ấn, lưu trữ hồ sơ giấy tờ truyền thống.",
+          "Dữ liệu tập trung nhất quán: Xóa bỏ các ốc đảo dữ liệu rời rạc giữa các phòng ban chuyên môn.",
+          "Hỗ trợ kỹ thuật tại chỗ 24/7: Đội ngũ kỹ sư phần mềm thường trực tại Gia Lai sẵn sàng hỗ trợ trực tiếp.",
+          "Dễ dàng mở rộng nâng cấp: Kiến trúc mở cho phép tích hợp linh hoạt với các phần mềm quốc gia và ERP doanh nghiệp.",
+        ],
+      },
+    ],
+  },
+  "may-bay-viet": {
+    slug: "may-bay-viet",
+    title: "Máy Bay Việt",
+    subtitle:
+      "Chế tạo, phân phối và làm chủ dịch vụ máy bay không người lái công nghiệp & nông nghiệp thông minh",
+    imageUrl:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-1600,q-85,f-auto",
+    introText:
+      "Máy Bay Việt là đơn vị tiên phong trong nghiên cứu thiết kế, sản xuất lắp ráp và cung cấp các dòng máy bay không người lái (UAV) chuyên dụng tại Việt Nam. Chúng tôi cung cấp các dòng Drone nông nghiệp công suất lớn, Drone khảo sát trắc địa tích hợp LiDAR và các dịch vụ sửa chữa, bảo trì kỹ thuật tại chỗ cho khu vực Tây Nguyên.",
+    accentColor: "#059669",
+    galleryImages: [
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-1200,q-85,f-auto",
+      "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-1410x720.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Drone Nông nghiệp công nghệ cao – Tối ưu canh tác",
+        description:
+          "Giải pháp đột phá giải phóng sức lao động cho bà con nông dân và hợp tác xã:",
+        imageUrl:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_dich_vu_khao_sat_dia_hinh.png?tr=w-1000,q-85,f-auto",
+        layout: "split-image",
+        points: [
+          "Phun thuốc bảo vệ thực vật và rải phân bón tự động: Tốc độ xử lý 10-15 hecta/giờ, tiết kiệm 30% thuốc và 90% nước.",
+          "Cảm biến radar tránh vật cản tự động thích ứng với địa hình đồi dốc phức tạp của Tây Nguyên.",
+          "Định vị chính xác đến từng gốc cây bằng sóng vệ tinh RTK, không bỏ sót và không trùng lặp diện tích.",
+        ],
+      },
+      {
+        title: "2. UAV chuyên dụng cho công nghiệp & kiểm tra hạ tầng",
+        description:
+          "Ứng dụng trong các lĩnh vực yêu cầu an toàn cao và địa hình nguy hiểm:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2025/10/1WUpukaXKpD5fkPMSNblWMSh6WCwXJ6Jj6f9AaF0YHj7OHjPJMzUbLBU1IEVPY2B2vQ-1410x720.jpg",
+        layout: "split-image",
+        points: [
+          "Tuần tra hành lang lưới điện cao thế: Phát hiện mối nguy cháy nổ, cây ngã đổ và khiếm khuyết sứ cách điện bằng camera nhiệt.",
+          "Khảo sát mỏ khoáng sản và bãi thải: Bay quét 3D định kỳ đo đạc khối lượng đào đắp an toàn.",
+          "Tìm kiếm cứu nạn và tuần tra biên giới: Khả năng bay đêm bằng camera ảnh nhiệt hồng ngoại chuyên dụng.",
+        ],
+      },
+      {
+        title: "3. Trung tâm dịch vụ kỹ thuật & Đào tạo phi công UAV",
+        description:
+          "Bảo đảm thiết bị vận hành liên tục không gián đoạn mùa vụ:",
+        layout: "card-grid",
+        points: [
+          "Kho linh kiện chính hãng sẵn có tại chỗ, thay thế sửa chữa nhanh chóng trong 24 giờ.",
+          "Đào tạo cấp chứng chỉ vận hành phi công UAV nông nghiệp và trắc địa cho thanh niên địa phương.",
+          "Chính sách bảo hành tận tâm và chuyển giao công nghệ trực tiếp tại nông trường.",
+        ],
+      },
+    ],
+  },
+  "trung-tam-san-xuat-phim": {
+    slug: "trung-tam-san-xuat-phim",
+    title: "Trung Tâm Sản Xuất Phim",
+    subtitle:
+      "Sản xuất video quảng bá dự án, phim tư liệu tiến độ và dịch vụ quay chụp Flycam chuyên nghiệp",
+    imageUrl: "https://vdcd.vn/wp-content/uploads/2025/10/75474-1410x720.jpg",
+    introText:
+      "Trung tâm Sản xuất Phim VDCD quy tụ đội ngũ đạo diễn, biên kịch, phi công flycam và kỹ thuật viên đồ họa giàu kinh nghiệm. Chúng tôi kết hợp giữa nghệ thuật kể chuyện chân thực với công nghệ ghi hình điện ảnh hiện đại nhằm tạo ra những thước phim dự án ấn tượng, video tiến độ thi công và tư liệu quảng bá xúc tiến đầu tư cho tỉnh Gia Lai.",
+    accentColor: "#e11d48",
+    galleryImages: [
+      "https://vdcd.vn/wp-content/uploads/2025/10/75474-1410x720.jpg",
+    ],
+    sections: [
+      {
+        title: "1. Sản xuất phim doanh nghiệp & Video giới thiệu dự án",
+        description:
+          "Nâng tầm hình ảnh thương hiệu và thu hút các đối tác đầu tư chiến lược:",
+        imageUrl:
+          "https://vdcd.vn/wp-content/uploads/2025/10/75474-1410x720.jpg",
+        layout: "split-image",
+        points: [
+          "Xây dựng kịch bản truyền thông sáng tạo, làm nổi bật tiềm năng và thế mạnh của doanh nghiệp.",
+          "Góc máy điện ảnh kết hợp các cảnh quay Flycam 4K/6K hùng vĩ tái hiện trọn vẹn quy mô dự án.",
+          "Hậu kỳ kỹ xảo, đồ họa chuyển động 3D và âm thanh vòm chuẩn rạp chiếu.",
+        ],
+      },
+      {
+        title: "2. Phim tư liệu tiến độ thi công & Số hóa di sản văn hóa",
+        description:
+          "Ghi dấu những cột mốc lịch sử trong quá trình hình thành công trình:",
+        layout: "numbered-steps",
+        points: [
+          "Tư liệu tiến độ công trình: Ghi nhận xuyên suốt từ ngày khởi công đến khi khánh thành bằng hệ thống máy quay chất lượng cao.",
+          "Số hóa lễ hội và danh lam thắng cảnh: Tạo lập các thước phim tư liệu quảng bá du lịch Gia Lai trên các kênh truyền thông quốc tế.",
+          "Sản xuất phóng sự truyền hình và video tin tức phục vụ các sự kiện chính trị - kinh tế lớn của địa phương.",
+        ],
+      },
+      {
+        title: "3. Năng lực trang thiết bị ghi hình hiện đại",
+        description:
+          "Đầu tư đồng bộ các dòng máy quay và phụ kiện chuẩn studio:",
+        layout: "card-grid",
+        points: [
+          "Máy quay phim chuẩn Cinema độ phân giải cao kết hợp hệ thống chống rung Gimbal cao cấp.",
+          "Hệ thống máy bay không người lái chuyên dụng cho quay phim điện ảnh (Inspire / FPV cinema).",
+          "Phòng dựng phim máy trạm chuyên dụng xử lý các định dạng video RAW và kỹ xảo AI hiện đại.",
+        ],
+      },
+    ],
+  },
 };

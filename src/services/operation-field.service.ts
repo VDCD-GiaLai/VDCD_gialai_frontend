@@ -23,7 +23,14 @@ export async function fetchOperationFieldsFromApi(): Promise<
       const body = await res.json();
       const items = body.data || body;
       if (Array.isArray(items) && items.length > 0) {
-        return items.sort((a, b) => (a.order || 0) - (b.order || 0));
+        const aboutSlugs = new Set(MOCK_OPERATION_FIELDS.map((f) => f.slug));
+        const filtered = items.filter(
+          (f) =>
+            aboutSlugs.has(f.slug) || (f.order !== undefined && f.order < 10),
+        );
+        return (filtered.length > 0 ? filtered : items).sort(
+          (a, b) => (a.order || 0) - (b.order || 0),
+        );
       }
       throw new Error("No operation fields returned");
     },

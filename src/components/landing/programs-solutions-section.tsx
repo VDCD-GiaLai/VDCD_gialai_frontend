@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { useState, useCallback, useEffect } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { fetchFeaturedProgramsFromApi } from "@/services/program.service";
@@ -15,6 +17,7 @@ interface SolutionCard {
   title: string;
   image: string;
   description: string;
+  href?: string;
 }
 
 interface Category {
@@ -33,6 +36,7 @@ const CATEGORIES: Category[] = [
         image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
         description:
           "Hỗ trợ ý tưởng từ giai đoạn hình thành đến thương mại hóa.",
+        href: "/programs/uom-tao-khoi-nghiep-sang-tao",
       },
       {
         title: "Đào tạo",
@@ -40,18 +44,21 @@ const CATEGORIES: Category[] = [
           "https://ik.imagekit.io/huy01040104/vdcd/images/gen-h-hoat-dong-dau-tu-xay-dung.avif",
         description:
           "Nâng cao kỹ năng số, quản trị dữ liệu cho cán bộ địa phương.",
+        href: "/programs/dao-tao-cong-nghe-va-chuyen-doi-so",
       },
       {
         title: "Kết nối chuyên gia",
         image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG",
         description:
           "Xây dựng mạng lưới liên kết đa bên, chuyển giao công nghệ.",
+        href: "/programs/ket-noi-chuyen-gia-va-he-sinh-thai",
       },
       {
         title: "Tư vấn chuyển đổi số",
         image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9155.jpg",
         description:
           "Đánh giá hiện trạng, lộ trình và triển khai giải pháp số.",
+        href: "/programs/tu-van-chuyen-doi-so-cap-tinh",
       },
     ],
   },
@@ -62,37 +69,50 @@ const CATEGORIES: Category[] = [
       {
         title: "UAV",
         image:
-          "https://ik.imagekit.io/huy01040104/vdcd/images/d0dfe840-acc3-41b1-95e9-e2c6c08ed09f.png",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-800,q-85,f-auto",
         description:
-          "Khảo sát, lập bản đồ và giám sát hiện trường bằng thiết bị bay.",
+          "Khảo sát địa hình, bay quét 3D và đo đạc trắc địa số chính xác cao bằng thiết bị bay.",
+        href: "/solution/uav",
       },
       {
         title: "AI",
-        image: "/images/home/sol_ai.webp",
+        image:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
         description:
-          "Phân tích dữ liệu thông minh, nhận diện và hỗ trợ ra quyết định.",
+          "Nghiên cứu ứng dụng Robot thông minh & Trí tuệ nhân tạo nhận diện hình ảnh.",
+        href: "/solution/ai",
       },
       {
         title: "Autotimelapse",
-        image: "https://ik.imagekit.io/huy01040104/vdcd/images/bn4.jpg",
-        description: "Giám sát tiến độ công trình theo thời gian thực tự động.",
+        image:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
+        description:
+          "Hệ thống Timelapse tự động hóa giám sát tiến độ công trình, nông nghiệp và môi trường 24/7.",
+        href: "/solution/autotimelapse",
       },
       {
         title: "SmartScale",
-        image: "/images/home/sol_smartscale.webp",
-        description: "Hệ thống cân đo thông minh kết nối IoT, đồng bộ dữ liệu.",
+        image:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-800,q-85,f-auto",
+        description:
+          "Hệ thống cân đo thông minh kết nối IoT, nhận diện biển số tự động chống gian lận.",
+        href: "/solution/smartscale",
       },
       {
         title: "VR360",
         image:
-          "https://ik.imagekit.io/huy01040104/vdcd/images/1787304501513_3700802451179916895_3700802451179916895_3d63d6265db5417bcd75772c8ec42ef2.jpg",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
         description:
-          "Tái hiện không gian thực tế ảo 360° phục vụ du lịch, BĐS.",
+          "Tái hiện không gian số thực tế ảo 360° và quét laser 3D phục vụ quy hoạch, du lịch.",
+        href: "/solution/vr360",
       },
       {
         title: "Data Center",
-        image: "/images/home/sol_datacenter.webp",
-        description: "Hạ tầng lưu trữ và xử lý dữ liệu chuẩn quốc tế.",
+        image:
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
+        description:
+          "Hạ tầng siêu máy tính hiệu năng cao HPC lưu trữ và đào tạo AI chuẩn quốc tế.",
+        href: "/solution/data-center",
       },
     ],
   },
@@ -127,19 +147,47 @@ export function ProgramsSolutionsSection() {
                   p.thumbnail ||
                   "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
                 description: p.shortDescription || p.title,
+                href: `/programs/${p.slug}`,
               })),
             };
           }
           if (sols && sols.length > 0) {
-            updated[1] = {
-              id: "solutions",
-              label: "Giải pháp công nghệ",
-              items: sols.map((s) => ({
-                title: s.title,
-                image: s.thumbnail || "/images/home/sol_ai.webp",
-                description: s.description || s.title,
-              })),
-            };
+            // Keep the exact 6 core solutions
+            const coreSlugs = [
+              "uav",
+              "ai",
+              "autotimelapse",
+              "smartscale",
+              "vr360",
+              "data-center",
+            ];
+            const coreSols = sols.filter((s) =>
+              coreSlugs.includes(s.slug?.toLowerCase() || ""),
+            );
+
+            if (coreSols.length > 0) {
+              updated[1] = {
+                id: "solutions",
+                label: "Giải pháp công nghệ",
+                items: coreSols.map((s) => {
+                  let shortTitle = s.title;
+                  if (s.slug === "uav") shortTitle = "UAV";
+                  else if (s.slug === "ai") shortTitle = "AI";
+                  else if (s.slug === "autotimelapse")
+                    shortTitle = "Autotimelapse";
+                  else if (s.slug === "smartscale") shortTitle = "SmartScale";
+                  else if (s.slug === "vr360") shortTitle = "VR360";
+                  else if (s.slug === "data-center") shortTitle = "Data Center";
+
+                  return {
+                    title: shortTitle,
+                    image: s.thumbnail || "/images/home/sol_ai.webp",
+                    description: s.description || s.title,
+                    href: s.websiteUrl || `/solution/${s.slug}`,
+                  };
+                }),
+              };
+            }
           }
           return updated;
         });
@@ -210,7 +258,7 @@ export function ProgramsSolutionsSection() {
           </div>
         </div>
 
-        {/* ── Horizontal Accordion Cards (hover to expand, like Kim chỉ nam) ── */}
+        {/* ── Horizontal Accordion Cards ── */}
         <div className="ps-reveal max-w-[1600px] mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row gap-3 w-full min-h-[380px] md:min-h-[420px] items-stretch">
             {active.items.map((item, idx) => {
@@ -236,7 +284,7 @@ export function ProgramsSolutionsSection() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover object-center scale-105"
                       transformation={[
-                        { width: 450, quality: 75, format: "auto" },
+                        { width: 500, quality: 80, format: "auto" },
                       ]}
                     />
                   </div>
@@ -244,7 +292,7 @@ export function ProgramsSolutionsSection() {
                   {/* Dark Overlay */}
                   <div
                     className={`absolute inset-0 transition-colors duration-500 ${
-                      isOpen ? "bg-black/40" : "bg-black/20"
+                      isOpen ? "bg-black/50" : "bg-black/30"
                     }`}
                   />
 
@@ -254,17 +302,27 @@ export function ProgramsSolutionsSection() {
                       {item.title}
                     </h3>
 
-                    {/* Smooth collapse container — shown on active/hover */}
+                    {/* Smooth collapse container */}
                     <div
                       className={`transition-all duration-500 overflow-hidden ${
                         isOpen
-                          ? "max-h-[200px] opacity-100 mt-2"
+                          ? "max-h-[220px] opacity-100 mt-2"
                           : "max-h-0 opacity-0 pointer-events-none"
                       }`}
                     >
-                      <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans">
+                      <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans mb-3">
                         {item.description}
                       </p>
+                      {item.href && (
+                        <Link
+                          href={item.href}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs font-mono-label font-bold text-accent-red uppercase tracking-widest hover:text-white transition-colors duration-200"
+                        >
+                          Khám phá chi tiết{" "}
+                          <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
+                        </Link>
+                      )}
                     </div>
                   </div>
 
