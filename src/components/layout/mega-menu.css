@@ -137,6 +137,7 @@
 
 /* ── Column Header ───────────────────────────────────── */
 .mega-menu-col-header {
+  display: block;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.6875rem;
@@ -146,11 +147,21 @@
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  transition: color 0.15s ease;
+  text-decoration: none;
+}
+
+.mega-menu-col-header:hover {
+  color: var(--color-accent-red);
 }
 
 .dark .mega-menu-col-header {
   color: #f3f4f6;
   border-bottom-color: rgba(63, 63, 70, 0.4);
+}
+
+.dark .mega-menu-col-header:hover {
+  color: var(--color-accent-red);
 }
 
 /* ── Mobile Accordion ────────────────────────────────── */
