@@ -179,7 +179,13 @@ const DesktopMegaMenu = ({
           <div className="grid grid-cols-[1fr_auto_1fr_auto_1.3fr] gap-0 py-6">
             {/* ── Column 1: Hoạt động ── */}
             <div className="pr-6" role="none">
-              <h3 className="mega-menu-col-header">Hoạt động</h3>
+              <Link
+                href="/programs"
+                onClick={() => setIsOpen(false)}
+                className="mega-menu-col-header"
+              >
+                Hoạt động
+              </Link>
               <ul role="menu" aria-label="Hoạt động">
                 {MEGA_MENU_PROGRAMS.map((program) => (
                   <li key={program.label} role="none">
@@ -187,6 +193,7 @@ const DesktopMegaMenu = ({
                       href={program.href}
                       role="menuitem"
                       tabIndex={0}
+                      onClick={() => setIsOpen(false)}
                       className="mega-menu-program-item block"
                     >
                       {program.label}
@@ -201,24 +208,33 @@ const DesktopMegaMenu = ({
 
             {/* ── Column 2: Giải pháp Selector ── */}
             <div className="px-6" role="none">
-              <h3 className="mega-menu-col-header">Giải pháp</h3>
+              <Link
+                href="/solution"
+                onClick={() => setIsOpen(false)}
+                className="mega-menu-col-header"
+              >
+                Giải pháp
+              </Link>
               <ul role="menu" aria-label="Giải pháp">
                 {MEGA_MENU_SOLUTIONS.map((solution) => (
                   <li key={solution.id} role="none">
-                    <button
-                      type="button"
+                    <Link
+                      href={solution.cta.href || `/solution/${solution.slug}`}
                       role="menuitem"
                       tabIndex={0}
-                      className="mega-menu-solution-item w-full text-left font-heading text-sm font-medium"
+                      className="mega-menu-solution-item block w-full text-left font-heading text-sm font-medium"
                       data-active={activeSolutionId === solution.id}
                       onMouseEnter={() => handleSolutionHover(solution.id)}
-                      onClick={() => handleSolutionClick(solution.id)}
+                      onClick={() => {
+                        handleSolutionClick(solution.id);
+                        setIsOpen(false);
+                      }}
                       aria-current={
                         activeSolutionId === solution.id ? "true" : undefined
                       }
                     >
                       {solution.name}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -233,6 +249,7 @@ const DesktopMegaMenu = ({
                 <SolutionDetail
                   solution={activeSolution}
                   isVisible={visibleSolutionId === activeSolution.id}
+                  onNavigate={() => setIsOpen(false)}
                 />
               )}
             </div>
@@ -248,9 +265,11 @@ const DesktopMegaMenu = ({
 const SolutionDetail = ({
   solution,
   isVisible,
+  onNavigate,
 }: {
   solution: MegaMenuSolution;
   isVisible: boolean;
+  onNavigate?: () => void;
 }) => {
   return (
     <div
@@ -258,7 +277,13 @@ const SolutionDetail = ({
       data-visible={isVisible}
       aria-label={`Chi tiết giải pháp ${solution.name}`}
     >
-      <h3 className="mega-menu-col-header">{solution.name}</h3>
+      <Link
+        href={solution.cta.href}
+        onClick={onNavigate}
+        className="mega-menu-col-header"
+      >
+        {solution.name}
+      </Link>
 
       <ul className="space-y-0.5">
         {solution.items.map((item) => (
@@ -268,7 +293,11 @@ const SolutionDetail = ({
         ))}
       </ul>
 
-      <Link href={solution.cta.href} className="mega-menu-cta">
+      <Link
+        href={solution.cta.href}
+        onClick={onNavigate}
+        className="mega-menu-cta"
+      >
         {solution.cta.label}
         <ArrowRight className="w-3.5 h-3.5" weight="thin" />
       </Link>
