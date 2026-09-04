@@ -61,6 +61,15 @@ export async function fetchProgramsFromApi(
   });
 }
 
+/* ── Fetch featured programs (for landing section) ────── */
+
+export async function fetchFeaturedProgramsFromApi(
+  limit = 4,
+): Promise<Program[]> {
+  const res = await fetchProgramsFromApi({ page: 1, limit });
+  return res.items.slice(0, limit);
+}
+
 /* ── Fetch single program by slug ─────────────────────── */
 
 export async function fetchProgramBySlugFromApi(

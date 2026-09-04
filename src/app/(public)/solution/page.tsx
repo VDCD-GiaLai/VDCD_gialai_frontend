@@ -24,9 +24,14 @@ export default function SolutionsPage() {
   const pageRef = useRef<HTMLDivElement>(null);
   const [solutions, setSolutions] =
     useState<SolutionItem[]>(CAPABILITY_SOLUTIONS);
+  const [coreSolutions, setCoreSolutions] =
+    useState<SolutionItem[]>(CORE_TECH_SOLUTIONS);
+  const [specializedSolutions, setSpecializedSolutions] = useState<
+    SolutionItem[]
+  >(SPECIALIZED_SOLUTIONS);
 
   useEffect(() => {
-    fetchSolutionsFromApi().then((items) => {
+    fetchSolutionsFromApi(100).then((items) => {
       if (items && items.length > 0) {
         setSolutions(
           items.map((sol) => ({
@@ -37,6 +42,40 @@ export default function SolutionsPage() {
             iconUrl: sol.icon || "/icons/cpu.svg",
             slug: sol.slug,
           })),
+        );
+
+        setCoreSolutions(
+          CORE_TECH_SOLUTIONS.map((s) => {
+            const match = items.find(
+              (it) =>
+                it.slug === s.slug ||
+                it.title.toLowerCase() === s.title.toLowerCase(),
+            );
+            return match
+              ? {
+                  ...s,
+                  description: match.description || s.description,
+                  imageUrl: match.thumbnail || s.imageUrl,
+                }
+              : s;
+          }),
+        );
+
+        setSpecializedSolutions(
+          SPECIALIZED_SOLUTIONS.map((s) => {
+            const match = items.find(
+              (it) =>
+                it.slug === s.slug ||
+                it.title.toLowerCase() === s.title.toLowerCase(),
+            );
+            return match
+              ? {
+                  ...s,
+                  description: match.description || s.description,
+                  imageUrl: match.thumbnail || s.imageUrl,
+                }
+              : s;
+          }),
         );
       }
     });
@@ -91,7 +130,7 @@ export default function SolutionsPage() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {CORE_TECH_SOLUTIONS.map((sol) => (
+          {coreSolutions.map((sol) => (
             <div key={sol.title} className="sol-card h-full">
               <ServiceCard
                 title={sol.title}
@@ -120,7 +159,7 @@ export default function SolutionsPage() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-          {SPECIALIZED_SOLUTIONS.map((sol) => (
+          {specializedSolutions.map((sol) => (
             <div key={sol.title} className="sol-card h-full">
               <ServiceCard
                 title={sol.title}

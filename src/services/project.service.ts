@@ -177,3 +177,27 @@ export async function fetchProjectBySlugFromApi(
     },
   });
 }
+
+export interface ProjectHeroSlide {
+  id: string;
+  title: string;
+  location: string;
+  image: string;
+  href: string;
+}
+
+export async function fetchProjectHeroSlidesFromApi(): Promise<
+  ProjectHeroSlide[]
+> {
+  const projects = await fetchProjectsFromApi(5);
+  if (projects && projects.length > 0) {
+    return projects.slice(0, 5).map((p) => ({
+      id: p.id,
+      title: p.title,
+      location: p.location,
+      image: p.coverImage,
+      href: `/projects/${p.id}`,
+    }));
+  }
+  return [];
+}

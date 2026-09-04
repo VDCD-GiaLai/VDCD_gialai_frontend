@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { fetchFeaturedProgramsFromApi } from "@/services/program.service";
+import { fetchSolutionsFromApi } from "@/services/solution.service";
 
 /* ────────────────────────────────────────────────────────
    DATA
@@ -101,10 +103,54 @@ const CATEGORIES: Category[] = [
    ──────────────────────────────────────────────────────── */
 
 export function ProgramsSolutionsSection() {
+  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [activeId, setActiveId] = useState<string>(CATEGORIES[0].id);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
-  const active = CATEGORIES.find((c) => c.id === activeId) ?? CATEGORIES[0];
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      fetchFeaturedProgramsFromApi(4).catch(() => []),
+      fetchSolutionsFromApi(6).catch(() => []),
+    ]).then(([progs, sols]) => {
+      if (cancelled) return;
+      if ((progs && progs.length > 0) || (sols && sols.length > 0)) {
+        setCategories((prev) => {
+          const updated = [...prev];
+          if (progs && progs.length > 0) {
+            updated[0] = {
+              id: "programs",
+              label: "Hoạt động",
+              items: progs.map((p) => ({
+                title: p.title,
+                image:
+                  p.thumbnail ||
+                  "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
+                description: p.shortDescription || p.title,
+              })),
+            };
+          }
+          if (sols && sols.length > 0) {
+            updated[1] = {
+              id: "solutions",
+              label: "Giải pháp công nghệ",
+              items: sols.map((s) => ({
+                title: s.title,
+                image: s.thumbnail || "/images/home/sol_ai.webp",
+                description: s.description || s.title,
+              })),
+            };
+          }
+          return updated;
+        });
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const active = categories.find((c) => c.id === activeId) ?? categories[0];
 
   const containerRef = useScrollReveal({
     targets: ".ps-reveal",
@@ -141,7 +187,7 @@ export function ProgramsSolutionsSection() {
 
           {/* ── Category Tabs ── */}
           <div className="ps-reveal flex justify-center gap-2">
-            {CATEGORIES.map((cat) => {
+            {categories.map((cat) => {
               const isActive = cat.id === activeId;
               return (
                 <button
