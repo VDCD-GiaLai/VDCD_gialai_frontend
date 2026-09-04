@@ -9,6 +9,7 @@ import {
 import { fetchSolutionsFromApi } from "@/services/solution.service";
 import { gsap } from "@/lib/animations/register-gsap";
 import { PageHeroBanner } from "@/components/ui/page-hero-banner";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 
 interface SolutionItem {
   title: string;
@@ -158,6 +159,23 @@ export default function SolutionsPage() {
           ))}
         </div>
       </section>
+
+      {/* ── Khối 3: Unified CTA Section ── */}
+      <CommonCtaSection
+        badge="Hệ sinh thái công nghệ"
+        title="SẴN SÀNG CHUYỂN ĐỔI SỐ CÙNG HỆ SINH THÁI VDCD"
+        description="Kết nối công nghệ cao, dữ liệu số và chuyên gia hàng đầu để giải quyết những bài toán phát triển thực tiễn."
+        primaryButton={{
+          label: "Liên hệ tư vấn giải pháp",
+          href: "/contact",
+          icon: "envelope",
+        }}
+        secondaryButton={{
+          label: "Xem các dự án thực tế",
+          href: "/projects",
+          icon: "arrow-right",
+        }}
+      />
     </div>
   );
 }

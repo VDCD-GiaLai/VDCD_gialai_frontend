@@ -2,15 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import {
-  MapPin,
-  ArrowRight,
-  Envelope,
-  ArrowUpRight,
-} from "@phosphor-icons/react";
+import { MapPin, ArrowRight } from "@phosphor-icons/react";
 import type { ProjectEntry } from "@/data/projects.data";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 
 interface ProjectsDirectoryProps {
   projects: ProjectEntry[];
@@ -165,59 +160,8 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
           </div>
         ) : null}
 
-        {/* ── ABOUT US STYLE FULL-WIDTH CTA SECTION ── */}
-        <motion.div
-          className="relative text-center w-full"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-16 space-y-6 relative overflow-hidden transition-all duration-300">
-            {/* Eyebrow */}
-            <div className="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
-              <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse" />
-              Năng lực chuyển đổi số
-            </div>
-
-            {/* Headline */}
-            <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
-              Hơn 100+ Công trình Trọng điểm trên Toàn Quốc
-            </h3>
-
-            {/* Description */}
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300 font-sans">
-              Hãy liên hệ để kết nối công nghệ, chuyên gia và hệ sinh thái, cùng
-              đưa chuyển đổi số vào thực tiễn.
-            </p>
-
-            {/* Dual Action Buttons matching About Us */}
-            <div className="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-widest hover:bg-accent-red hover:text-white dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300 shadow-lg group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none"
-              >
-                Liên hệ tư vấn giải pháp
-                <span className="w-8 h-8 bg-white/10 dark:bg-black/10 flex items-center justify-center text-inherit group-hover:bg-white/20 dark:group-hover:bg-black/20 transition-colors">
-                  <Envelope className="w-4 h-4" weight="thin" />
-                </span>
-              </Link>
-
-              <button
-                type="button"
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent("open-mega-menu"));
-                }}
-                className="inline-flex items-center gap-3 pl-6 pr-4 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red dark:hover:border-accent-red dark:hover:text-accent-red transition-all duration-300 backdrop-blur-sm group focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:outline-none cursor-pointer"
-              >
-                Khám phá giải pháp
-                <span className="w-8 h-8 bg-zinc-100 dark:bg-white/10 flex items-center justify-center text-inherit group-hover:bg-accent-red/10 dark:group-hover:bg-white/20 transition-colors">
-                  <ArrowUpRight className="w-4 h-4" weight="thin" />
-                </span>
-              </button>
-            </div>
-          </div>
-        </motion.div>
+        {/* ── UNIFIED CTA SECTION ── */}
+        <CommonCtaSection standalone={false} />
       </div>
     </section>
   );
