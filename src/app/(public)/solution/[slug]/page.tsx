@@ -110,17 +110,19 @@ export default function SolutionDetailPage({ params }: PageProps) {
         const fallback = SOLUTION_DETAILS[slug];
         setDetail({
           slug: apiData.slug || slug,
-          title: apiData.title,
-          subtitle: fallback?.subtitle || "VDCD Solution",
-          introText: apiData.description,
+          title: fallback?.title || apiData.title,
+          subtitle:
+            fallback?.subtitle ||
+            "Hệ sinh thái Đổi mới Sáng tạo & Công nghệ số VDCD Gia Lai",
+          introText: fallback?.introText || apiData.description,
           imageUrl:
-            apiData.thumbnail ||
             fallback?.imageUrl ||
+            apiData.thumbnail ||
             "/images/placeholder-solution.webp",
           sections: fallback?.sections || [
             {
-              title: "Tổng quan giải pháp",
-              description: apiData.description,
+              title: "Tổng quan giải pháp & Năng lực triển khai",
+              description: apiData.description || fallback?.introText,
               points: [
                 "Số hóa toàn bộ dữ liệu hiện trường và quản lý trực quan.",
                 "Tối ưu hóa chi phí và rút ngắn 40% thời gian triển khai.",
@@ -128,7 +130,7 @@ export default function SolutionDetailPage({ params }: PageProps) {
               ],
             },
           ],
-          accentColor: fallback?.accentColor,
+          accentColor: fallback?.accentColor || "#e11d48",
           galleryImages: fallback?.galleryImages,
         });
       }
