@@ -38,6 +38,8 @@ export interface CommonCtaSectionProps {
   primaryButton?: CommonCtaButton | null;
   /** Nút phụ bên phải (Mặc định: "Khám phá giải pháp" -> mở Mega Menu) */
   secondaryButton?: CommonCtaButton | null;
+  /** ID phần tử HTML (cho anchor navigation như #contact) */
+  id?: string;
   /** CSS class cho khối ngoài cùng */
   className?: string;
   /** CSS class cho container bên trong */
@@ -163,6 +165,7 @@ export function CommonCtaSection({
   description = "Hãy liên hệ để kết nối công nghệ, chuyên gia và hệ sinh thái, cùng đưa chuyển đổi số vào thực tiễn.",
   primaryButton,
   secondaryButton,
+  id,
   className,
   containerClassName,
   standalone = true,
@@ -241,11 +244,16 @@ export function CommonCtaSection({
   );
 
   if (!standalone) {
-    return <div className={className}>{content}</div>;
+    return (
+      <div id={id} className={className}>
+        {content}
+      </div>
+    );
   }
 
   return (
     <section
+      id={id}
       className={cn("w-full py-12 md:py-16", className)}
       aria-label={typeof badge === "string" ? badge : "Kêu gọi hành động"}
     >
