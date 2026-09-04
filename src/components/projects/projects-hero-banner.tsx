@@ -108,6 +108,7 @@ export function ProjectsHeroBanner() {
               sizes="100vw"
               className="object-cover object-center"
               style={{ willChange: "transform" }}
+              unoptimized={true}
             />
             {/* Gradient overlay for readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40 z-[2]" />
