@@ -105,22 +105,22 @@ export function EcosystemSection() {
   React.useEffect(() => {
     fetchSolutionsFromApi(50).then((data) => {
       if (data && data.length > 0) {
-        setItems(
-          SOLUTIONS.map((s) => {
-            const apiMatch = data.find(
-              (sol) =>
-                sol.title.toLowerCase() === s.title.toLowerCase() ||
-                sol.slug === s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-            );
-            return {
-              id: s.href || s.title,
-              title: s.title,
-              description: apiMatch?.description || s.description,
-              imageUrl: apiMatch?.thumbnail || s.imageUrl,
-              href: apiMatch?.websiteUrl || s.href,
-            };
-          }),
-        );
+        const apiItems: EcoItem[] = data.map((sol) => {
+          const fallback = SOLUTIONS.find(
+            (s) =>
+              s.title.toLowerCase() === sol.title.toLowerCase() ||
+              s.href.includes(sol.slug),
+          );
+          return {
+            id: sol.slug || sol.id,
+            title: sol.title,
+            description: sol.description || fallback?.description || "",
+            imageUrl:
+              sol.thumbnail || fallback?.imageUrl || "/images/home/sol_ai.webp",
+            href: sol.websiteUrl || `/solution/${sol.slug}`,
+          };
+        });
+        setItems(apiItems);
       }
     });
   }, []);

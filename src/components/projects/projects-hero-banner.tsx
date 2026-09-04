@@ -5,15 +5,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, MapPin } from "@phosphor-icons/react";
+import {
+  fetchProjectHeroSlidesFromApi,
+  type ProjectHeroSlide,
+} from "@/services/project.service";
 import "@/components/careers/careers-hero-slider.css";
-
-interface ProjectHeroSlide {
-  id: string;
-  title: string;
-  location: string;
-  image: string;
-  href: string;
-}
 
 const HERO_PROJECT_SLIDES: ProjectHeroSlide[] = [
   {
@@ -44,17 +40,27 @@ const HERO_PROJECT_SLIDES: ProjectHeroSlide[] = [
 const SLIDE_DURATION = 6000; // ms
 
 export function ProjectsHeroBanner() {
+  const [slides, setSlides] = useState<ProjectHeroSlide[]>(HERO_PROJECT_SLIDES);
   const [activeIndex, setActiveIndex] = useState(0);
   const [ringKey, setRingKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    fetchProjectHeroSlidesFromApi().then((data) => {
+      if (data && data.length > 0) {
+        setSlides(data);
+      }
+    });
+  }, []);
 
   const reducedMotion =
     typeof window !== "undefined"
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
       : false;
 
-  const totalSlides = HERO_PROJECT_SLIDES.length;
-  const currentSlide = HERO_PROJECT_SLIDES[activeIndex];
+  const totalSlides = slides.length;
+  const currentSlide =
+    slides[activeIndex] || slides[0] || HERO_PROJECT_SLIDES[0];
 
   const advanceSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % totalSlides);
@@ -81,7 +87,7 @@ export function ProjectsHeroBanner() {
   return (
     <div className="relative w-full h-[55vh] min-h-[460px] overflow-hidden bg-zinc-950 flex flex-col justify-between p-6 md:p-12 select-none group">
       {/* ── 1. Background Slider with Crossfade & Click to View ── */}
-      {HERO_PROJECT_SLIDES.map((slide, index) => (
+      {slides.map((slide, index) => (
         <div
           key={slide.id}
           className={`careers-hero-slide ${

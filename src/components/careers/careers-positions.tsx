@@ -19,6 +19,8 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { OPEN_POSITIONS, DEPARTMENTS } from "@/data/careers.data";
 import { formatDate } from "@/lib/utils";
 import type { JobPosition } from "@/types";
+import { LeadService } from "@/services/lead.service";
+import { fetchJobsFromApi } from "@/services/job.service";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -107,26 +109,9 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
     setErrorMessage("");
 
     try {
-      const API_BASE =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
-
       // Step 1: Upload CV file
-      const uploadForm = new FormData();
-      uploadForm.append("file", cvFile);
-      const uploadRes = await fetch(`${API_BASE}/upload/file`, {
-        method: "POST",
-        body: uploadForm,
-      });
-      if (!uploadRes.ok) {
-        const errBody = await uploadRes.json().catch(() => null);
-        throw new Error(
-          errBody?.message || "Tải lên CV thất bại. Vui lòng thử lại.",
-        );
-      }
-      const uploadJson = await uploadRes.json();
-      // TransformInterceptor wraps response in { statusCode, data }
-      const uploadData = uploadJson.data || uploadJson;
-      const attachmentUrl = uploadData.url || uploadData.filePath || "";
+      const uploadRes = await LeadService.uploadFile(cvFile);
+      const attachmentUrl = uploadRes.url || "";
 
       // Step 2: Create Lead (triggers email notification)
       const leadPayload: Record<string, unknown> = {
@@ -150,20 +135,7 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
       if (formData.portfolioUrl)
         leadPayload.portfolioUrl = formData.portfolioUrl;
 
-      const leadRes = await fetch(`${API_BASE}/leads`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(leadPayload),
-      });
-
-      if (!leadRes.ok) {
-        const errBody = await leadRes.json().catch(() => null);
-        const errMsg = Array.isArray(errBody?.message)
-          ? errBody.message.join(". ")
-          : errBody?.message || "Gửi hồ sơ thất bại. Vui lòng thử lại sau.";
-        throw new Error(errMsg);
-      }
-
+      await LeadService.submitLead(leadPayload as any);
       setStatus("success");
     } catch (err: unknown) {
       setStatus("error");
@@ -621,47 +593,19 @@ export function CareersPositions() {
     async function fetchJobs() {
       setIsLoading(true);
       try {
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
-        const params = new URLSearchParams();
-        params.set("page", String(currentPage));
-        params.set("limit", String(ITEMS_PER_PAGE));
-        if (debouncedSearch) params.set("search", debouncedSearch);
-        if (activeDepartment !== "Tất cả")
-          params.set("department", activeDepartment);
-
-        const res = await fetch(`${API_BASE}/jobs?${params.toString()}`);
-        if (!res.ok) throw new Error("API error");
-        const json = await res.json();
-        const apiData = json.data ?? json;
+        const res = await fetchJobsFromApi({
+          page: currentPage,
+          limit: ITEMS_PER_PAGE,
+          search: debouncedSearch || undefined,
+          department: activeDepartment,
+        });
 
         if (cancelled) return;
 
-        // Map backend Job entity → frontend JobPosition shape
-        const mapped: JobPosition[] = (apiData.data || []).map(
-          (j: Record<string, unknown>) => ({
-            id: j.id as string,
-            title: j.title as string,
-            department: (j.department as string) || "",
-            location: (j.location as string) || "",
-            employmentType: mapType((j.type as string) || "full-time"),
-            salary: (j.salaryRange as string) || undefined,
-            postedDate: (j.createdAt as string) || "",
-            description: stripMarkdown((j.description as string) || ""),
-            experience: (j.experience as string) || "",
-            tags: (j.tags as string[]) || [],
-            // Keep raw backend fields for expanded detail
-            _requirements: (j.requirements as string) || "",
-            _benefits: (j.benefits as string) || "",
-            _isUrgent: j.isUrgent as boolean,
-            _deadline: (j.deadline as string) || "",
-          }),
-        );
-
-        setJobs(mapped);
-        setTotalJobs(apiData.total || 0);
-        if (apiData.departments && apiData.departments.length > 0) {
-          setDepartments(apiData.departments);
+        setJobs(res.items);
+        setTotalJobs(res.total);
+        if (res.departments && res.departments.length > 0) {
+          setDepartments(res.departments.filter((d) => d !== "Tất cả"));
         }
         setUseMock(false);
       } catch {

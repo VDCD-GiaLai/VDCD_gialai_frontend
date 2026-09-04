@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { OPEN_POSITIONS } from "@/data/careers.data";
+import { fetchJobBySlugFromApi } from "@/services/job.service";
 import { RecruitmentApplyForm } from "./recruitment-apply-form";
 import type { JobPosition } from "@/types";
 
@@ -10,9 +11,16 @@ export function RecruitmentApplyPageContent() {
   const searchParams = useSearchParams();
   const positionId = searchParams.get("position");
 
-  const job: JobPosition | null = React.useMemo(() => {
+  const [job, setJob] = React.useState<JobPosition | null>(() => {
     if (!positionId) return null;
     return OPEN_POSITIONS.find((p) => p.id === positionId) ?? null;
+  });
+
+  React.useEffect(() => {
+    if (!positionId) return;
+    fetchJobBySlugFromApi(positionId).then((data) => {
+      if (data) setJob(data);
+    });
   }, [positionId]);
 
   return (
