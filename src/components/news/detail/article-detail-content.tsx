@@ -15,6 +15,7 @@ import {
 import { fetchArticleBySlugFromApi } from "@/services/article.service";
 import { formatDate, copyToClipboard } from "@/lib/utils";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 import type { ArticleDetail } from "@/types";
 import "../news.css";
 
@@ -320,7 +321,7 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
           )}
 
           {/* Back to news */}
-          <div className="pb-16 text-center">
+          <div className="pb-12 text-center">
             <Link
               href="/news"
               className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
@@ -331,6 +332,24 @@ export const ArticleDetailContent = ({ slug }: ArticleDetailContentProps) => {
           </div>
         </motion.div>
       </div>
+
+      {/* Unified CTA Section */}
+      <CommonCtaSection
+        badge="Thông tin & Hợp tác"
+        title="KẾT NỐI CÙNG TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI"
+        description="Đưa những sáng kiến, bài toán thực tế của địa phương đến với mạng lưới chuyên gia và giải pháp công nghệ tiên phong."
+        primaryButton={{
+          label: "Liên hệ ngay",
+          href: "/contact",
+          icon: "envelope",
+        }}
+        secondaryButton={{
+          label: "Xem tin tức khác",
+          href: "/news",
+          icon: "arrow-right",
+        }}
+        className="pb-16 pt-4"
+      />
     </div>
   );
 };

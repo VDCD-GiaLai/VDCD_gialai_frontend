@@ -11,6 +11,7 @@ import {
   Star,
   LinkedinLogo,
 } from "@phosphor-icons/react";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 
 /* ─── Data ─── */
 interface LeaderProfile {
@@ -252,47 +253,23 @@ export function LeadershipContent() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="h-px bg-zinc-200 dark:bg-zinc-800 transition-colors duration-300" />
-      </div>
-
-      {/* CTA Footer */}
-      <section className="py-12 sm:py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-          >
-            <div className="space-y-1">
-              <h3 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white font-heading">
-                Tìm hiểu thêm về chúng tôi
-              </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Khám phá tầm nhìn, sứ mệnh và hệ sinh thái đổi mới sáng tạo.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <Link
-                href="/about-us"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-accent-red hover:text-accent-red/80 transition-colors duration-300 group cursor-pointer"
-              >
-                Về chúng tôi
-                <ArrowRight
-                  size={14}
-                  weight="bold"
-                  className="transition-transform group-hover:translate-x-0.5"
-                />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Unified CTA Section */}
+      <CommonCtaSection
+        badge="Đội ngũ dẫn dắt"
+        title="KẾT NỐI VÀ HỢP TÁC CÙNG BAN LÃNH ĐẠO VDCD"
+        description="Chúng tôi luôn chào đón các cơ hội hợp tác chiến lược, nghiên cứu chuyển giao công nghệ và đầu tư phát triển hệ sinh thái số."
+        primaryButton={{
+          label: "Liên hệ hợp tác",
+          href: "/contact",
+          icon: "envelope",
+        }}
+        secondaryButton={{
+          label: "Tìm hiểu về VDCD",
+          href: "/about-us",
+          icon: "arrow-right",
+        }}
+        className="pb-16 pt-8"
+      />
     </div>
   );
 }
