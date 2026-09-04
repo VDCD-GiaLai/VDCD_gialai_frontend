@@ -141,6 +141,7 @@ export function CareersHeroSlider() {
               sizes="100vw"
               className="object-cover"
               style={{ willChange: "transform" }}
+              unoptimized={true}
             />
           </div>
         </div>
