@@ -124,7 +124,15 @@ export async function fetchOperationFieldsFromApi(): Promise<OperationField[]> {
       const items: OperationField[] = body.data ?? body;
 
       if (Array.isArray(items) && items.length > 0) {
-        return items;
+        const programSlugs = new Set(MOCK_OPERATION_FIELDS.map((f) => f.slug));
+        const filtered = items.filter(
+          (f) =>
+            programSlugs.has(f.slug) ||
+            (f.order !== undefined && f.order >= 10),
+        );
+        return (filtered.length > 0 ? filtered : items).sort(
+          (a, b) => (a.order || 0) - (b.order || 0),
+        );
       }
       throw new Error("No operation fields returned");
     },
