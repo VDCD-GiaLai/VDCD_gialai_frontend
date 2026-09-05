@@ -113,7 +113,16 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
               return (
                 <ul className="slide-blog-list space-y-2 my-4 pl-2 text-base leading-relaxed">
                   {block.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <li
+                      key={typeof item === "object" && item.id ? item.id : idx}
+                    >
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            typeof item === "object" ? item.content : item,
+                        }}
+                      />
+                    </li>
                   ))}
                 </ul>
               );
@@ -131,6 +140,34 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
                     {block.children.map((child) => renderBlock(child))}
                   </div>
                 </section>
+              );
+
+            case "quote":
+              return (
+                <blockquote className="slide-blog-quote">
+                  <p
+                    className="slide-blog-quote__text"
+                    dangerouslySetInnerHTML={{ __html: block.text }}
+                  />
+                  {block.author && (
+                    <p className="slide-blog-quote__author">— {block.author}</p>
+                  )}
+                </blockquote>
+              );
+
+            case "highlight":
+              return (
+                <aside className="slide-blog-highlight">
+                  {block.title && (
+                    <h4 className="slide-blog-highlight__title">
+                      {block.title}
+                    </h4>
+                  )}
+                  <p
+                    className="slide-blog-highlight__text"
+                    dangerouslySetInnerHTML={{ __html: block.text }}
+                  />
+                </aside>
               );
 
             case "cta":

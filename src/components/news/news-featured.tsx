@@ -27,8 +27,11 @@ interface PrimaryCardProps {
 
 const PrimaryCard = ({ article }: PrimaryCardProps) => {
   const excerpt =
+    article.excerpt ||
     article.metaDescription ||
-    article.content?.replace(/<[^>]*>/g, "").slice(0, 180) ||
+    (typeof article.content === "string"
+      ? article.content.replace(/<[^>]*>/g, "").slice(0, 180)
+      : "") ||
     "";
 
   return (

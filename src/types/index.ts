@@ -1,3 +1,5 @@
+import type { SlideDetailBlogContent } from "./slide-detail-blog";
+
 export interface User {
   id: string;
   username: string;
@@ -142,21 +144,23 @@ export interface UploadFileResponse {
 export interface Article {
   id: string;
   title: string;
+  subtitle?: string | null;
   slug: string;
-  content?: string;
-  thumbnail?: string;
-  thumbnailFileId?: string;
-  category?: string;
-  tags?: string;
-  metaTitle?: string;
-  metaDescription?: string;
+  excerpt?: string | null;
+  content?: string | SlideDetailBlogContent | null;
+  thumbnail?: string | null;
+  thumbnailFileId?: string | null;
+  category?: string | null;
+  tags?: string | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
   isPublished: boolean;
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
-  project?: { id: string; title: string; slug: string } | null;
-  program?: { id: string; title: string; slug: string } | null;
-  solution?: { id: string; title: string; slug: string } | null;
+  project?: { id: string; title: string; slug?: string } | null;
+  program?: { id: string; title: string; slug?: string } | null;
+  solution?: { id: string; title: string; slug?: string } | null;
 }
 
 export interface ArticleDetail extends Article {

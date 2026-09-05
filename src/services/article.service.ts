@@ -6,7 +6,36 @@ import type {
   ArticleDetail,
   ArticleListParams,
   PaginatedResponse,
+  SlideDetailBlogContent,
 } from "@/types";
+
+/**
+ * Parses article content if it is encoded as a JSON string
+ */
+function parseArticleContent(
+  content?: string | SlideDetailBlogContent | null,
+): string | SlideDetailBlogContent | null {
+  if (!content) return null;
+  if (typeof content === "object") return content;
+  if (typeof content === "string") {
+    const trimmed = content.trim();
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (
+          parsed &&
+          typeof parsed === "object" &&
+          (parsed.blocks || parsed.version)
+        ) {
+          return parsed as SlideDetailBlogContent;
+        }
+      } catch {
+        // Fall back to original string
+      }
+    }
+  }
+  return content;
+}
 
 /* ── Fetch paginated articles ──────────────────────────── */
 
@@ -17,14 +46,22 @@ export async function fetchArticlesFromApi(
   const cacheKey = `articles_page_${page}_limit_${limit}_cat_${category || "all"}_tag_${tags || "all"}`;
 
   const getMockPaginated = (): PaginatedResponse<Article> => {
-    let filtered = [...MOCK_ARTICLES];
-    if (category) filtered = filtered.filter((a) => a.category === category);
-    if (tags)
+    let filtered = MOCK_ARTICLES.filter((a) => a.isPublished);
+    if (category && category !== "Tất cả") {
+      filtered = filtered.filter((a) => a.category === category);
+    }
+    if (tags) {
       filtered = filtered.filter((a) =>
         a.tags?.toLowerCase().includes(tags.toLowerCase()),
       );
+    }
     const total = filtered.length;
-    const items = filtered.slice((page - 1) * limit, page * limit);
+    const items = filtered
+      .slice((page - 1) * limit, page * limit)
+      .map((item) => ({
+        ...item,
+        content: parseArticleContent(item.content),
+      }));
     return { items, total, page, limit, totalPages: Math.ceil(total / limit) };
   };
 
@@ -36,7 +73,7 @@ export async function fetchArticlesFromApi(
       const qs = new URLSearchParams();
       qs.set("page", String(page));
       qs.set("limit", String(limit));
-      if (category) qs.set("category", category);
+      if (category && category !== "Tất cả") qs.set("category", category);
       if (tags) qs.set("tags", tags);
 
       const res = await fetch(`${API_BASE_URL}/articles?${qs.toString()}`, {
@@ -47,7 +84,11 @@ export async function fetchArticlesFromApi(
 
       const body = await res.json();
       const payload = body.data ?? body;
-      const items: Article[] = payload.data ?? payload.items ?? [];
+      const rawItems: Article[] = payload.data ?? payload.items ?? [];
+      const items = rawItems.map((item) => ({
+        ...item,
+        content: parseArticleContent(item.content),
+      }));
       const total: number = payload.total ?? items.length;
 
       return {
@@ -68,9 +109,11 @@ export async function fetchArticleBySlugFromApi(
 ): Promise<ArticleDetail | null> {
   const getMockDetail = (): ArticleDetail | null => {
     const article = getMockArticleBySlug(slug);
-    if (!article) return null;
+    if (!article || !article.isPublished) return null;
+
     const relatedArticles = MOCK_ARTICLES.filter(
-      (a) => a.category === article.category && a.id !== article.id,
+      (a) =>
+        a.isPublished && a.id !== article.id && a.category === article.category,
     )
       .slice(0, 3)
       .map((a) => ({
@@ -80,7 +123,12 @@ export async function fetchArticleBySlugFromApi(
         thumbnail: a.thumbnail,
         publishedAt: a.publishedAt,
       }));
-    return { ...article, relatedArticles };
+
+    return {
+      ...article,
+      content: parseArticleContent(article.content),
+      relatedArticles,
+    };
   };
 
   return fetchWithFallback<ArticleDetail | null>({
@@ -99,9 +147,22 @@ export async function fetchArticleBySlugFromApi(
 
       const body = await res.json();
       const data = body.data ?? body;
+      if (!data) return null;
+
+      // Ensure unpublished draft articles return null (404)
+      const isPublished =
+        data.isPublished !== undefined
+          ? Boolean(data.isPublished)
+          : Boolean(data.publishedAt);
+
+      if (!isPublished) {
+        return null;
+      }
 
       return {
         ...data,
+        isPublished: true,
+        content: parseArticleContent(data.content),
         relatedArticles: data.relatedArticles ?? [],
       } as ArticleDetail;
     },
@@ -116,3 +177,7 @@ export async function fetchFeaturedArticlesFromApi(
   const result = await fetchArticlesFromApi({ page: 1, limit });
   return result.items;
 }
+
+/* ── Standard Integration Aliases ──────────────────────── */
+export const getArticleBySlug = fetchArticleBySlugFromApi;
+export const getArticles = fetchArticlesFromApi;
