@@ -33,7 +33,7 @@ export function Header() {
     pathname.startsWith("/programs") ||
     pathname.startsWith("/solution") ||
     pathname.startsWith("/projects") ||
-    pathname.startsWith("/news") ||
+    pathname === "/news" ||
     pathname.startsWith("/careers");
 
   const [isScrolled, setIsScrolled] = React.useState(false);

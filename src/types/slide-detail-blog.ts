@@ -42,10 +42,32 @@ export interface ImageBlock {
   spacing?: BlockSpacing;
 }
 
+export interface ListItemObject {
+  id?: string;
+  content: string;
+}
+
 export interface ListBlock {
   id: string;
   type: "list";
-  items: string[];
+  items: (string | ListItemObject)[];
+  listType?: "bullet" | "ordered" | "checklist";
+  spacing?: BlockSpacing;
+}
+
+export interface QuoteBlock {
+  id: string;
+  type: "quote";
+  text: string;
+  author?: string;
+  spacing?: BlockSpacing;
+}
+
+export interface HighlightBlock {
+  id: string;
+  type: "highlight";
+  text: string;
+  title?: string;
   spacing?: BlockSpacing;
 }
 
@@ -62,7 +84,7 @@ export interface SectionBlock {
   type: "section";
   number: string; // Ví dụ: "01", "02"
   title: string;
-  children: (HeadingBlock | ParagraphBlock | ImageBlock | ListBlock)[];
+  children: SlideDetailBlogBlock[];
   spacing?: BlockSpacing;
 }
 
@@ -72,6 +94,8 @@ export type SlideDetailBlogBlock =
   | ImageBlock
   | ListBlock
   | SectionBlock
+  | QuoteBlock
+  | HighlightBlock
   | CtaBlock;
 
 // ─── Content Payload ────────────────────────────────────────

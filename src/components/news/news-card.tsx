@@ -24,8 +24,11 @@ interface NewsCardProps {
 
 export const NewsCard = ({ article }: NewsCardProps) => {
   const excerpt =
+    article.excerpt ||
     article.metaDescription ||
-    article.content?.replace(/<[^>]*>/g, "").slice(0, 120) ||
+    (typeof article.content === "string"
+      ? article.content.replace(/<[^>]*>/g, "").slice(0, 120)
+      : "") ||
     "";
 
   return (

@@ -42,8 +42,11 @@ interface VerticalCardProps {
 
 const VerticalCard = ({ article, priority = false }: VerticalCardProps) => {
   const excerpt =
+    article.excerpt ||
     article.metaDescription ||
-    article.content?.replace(/<[^>]*>/g, "").slice(0, 100) ||
+    (typeof article.content === "string"
+      ? article.content.replace(/<[^>]*>/g, "").slice(0, 100)
+      : "") ||
     "";
 
   return (
@@ -108,8 +111,11 @@ interface WideCardProps {
 
 const WideCard = ({ article }: WideCardProps) => {
   const excerpt =
+    article.excerpt ||
     article.metaDescription ||
-    article.content?.replace(/<[^>]*>/g, "").slice(0, 200) ||
+    (typeof article.content === "string"
+      ? article.content.replace(/<[^>]*>/g, "").slice(0, 200)
+      : "") ||
     "";
 
   return (
@@ -406,7 +412,10 @@ export const NewsGrid = () => {
             </nav>
 
             <div className="relative flex-shrink-0">
-              <MagnifyingGlass weight="thin" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary dark:text-zinc-500" />
+              <MagnifyingGlass
+                weight="thin"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-secondary dark:text-zinc-500"
+              />
               <input
                 type="text"
                 placeholder="Tìm kiếm..."

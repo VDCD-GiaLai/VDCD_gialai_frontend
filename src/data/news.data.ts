@@ -13,19 +13,170 @@ export const MOCK_ARTICLES: Article[] = [
   {
     id: "11111111-aaaa-4111-a111-111111111101",
     title:
-      "Trung tâm Đổi mới Sáng tạo Gia Lai ký kết MOU cùng Trường Đại học FPT, thúc đẩy đổi mới sáng tạo và phát triển nguồn nhân lực",
+      "TRUNG TÂM ĐỔI MỚI SÁNG TẠO GIA LAI KÝ KẾT HỢP TÁC CHIẾN LƯỢC VỚI ĐẠI HỌC FPT",
+    subtitle:
+      "Thúc đẩy đổi mới sáng tạo, chuyển đổi số và phát triển nguồn nhân lực chất lượng cao",
     slug: "trung-tam-doi-moi-sang-tao-gia-lai-ky-ket-mou-cung-truong-dai-hoc-fpt-thuc-day-doi-moi-sang-tao-va-p",
+    excerpt:
+      "Lễ ký kết biên bản ghi nhớ hợp tác (MOU) mở ra nhiều cơ hội đào tạo nhân lực công nghệ thông tin, nghiên cứu khoa học và ứng dụng các giải pháp số thực tiễn tại tỉnh Gia Lai.",
     category: "Hợp tác",
-    tags: "Trung tâm Đổi mới Sáng tạo Gia Lai, Trường Đại học FPT, ký kết MOU, đổi mới sáng tạo Gia Lai, FPT Quy Nhơn AI Campus, hệ sinh thái đổi mới sáng tạo, nguồn nhân lực chất lượng cao, Văn hóa khởi nghiệp thời AI.",
+    tags: "chuyen-doi-so, fpt, hop-tac, doi-moi-sang-tao, ai-campus",
     thumbnail:
       "https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_1_E--DJi8pn3_4CJrvhsbyK.jpg",
     thumbnailFileId: "6a9a86b3ead997d09a0e4d16",
     metaTitle:
-      "Trung tâm Đổi mới Sáng tạo Gia Lai ký kết MOU cùng Trường Đại học FPT, thúc đẩy đổi mới sáng tạo và phát triển nguồn nhân lực | VDCD Gia Lai",
+      "Trung tâm Đổi mới Sáng tạo Gia Lai ký kết MOU với ĐH FPT | VDCD",
     metaDescription:
-      "Ngày 27/06/2026, tại Trường Đại học FPT Quy Nhơn AI Campus, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT đã chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra giai đoạn hợp tác mới trong phát triển nguồn nhân lực chất lượng cao, kết ...",
-    content:
-      '<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ngày 27/06/2026, tại Trường Đại học FPT Quy Nhơn AI Campus, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT đã chính thức ký kết Biên bản ghi nhớ hợp tác (MOU), mở ra giai đoạn hợp tác mới trong phát triển nguồn nhân lực chất lượng cao, kết nối hệ sinh thái đổi mới sáng tạo và triển khai các dự án ứng dụng công nghệ vào thực tiễn.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Sự kiện diễn ra trong khuôn khổ Seminar “Văn hóa khởi nghiệp thời AI”, với sự tham dự của ông Cao Quân Vũ - Giám đốc Trung tâm Đổi mới Sáng tạo Gia Lai, đại diện Ban Giám hiệu Trường Đại học FPT cùng các đại biểu, giảng viên và sinh viên.</p>\n<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_2_E-oIRGdGQO_6N6EoxMxo.jpg" alt="Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết Biên bản ghi nhớ hợp tác (MOU) ngày 27/06/2026." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết Biên bản ghi nhớ hợp tác (MOU) ngày 27/06/2026.</figcaption></figure>\n<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Đồng hành cùng thế hệ trẻ trong kỷ nguyên AI</h2>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trước lễ ký kết, đại diện Trung tâm Đổi mới Sáng tạo Gia Lai đã tham dự Seminar “Văn hóa khởi nghiệp thời AI” và lắng nghe những chia sẻ từ Thầy Trần Ngọc Tuấn – Phó Hiệu trưởng Trường Đại học FPT.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong bối cảnh trí tuệ nhân tạo đang tác động mạnh mẽ đến phương thức học tập, làm việc và vận hành doanh nghiệp, khởi nghiệp không còn chỉ được nhìn nhận dưới góc độ thành lập một doanh nghiệp mới. Quan trọng hơn, đó là khả năng phát hiện vấn đề, chủ động tìm kiếm giải pháp, kiểm chứng ý tưởng và sử dụng công nghệ để tạo ra những giá trị thực tiễn. Tinh thần này cũng được Trường Đại học FPT nhấn mạnh trong các chương trình về “Văn hóa khởi nghiệp thời AI”: khởi nghiệp được mở rộng thành một năng lực tư duy, khuyến khích người trẻ chủ động đặt câu hỏi, nhìn nhận vấn đề từ nhiều góc độ và tìm ra lời giải mới thay vì đi theo những lối mòn sẵn có.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đối với Trung tâm Đổi mới Sáng tạo Gia Lai, việc xây dựng tư duy đổi mới, tinh thần doanh chủ và năng lực ứng dụng công nghệ cho thế hệ trẻ là một trong những nền tảng quan trọng để hình thành nguồn nhân lực có khả năng thích ứng với tốc độ phát triển của AI và nền kinh tế số.</p>\n<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_3_E-l1_mdSoe_lspDIwhJ9.jpg" alt="Sinh viên Trường Đại học FPT tham gia Seminar “Văn hóa khởi nghiệp thời AI” trong khuôn khổ chương trình ngày 27/06/2026." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Sinh viên Trường Đại học FPT tham gia Seminar “Văn hóa khởi nghiệp thời AI” trong khuôn khổ chương trình ngày 27/06/2026.</figcaption></figure>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ký kết MOU - Mở rộng hợp tác giữa nhà trường và hệ sinh thái đổi mới sáng tạo</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Điểm nhấn của chương trình là Lễ ký kết Biên bản ghi nhớ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc ký kết đánh dấu bước phát triển mới trong quan hệ hợp tác giữa hai đơn vị, hướng đến tăng cường kết nối đào tạo, phát triển nguồn nhân lực, doanh nghiệp, công nghệ và đổi mới sáng tạo.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thay vì giới hạn hoạt động hợp tác trong trao đổi học thuật, MOU hướng tới việc đưa nguồn lực của hai bên vào những chương trình và dự án có tính ứng dụng thực tế, qua đó tạo thêm cơ hội cho sinh viên tiếp cận môi trường doanh nghiệp, đồng thời thúc đẩy sự tham gia của nhà trường vào hệ sinh thái đổi mới sáng tạo tại địa phương.</p>\n<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_4_E-U9ia6qbb_pHQr981Hv.jpg" alt="Lễ ký kết MOU đánh dấu bước tiến mới trong quan hệ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Lễ ký kết MOU đánh dấu bước tiến mới trong quan hệ hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT.</figcaption></figure>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Ba định hướng hợp tác trọng tâm</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Theo nội dung hợp tác, Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tập trung vào ba định hướng trọng tâm.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Phát triển nguồn nhân lực chất lượng cao</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hai bên sẽ tăng cường kết nối trong hoạt động thực tập doanh nghiệp (On-the-Job Training – OJT), đào tạo gắn với thực tiễn và tuyển dụng, tạo điều kiện để sinh viên được tiếp xúc sớm với môi trường làm việc thực tế. Đây cũng là hướng tiếp cận phù hợp với mô hình đào tạo của Trường Đại học FPT. Sinh viên được học tập thông qua các dự án thực tế và có học kỳ đào tạo tại doanh nghiệp, từ đó từng bước chuyển hóa kiến thức chuyên môn thành năng lực giải quyết vấn đề trong môi trường nghề nghiệp.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua sự hợp tác này, sinh viên có thêm cơ hội trải nghiệm các bài toán thực tế; trong khi doanh nghiệp và các tổ chức tại địa phương có thêm kênh tiếp cận nguồn nhân lực trẻ được đào tạo về công nghệ, tư duy số và đổi mới sáng tạo.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Kết nối hệ sinh thái đổi mới sáng tạo</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Định hướng thứ hai là tăng cường kết nối giữa nhà trường, doanh nghiệp, chuyên gia, tổ chức hỗ trợ khởi nghiệp và hệ sinh thái đổi mới sáng tạo. Sự kết nối này có ý nghĩa quan trọng trong việc đưa những ý tưởng tiềm năng ra khỏi phạm vi giảng đường, tạo điều kiện để chúng được thử nghiệm, hoàn thiện và tiến gần hơn tới khả năng ứng dụng thực tế.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong đó, Trung tâm Đổi mới Sáng tạo Gia Lai đóng vai trò cầu nối giữa các nguồn lực của địa phương với mạng lưới chuyên gia, doanh nghiệp và cơ sở đào tạo; qua đó góp phần thúc đẩy các hoạt động khởi nghiệp, ứng dụng công nghệ và chuyển đổi số.</p>\n<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_5_E-WP__uIYS_EVRSeL60W.jpg" alt="Hợp tác giữa hai đơn vị hướng đến tăng cường kết nối nhà trường, doanh nghiệp và hệ sinh thái đổi mới sáng tạo." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">Hợp tác giữa hai đơn vị hướng đến tăng cường kết nối nhà trường, doanh nghiệp và hệ sinh thái đổi mới sáng tạo.</figcaption></figure>\n<h2 class="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mt-8 mb-4 font-heading">Thúc đẩy các dự án ứng dụng thông qua Innovation Lab</h2>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Một nội dung đáng chú ý khác trong MOU là định hướng kết nối và triển khai các dự án chung thông qua mạng lưới Innovation Lab tại Trường Đại học FPT Quy Nhơn AI Campus. Các hoạt động này được kỳ vọng tạo môi trường để sinh viên, chuyên gia và các đơn vị liên quan cùng nghiên cứu, thử nghiệm và phát triển giải pháp cho những vấn đề thực tiễn.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trường Đại học FPT Quy Nhơn hiện là AI Campus duy nhất trong hệ thống Trường Đại học FPT, nằm trong hệ sinh thái nghiên cứu và phát triển trí tuệ nhân tạo tại Quy Nhơn. Môi trường đào tạo tại đây chú trọng việc kết hợp công nghệ, nghiên cứu, dự án thực tế và nhu cầu doanh nghiệp, đặc biệt trong các lĩnh vực như trí tuệ nhân tạo, kỹ thuật phần mềm, an toàn thông tin và thiết kế vi mạch bán dẫn.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Đây là nền tảng thuận lợi để những chương trình hợp tác trong khuôn khổ MOU từng bước được chuyển hóa thành các hoạt động nghiên cứu, thử nghiệm và ứng dụng cụ thể.</p>\n<figure class="my-6 text-center"><img src="https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_6_E-d3FUsmt3__bLLPAWOE.jpg" alt="FPT Quy Nhơn AI Campus tạo môi trường kết nối đào tạo, nghiên cứu công nghệ và các dự án ứng dụng thực tiễn." class="rounded-lg shadow-md mx-auto max-h-[520px] object-cover" /><figcaption class="text-sm text-zinc-500 dark:text-zinc-400 mt-2 italic">FPT Quy Nhơn AI Campus tạo môi trường kết nối đào tạo, nghiên cứu công nghệ và các dự án ứng dụng thực tiễn.</figcaption></figure>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Hướng đến những giá trị hợp tác bền vững</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Lễ ký kết MOU không chỉ đánh dấu mối quan hệ hợp tác giữa hai đơn vị mà còn thể hiện định hướng gắn kết nguồn lực giáo dục với nhu cầu phát triển thực tiễn của địa phương.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Thông qua hợp tác cùng Trường Đại học FPT, Trung tâm Đổi mới Sáng tạo Gia Lai kỳ vọng từng bước mở rộng mạng lưới kết nối nguồn nhân lực, công nghệ, doanh nghiệp và các dự án đổi mới sáng tạo; đồng thời tạo thêm môi trường để người trẻ được học tập, trải nghiệm và phát triển các ý tưởng có khả năng giải quyết những bài toán thực tế.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Trong kỷ nguyên AI, lợi thế cạnh tranh không chỉ nằm ở khả năng tiếp cận công nghệ mới mà còn ở năng lực đưa công nghệ vào giải quyết vấn đề và tạo ra giá trị. Vì vậy, sự phối hợp giữa cơ sở đào tạo, doanh nghiệp và các tổ chức thúc đẩy đổi mới sáng tạo sẽ là một mắt xích quan trọng để hình thành nguồn nhân lực có năng lực thực hành, tư duy sáng tạo và khả năng thích ứng với thị trường lao động tương lai.</p>\n<p class="italic text-zinc-500 dark:text-zinc-400 text-center my-3">Đại diện hai đơn vị cùng các bạn sinh viên Trường Đại Học  FPT  tại chương trình ký kết hợp tác ngày 27/06/2026.</p>\n<p class="mb-4 leading-relaxed text-zinc-700 dark:text-zinc-300 text-base">Việc ký kết MOU giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT vì thế là tiền đề để hai bên tiếp tục xây dựng những chương trình hợp tác cụ thể, từng bước đưa các cam kết từ biên bản ghi nhớ thành hoạt động thực tiễn, mang lại giá trị cho sinh viên, doanh nghiệp, cộng đồng và hệ sinh thái đổi mới sáng tạo của địa phương.</p>',
+      "Lễ ký kết hợp tác giữa Trung tâm Đổi mới Sáng tạo Gia Lai và Đại học FPT nhằm đào tạo và chuyển giao giải pháp chuyển đổi số.",
+    project: {
+      id: "11111111-aaaa-4111-a111-111111111101",
+      title: "Dự án Nông nghiệp Thông minh Gia Lai",
+      slug: "du-an-nong-nghiep-thong-minh-gia-lai",
+    },
+    program: {
+      id: "22222222-bbbb-4222-b222-222222222202",
+      title: "Chương trình Phát triển Nhân lực Số Tây Nguyên",
+      slug: "chuong-trinh-phat-trien-nhan-luc-so-tay-nguyen",
+    },
+    solution: null,
+    content: {
+      version: 1,
+      heroMeta: {
+        placement: "below_desc",
+        position: "center",
+        caption:
+          "Đại diện hai bên thực hiện nghi thức ký kết biên bản ghi nhớ hợp tác tại FPT Quy Nhơn AI Campus",
+      },
+      blocks: [
+        {
+          id: "blk_art_001",
+          type: "heading",
+          level: 2,
+          text: "MỞ RỘNG MẠNG LƯỚI ĐÀO TẠO VÀ CHUYỂN GIAO CÔNG NGHỆ",
+          spacing: {
+            marginTop: 32,
+            marginBottom: 16,
+          },
+        },
+        {
+          id: "blk_art_002",
+          type: "paragraph",
+          text: "Sáng ngày 27/06/2026, tại Trường Đại học FPT Quy Nhơn AI Campus, Trung tâm Đổi mới Sáng tạo Gia Lai (VDCD Innovation Center) đã chính thức ký kết Biên bản ghi nhớ hợp tác toàn diện với Trường Đại học FPT. Sự kiện mở ra giai đoạn hợp tác mới trong phát triển nguồn nhân lực chất lượng cao, kết nối hệ sinh thái đổi mới sáng tạo và triển khai các dự án ứng dụng công nghệ vào thực tiễn.",
+          spacing: {
+            marginTop: 0,
+            marginBottom: 20,
+          },
+        },
+        {
+          id: "blk_art_003",
+          type: "paragraph",
+          text: "Sự kiện diễn ra trong khuôn khổ Seminar <strong>“Văn hóa khởi nghiệp thời AI”</strong>, với sự tham dự của ông Cao Quân Vũ - Giám đốc Trung tâm Đổi mới Sáng tạo Gia Lai, đại diện Ban Giám hiệu Trường Đại học FPT cùng các đại biểu, giảng viên và sinh viên.",
+          spacing: {
+            marginTop: 0,
+            marginBottom: 24,
+          },
+        },
+        {
+          id: "blk_art_004",
+          type: "image",
+          url: "https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_2_E-oIRGdGQO_6N6EoxMxo.jpg",
+          alt: "Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết",
+          caption:
+            "Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai và Trường Đại học FPT tại Lễ ký kết Biên bản ghi nhớ hợp tác (MOU)",
+          spacing: {
+            marginTop: 24,
+            marginBottom: 24,
+          },
+        },
+        {
+          id: "blk_art_005",
+          type: "heading",
+          level: 2,
+          text: "ĐỒNG HÀNH CÙNG THẾ HỆ TRẺ TRONG KỶ NGUYÊN AI",
+          spacing: {
+            marginTop: 36,
+            marginBottom: 16,
+          },
+        },
+        {
+          id: "blk_art_006",
+          type: "paragraph",
+          text: "Trong bối cảnh trí tuệ nhân tạo đang tác động mạnh mẽ đến phương thức học tập, làm việc và vận hành doanh nghiệp, khởi nghiệp không còn chỉ được nhìn nhận dưới góc độ thành lập một doanh nghiệp mới. Quan trọng hơn, đó là khả năng phát hiện vấn đề, chủ động tìm kiếm giải pháp, kiểm chứng ý tưởng và sử dụng công nghệ để tạo ra những giá trị thực tiễn.",
+          spacing: {
+            marginTop: 0,
+            marginBottom: 20,
+          },
+        },
+        {
+          id: "blk_art_007",
+          type: "quote",
+          text: "“Khởi nghiệp trong kỷ nguyên số không chỉ là mở doanh nghiệp, mà là năng lực tư duy kiến tạo, dám đặt câu hỏi mới và ứng dụng công nghệ để giải quyết các thách thức thực tiễn của địa phương.”",
+          author: "Đại diện Trung tâm Đổi mới Sáng tạo Gia Lai",
+          spacing: {
+            marginTop: 20,
+            marginBottom: 24,
+          },
+        },
+        {
+          id: "blk_art_008",
+          type: "section",
+          number: "01",
+          title: "CÁC TRỌNG TÂM HỢP TÁC CHIẾN LƯỢC",
+          spacing: {
+            marginTop: 40,
+            marginBottom: 32,
+          },
+          children: [
+            {
+              id: "blk_art_009",
+              type: "paragraph",
+              text: "Theo nội dung biên bản ghi nhớ, hai đơn vị sẽ tập trung tối đa nguồn lực vào ba định hướng then chốt:",
+            },
+            {
+              id: "blk_art_010",
+              type: "list",
+              items: [
+                "Đào tạo thực chiến kỹ năng phân tích dữ liệu và AI cho sinh viên Gia Lai thông qua chương trình OJT.",
+                "Thí điểm đưa các mô hình GIS, viễn thám & UAV vào các đề tài nghiên cứu cấp tỉnh và nông nghiệp thông minh.",
+                "Tạo điều kiện để doanh nghiệp địa phương tiếp cận hệ sinh thái chuyên gia công nghệ và Innovation Lab.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "blk_art_011",
+          type: "highlight",
+          title: "ĐIỂM NHẤN INNOVATION LAB TẠI QUY NHƠN",
+          text: "Mạng lưới Innovation Lab tại FPT Quy Nhơn AI Campus sẽ là không gian thử nghiệm công nghệ thực chiến, giúp sinh viên và chuyên gia nghiên cứu ứng dụng AI vào các bài toán quản lý tài nguyên và nông nghiệp thông minh tại Tây Nguyên.",
+          spacing: {
+            marginTop: 24,
+            marginBottom: 28,
+          },
+        },
+        {
+          id: "blk_art_012",
+          type: "image",
+          url: "https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_1_exact_4_E-U9ia6qbb_pHQr981Hv.jpg",
+          alt: "Lễ ký kết MOU đánh dấu bước tiến mới",
+          caption:
+            "Lễ ký kết MOU đánh dấu bước tiến mới trong quan hệ hợp tác giữa hai đơn vị",
+          spacing: {
+            marginTop: 24,
+            marginBottom: 28,
+          },
+        },
+        {
+          id: "blk_art_013",
+          type: "cta",
+          label: "Liên hệ hợp tác & đào tạo đổi mới sáng tạo",
+          url: "/contact",
+          spacing: {
+            marginTop: 32,
+            marginBottom: 32,
+          },
+        },
+      ],
+    },
     publishedAt: "2026-08-20T08:00:00.000Z",
     createdAt: "2026-08-20T08:00:00.000Z",
     updatedAt: "2026-08-20T08:00:00.000Z",

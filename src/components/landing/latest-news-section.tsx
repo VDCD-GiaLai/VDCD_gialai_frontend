@@ -23,7 +23,7 @@ function fmtDate(d: string | null) {
   });
 }
 
-function categoryLabel(c?: string) {
+function categoryLabel(c?: string | null) {
   return c?.toUpperCase() ?? "TIN TỨC";
 }
 
