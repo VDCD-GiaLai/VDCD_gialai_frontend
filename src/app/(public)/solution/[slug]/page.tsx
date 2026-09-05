@@ -4,7 +4,8 @@ import React, { use, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, Envelope } from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 import {
   SOLUTION_DETAILS,
   type SolutionDetail,
@@ -339,41 +340,26 @@ export default function SolutionDetailPage({ params }: PageProps) {
         )}
 
         {/* ═══════════════════════════════════════════
-         *  CTA BLOCK
+         *  UNIFIED CTA BLOCK
          * ═══════════════════════════════════════════ */}
-        <section
-          className="sd-cta mt-20 p-8 md:p-12 text-center relative overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${accent}08, ${accent}04)`,
-            border: `1px solid ${accent}15`,
-          }}
-        >
-          <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white mb-4 font-heading">
-            Bạn cần tư vấn hoặc triển khai giải pháp này tại Gia Lai?
-          </h3>
-          <p className="text-secondary dark:text-zinc-400 text-sm max-w-2xl mx-auto mb-8">
-            Hãy liên hệ với chúng tôi để nhận khảo sát thực địa miễn phí, tư vấn
-            chi tiết từ chuyên gia và lên phương án số hóa phù hợp nhất cho
-            doanh nghiệp/cơ quan của bạn.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="mailto:dmstgialai@vdcd.vn"
-              className="inline-flex items-center gap-2 px-6 py-3 text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all duration-300"
-              style={{ backgroundColor: accent }}
-            >
-              Gửi email liên hệ <Envelope weight="thin" className="w-4 h-4" />
-            </a>
-            <Link
-              href="/solution"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:text-accent-red transition-all duration-300"
-              style={{ ["--hover-border" as string]: accent }}
-            >
-              Khám phá giải pháp khác{" "}
-              <ArrowUpRight weight="thin" className="w-4 h-4" />
-            </Link>
-          </div>
-        </section>
+        <div className="mt-16 md:mt-20">
+          <CommonCtaSection
+            badge="Tư vấn & Triển khai"
+            title="BẠN CẦN TƯ VẤN HOẶC TRIỂN KHAI GIẢI PHÁP NÀY?"
+            description="Nhận khảo sát thực địa miễn phí, tư vấn chi tiết từ chuyên gia và lên phương án số hóa phù hợp nhất cho doanh nghiệp, cơ quan của bạn."
+            primaryButton={{
+              label: "Liên hệ chuyên gia",
+              href: "/contact",
+              icon: "envelope",
+            }}
+            secondaryButton={{
+              label: "Khám phá giải pháp khác",
+              href: "/solution",
+              icon: "arrow-up-right",
+            }}
+            standalone={false}
+          />
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import * as React from "react";
 import { CareersHeroSlider } from "./careers-hero-slider";
 import { CareersBenefits } from "./careers-benefits";
 import { CareersPositions } from "./careers-positions";
+import { CareersCta } from "./careers-cta";
 import "./careers.css";
 
 export function CareersPageContent() {
@@ -12,6 +13,7 @@ export function CareersPageContent() {
       <CareersHeroSlider />
       <CareersBenefits />
       <CareersPositions />
+      <CareersCta />
     </div>
   );
 }
