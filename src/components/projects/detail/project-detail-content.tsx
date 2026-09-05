@@ -17,6 +17,7 @@ import { ProjectDetailHighlights } from "./project-detail-highlights";
 import { ProjectDetailGallery } from "./project-detail-gallery";
 import { ProjectDetailRelatedArticles } from "./project-detail-related-articles";
 import { ProjectDetailRelatedProjects } from "./project-detail-related-projects";
+import { CommonCtaSection } from "@/components/ui/common-cta-section";
 import "./project-detail.css";
 
 interface ProjectDetailContentProps {
@@ -98,6 +99,23 @@ export const ProjectDetailContent = ({ slug }: ProjectDetailContentProps) => {
       {relatedProjects.length > 0 && (
         <ProjectDetailRelatedProjects projects={relatedProjects} />
       )}
+
+      {/* 9 — Unified CTA Section */}
+      <CommonCtaSection
+        badge="Triển khai thực tế"
+        title="BẠN CẦN GIẢI PHÁP TƯƠNG TỰ CHO CÔNG TRÌNH CỦA MÌNH?"
+        description="Đội ngũ kỹ sư và chuyên gia công nghệ VDCD sẵn sàng khảo sát thực địa và tư vấn phương án tối ưu."
+        primaryButton={{
+          label: "Liên hệ tư vấn dự án",
+          href: "/contact",
+          icon: "envelope",
+        }}
+        secondaryButton={{
+          label: "Xem các dự án khác",
+          href: "/projects",
+          icon: "arrow-right",
+        }}
+      />
     </div>
   );
 };
