@@ -190,24 +190,27 @@ export interface OperationField {
 
 /* ── Programs ─────────────────────────────────────────── */
 
+export type ProgramDocumentContent = SlideDetailBlogContent;
+
 export interface Program {
   id: string;
   title: string;
   slug: string;
-  shortDescription?: string;
-  content?: string;
-  thumbnail?: string;
-  thumbnailFileId?: string;
+  shortDescription?: string | null;
+  content?: string | SlideDetailBlogContent | null;
+  thumbnail?: string | null;
+  thumbnailFileId?: string | null;
   field?: OperationField | null;
-  metaTitle?: string;
-  metaDescription?: string;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
   isPublished: boolean;
+  publishedAt?: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface ProgramDetail extends Program {
-  relatedArticles: Pick<
+  relatedArticles?: Pick<
     Article,
     "id" | "title" | "slug" | "thumbnail" | "publishedAt"
   >[];

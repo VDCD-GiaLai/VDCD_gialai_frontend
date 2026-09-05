@@ -16,12 +16,19 @@ export interface BlockSpacing {
   marginBottom?: number; // Khoảng cách lề dưới (px)
 }
 
+// ─── CTA Configuration Types ────────────────────────────────
+export type CtaAlign = "center" | "between" | "start" | "end";
+export type CtaShape = "square" | "pill";
+export type CtaVariant = "solid" | "outline";
+export type CtaLayout = "flex" | "between";
+
 // ─── Block Types ────────────────────────────────────────────
 export interface HeadingBlock {
   id: string;
   type: "heading";
-  level: 2 | 3;
+  level: 1 | 2 | 3 | 4 | 5 | 6;
   text: string;
+  fontSize?: number;
   spacing?: BlockSpacing;
 }
 
@@ -29,6 +36,7 @@ export interface ParagraphBlock {
   id: string;
   type: "paragraph";
   text: string; // HTML string (hỗ trợ <b>, <i>, <u>, <a>,...)
+  fontSize?: number;
   spacing?: BlockSpacing;
 }
 
@@ -45,6 +53,7 @@ export interface ImageBlock {
 export interface ListItemObject {
   id?: string;
   content: string;
+  children?: ListItemObject[];
 }
 
 export interface ListBlock {
@@ -52,6 +61,8 @@ export interface ListBlock {
   type: "list";
   items: (string | ListItemObject)[];
   listType?: "bullet" | "ordered" | "checklist";
+  fontSize?: number;
+  itemSpacing?: number;
   spacing?: BlockSpacing;
 }
 
@@ -59,7 +70,9 @@ export interface QuoteBlock {
   id: string;
   type: "quote";
   text: string;
-  author?: string;
+  author?: string | null;
+  citation?: string | null;
+  fontSize?: number;
   spacing?: BlockSpacing;
 }
 
@@ -68,6 +81,8 @@ export interface HighlightBlock {
   type: "highlight";
   text: string;
   title?: string;
+  style?: string;
+  fontSize?: number;
   spacing?: BlockSpacing;
 }
 
@@ -76,6 +91,14 @@ export interface CtaBlock {
   type: "cta";
   label: string;
   url: string;
+  secondaryLabel?: string;
+  secondaryUrl?: string;
+  shape?: CtaShape;
+  layout?: CtaLayout;
+  align?: CtaAlign;
+  gap?: number;
+  variant?: CtaVariant;
+  fontSize?: number;
   spacing?: BlockSpacing;
 }
 

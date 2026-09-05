@@ -3,254 +3,590 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowLeft, ShareNetwork, Copy, Check } from "@phosphor-icons/react";
-import { fetchProgramBySlugFromApi } from "@/services/program.service";
+import { motion, useScroll, useSpring } from "framer-motion";
+import {
+  Calendar,
+  Clock,
+  ArrowLeft,
+  ArrowRight,
+  ShareNetwork,
+  Copy,
+  Check,
+  Briefcase,
+  Lightbulb,
+} from "@phosphor-icons/react";
 import { formatDate, copyToClipboard } from "@/lib/utils";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { APP_ROUTES } from "@/lib/constants";
-import type { ProgramDetail } from "@/types";
+import type {
+  ProgramDetail,
+  Program,
+  SlideDetailBlogBlock,
+  SlideDetailBlogContent,
+  ListItemObject,
+} from "@/types";
+import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
+import "@/components/slides/detail/slide-detail.css";
 import "../programs.css";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
 interface ProgramDetailContentProps {
-  slug: string;
+  program: ProgramDetail;
+  relatedPrograms?: Program[];
 }
 
-export const ProgramDetailContent = ({ slug }: ProgramDetailContentProps) => {
-  const [program, setProgram] = React.useState<ProgramDetail | null>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
+export function ProgramDetailContent({
+  program,
+  relatedPrograms = [],
+}: ProgramDetailContentProps) {
   const [isCopied, setIsCopied] = React.useState(false);
 
-  React.useEffect(() => {
-    const load = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchProgramBySlugFromApi(slug);
-        setProgram(data);
-      } catch {
-        setProgram(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    load();
-  }, [slug]);
+  // ── 1. Reading Progress Bar ──
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
+  // ── 2. Parse & Normalize Content ──
+  const { parsedContent, legacyHtml } = React.useMemo(() => {
+    const raw = program.content;
+    if (!raw) {
+      return { parsedContent: null, legacyHtml: null };
+    }
+    if (typeof raw === "object" && "blocks" in raw) {
+      return { parsedContent: raw as SlideDetailBlogContent, legacyHtml: null };
+    }
+    if (typeof raw === "string") {
+      const trimmed = raw.trim();
+      if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          if (
+            parsed &&
+            typeof parsed === "object" &&
+            (parsed.blocks || parsed.version)
+          ) {
+            return {
+              parsedContent: parsed as SlideDetailBlogContent,
+              legacyHtml: null,
+            };
+          }
+        } catch {
+          // Fall back to raw string
+        }
+      }
+      return { parsedContent: null, legacyHtml: raw };
+    }
+    return { parsedContent: null, legacyHtml: null };
+  }, [program.content]);
+
+  const blocks: SlideDetailBlogBlock[] = React.useMemo(
+    () => parsedContent?.blocks ?? [],
+    [parsedContent],
+  );
+
+  // ── 3. Calculate Reading Time ──
+  const readingTimeMinutes = React.useMemo(() => {
+    let textContent = [program.title, program.shortDescription || ""].join(" ");
+
+    if (blocks.length > 0) {
+      const extractText = (blockList: SlideDetailBlogBlock[]): string => {
+        return blockList
+          .map((b) => {
+            if (
+              b.type === "paragraph" ||
+              b.type === "heading" ||
+              b.type === "quote"
+            ) {
+              return b.text;
+            }
+            if (b.type === "highlight") return `${b.title || ""} ${b.text}`;
+            if (b.type === "list") {
+              return b.items
+                .map((i) => (typeof i === "object" ? i.content : i))
+                .join(" ");
+            }
+            if (b.type === "section") {
+              return `${b.title} ${extractText(b.children || [])}`;
+            }
+            return "";
+          })
+          .join(" ");
+      };
+      textContent += " " + extractText(blocks);
+    } else if (legacyHtml) {
+      textContent += " " + legacyHtml;
+    }
+
+    const words = textContent
+      .replace(/<[^>]*>/g, "")
+      .trim()
+      .split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
+  }, [program, blocks, legacyHtml]);
+
+  // ── 4. Social Sharing Handlers ──
   const handleCopyLink = async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
     const success = await copyToClipboard(url);
     if (success) {
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      setTimeout(() => setIsCopied(false), 2500);
     }
   };
 
   const handleShareFacebook = () => {
     if (typeof window === "undefined") return;
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        window.location.href,
+      )}`,
       "_blank",
       "noopener,noreferrer",
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-canvas-white dark:bg-zinc-950">
-        <LoadingSpinner label="Đang tải chương trình..." />
-      </div>
+  const handleShareTwitter = () => {
+    if (typeof window === "undefined") return;
+    const text = program.title || "";
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text,
+      )}&url=${encodeURIComponent(window.location.href)}`,
+      "_blank",
+      "noopener,noreferrer",
     );
-  }
+  };
 
-  if (!program) {
+  // ── 5. Recursive List Item Renderer ──
+  const renderListItem = (
+    item: string | ListItemObject,
+    index: number,
+  ): React.ReactNode => {
+    if (typeof item === "string") {
+      return (
+        <li key={index}>
+          <span dangerouslySetInnerHTML={{ __html: item }} />
+        </li>
+      );
+    }
+
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-canvas-white dark:bg-zinc-950 px-4">
-        <h1 className="text-2xl font-bold font-heading text-on-surface dark:text-white mb-4">
-          Chương trình không tồn tại
-        </h1>
-        <p className="text-secondary dark:text-zinc-400 mb-6">
-          Chương trình bạn tìm kiếm không tồn tại hoặc đã bị gỡ bỏ.
-        </p>
-        <Link
-          href={APP_ROUTES.PROGRAMS}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white transition-all duration-300"
-        >
-          <ArrowLeft weight="thin" className="w-4 h-4" />
-          Quay lại chương trình
-        </Link>
+      <li key={item.id || index}>
+        <span dangerouslySetInnerHTML={{ __html: item.content }} />
+        {item.children && item.children.length > 0 && (
+          <ul className="pl-4 mt-2 space-y-1.5 list-circle">
+            {item.children.map((sub, subIdx) => renderListItem(sub, subIdx))}
+          </ul>
+        )}
+      </li>
+    );
+  };
+
+  // ── 6. Block Dispatcher ──
+  const renderBlock = (block: SlideDetailBlogBlock): React.ReactNode => {
+    const spacingStyle: React.CSSProperties = {
+      marginTop:
+        typeof block.spacing?.marginTop === "number"
+          ? `${block.spacing.marginTop}px`
+          : undefined,
+      marginBottom:
+        typeof block.spacing?.marginBottom === "number"
+          ? `${block.spacing.marginBottom}px`
+          : undefined,
+    };
+
+    return (
+      <div key={block.id} style={spacingStyle} className="w-full">
+        {(() => {
+          switch (block.type) {
+            case "heading": {
+              const Tag = `h${block.level || 2}` as
+                "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+              const headingClasses: Record<number, string> = {
+                1: "font-heading font-bold text-2xl sm:text-3xl text-[#011A42] dark:text-white uppercase tracking-tight mt-10 mb-4 pb-2 border-b border-zinc-200 dark:border-zinc-800",
+                2: "slide-blog-heading-2 mt-8 mb-4 uppercase",
+                3: "slide-blog-heading-3 mt-6 mb-3 uppercase",
+                4: "font-heading font-semibold text-lg text-[#011A42] dark:text-white mt-5 mb-2.5",
+                5: "font-heading font-semibold text-base text-[#011A42] dark:text-white mt-4 mb-2",
+                6: "font-heading font-semibold text-sm text-[#011A42] dark:text-white mt-4 mb-2",
+              };
+
+              return (
+                <Tag
+                  className={headingClasses[block.level] || headingClasses[2]}
+                >
+                  {block.text}
+                </Tag>
+              );
+            }
+
+            case "paragraph":
+              return (
+                <p
+                  className="slide-blog-paragraph mb-4"
+                  dangerouslySetInnerHTML={{ __html: block.text }}
+                />
+              );
+
+            case "image":
+              return block.url ? (
+                <figure className="my-6 slide-blog-figure">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={block.url}
+                    alt={block.alt || "Hình ảnh chương trình"}
+                    className="w-full rounded-xl object-cover"
+                    loading="lazy"
+                  />
+                  {block.caption && (
+                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ) : null;
+
+            case "list":
+              return (
+                <ul className="slide-blog-list space-y-2 my-4 pl-2 text-base leading-relaxed">
+                  {block.items.map((item, idx) => renderListItem(item, idx))}
+                </ul>
+              );
+
+            case "section":
+              return (
+                <section className="my-8 slide-blog-section">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="slide-blog-section__badge">
+                      {block.number}
+                    </span>
+                    <h3 className="slide-blog-section__title uppercase">
+                      {block.title}
+                    </h3>
+                  </div>
+                  <div className="space-y-4">
+                    {block.children.map((child) => renderBlock(child))}
+                  </div>
+                </section>
+              );
+
+            case "quote":
+              return (
+                <blockquote className="slide-blog-quote">
+                  <p
+                    className="slide-blog-quote__text"
+                    dangerouslySetInnerHTML={{ __html: block.text }}
+                  />
+                  {(block.author || block.citation) && (
+                    <footer className="slide-blog-quote__author">
+                      — {block.author}{" "}
+                      {block.citation && (
+                        <cite className="font-normal italic">
+                          ({block.citation})
+                        </cite>
+                      )}
+                    </footer>
+                  )}
+                </blockquote>
+              );
+
+            case "highlight":
+              return (
+                <aside className="slide-blog-highlight">
+                  {block.title && (
+                    <h4 className="slide-blog-highlight__title">
+                      {block.title}
+                    </h4>
+                  )}
+                  <p
+                    className="slide-blog-highlight__text"
+                    dangerouslySetInnerHTML={{ __html: block.text }}
+                  />
+                </aside>
+              );
+
+            case "cta":
+              return <CtaBlockRenderer block={block} />;
+
+            default:
+              return null;
+          }
+        })()}
       </div>
     );
-  }
+  };
 
   return (
-    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      {/* Hero Image */}
-      {program.thumbnail && (
-        <div className="relative w-full h-[300px] md:h-[450px] lg:h-[520px] overflow-hidden">
-          <Image
-            src={program.thumbnail}
-            alt={program.title}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        </div>
-      )}
+    <article className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 selection:bg-accent-red selection:text-white pt-24 pb-20">
+      {/* ── 1. Reading Progress Bar ── */}
+      <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      {/* Program Content */}
-      <div className="max-w-[900px] mx-auto px-4 md:px-8">
-        <motion.div
-          className={program.thumbnail ? "-mt-24 relative z-10" : "pt-32"}
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-        >
-          {/* Breadcrumb */}
-          <div className="mb-6">
-            <Link
-              href={APP_ROUTES.PROGRAMS}
-              className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-accent-red transition-colors duration-300"
-            >
-              <ArrowLeft weight="thin" className="w-3.5 h-3.5" />
-              Quay lại chương trình
-            </Link>
-          </div>
-
-          {/* Program header card */}
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-whisper-border dark:border-zinc-800 p-6 md:p-10 mb-8 shadow-sm">
-            {/* Field badge */}
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              {program.field?.name && (
-                <span className="category-badge">{program.field.name}</span>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        {/* ── 2. Top Navigation & Breadcrumbs ── */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
+          <nav
+            aria-label="Breadcrumb"
+            className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
+          >
+            <ol className="flex items-center gap-2 flex-wrap">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-accent-red transition-colors"
+                >
+                  Trang chủ
+                </Link>
+              </li>
+              <li>/</li>
+              <li>
+                <Link
+                  href={APP_ROUTES.PROGRAMS}
+                  className="hover:text-accent-red transition-colors"
+                >
+                  Chương trình
+                </Link>
+              </li>
+              {program.field && (
+                <>
+                  <li>/</li>
+                  <li className="text-zinc-600 dark:text-zinc-300">
+                    {program.field.name}
+                  </li>
+                </>
               )}
-            </div>
+            </ol>
+          </nav>
 
-            {/* Title */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black dark:text-white font-heading tracking-tight mb-4 leading-tight">
-              {program.title}
-            </h1>
-
-            {/* Short description */}
-            {program.shortDescription && (
-              <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed">
-                {program.shortDescription}
-              </p>
+          <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
+            {(program.publishedAt || program.createdAt) && (
+              <span className="inline-flex items-center gap-1.5 font-mono-label">
+                <Calendar className="w-3.5 h-3.5" weight="thin" />
+                {formatDate(program.publishedAt || program.createdAt)}
+              </span>
             )}
-          </div>
-
-          {/* Program body */}
-          {program.content && (
-            <div
-              className="program-content mb-10"
-              dangerouslySetInnerHTML={{ __html: program.content }}
-            />
-          )}
-
-          {/* Share section */}
-          <div className="flex items-center gap-4 py-6 border-t border-whisper-border dark:border-zinc-800 mb-10">
-            <span className="font-mono-label text-[10px] font-bold text-secondary dark:text-zinc-500 uppercase tracking-widest">
-              Chia sẻ
+            <span className="inline-flex items-center gap-1.5 font-mono-label">
+              <Clock className="w-3.5 h-3.5" weight="thin" />
+              {readingTimeMinutes} phút đọc
             </span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleShareFacebook}
-                className="share-button"
-                aria-label="Chia sẻ trên Facebook"
-              >
-                <ShareNetwork weight="thin" className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="share-button"
-                aria-label="Sao chép liên kết"
-              >
-                {isCopied ? (
-                  <Check weight="thin" className="w-4 h-4 text-green-500" />
-                ) : (
-                  <Copy weight="thin" className="w-4 h-4" />
-                )}
-              </button>
-            </div>
           </div>
+        </div>
 
-          {/* Related Articles */}
-          {program.relatedArticles && program.relatedArticles.length > 0 && (
-            <section className="mb-16" aria-labelledby="related-heading">
-              <h2
-                id="related-heading"
-                className="font-heading text-xl md:text-2xl font-bold text-black dark:text-white tracking-tight mb-6"
-              >
-                Bài viết liên quan
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {program.relatedArticles.map((related) => (
-                  <Link
-                    key={related.id}
-                    href={`/news/${related.slug}`}
-                    className="program-related-card group block"
-                    aria-label={`Đọc: ${related.title}`}
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      {related.thumbnail ? (
-                        <Image
-                          src={related.thumbnail}
-                          alt={related.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 flex items-center justify-center">
-                          <span className="text-zinc-400 dark:text-zinc-600 font-heading text-sm">
-                            VDCD
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      {related.publishedAt && (
-                        <span className="text-xs text-secondary dark:text-zinc-500 mb-2 block">
-                          {formatDate(related.publishedAt)}
-                        </span>
-                      )}
-                      <h3 className="text-sm font-bold text-black dark:text-white font-heading tracking-tight line-clamp-2 group-hover:text-accent-red transition-colors duration-300">
-                        {related.title}
-                      </h3>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
+        {/* ── 3. Program Hero Header ── */}
+        <header className="space-y-4 mb-8">
+          {program.field?.name && (
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-[#ca2a30]/10 px-3.5 py-1 text-xs font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
+              <Briefcase className="w-3.5 h-3.5" weight="bold" />
+              <span>{program.field.name}</span>
+            </div>
           )}
 
-          {/* Back to programs */}
-          <div className="pb-16 text-center">
+          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#011A42] dark:text-white leading-[1.15]">
+            {program.title}
+          </h1>
+
+          {program.shortDescription && (
+            <p className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal">
+              {program.shortDescription}
+            </p>
+          )}
+
+          {/* Hero Thumbnail */}
+          {program.thumbnail && (
+            <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
+              <div className="relative aspect-video w-full overflow-hidden">
+                <Image
+                  src={program.thumbnail}
+                  alt={program.title}
+                  fill
+                  priority
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                />
+              </div>
+            </figure>
+          )}
+        </header>
+
+        {/* ── 4. Main Body Stream ── */}
+        <main className="w-full pb-12">
+          {blocks.length > 0 ? (
+            <div className="space-y-6">
+              {blocks.map((block) => renderBlock(block))}
+            </div>
+          ) : legacyHtml ? (
+            <div
+              className="slide-blog-paragraph space-y-4 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: legacyHtml }}
+            />
+          ) : null}
+        </main>
+
+        {/* ── 5. Social Sharing Bar ── */}
+        <div className="pt-8 pb-12">
+          <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
+            <div className="flex items-center gap-3">
+              <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                Chia sẻ chương trình:
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleShareFacebook}
+                  className="share-button"
+                  aria-label="Chia sẻ trên Facebook"
+                >
+                  <ShareNetwork className="w-4 h-4" weight="thin" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleShareTwitter}
+                  className="share-button"
+                  aria-label="Chia sẻ trên Twitter / X"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="w-3.5 h-3.5"
+                    fill="currentColor"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="share-button"
+                  aria-label="Sao chép liên kết chương trình"
+                >
+                  {isCopied ? (
+                    <Check className="w-4 h-4 text-emerald-500" weight="bold" />
+                  ) : (
+                    <Copy className="w-4 h-4" weight="thin" />
+                  )}
+                </button>
+              </div>
+            </div>
+
             <Link
               href={APP_ROUTES.PROGRAMS}
-              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-accent-red hover:text-accent-red transition-all duration-300"
+              className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
             >
-              <ArrowLeft weight="thin" className="w-4 h-4" />
-              Xem tất cả chương trình
+              Tất cả chương trình
+              <ArrowRight className="w-3.5 h-3.5" weight="bold" />
             </Link>
           </div>
-        </motion.div>
+        </div>
+
+        {/* ── 6. Related Programs ── */}
+        {relatedPrograms.length > 0 && (
+          <section className="pb-16" aria-labelledby="related-programs-heading">
+            <div className="flex items-center justify-between mb-6">
+              <h3
+                id="related-programs-heading"
+                className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white"
+              >
+                Chương trình liên quan
+              </h3>
+              <Link
+                href={APP_ROUTES.PROGRAMS}
+                className="text-xs font-mono-label font-bold uppercase tracking-wider text-[#ca2a30] hover:underline"
+              >
+                Xem thêm
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {relatedPrograms.map((rel) => (
+                <Link
+                  key={rel.id}
+                  href={`/programs/${rel.slug}`}
+                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
+                >
+                  {rel.thumbnail && (
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                      <Image
+                        src={rel.thumbnail}
+                        alt={rel.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    {rel.field?.name && (
+                      <p className="text-[11px] font-bold uppercase text-[#ca2a30] tracking-wider mb-2 font-mono-label">
+                        {rel.field.name}
+                      </p>
+                    )}
+                    <h4 className="text-base font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2 uppercase font-heading">
+                      {rel.title}
+                    </h4>
+                    {rel.shortDescription && (
+                      <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                        {rel.shortDescription}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── 7. Related Articles ── */}
+        {program.relatedArticles && program.relatedArticles.length > 0 && (
+          <section className="pb-16" aria-labelledby="related-articles-heading">
+            <h3
+              id="related-articles-heading"
+              className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white mb-6"
+            >
+              Tin tức & Hoạt động liên quan
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {program.relatedArticles.map((art) => (
+                <Link
+                  key={art.id}
+                  href={`/news/${art.slug}`}
+                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
+                >
+                  {art.thumbnail && (
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                      <Image
+                        src={art.thumbnail}
+                        alt={art.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="p-4">
+                    {art.publishedAt && (
+                      <span className="text-[11px] font-mono-label text-[#6C7E96] dark:text-zinc-400 block mb-1.5">
+                        {formatDate(art.publishedAt)}
+                      </span>
+                    )}
+                    <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
+                      {art.title}
+                    </h4>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── 8. Back To Programs Bottom Button ── */}
+        <div className="pb-12 text-center">
+          <Link
+            href={APP_ROUTES.PROGRAMS}
+            className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300"
+          >
+            <ArrowLeft weight="thin" className="w-4 h-4" />
+            Quay lại danh sách chương trình
+          </Link>
+        </div>
       </div>
-    </div>
+    </article>
   );
-};
+}

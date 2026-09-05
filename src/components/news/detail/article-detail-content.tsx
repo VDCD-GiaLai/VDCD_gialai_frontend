@@ -23,6 +23,7 @@ import type {
   SlideDetailBlogBlock,
   SlideDetailBlogContent,
 } from "@/types";
+import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import "@/components/slides/detail/slide-detail.css";
 import "../news.css";
 
@@ -325,22 +326,7 @@ export function ArticleDetailContent({
               );
 
             case "cta":
-              return (
-                <div className="my-6 text-center">
-                  <a
-                    href={block.url}
-                    target={block.url.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      block.url.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    className="slide-blog-cta-btn"
-                  >
-                    {block.label}
-                  </a>
-                </div>
-              );
+              return <CtaBlockRenderer block={block} />;
 
             default:
               return null;

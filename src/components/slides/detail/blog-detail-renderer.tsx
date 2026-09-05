@@ -1,5 +1,6 @@
 import React from "react";
 import type { SlideDetailBlog, SlideDetailBlogBlock } from "@/types";
+import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import "./slide-detail.css";
 
 export interface BlogDetailRendererProps {
@@ -171,22 +172,7 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
               );
 
             case "cta":
-              return (
-                <div className="my-6 text-center">
-                  <a
-                    href={block.url}
-                    target={block.url.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      block.url.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    className="slide-blog-cta-btn"
-                  >
-                    {block.label}
-                  </a>
-                </div>
-              );
+              return <CtaBlockRenderer block={block} />;
 
             default:
               return null;

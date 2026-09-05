@@ -25,7 +25,9 @@ interface ProgramCardProps {
 export const ProgramCard = ({ program }: ProgramCardProps) => {
   const excerpt =
     program.shortDescription ||
-    program.content?.replace(/<[^>]*>/g, "").slice(0, 120) ||
+    (typeof program.content === "string"
+      ? program.content.replace(/<[^>]*>/g, "").slice(0, 120)
+      : "") ||
     "";
 
   return (

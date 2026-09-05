@@ -30,7 +30,7 @@ export function Header() {
     pathname === "/" ||
     pathname === "/about-us" ||
     pathname === "/contact" ||
-    pathname.startsWith("/programs") ||
+    pathname === "/programs" ||
     pathname.startsWith("/solution") ||
     pathname.startsWith("/projects") ||
     pathname === "/news" ||
