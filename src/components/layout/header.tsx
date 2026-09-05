@@ -31,7 +31,8 @@ export function Header() {
     pathname === "/about-us" ||
     pathname === "/contact" ||
     pathname === "/programs" ||
-    pathname.startsWith("/solution") ||
+    pathname === "/solution" ||
+    pathname === "/solutions" ||
     pathname.startsWith("/projects") ||
     pathname === "/news" ||
     pathname.startsWith("/careers");

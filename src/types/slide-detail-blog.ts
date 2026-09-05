@@ -12,32 +12,38 @@ export interface HeroMeta {
 
 // ─── Block Spacing ──────────────────────────────────────────
 export interface BlockSpacing {
-  marginTop?: number; // Khoảng cách lề trên (px)
-  marginBottom?: number; // Khoảng cách lề dưới (px)
+  marginTop?: number; // pixel, min 0
+  marginBottom?: number; // pixel, min 0
 }
 
-// ─── CTA Configuration Types ────────────────────────────────
-export type CtaAlign = "center" | "between" | "start" | "end";
-export type CtaShape = "square" | "pill";
-export type CtaVariant = "solid" | "outline";
-export type CtaLayout = "flex" | "between";
+// ─── Heading Block ──────────────────────────────────────────
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
-// ─── Block Types ────────────────────────────────────────────
 export interface HeadingBlock {
   id: string;
   type: "heading";
-  level: 1 | 2 | 3 | 4 | 5 | 6;
+  level: HeadingLevel;
   text: string;
+  /** Kích thước font độc lập với semantic level (number: 10-96px) */
   fontSize?: number;
   spacing?: BlockSpacing;
 }
 
+// ─── Paragraph Block ────────────────────────────────────────
 export interface ParagraphBlock {
   id: string;
   type: "paragraph";
-  text: string; // HTML string (hỗ trợ <b>, <i>, <u>, <a>,...)
+  text: string; // HTML/rich text string
   fontSize?: number;
   spacing?: BlockSpacing;
+}
+
+// ─── Image Block ────────────────────────────────────────────
+export interface ImageDataPayload {
+  mediaId: string; // File ID trên ImageKit
+  caption?: string | null;
+  alt?: string;
+  url?: string;
 }
 
 export interface ImageBlock {
@@ -45,27 +51,82 @@ export interface ImageBlock {
   type: "image";
   url: string;
   fileId?: string | null;
-  alt: string;
-  caption?: string | null; // Chú thích ảnh hiển thị dưới ảnh
+  mediaId?: string | null; // Alias tương đương fileId
+  alt?: string;
+  caption?: string | null; // Chỉ thuộc Image Block
+  data?: ImageDataPayload; // Hỗ trợ lồng container payload
   spacing?: BlockSpacing;
 }
 
-export interface ListItemObject {
-  id?: string;
-  content: string;
-  children?: ListItemObject[];
+// ─── List & Nested List Block ───────────────────────────────
+export type ListType = "bullet" | "ordered" | "checklist";
+
+export type ListStyle =
+  | "disc"
+  | "circle"
+  | "square"
+  | "decimal"
+  | "lower-alpha"
+  | "upper-alpha"
+  | "lower-roman"
+  | "upper-roman"
+  | "checklist";
+
+export type ListFontWeight = "normal" | "medium" | "semibold" | "bold";
+
+export interface ListLevelStyle {
+  marker?: ListStyle;
+  fontSize?: number;
+  fontWeight?: ListFontWeight;
+  color?: string;
+  itemSpacing?: number;
 }
+
+export interface ListStyleConfig {
+  marker?: ListStyle;
+  fontFamily?: string;
+  fontSize?: number;
+  fontWeight?: ListFontWeight;
+  color?: string;
+  lineHeight?: number;
+  itemSpacing?: number;
+  indentation?: number; // Mặc định: 24px
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderRadius?: number;
+  padding?: number;
+  levelStyles?: Record<number, ListLevelStyle>;
+}
+
+export interface ListItem {
+  id: string;
+  content: string;
+  children: ListItem[];
+  checked?: boolean;
+}
+
+/** Tương thích ngược với định dạng cũ */
+export type ListItemObject = ListItem;
 
 export interface ListBlock {
   id: string;
   type: "list";
-  items: (string | ListItemObject)[];
-  listType?: "bullet" | "ordered" | "checklist";
+  items: (ListItem | string)[];
+  listType?: ListType;
+  listStyle?: ListStyle;
   fontSize?: number;
+  lineHeight?: number;
   itemSpacing?: number;
+  style?: ListStyleConfig;
   spacing?: BlockSpacing;
 }
 
+export interface OrderedListBlock extends Omit<ListBlock, "type"> {
+  type: "ordered_list";
+}
+
+// ─── Quote & Highlight Block ────────────────────────────────
 export interface QuoteBlock {
   id: string;
   type: "quote";
@@ -86,47 +147,80 @@ export interface HighlightBlock {
   spacing?: BlockSpacing;
 }
 
-export interface CtaBlock {
-  id: string;
-  type: "cta";
-  label: string;
-  url: string;
-  secondaryLabel?: string;
-  secondaryUrl?: string;
-  shape?: CtaShape;
-  layout?: CtaLayout;
-  align?: CtaAlign;
-  gap?: number;
-  variant?: CtaVariant;
-  fontSize?: number;
-  spacing?: BlockSpacing;
-}
+// ─── Section Block ──────────────────────────────────────────
+export type SectionChildBlock =
+  | HeadingBlock
+  | ParagraphBlock
+  | ImageBlock
+  | ListBlock
+  | OrderedListBlock
+  | QuoteBlock
+  | HighlightBlock;
 
 export interface SectionBlock {
   id: string;
   type: "section";
   number: string; // Ví dụ: "01", "02"
   title: string;
-  children: SlideDetailBlogBlock[];
+  children: SectionChildBlock[];
   spacing?: BlockSpacing;
 }
 
-export type SlideDetailBlogBlock =
+// ─── CTA Block ──────────────────────────────────────────────
+export type CtaAlign = "center" | "between" | "start" | "end";
+export type CtaShape = "square" | "pill";
+export type CtaVariant = "solid" | "outline";
+export type CtaLayout = "flex" | "between";
+
+export interface CtaButtonItem {
+  id: string;
+  label: string;
+  url: string;
+  variant?: CtaVariant;
+}
+
+export interface CtaBlock {
+  id: string;
+  type: "cta";
+  label?: string;
+  url?: string;
+  secondaryLabel?: string;
+  secondaryUrl?: string;
+  items?: CtaButtonItem[];
+  layout?: CtaLayout;
+  align?: CtaAlign;
+  gap?: number;
+  shape?: CtaShape;
+  variant?: CtaVariant;
+  fontSize?: number;
+  spacing?: BlockSpacing;
+}
+
+// ─── Discriminated Union of Blocks ──────────────────────────
+export type ContentBlock =
   | HeadingBlock
   | ParagraphBlock
   | ImageBlock
   | ListBlock
+  | OrderedListBlock
   | SectionBlock
+  | CtaBlock
   | QuoteBlock
-  | HighlightBlock
-  | CtaBlock;
+  | HighlightBlock;
 
-// ─── Content Payload ────────────────────────────────────────
-export interface SlideDetailBlogContent {
-  version: number;
+/** Alias duy trì tương thích các components hiện có */
+export type SlideDetailBlogBlock = ContentBlock;
+
+// ─── Document Root ──────────────────────────────────────────
+export interface DocumentContent {
+  version: 1;
+  blocks: ContentBlock[];
   heroMeta?: HeroMeta;
-  blocks: SlideDetailBlogBlock[];
 }
+
+/** Chuẩn danh tính hợp nhất theo đặc tả */
+export type BlogDocument = DocumentContent;
+export type SlideDetailBlogContent = DocumentContent;
 
 // ─── Entity SlideDetailBlog ─────────────────────────────────
 export interface SlideDetailBlog {
