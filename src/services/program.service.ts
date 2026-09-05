@@ -11,7 +11,36 @@ import type {
   ProgramListParams,
   PaginatedResponse,
   OperationField,
+  SlideDetailBlogContent,
 } from "@/types";
+
+/**
+ * Parses program content if it is encoded as a JSON string
+ */
+export function parseProgramContent(
+  content?: string | SlideDetailBlogContent | null,
+): string | SlideDetailBlogContent | null {
+  if (!content) return null;
+  if (typeof content === "object") return content;
+  if (typeof content === "string") {
+    const trimmed = content.trim();
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (
+          parsed &&
+          typeof parsed === "object" &&
+          (parsed.blocks || parsed.version)
+        ) {
+          return parsed as SlideDetailBlogContent;
+        }
+      } catch {
+        // Fall back to original string
+      }
+    }
+  }
+  return content;
+}
 
 /* ── Fetch paginated programs ─────────────────────────── */
 
@@ -22,7 +51,7 @@ export async function fetchProgramsFromApi(
   const cacheKey = `programs_page_${page}_limit_${limit}_field_${fieldId || "all"}`;
 
   const getMockPaginated = (): PaginatedResponse<Program> => {
-    let filtered = [...MOCK_PROGRAMS];
+    let filtered = [...MOCK_PROGRAMS].filter((p) => p.isPublished !== false);
     if (fieldId) filtered = filtered.filter((p) => p.field?.id === fieldId);
     const total = filtered.length;
     const items = filtered.slice((page - 1) * limit, page * limit);
@@ -47,8 +76,13 @@ export async function fetchProgramsFromApi(
 
       const body = await res.json();
       const payload = body.data ?? body;
-      const items: Program[] = payload.data ?? payload.items ?? [];
-      const total: number = payload.total ?? items.length;
+      const rawItems: Program[] = payload.data ?? payload.items ?? [];
+      const total: number = payload.total ?? rawItems.length;
+
+      const items = rawItems.map((item) => ({
+        ...item,
+        content: parseProgramContent(item.content),
+      }));
 
       return {
         items,
@@ -77,7 +111,7 @@ export async function fetchProgramBySlugFromApi(
 ): Promise<ProgramDetail | null> {
   const getMockDetail = (): ProgramDetail | null => {
     const program = getMockProgramBySlug(slug);
-    if (!program) return null;
+    if (!program || program.isPublished === false) return null;
     return { ...program, relatedArticles: [] };
   };
 
@@ -98,13 +132,44 @@ export async function fetchProgramBySlugFromApi(
       const body = await res.json();
       const data = body.data ?? body;
 
+      // Do not return unpublished programs on public routes
+      if (!data || (data.isPublished === false && !USE_MOCK_DATA)) {
+        return null;
+      }
+
       return {
         ...data,
+        content: parseProgramContent(data.content),
         relatedArticles: data.relatedArticles ?? [],
       } as ProgramDetail;
     },
   });
 }
+
+/* ── Fetch related programs ───────────────────────────── */
+
+export async function fetchRelatedProgramsFromApi(
+  currentSlug: string,
+  fieldId?: string,
+  limit = 2,
+): Promise<Program[]> {
+  try {
+    const res = await fetchProgramsFromApi({
+      page: 1,
+      limit: 6,
+      fieldId,
+    });
+    return res.items
+      .filter((p) => p.slug !== currentSlug && p.isPublished !== false)
+      .slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+// Aliases for seamless usage across components
+export const getProgramBySlug = fetchProgramBySlugFromApi;
+export const getPrograms = fetchProgramsFromApi;
 
 /* ── Fetch operation fields (for filter chips) ────────── */
 
