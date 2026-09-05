@@ -222,6 +222,39 @@ export interface ProgramListParams {
   fieldId?: string;
 }
 
+/* ── Solutions (Canonical Contract) ─────────────────────── */
+
+export interface SolutionEntityContract {
+  id: string;
+  title: string;
+  slug: string;
+  shortDescription: string | null;
+  thumbnail: string | null;
+  thumbnailFileId: string | null;
+  websiteUrl: string | null;
+  fieldId: string | null;
+  field?: {
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
+  metaTitle: string | null;
+  metaDescription: string | null;
+  isPublished: boolean;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  /** Document Model nhúng vào cột JSONB content */
+  content: SlideDetailBlogContent;
+}
+
+export interface SolutionDetail extends SolutionEntityContract {
+  relatedArticles?: Pick<
+    Article,
+    "id" | "title" | "slug" | "thumbnail" | "publishedAt"
+  >[];
+}
+
 /* ── Slide Detail Blogs ──────────────────────────────── */
 
 export * from "./slide-detail-blog";
