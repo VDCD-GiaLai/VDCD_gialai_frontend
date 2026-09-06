@@ -9,6 +9,12 @@ import {
 
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 import { fetchWithFallback } from "@/lib/client-cache";
+import type {
+  DocumentContent,
+  ContentBlock,
+  SectionChildBlock,
+  HeroMeta,
+} from "@/types";
 
 export interface BackendProject {
   id: string;
@@ -20,6 +26,10 @@ export interface BackendProject {
   metaTitle?: string;
   metaDescription?: string;
   isPublished: boolean;
+  content?: DocumentContent | string | null;
+  heroMeta?: HeroMeta;
+  publishedAt?: string;
+  createdAt?: string;
   field?: {
     id: string;
     name: string;
@@ -63,21 +73,17 @@ export interface BackendProject {
 }
 
 export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
-  const galleryImages: ProjectGalleryImage[] = (bp.images || []).map(
-    (img, i) => ({
+  const galleryImages: ProjectGalleryImage[] = (bp.images || [])
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .map((img, i) => ({
+      id: img.id,
       src: img.url,
-      caption: img.caption || `${bp.title} - Hình ${i + 1}`,
+      url: img.url,
+      caption: img.caption || "",
       size: (img.size === "large" ? "large" : "small") as "large" | "small",
-    }),
-  );
-
-  if (galleryImages.length === 0 && bp.thumbnail) {
-    galleryImages.push({
-      src: bp.thumbnail,
-      caption: bp.title,
-      size: "large",
-    });
-  }
+      order: img.order ?? i,
+    }));
 
   const relatedArticles: RelatedArticle[] = (bp.relatedArticles || []).map(
     (a) => ({
@@ -124,7 +130,204 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     transformationAfter: bp.transformationAfter || undefined,
     nextProjectSlug: bp.nextProjectSlug || null,
     relatedArticles: relatedArticles.length > 0 ? relatedArticles : undefined,
-    relatedProjects: relatedProjects.length > 0 ? relatedProjects : undefined,
+    thumbnail: bp.thumbnail || undefined,
+    metaTitle: bp.metaTitle || undefined,
+    metaDescription: bp.metaDescription || undefined,
+    content: bp.content || undefined,
+    heroMeta: bp.heroMeta || undefined,
+    publishedAt: bp.publishedAt || undefined,
+    createdAt: bp.createdAt || undefined,
+  };
+}
+
+/* ──────────────────────────────────────────────────────────
+ *  BIDIRECTIONAL MIGRATION & ADAPTER (CONTRACT SECTION 6)
+ * ────────────────────────────────────────────────────────── */
+
+/**
+ * Chuyển đổi mã HTML legacy thành danh sách paragraph blocks
+ */
+export function convertHtmlToBlocks(html: string): DocumentContent {
+  const blocks: ContentBlock[] = [];
+  const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+  let match: RegExpExecArray | null;
+  let idx = 0;
+
+  while ((match = pRegex.exec(html)) !== null) {
+    const text = match[1].trim();
+    if (text) {
+      blocks.push({
+        id: `par_proj_html_${idx++}`,
+        type: "paragraph",
+        text,
+      });
+    }
+  }
+
+  if (blocks.length === 0 && html.trim()) {
+    blocks.push({
+      id: `par_proj_html_raw`,
+      type: "paragraph",
+      text: html.trim(),
+    });
+  }
+
+  return {
+    version: 1,
+    blocks,
+  };
+}
+
+/**
+ * Chuyển đổi nội dung Project bất kỳ hoặc tổng hợp từ ProjectEntry sang DocumentContent chuẩn.
+ * Tương thích 100% với:
+ * - DocumentContent object chuẩn từ editor
+ * - JSON stringify
+ * - Legacy HTML
+ * - Dữ liệu có sẵn của các dự án hiện tại (overview, challenge, transformation, highlights, gallery)
+ */
+export function convertProjectContentToDocument(
+  project: ProjectEntry,
+): DocumentContent {
+  const rawContent = project.content;
+
+  // 1. Nếu đã là DocumentContent object hợp lệ và có blocks
+  if (
+    typeof rawContent === "object" &&
+    rawContent !== null &&
+    "version" in rawContent &&
+    "blocks" in rawContent &&
+    Array.isArray((rawContent as DocumentContent).blocks) &&
+    (rawContent as DocumentContent).blocks.length > 0
+  ) {
+    return {
+      version: 1,
+      blocks: (rawContent as DocumentContent).blocks,
+      heroMeta: (rawContent as DocumentContent).heroMeta || project.heroMeta,
+    };
+  }
+
+  // 2. Nếu là chuỗi JSON được stringify
+  if (typeof rawContent === "string") {
+    const trimmed = rawContent.trim();
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (
+          parsed.version &&
+          Array.isArray(parsed.blocks) &&
+          parsed.blocks.length > 0
+        ) {
+          return {
+            version: 1,
+            blocks: parsed.blocks,
+            heroMeta: parsed.heroMeta || project.heroMeta,
+          };
+        }
+      } catch {
+        // Fallthrough
+      }
+    }
+
+    // 3. Nếu là chuỗi HTML
+    if (trimmed.includes("<") && trimmed.includes(">")) {
+      const htmlDoc = convertHtmlToBlocks(trimmed);
+      htmlDoc.heroMeta = project.heroMeta;
+      return htmlDoc;
+    }
+
+    // 4. Nếu là chuỗi text thuần
+    if (trimmed.length > 0) {
+      return {
+        version: 1,
+        blocks: [
+          {
+            id: `par_proj_text_${Date.now()}`,
+            type: "paragraph",
+            text: trimmed,
+          },
+        ],
+        heroMeta: project.heroMeta,
+      };
+    }
+  }
+
+  // 5. Nếu chưa có blocks trong content, tổng hợp từ các trường cấu trúc của ProjectEntry
+  const blocks: ContentBlock[] = [];
+
+  // 5.1. Overview / Tổng quan (nếu khác description)
+  if (project.overview && project.overview !== project.description) {
+    blocks.push({
+      id: "blk-proj-overview",
+      type: "paragraph",
+      text: project.overview,
+    });
+  }
+
+  // 5.2. Thách thức dự án (Section "01")
+  if (project.challenge || project.challengeImage) {
+    const challengeChildren: SectionChildBlock[] = [];
+    if (project.challenge) {
+      challengeChildren.push({
+        id: "blk-proj-challenge-text",
+        type: "paragraph",
+        text: project.challenge,
+      });
+    }
+    if (project.challengeImage) {
+      challengeChildren.push({
+        id: "blk-proj-challenge-img",
+        type: "image",
+        url: project.challengeImage,
+        alt: `Khảo sát thực địa - ${project.title}`,
+        caption: `Khảo sát thực địa và phân tích hiện trạng công trình: ${project.title}`,
+      });
+    }
+
+    blocks.push({
+      id: "sec-proj-challenge",
+      type: "section",
+      number: "01",
+      title: "Thách thức dự án & Hiện trạng",
+      children: challengeChildren,
+    });
+  }
+
+  // 5.3. Thực tế chuyển đổi số (Section "02")
+  if (project.transformationBefore || project.transformationAfter) {
+    const transChildren: SectionChildBlock[] = [];
+    if (project.transformationBefore) {
+      transChildren.push({
+        id: "blk-proj-trans-before",
+        type: "paragraph",
+        text: `<strong>Hiện trạng trước số hóa:</strong> ${project.transformationBefore}`,
+      });
+    }
+    if (project.transformationAfter) {
+      transChildren.push({
+        id: "blk-proj-trans-after",
+        type: "paragraph",
+        text: `<strong>Giải pháp công nghệ ứng dụng:</strong> ${project.transformationAfter}`,
+      });
+    }
+
+    blocks.push({
+      id: "sec-proj-transformation",
+      type: "section",
+      number: "02",
+      title: "Chuyển đổi số & Giải pháp công nghệ",
+      children: transChildren,
+    });
+  }
+
+  return {
+    version: 1,
+    blocks,
+    heroMeta: project.heroMeta || {
+      placement: "above_title",
+      position: "center",
+      caption: project.galleryImages?.[0]?.caption || undefined,
+    },
   };
 }
 

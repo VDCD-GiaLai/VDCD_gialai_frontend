@@ -25,17 +25,22 @@ export function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  const normalizedPath =
+    pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+
   /** Pages with a hero banner that need a transparent glass header at top */
   const hasHeroBanner =
-    pathname === "/" ||
-    pathname === "/about-us" ||
-    pathname === "/contact" ||
-    pathname === "/programs" ||
-    pathname === "/solution" ||
-    pathname === "/solutions" ||
-    pathname.startsWith("/projects") ||
-    pathname === "/news" ||
-    pathname.startsWith("/careers");
+    normalizedPath === "/" ||
+    normalizedPath === "/about-us" ||
+    normalizedPath === "/contact" ||
+    normalizedPath === "/programs" ||
+    normalizedPath === "/solution" ||
+    normalizedPath === "/solutions" ||
+    normalizedPath === "/projects" ||
+    normalizedPath === "/news" ||
+    normalizedPath === "/careers";
 
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
