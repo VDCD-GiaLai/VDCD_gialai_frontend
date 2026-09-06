@@ -255,6 +255,10 @@ export interface SolutionDetail extends SolutionEntityContract {
   >[];
 }
 
+/* ── Projects (Canonical Contract) ─────────────────────── */
+
+export * from "./project";
+
 /* ── Slide Detail Blogs ──────────────────────────────── */
 
 export * from "./slide-detail-blog";

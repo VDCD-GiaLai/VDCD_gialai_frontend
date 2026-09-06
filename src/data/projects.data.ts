@@ -1,3 +1,5 @@
+import type { DocumentContent, HeroMeta } from "@/types";
+
 export interface WorkflowStage {
   number: string;
   title: string;
@@ -7,9 +9,12 @@ export interface WorkflowStage {
 }
 
 export interface ProjectGalleryImage {
+  id?: string;
   src: string;
+  url?: string;
   caption: string;
   size: "large" | "small";
+  order?: number;
 }
 
 export interface ProjectTechnicalHighlight {
@@ -42,6 +47,7 @@ export interface ProjectEntry {
   year: string;
   description: string;
   coverImage: string;
+  thumbnail?: string;
   layout: "landscape-full" | "landscape-half" | "portrait";
   overview?: string;
   challenge?: string;
@@ -55,6 +61,13 @@ export interface ProjectEntry {
   nextProjectSlug?: string | null;
   relatedArticles?: RelatedArticle[];
   relatedProjects?: RelatedProject[];
+  metaTitle?: string;
+  metaDescription?: string;
+  /** Document Model nhúng vào content */
+  content?: DocumentContent | string | null;
+  heroMeta?: HeroMeta;
+  publishedAt?: string;
+  createdAt?: string;
 }
 
 export const WORKFLOW_STAGES: WorkflowStage[] = [

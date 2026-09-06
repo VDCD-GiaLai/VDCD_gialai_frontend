@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PROJECTS_DATA, getProjectById } from "@/data/projects.data";
 import { fetchProjectBySlugFromApi } from "@/services/project.service";
 import { ProjectDetailContent } from "@/components/projects/detail/project-detail-content";
-import { notFound } from "next/navigation";
+import type { ContentBlock } from "@/types";
+
+/** Extract the first image URL from content blocks (supports nested sections) */
+function findFirstImageInBlocks(blocks?: ContentBlock[]): string | undefined {
+  if (!blocks) return undefined;
+  for (const block of blocks) {
+    if (block.type === "image" && block.url) return block.url;
+    if (block.type === "section" && block.children) {
+      const found = findFirstImageInBlocks(block.children as ContentBlock[]);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
 
 /* ────────────────────────────────────────────────────────
    Dynamic metadata
@@ -21,21 +35,42 @@ export async function generateMetadata({
     return { title: "Dự án không tồn tại | VDCD Group" };
   }
 
+  const title = project.metaTitle || `${project.title} | Dự án VDCD Group`;
+  const description =
+    project.metaDescription ||
+    project.description ||
+    project.overview ||
+    "Chi tiết dự án chuyển đổi số công trình tại VDCD Group";
+
+  const contentBlocks =
+    typeof project.content === "object" ? project.content?.blocks : undefined;
+  const ogImage =
+    project.coverImage ||
+    project.thumbnail ||
+    findFirstImageInBlocks(contentBlocks);
+
   return {
-    title: `${project.title} | Dự án VDCD Group`,
-    description: project.description,
+    title,
+    description,
     keywords: [
       project.title,
       project.category,
       project.location,
       "VDCD",
       "Giám sát công trình",
+      "Chuyển đổi số",
     ],
     openGraph: {
-      title: `${project.title} | Dự án VDCD Group`,
-      description: project.description,
+      title,
+      description,
       type: "article",
-      images: [{ url: project.coverImage }],
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
   };
 }
@@ -65,5 +100,5 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  return <ProjectDetailContent slug={slug} />;
+  return <ProjectDetailContent slug={slug} initialProject={project} />;
 }
