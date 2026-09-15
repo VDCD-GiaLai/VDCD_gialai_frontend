@@ -457,8 +457,14 @@ const JobCard = ({ job }: { job: JobPosition }) => {
       <div className="flex flex-wrap items-center gap-4 text-xs text-secondary dark:text-zinc-400 mb-5">
         <span className="inline-flex items-center gap-1.5">
           <Clock className="w-3.5 h-3.5" weight="thin" />
-          {job.employmentType}
+          {mapType(job.employmentType)}
         </span>
+        {job.location && (
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5" weight="thin" />
+            {job.location}
+          </span>
+        )}
         {job.salary && (
           <span className="inline-flex items-center gap-1.5">
             <CurrencyCircleDollar className="w-3.5 h-3.5" weight="thin" />
