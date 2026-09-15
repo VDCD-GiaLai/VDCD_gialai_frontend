@@ -36,8 +36,6 @@ export function Header() {
     normalizedPath === "/about-us" ||
     normalizedPath === "/contact" ||
     normalizedPath === "/programs" ||
-    normalizedPath === "/solution" ||
-    normalizedPath === "/solutions" ||
     normalizedPath === "/projects" ||
     normalizedPath === "/news" ||
     normalizedPath === "/careers";

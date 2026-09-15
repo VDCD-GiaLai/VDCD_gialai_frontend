@@ -37,7 +37,7 @@ const PartnersSection = lazy(() =>
 
 export default function LandingPage() {
   return (
-    <div className="w-full bg-canvas-white dark:bg-zinc-100 transition-colors duration-300">
+    <div className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
       <GsapHero />
 
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}

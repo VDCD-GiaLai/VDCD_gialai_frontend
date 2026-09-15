@@ -147,7 +147,6 @@ const DesktopMegaMenu = ({
   const isActiveRoute =
     pathname === "/programs" ||
     pathname.startsWith("/programs/") ||
-    pathname === "/solution" ||
     pathname.startsWith("/solution/");
 
   return (
@@ -208,13 +207,9 @@ const DesktopMegaMenu = ({
 
             {/* ── Column 2: Giải pháp Selector ── */}
             <div className="px-6" role="none">
-              <Link
-                href="/solution"
-                onClick={() => setIsOpen(false)}
-                className="mega-menu-col-header"
-              >
+              <span className="mega-menu-col-header cursor-default select-none">
                 Giải pháp
-              </Link>
+              </span>
               <ul role="menu" aria-label="Giải pháp">
                 {MEGA_MENU_SOLUTIONS.map((solution) => (
                   <li key={solution.id} role="none">
