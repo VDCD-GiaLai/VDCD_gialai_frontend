@@ -20,11 +20,19 @@ const pageBannerPromises = new Map<PageKey, Promise<PageBannerData>>();
 export const getCachedPageBanner = (
   pageKey: PageKey,
 ): PageBannerData | null => {
-  return (
+  const data =
     pageBannerCache.get(pageKey) ||
     getClientCache<PageBannerData>(`banner_${pageKey}`) ||
-    null
-  );
+    null;
+
+  if (data && data.image && data.image.includes("picsum.photos")) {
+    return {
+      ...data,
+      image: MOCK_PAGE_BANNERS[pageKey]?.image || data.image,
+    };
+  }
+
+  return data;
 };
 
 /** Preload image in browser memory for instant display */
@@ -88,9 +96,12 @@ export const fetchPageBannerFromApi = async (
       const body = await res.json();
       const data = body.data || body;
 
-      if (data && data.imageUrl) {
+      if (data) {
+        const isPlaceholder = (url?: string) =>
+          !url || url.includes("picsum.photos");
+
         const bannerData: PageBannerData = {
-          image: data.imageUrl || fallback.image,
+          image: !isPlaceholder(data.imageUrl) ? data.imageUrl : fallback.image,
           title: data.title || fallback.title,
           subtitle: data.subtitle || fallback.subtitle,
           tag: data.tag || fallback.tag,

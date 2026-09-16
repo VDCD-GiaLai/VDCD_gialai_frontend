@@ -5,6 +5,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "@phosphor-icons/react";
+import {
+  fetchPageBannerFromApi,
+  getCachedPageBanner,
+} from "@/services/banner.service";
 import "./careers-hero-slider.css";
 
 /* ── Slide data ───────────────────────────────────────── */
@@ -24,7 +28,7 @@ const SLIDES: HeroSlide[] = [
     headline: "Kiến tạo tương lai\nchuyển đổi số",
     subtitle:
       "Gia nhập đội ngũ tiên phong công nghệ, cùng VDCD xây dựng hệ sinh thái số tại Gia Lai và khu vực Tây Nguyên.",
-    image: "https://picsum.photos/id/180/1920/1080",
+    image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG",
   },
   {
     id: "slide-2",
@@ -32,7 +36,8 @@ const SLIDES: HeroSlide[] = [
     headline: "Nơi sáng tạo\nkhông giới hạn",
     subtitle:
       "Văn phòng hiện đại, đội ngũ năng động, chế độ đãi ngộ cạnh tranh và cơ hội phát triển chuyên môn liên tục.",
-    image: "https://picsum.photos/id/1015/1920/1080",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image107.png?tr=w-1600,q-85,f-auto",
   },
   {
     id: "slide-3",
@@ -40,7 +45,7 @@ const SLIDES: HeroSlide[] = [
     headline: "Phát triển cùng\nTây Nguyên",
     subtitle:
       "Đóng góp trực tiếp vào hệ sinh thái số cho vùng đất đầy tiềm năng — nơi công nghệ gặp gỡ phát triển bền vững.",
-    image: "https://picsum.photos/id/366/1920/1080",
+    image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9155.jpg",
   },
 ];
 
@@ -85,6 +90,33 @@ const childVariants = {
 /* ── Component ────────────────────────────────────────── */
 
 export function CareersHeroSlider() {
+  const isValidCustomImage = (img?: string) =>
+    Boolean(
+      img &&
+      !img.includes("picsum.photos") &&
+      !img.includes("kientaotuonglai.webp") &&
+      !img.includes("pioneer_field_tech.webp") &&
+      !img.includes("innovation_center.webp") &&
+      !img.includes("digital_command_center.webp") &&
+      !img.includes("programs_incubation.webp") &&
+      !img.includes("sol_"),
+    );
+
+  const [slides, setSlides] = useState<HeroSlide[]>(() => {
+    const cached = getCachedPageBanner("careers");
+    if (cached && isValidCustomImage(cached.image)) {
+      return [
+        {
+          ...SLIDES[0],
+          image: cached.image,
+        },
+        SLIDES[1],
+        SLIDES[2],
+      ];
+    }
+    return SLIDES;
+  });
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [ringKey, setRingKey] = useState(0); // reset CSS animation
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -93,8 +125,30 @@ export function CareersHeroSlider() {
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
       : false;
 
-  const totalSlides = SLIDES.length;
-  const currentSlide = SLIDES[activeIndex];
+  useEffect(() => {
+    let cancelled = false;
+    fetchPageBannerFromApi("careers")
+      .then((data) => {
+        if (!cancelled && data && isValidCustomImage(data.image)) {
+          setSlides([
+            {
+              ...SLIDES[0],
+              image: data.image,
+            },
+            SLIDES[1],
+            SLIDES[2],
+          ]);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const totalSlides = slides.length;
+  const currentSlide = slides[activeIndex] || slides[0];
 
   const advanceSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % totalSlides);
@@ -124,7 +178,7 @@ export function CareersHeroSlider() {
       aria-roledescription="carousel"
     >
       {/* ── Background slides ──────────────────────────── */}
-      {SLIDES.map((slide, index) => (
+      {slides.map((slide, index) => (
         <div
           key={slide.id}
           className={`careers-hero-slide ${

@@ -24,7 +24,8 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   programs: {
-    image: "https://picsum.photos/id/1015/1920/1080",
+    image:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_1_E-GUKCMoPg_Njr_YThMe.jpg",
     title: "Chương trình\nđổi mới sáng tạo",
     subtitle:
       "Khám phá các chương trình chiến lược của VDCD — từ chuyển đổi số nông nghiệp, đô thị thông minh đến đào tạo nguồn nhân lực và năng lượng tái tạo cho Tây Nguyên.",
@@ -45,7 +46,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   news: {
-    image: "https://picsum.photos/id/180/1920/1080",
+    image: "/images/home/quynhon_herobanner.webp",
     title: "Cập nhật mới nhất\ntừ VDCD Group",
     subtitle:
       "Theo dõi tin tức, sự kiện và những câu chuyện đổi mới sáng tạo từ VDCD — nơi công nghệ gặp gỡ phát triển bền vững.",
@@ -66,7 +67,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   contact: {
-    image: "https://picsum.photos/id/368/1920/1080",
+    image: "/images/home/quynhon_citynightview.webp",
     title: "Kết nối cùng\nVDCD Group",
     subtitle:
       "Hãy liên hệ với chúng tôi để được tư vấn về các giải pháp chuyển đổi số, hợp tác dự án, hoặc bất kỳ thông tin nào bạn cần. Đội ngũ VDCD luôn sẵn sàng hỗ trợ.",
@@ -87,7 +88,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   careers: {
-    image: "https://picsum.photos/id/1/1920/1080",
+    image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG",
     title: "Kiến tạo tương lai\nchuyển đổi số tại Gia Lai",
     subtitle:
       "Gia nhập VDCD Group để cùng xây dựng hệ sinh thái công nghệ tiên phong, đưa các giải pháp đổi mới sáng tạo vào phục vụ phát triển kinh tế bền vững tại khu vực Tây Nguyên.",
@@ -108,7 +109,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   about: {
-    image: "https://picsum.photos/id/367/1920/1080",
+    image: "/vdcd_about_hero.webp",
     title: "KIẾN TẠO\nTƯƠNG LAI SỐ",
     subtitle:
       "VDCD Group là hệ sinh thái công nghệ hàng đầu tại Việt Nam, tiên phong cung cấp các giải pháp đổi mới sáng tạo, chuyển đổi số toàn diện và chế tạo thiết bị công nghệ cao phục vụ phát triển kinh tế vùng bền vững.",
@@ -129,7 +130,7 @@ export const MOCK_PAGE_BANNERS: Record<PageKey, PageBannerData> = {
     ],
   },
   solutions: {
-    image: "https://picsum.photos/id/201/1920/1080",
+    image: "/images/home/farm_area_drone_view.webp",
     title: "Giải pháp\ntheo lĩnh vực",
     subtitle:
       "Khám phá các giải pháp công nghệ toàn diện của chúng tôi, mang lại giá trị bền vững và hiệu quả tối ưu cho từng lĩnh vực hoạt động.",
