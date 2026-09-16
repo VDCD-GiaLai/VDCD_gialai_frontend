@@ -197,20 +197,24 @@ function InlineCard({
 interface RelatedProgramsWidgetProps {
   programs: Program[];
   title?: string;
+  maxItems?: number;
 }
 
 export function RelatedProgramsWidget({
   programs,
   title = "Chương trình nổi bật",
+  maxItems = 6,
 }: RelatedProgramsWidgetProps) {
   if (!programs.length) return null;
+
+  const displayPrograms = programs.slice(0, maxItems);
 
   return (
     <>
       {/* ── sm-2xl: 3-column card grid ── */}
       <div className="hidden sm:block 2xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {programs.slice(0, 3).map((p) => (
+          {displayPrograms.map((p) => (
             <InlineCard
               key={p.id}
               href={`/programs/${p.slug}`}
@@ -231,7 +235,7 @@ export function RelatedProgramsWidget({
 
       {/* ── Mobile: vertical card list ── */}
       <div className="sm:hidden space-y-3">
-        {programs.slice(0, 3).map((p) => (
+        {displayPrograms.map((p) => (
           <InlineCard
             key={p.id}
             href={`/programs/${p.slug}`}
@@ -256,7 +260,7 @@ export function RelatedProgramsWidget({
           icon={<Briefcase className="w-3.5 h-3.5" weight="bold" />}
           viewAllHref="/programs"
         >
-          {programs.map((program) => (
+          {displayPrograms.map((program) => (
             <Link
               key={program.id}
               href={`/programs/${program.slug}`}
@@ -298,13 +302,17 @@ export function RelatedProgramsWidget({
 interface FeaturedSolutionsWidgetProps {
   solutions: (SolutionItem | SolutionEntityContract)[];
   title?: string;
+  maxItems?: number;
 }
 
 export function FeaturedSolutionsWidget({
   solutions,
   title = "Giải pháp nổi bật",
+  maxItems = 6,
 }: FeaturedSolutionsWidgetProps) {
   if (!solutions.length) return null;
+
+  const displaySolutions = solutions.slice(0, maxItems);
 
   const openMegaMenu = () => {
     window.dispatchEvent(new CustomEvent("open-mega-menu"));
@@ -322,7 +330,7 @@ export function FeaturedSolutionsWidget({
       {/* ── sm-2xl: 3-column card grid ── */}
       <div className="hidden sm:block 2xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {solutions.slice(0, 3).map((sol) => (
+          {displaySolutions.map((sol) => (
             <InlineCard
               key={sol.id}
               href={`/solution/${sol.slug}`}
@@ -342,7 +350,7 @@ export function FeaturedSolutionsWidget({
 
       {/* ── Mobile: vertical card list ── */}
       <div className="sm:hidden space-y-3">
-        {solutions.slice(0, 3).map((sol) => (
+        {displaySolutions.map((sol) => (
           <InlineCard
             key={sol.id}
             href={`/solution/${sol.slug}`}
@@ -366,7 +374,7 @@ export function FeaturedSolutionsWidget({
           icon={<Lightbulb className="w-3.5 h-3.5" weight="bold" />}
           viewAllOnClick={openMegaMenu}
         >
-          {solutions.map((sol) => (
+          {displaySolutions.map((sol) => (
             <Link
               key={sol.id}
               href={`/solution/${sol.slug}`}
@@ -411,20 +419,24 @@ interface RelatedArticlesWidgetProps {
     | Pick<Article, "id" | "title" | "slug" | "thumbnail" | "publishedAt">
   )[];
   title?: string;
+  maxItems?: number;
 }
 
 export function RelatedArticlesWidget({
   articles,
   title = "Tin tức nổi bật",
+  maxItems = 6,
 }: RelatedArticlesWidgetProps) {
   if (!articles.length) return null;
+
+  const displayArticles = articles.slice(0, maxItems);
 
   return (
     <>
       {/* ── sm-2xl: 3-column card grid ── */}
       <div className="hidden sm:block 2xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {articles.slice(0, 3).map((art) => (
+          {displayArticles.map((art) => (
             <InlineCard
               key={art.id}
               href={`/news/${art.slug}`}
@@ -444,7 +456,7 @@ export function RelatedArticlesWidget({
 
       {/* ── Mobile: vertical card list ── */}
       <div className="sm:hidden space-y-3">
-        {articles.slice(0, 3).map((art) => (
+        {displayArticles.map((art) => (
           <InlineCard
             key={art.id}
             href={`/news/${art.slug}`}
@@ -468,7 +480,7 @@ export function RelatedArticlesWidget({
           icon={<Newspaper className="w-3.5 h-3.5" weight="bold" />}
           viewAllHref="/news"
         >
-          {articles.map((art) => (
+          {displayArticles.map((art) => (
             <Link
               key={art.id}
               href={`/news/${art.slug}`}

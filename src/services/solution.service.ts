@@ -296,7 +296,7 @@ export async function fetchSolutionBySlugFromApi(
 export async function fetchRelatedSolutionsFromApi(
   currentSlug: string,
   fieldId?: string,
-  limit = 2,
+  limit = 6,
 ): Promise<SolutionEntityContract[]> {
   try {
     const res = await fetchSolutionsFromApi(20);

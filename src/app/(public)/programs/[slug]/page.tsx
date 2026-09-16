@@ -101,7 +101,7 @@ export default async function ProgramDetailPage({
   const relatedPrograms = await fetchRelatedProgramsFromApi(
     slug,
     program.field?.id,
-    4,
+    6,
   );
 
   return (

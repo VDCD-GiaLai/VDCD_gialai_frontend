@@ -151,17 +151,33 @@ export async function fetchProgramBySlugFromApi(
 export async function fetchRelatedProgramsFromApi(
   currentSlug: string,
   fieldId?: string,
-  limit = 2,
+  limit = 6,
 ): Promise<Program[]> {
   try {
-    const res = await fetchProgramsFromApi({
-      page: 1,
-      limit: 6,
-      fieldId,
-    });
-    return res.items
-      .filter((p) => p.slug !== currentSlug && p.isPublished !== false)
-      .slice(0, limit);
+    let items: Program[] = [];
+    if (fieldId) {
+      const res = await fetchProgramsFromApi({
+        page: 1,
+        limit: 12,
+        fieldId,
+      });
+      items = res.items.filter(
+        (p) => p.slug !== currentSlug && p.isPublished !== false,
+      );
+    }
+    // If fewer than limit, fill with other published programs
+    if (items.length < limit) {
+      const allRes = await fetchProgramsFromApi({ page: 1, limit: 12 });
+      const existingIds = new Set(items.map((p) => p.id));
+      const more = allRes.items.filter(
+        (p) =>
+          p.slug !== currentSlug &&
+          p.isPublished !== false &&
+          !existingIds.has(p.id),
+      );
+      items = [...items, ...more];
+    }
+    return items.slice(0, limit);
   } catch {
     return [];
   }

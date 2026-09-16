@@ -113,16 +113,30 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Related articles fallback
+  // Related articles (ensure up to 6 items)
   let relatedArticles = article.relatedArticles ?? [];
-  if (relatedArticles.length === 0) {
+  if (relatedArticles.length < 6) {
     const allArticlesRes = await fetchArticlesFromApi({
-      limit: 6,
+      limit: 12,
       category: article.category || undefined,
     });
-    relatedArticles = allArticlesRes.items
-      .filter((a) => a.id !== article.id && a.slug !== article.slug)
-      .slice(0, 4);
+    const existingIds = new Set(
+      relatedArticles.map((a) => a.id).concat(article.id),
+    );
+    let more = allArticlesRes.items.filter(
+      (a) => !existingIds.has(a.id) && a.slug !== article.slug,
+    );
+    if (relatedArticles.length + more.length < 6) {
+      const globalArticlesRes = await fetchArticlesFromApi({ limit: 12 });
+      const globalMore = globalArticlesRes.items.filter(
+        (a) =>
+          !existingIds.has(a.id) &&
+          !more.some((m) => m.id === a.id) &&
+          a.slug !== article.slug,
+      );
+      more = [...more, ...globalMore];
+    }
+    relatedArticles = [...relatedArticles, ...more].slice(0, 6);
   }
 
   return (
