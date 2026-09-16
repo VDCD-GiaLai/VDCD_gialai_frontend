@@ -15,12 +15,15 @@ import type { PageBannerData } from "@/types/banner";
 
 export const NewsHero = () => {
   const fallbackBanner = MOCK_PAGE_BANNERS["news"];
+  const rawImg = getCachedPageBanner("news")?.image || fallbackBanner.image;
+  const initialImg = rawImg.includes("picsum.photos")
+    ? fallbackBanner.image
+    : rawImg;
+
   const [banner, setBanner] = useState<PageBannerData>(
     () => getCachedPageBanner("news") || fallbackBanner,
   );
-  const [imgSrc, setImgSrc] = useState(
-    () => (getCachedPageBanner("news") || fallbackBanner).image,
-  );
+  const [imgSrc, setImgSrc] = useState<string>(initialImg);
 
   useEffect(() => {
     let cancelled = false;
@@ -28,9 +31,12 @@ export const NewsHero = () => {
     const loadBanner = async () => {
       try {
         const data = await fetchPageBannerFromApi("news");
-        if (!cancelled) {
+        if (!cancelled && data) {
           setBanner(data);
-          setImgSrc(data.image);
+          const safeImage = data.image?.includes("picsum.photos")
+            ? fallbackBanner.image
+            : data.image;
+          setImgSrc(safeImage || fallbackBanner.image);
         }
       } catch {
         // Fallback already set in initial state
@@ -42,7 +48,7 @@ export const NewsHero = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [fallbackBanner.image]);
 
   return (
     <div className="relative w-full h-[55vh] min-h-[450px] overflow-hidden bg-zinc-950 flex flex-col justify-between p-6 md:p-12 select-none">
@@ -50,7 +56,7 @@ export const NewsHero = () => {
       <div className="absolute inset-0">
         <OptimizedImage
           src={imgSrc}
-          alt={banner.title || "Tin tức & Bài viết"}
+          alt="Tin tức & Bài viết"
           fill
           priority
           sizes="100vw"
@@ -59,7 +65,7 @@ export const NewsHero = () => {
           onError={() => setImgSrc(fallbackBanner.image)}
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 z-0" />
 
       {/* 2. Top Header Content (Breadcrumbs) */}
       <div className="relative z-30">
