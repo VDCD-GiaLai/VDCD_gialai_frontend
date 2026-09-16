@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     unoptimized: true,
+    qualities: [75, 85],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 828, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -77,6 +78,20 @@ const nextConfig: NextConfig = {
             value: "public, max-age=2592000",
           },
         ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/solution",
+        destination: "/",
+        permanent: false,
+      },
+      {
+        source: "/solutions",
+        destination: "/",
+        permanent: false,
       },
     ];
   },

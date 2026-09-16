@@ -28,6 +28,8 @@ export interface CommonCtaButton {
 }
 
 export interface CommonCtaSectionProps {
+  /** Optional ID for section navigation / anchor */
+  id?: string;
   /** Eyebrow tag với chấm đỏ animate-pulse (Mặc định: "Năng lực chuyển đổi số") */
   badge?: string;
   /** Tiêu đề chính (Mặc định: "Hơn 100+ Công trình Trọng điểm trên Toàn Quốc") */
@@ -158,6 +160,7 @@ function CtaButtonComponent({
 }
 
 export function CommonCtaSection({
+  id,
   badge = "Năng lực chuyển đổi số",
   title = "Hơn 100+ Công trình Trọng điểm trên Toàn Quốc",
   description = "Hãy liên hệ để kết nối công nghệ, chuyên gia và hệ sinh thái, cùng đưa chuyển đổi số vào thực tiễn.",
@@ -241,11 +244,16 @@ export function CommonCtaSection({
   );
 
   if (!standalone) {
-    return <div className={className}>{content}</div>;
+    return (
+      <div id={id} className={className}>
+        {content}
+      </div>
+    );
   }
 
   return (
     <section
+      id={id}
       className={cn("w-full py-12 md:py-16", className)}
       aria-label={typeof badge === "string" ? badge : "Kêu gọi hành động"}
     >

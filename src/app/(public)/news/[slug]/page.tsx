@@ -113,7 +113,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Related articles fallback if none returned on article object
+  // Related articles fallback
   let relatedArticles = article.relatedArticles ?? [];
   if (relatedArticles.length === 0) {
     const allArticlesRes = await fetchArticlesFromApi({
@@ -122,7 +122,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     });
     relatedArticles = allArticlesRes.items
       .filter((a) => a.id !== article.id && a.slug !== article.slug)
-      .slice(0, 3);
+      .slice(0, 4);
   }
 
   return (

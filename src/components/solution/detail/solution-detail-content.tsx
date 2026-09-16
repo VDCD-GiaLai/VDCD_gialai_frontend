@@ -27,6 +27,11 @@ import type {
   ListStyle,
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
+import {
+  DetailSidebar,
+  FeaturedSolutionsWidget,
+  SidebarCtaWidget,
+} from "@/components/detail-sidebar/detail-sidebar-widgets";
 import "@/components/slides/detail/slide-detail.css";
 import "@/components/programs/programs.css";
 
@@ -41,7 +46,7 @@ export function SolutionDetailContent({
 }: SolutionDetailContentProps) {
   const [isCopied, setIsCopied] = React.useState(false);
 
-  // ── 1. Reading Progress Bar ──
+  // â”€â”€ 1. Reading Progress Bar â”€â”€
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -49,7 +54,7 @@ export function SolutionDetailContent({
     restDelta: 0.001,
   });
 
-  // ── 2. Content Blocks ──
+  // â”€â”€ 2. Content Blocks â”€â”€
   const blocks: ContentBlock[] = React.useMemo(() => {
     if (!solution.content) return [];
     if (
@@ -61,7 +66,7 @@ export function SolutionDetailContent({
     return [];
   }, [solution.content]);
 
-  // ── 3. Calculate Reading Time ──
+  // â”€â”€ 3. Calculate Reading Time â”€â”€
   const readingTimeMinutes = React.useMemo(() => {
     let textContent = [solution.title, solution.shortDescription || ""].join(
       " ",
@@ -110,7 +115,7 @@ export function SolutionDetailContent({
     return Math.max(1, Math.ceil(words / 200));
   }, [solution, blocks]);
 
-  // ── 4. Social Sharing Handlers ──
+  // â”€â”€ 4. Social Sharing Handlers â”€â”€
   const handleCopyLink = async () => {
     const url = typeof window !== "undefined" ? window.location.href : "";
     const success = await copyToClipboard(url);
@@ -143,7 +148,7 @@ export function SolutionDetailContent({
     );
   };
 
-  // ── 5. Recursive List Tree Renderer (Section 4.3) ──
+  // â”€â”€ 5. Recursive List Tree Renderer (Section 4.3) â”€â”€
   const renderListTree = (
     items: (ListItem | string)[],
     depth = 0,
@@ -219,7 +224,7 @@ export function SolutionDetailContent({
     );
   };
 
-  // ── 6. Block Dispatcher (Renderer Contract Section 4) ──
+  // â”€â”€ 6. Block Dispatcher (Renderer Contract Section 4) â”€â”€
   const renderBlock = (block: ContentBlock): React.ReactNode => {
     const spacingStyle: React.CSSProperties = {
       marginTop:
@@ -281,12 +286,12 @@ export function SolutionDetailContent({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={block.url}
-                      alt={block.alt || "Hình ảnh giải pháp"}
+                      alt={block.alt || "HÃ¬nh áº£nh giáº£i phÃ¡p"}
                       className="w-full object-cover rounded-xl"
                       loading="lazy"
                     />
                   </div>
-                  {/* Chỉ render nếu có caption (Section 4.2) */}
+                  {/* Chá»‰ render náº¿u cÃ³ caption (Section 4.2) */}
                   {block.caption && (
                     <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
                       {block.caption}
@@ -333,7 +338,7 @@ export function SolutionDetailContent({
                   />
                   {(block.author || block.citation) && (
                     <footer className="slide-blog-quote__author">
-                      — {block.author}{" "}
+                      â€” {block.author}{" "}
                       {block.citation && (
                         <cite className="font-normal italic">
                           ({block.citation})
@@ -372,274 +377,204 @@ export function SolutionDetailContent({
 
   return (
     <article className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 selection:bg-accent-red selection:text-white pt-24 pb-20">
-      {/* ── 1. Reading Progress Bar ── */}
+      {/* Reading Progress Bar */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* ── 2. Top Navigation & Breadcrumbs ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
-          <nav
-            aria-label="Breadcrumb"
-            className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
-          >
-            <ol className="flex items-center gap-2 flex-wrap">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-accent-red transition-colors"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link
-                  href="/solution"
-                  className="hover:text-accent-red transition-colors"
-                >
-                  Giải pháp
-                </Link>
-              </li>
-              {solution.field && (
-                <>
-                  <li>/</li>
-                  <li className="text-zinc-600 dark:text-zinc-300">
-                    {solution.field.name}
-                  </li>
-                </>
-              )}
-            </ol>
-          </nav>
-
-          <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
-            {(solution.publishedAt || solution.createdAt) && (
-              <span className="inline-flex items-center gap-1.5 font-mono-label">
-                <Calendar className="w-3.5 h-3.5" weight="thin" />
-                {formatDate(solution.publishedAt || solution.createdAt)}
-              </span>
-            )}
-            <span className="inline-flex items-center gap-1.5 font-mono-label">
-              <Clock className="w-3.5 h-3.5" weight="thin" />
-              {readingTimeMinutes} phút đọc
-            </span>
-          </div>
-        </div>
-
-        {/* ── 3. Solution Hero Header ── */}
-        <header className="space-y-4 mb-8">
-          {solution.field?.name && (
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-[#ca2a30]/10 px-3.5 py-1 text-xs font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
-              <Briefcase className="w-3.5 h-3.5" weight="bold" />
-              <span>{solution.field.name}</span>
-            </div>
-          )}
-
-          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#011A42] dark:text-white leading-[1.15]">
-            {solution.title}
-          </h1>
-
-          {solution.shortDescription && (
-            <p className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal">
-              {solution.shortDescription}
-            </p>
-          )}
-
-          {/* Hero Thumbnail */}
-          {solution.thumbnail && (
-            <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
-              <div className="relative aspect-video w-full overflow-hidden">
-                <Image
-                  src={solution.thumbnail}
-                  alt={solution.title}
-                  fill
-                  priority
-                  sizes="(max-width: 896px) 100vw, 896px"
-                  className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                />
-              </div>
-            </figure>
-          )}
-        </header>
-
-        {/* ── 4. Main Body Stream (Block Document Model) ── */}
-        <main className="w-full pb-12">
-          {blocks.length > 0 ? (
-            <div className="space-y-6">
-              {blocks.map((block) => renderBlock(block))}
-            </div>
-          ) : (
-            <div className="py-12 text-center text-secondary dark:text-zinc-400 font-mono-label text-sm">
-              Nội dung giải pháp đang được hoàn thiện.
-            </div>
-          )}
-        </main>
-
-        {/* ── 5. Social Sharing Bar ── */}
-        <div className="pt-8 pb-12">
-          <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
-            <div className="flex items-center gap-3">
-              <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-                Chia sẻ giải pháp:
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleShareFacebook}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Facebook"
-                >
-                  <ShareNetwork className="w-4 h-4" weight="thin" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleShareTwitter}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Twitter / X"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-3.5 h-3.5"
-                    fill="currentColor"
+      {/* Relative wrapper for sidebar absolute positioning */}
+      <div className="relative max-w-[1440px] mx-auto">
+        {/* Main content centered */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 2xl:relative">
+          {/* Breadcrumbs */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
+            <nav
+              aria-label="Breadcrumb"
+              className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
+            >
+              <ol className="flex items-center gap-2 flex-wrap">
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-accent-red transition-colors"
                   >
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  className="share-button"
-                  aria-label="Sao chép liên kết giải pháp"
-                >
-                  {isCopied ? (
-                    <Check className="w-4 h-4 text-emerald-500" weight="bold" />
-                  ) : (
-                    <Copy className="w-4 h-4" weight="thin" />
-                  )}
-                </button>
-              </div>
-            </div>
+                    Trang chủ
+                  </Link>
+                </li>
+                <li>/</li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent("open-mega-menu"));
+                    }}
+                    className="hover:text-accent-red transition-colors cursor-pointer"
+                  >
+                    Giải pháp
+                  </button>
+                </li>
+                {solution.field && (
+                  <>
+                    <li>/</li>
+                    <li className="text-zinc-600 dark:text-zinc-300">
+                      {solution.field.name}
+                    </li>
+                  </>
+                )}
+              </ol>
+            </nav>
 
-            <Link
-              href="/solution"
-              className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
-            >
-              Tất cả giải pháp
-              <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-            </Link>
+            <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
+              {(solution.publishedAt || solution.createdAt) && (
+                <span className="inline-flex items-center gap-1.5 font-mono-label">
+                  <Calendar className="w-3.5 h-3.5" weight="thin" />
+                  {formatDate(solution.publishedAt || solution.createdAt)}
+                </span>
+              )}
+              <span className="inline-flex items-center gap-1.5 font-mono-label">
+                <Clock className="w-3.5 h-3.5" weight="thin" />
+                {readingTimeMinutes} phút đọc
+              </span>
+            </div>
           </div>
-        </div>
 
-        {/* ── 6. Related Solutions ── */}
-        {relatedSolutions.length > 0 && (
-          <section
-            className="pb-16"
-            aria-labelledby="related-solutions-heading"
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3
-                id="related-solutions-heading"
-                className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white"
-              >
-                Giải pháp liên quan
-              </h3>
-              <Link
-                href="/solution"
-                className="text-xs font-mono-label font-bold uppercase tracking-wider text-[#ca2a30] hover:underline"
-              >
-                Xem thêm
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {relatedSolutions.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/solution/${rel.slug}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  {rel.thumbnail && (
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                      <Image
-                        src={rel.thumbnail}
-                        alt={rel.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+          {/* Hero Header */}
+          <header className="space-y-4 mb-8">
+            {solution.field?.name && (
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#ca2a30]/10 px-3.5 py-1 text-xs font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
+                <Briefcase className="w-3.5 h-3.5" weight="bold" />
+                <span>{solution.field.name}</span>
+              </div>
+            )}
+
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#011A42] dark:text-white leading-[1.15]">
+              {solution.title}
+            </h1>
+
+            {solution.shortDescription && (
+              <p className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal">
+                {solution.shortDescription}
+              </p>
+            )}
+
+            {solution.thumbnail && (
+              <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
+                <div className="relative aspect-video w-full overflow-hidden">
+                  <Image
+                    src={solution.thumbnail}
+                    alt={solution.title}
+                    fill
+                    priority
+                    sizes="(max-width: 896px) 100vw, 896px"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+              </figure>
+            )}
+          </header>
+
+          {/* Main Body */}
+          <main className="w-full pb-12">
+            {blocks.length > 0 ? (
+              <div className="space-y-6">
+                {blocks.map((block) => renderBlock(block))}
+              </div>
+            ) : (
+              <div className="py-12 text-center text-secondary dark:text-zinc-400 font-mono-label text-sm">
+                Nội dung giải pháp đang được hoàn thiện.
+              </div>
+            )}
+          </main>
+
+          {/* Social Sharing Bar */}
+          <div className="pt-8 pb-12">
+            <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
+              <div className="flex items-center gap-3">
+                <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                  Chia sẻ giải pháp:
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleShareFacebook}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Facebook"
+                  >
+                    <ShareNetwork className="w-4 h-4" weight="thin" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleShareTwitter}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Twitter / X"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3.5 h-3.5"
+                      fill="currentColor"
+                    >
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className="share-button"
+                    aria-label="Sao chép liên kết giải pháp"
+                  >
+                    {isCopied ? (
+                      <Check
+                        className="w-4 h-4 text-emerald-500"
+                        weight="bold"
                       />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    {rel.field?.name && (
-                      <p className="text-[11px] font-bold uppercase text-[#ca2a30] tracking-wider mb-2 font-mono-label">
-                        {rel.field.name}
-                      </p>
+                    ) : (
+                      <Copy className="w-4 h-4" weight="thin" />
                     )}
-                    <h4 className="text-base font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2 uppercase font-heading">
-                      {rel.title}
-                    </h4>
-                    {rel.shortDescription && (
-                      <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed">
-                        {rel.shortDescription}
-                      </p>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+                  </button>
+                </div>
+              </div>
 
-        {/* ── 7. Related Articles ── */}
-        {solution.relatedArticles && solution.relatedArticles.length > 0 && (
-          <section className="pb-16" aria-labelledby="related-articles-heading">
-            <h3
-              id="related-articles-heading"
-              className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white mb-6"
+              <button
+                type="button"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent("open-mega-menu"));
+                }}
+                className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4 cursor-pointer"
+              >
+                Tất cả giải pháp
+                <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+              </button>
+            </div>
+          </div>
+
+          {/* Back To Solutions */}
+          <div className="pb-12 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("open-mega-menu"));
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300 cursor-pointer"
             >
-              Tin tức & Hoạt động liên quan
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {solution.relatedArticles.map((art) => (
-                <Link
-                  key={art.id}
-                  href={`/news/${art.slug}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  {art.thumbnail && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                      <Image
-                        src={art.thumbnail}
-                        alt={art.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    {art.publishedAt && (
-                      <span className="text-[11px] font-mono-label text-[#6C7E96] dark:text-zinc-400 block mb-1.5">
-                        {formatDate(art.publishedAt)}
-                      </span>
-                    )}
-                    <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {art.title}
-                    </h4>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+              <ArrowLeft weight="thin" className="w-4 h-4" />
+              Xem tất cả giải pháp
+            </button>
+          </div>
 
-        {/* ── 8. Back To Solutions Bottom Button ── */}
-        <div className="pb-12 text-center">
-          <Link
-            href="/solution"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300"
+          {/* Sidebar: inline trên mobile, absolute bên phải trên 2xl */}
+          <DetailSidebar
+            mobileTitle="Giải pháp liên quan"
+            cta={
+              <SidebarCtaWidget
+                title="Yêu cầu tư vấn giải pháp"
+                description="Đăng ký để nhận demo sản phẩm và tư vấn kỹ thuật chuyên sâu từ đội ngũ VDCD."
+                primaryLabel="Yêu cầu demo"
+              />
+            }
           >
-            <ArrowLeft weight="thin" className="w-4 h-4" />
-            Quay lại danh sách giải pháp
-          </Link>
+            <FeaturedSolutionsWidget
+              solutions={relatedSolutions}
+              title="Giải pháp nổi bật"
+            />
+          </DetailSidebar>
         </div>
       </div>
     </article>
