@@ -1,5 +1,12 @@
 import React from "react";
-import type { SlideDetailBlog, SlideDetailBlogBlock } from "@/types";
+import type {
+  SlideDetailBlog,
+  SlideDetailBlogBlock,
+  ListItem,
+  ListStyleConfig,
+  ListStyle,
+  ListType,
+} from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import "./slide-detail.css";
 
@@ -14,6 +21,81 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
   const heroPosition = heroMeta?.position ?? "center";
   const heroCaption = heroMeta?.caption ?? "";
   const blocks = content?.blocks ?? [];
+
+  // ── Recursive List Tree Renderer ──
+  const renderListTree = (
+    items: (ListItem | string)[],
+    depth = 0,
+    config?: ListStyleConfig,
+    listType: ListType = "bullet",
+    listStyle?: ListStyle,
+  ): React.ReactNode => {
+    const isOrdered =
+      listType === "ordered" ||
+      listStyle === "decimal" ||
+      listStyle === "lower-alpha" ||
+      listStyle === "upper-alpha" ||
+      listStyle === "lower-roman" ||
+      listStyle === "upper-roman";
+
+    const Tag = isOrdered ? "ol" : "ul";
+
+    const getMarkerClass = (d: number): string => {
+      if (listType === "checklist") return "list-none";
+      if (isOrdered) {
+        if (d === 0) return "list-decimal";
+        if (d === 1) return "list-[lower-alpha]";
+        return "list-[lower-roman]";
+      }
+      if (d === 0) return "list-disc";
+      if (d === 1) return "list-[circle]";
+      return "list-[square]";
+    };
+
+    return (
+      <Tag
+        className={`space-y-2 my-2 ${depth === 0 ? "pl-5" : "pl-6"} ${getMarkerClass(depth)} text-base leading-relaxed text-[#2D3748] dark:text-zinc-300`}
+      >
+        {items.map((item, idx) => {
+          if (typeof item === "string") {
+            return (
+              <li key={idx} className="my-1.5">
+                <span dangerouslySetInnerHTML={{ __html: item }} />
+              </li>
+            );
+          }
+          return (
+            <li key={item.id || idx} className="my-1.5">
+              {listType === "checklist" ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={item.checked ?? false}
+                    readOnly
+                    className="rounded border-zinc-300 dark:border-zinc-700 text-[#ca2a30] focus:ring-[#ca2a30]"
+                  />
+                  <span dangerouslySetInnerHTML={{ __html: item.content }} />
+                </div>
+              ) : (
+                <span dangerouslySetInnerHTML={{ __html: item.content }} />
+              )}
+              {item.children && item.children.length > 0 && (
+                <div style={{ paddingLeft: `${config?.indentation ?? 24}px` }}>
+                  {renderListTree(
+                    item.children,
+                    depth + 1,
+                    config,
+                    listType,
+                    listStyle,
+                  )}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </Tag>
+    );
+  };
 
   // ── 1. Hero Subcomponents ──
   const renderHeroHeader = () => (
@@ -32,11 +114,10 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
   const renderHeroExcerpt = () =>
     excerpt ? (
       <p
-        className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal my-4"
+        className="text-base sm:text-lg leading-relaxed text-[#2d3748] dark:text-zinc-300 font-normal my-4"
         key="hero-excerpt"
-      >
-        {excerpt}
-      </p>
+        dangerouslySetInnerHTML={{ __html: excerpt }}
+      />
     ) : null;
 
   const renderHeroMedia = () =>
@@ -53,9 +134,10 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
           style={{ objectPosition: heroPosition }}
         />
         {heroCaption && (
-          <figcaption className="mt-3 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-            {heroCaption}
-          </figcaption>
+          <figcaption
+            className="mt-3 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400"
+            dangerouslySetInnerHTML={{ __html: heroCaption }}
+          />
         )}
       </figure>
     ) : null;
@@ -103,29 +185,24 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
                     loading="lazy"
                   />
                   {block.caption && (
-                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-                      {block.caption}
-                    </figcaption>
+                    <figcaption
+                      className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400"
+                      dangerouslySetInnerHTML={{ __html: block.caption }}
+                    />
                   )}
                 </figure>
               ) : null;
 
             case "list":
-              return (
-                <ul className="slide-blog-list space-y-2 my-4 pl-2 text-base leading-relaxed">
-                  {block.items.map((item, idx) => (
-                    <li
-                      key={typeof item === "object" && item.id ? item.id : idx}
-                    >
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            typeof item === "object" ? item.content : item,
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
+            case "ordered_list":
+              return renderListTree(
+                block.items,
+                0,
+                block.style,
+                block.type === "ordered_list"
+                  ? "ordered"
+                  : block.listType || "bullet",
+                block.listStyle,
               );
 
             case "section":
@@ -150,8 +227,15 @@ export function BlogDetailRenderer({ blog }: BlogDetailRendererProps) {
                     className="slide-blog-quote__text"
                     dangerouslySetInnerHTML={{ __html: block.text }}
                   />
-                  {block.author && (
-                    <p className="slide-blog-quote__author">— {block.author}</p>
+                  {(block.author || block.citation) && (
+                    <footer className="slide-blog-quote__author">
+                      — {block.author}{" "}
+                      {block.citation && (
+                        <cite className="font-normal italic">
+                          ({block.citation})
+                        </cite>
+                      )}
+                    </footer>
                   )}
                 </blockquote>
               );

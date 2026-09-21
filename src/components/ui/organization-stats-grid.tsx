@@ -2,7 +2,10 @@
 
 import * as React from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import type { OrganizationStats } from "@/services/hero.service";
+import type {
+  OrganizationStats,
+  OrganizationStatItem,
+} from "@/services/hero.service";
 
 export interface StatMetricItem {
   key?: keyof OrganizationStats;
@@ -44,6 +47,7 @@ export const DEFAULT_ORG_METRICS: StatMetricItem[] = [
 ];
 
 export interface OrganizationStatsGridProps {
+  statsList?: OrganizationStatItem[] | null;
   stats?: OrganizationStats | null;
   items?: StatMetricItem[];
   showDescription?: boolean;
@@ -54,17 +58,42 @@ export interface OrganizationStatsGridProps {
 
 export function OrganizationStatsGrid({
   stats,
+  statsList,
   items = DEFAULT_ORG_METRICS,
   showDescription = true,
   itemBgClassName = "bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900/80",
   counterDuration = 3.2,
   className = "",
 }: OrganizationStatsGridProps) {
+  // Resolve metrics: prefer statsList if available, else fallback to items / DEFAULT_ORG_METRICS
+  const resolvedMetrics: StatMetricItem[] =
+    statsList && statsList.length > 0 && statsList.some((s) => s.label?.trim())
+      ? statsList.map((s, idx) => {
+          const cleanVal = s.value?.replace(/[.,\s]/g, "") || "";
+          const numMatch = cleanVal.match(/\d+/);
+          const num = numMatch ? parseInt(numMatch[0], 10) : 0;
+          const suffix = s.value?.includes("+")
+            ? "+"
+            : s.value?.includes("%")
+              ? "%"
+              : "";
+          return {
+            key: undefined,
+            value: num,
+            suffix,
+            label: s.label,
+            desc:
+              s.description ||
+              DEFAULT_ORG_METRICS[idx % DEFAULT_ORG_METRICS.length]?.desc,
+          };
+        })
+      : items;
+
   return (
     <div
       className={`grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-200 dark:bg-zinc-800 border-t border-zinc-200 dark:border-zinc-800 ${className}`}
     >
-      {items.map((item, idx) => {
+      {resolvedMetrics.map((item, idx) => {
         const val =
           (item.key && stats ? (stats as any)[item.key] : undefined) ??
           item.value ??

@@ -2,13 +2,17 @@
 
 import React from "react";
 import { OrganizationStatsGrid } from "@/components/ui/organization-stats-grid";
-import type { OrganizationStats } from "@/services/hero.service";
+import type {
+  OrganizationStats,
+  OrganizationStatItem,
+} from "@/services/hero.service";
 
 interface EcosystemNetworkProps {
   stats?: OrganizationStats | null;
+  statsList?: OrganizationStatItem[] | null;
 }
 
-export function EcosystemNetwork({ stats }: EcosystemNetworkProps) {
+export function EcosystemNetwork({ stats, statsList }: EcosystemNetworkProps) {
   return (
     <section className="space-y-8 select-none">
       {/* Section Header */}
@@ -22,7 +26,11 @@ export function EcosystemNetwork({ stats }: EcosystemNetworkProps) {
       </div>
 
       {/* Grid Stats with 1px border lines */}
-      <OrganizationStatsGrid stats={stats} showDescription={true} />
+      <OrganizationStatsGrid
+        stats={stats}
+        statsList={statsList}
+        showDescription={true}
+      />
     </section>
   );
 }

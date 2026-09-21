@@ -18,37 +18,70 @@ interface CoreFunctionItem {
   tag: string;
 }
 
-export function CoreFunctions() {
-  const functions: CoreFunctionItem[] = [
-    {
-      id: "01",
-      title: "Xây dựng và vận hành hạ tầng dữ liệu số",
-      desc: "Lập mô hình 3D số hóa không gian, chuẩn hóa hệ thống GIS và vận hành điện toán mây phục vụ dữ liệu số toàn tỉnh.",
-      icon: FiServer,
-      tag: "HẠ TẦNG SỐ",
-    },
-    {
-      id: "02",
-      title: "Triển khai nền tảng công nghệ phục vụ tỉnh và doanh nghiệp",
-      desc: "Cung cấp hệ thống giám sát IOC/DOC, tự động hóa AutoTimelapse và nền tảng Digital Twin hỗ trợ quản trị và vận hành.",
-      icon: FiLayers,
-      tag: "NỀN TẢNG CÔNG NGHỆ",
-    },
-    {
-      id: "03",
-      title: "Kết nối hệ sinh thái đổi mới sáng tạo",
-      desc: "Xây dựng mạng lưới liên kết giữa cơ quan quản lý, viện nghiên cứu, tập đoàn công nghệ và quỹ đầu tư trong nước.",
-      icon: FiShare2,
-      tag: "HỆ SINH THÁI",
-    },
-    {
-      id: "04",
-      title: "Ươm tạo, đào tạo và hỗ trợ doanh nghiệp công nghệ",
-      desc: "Đào tạo nhân lực số chất lượng cao, tư vấn chuyển đổi số và chuyển giao giải pháp cho doanh nghiệp địa phương.",
-      icon: FiAward,
-      tag: "ƯƠM TẠO & ĐÀO TẠO",
-    },
+interface CoreFunctionsProps {
+  items?: CoreFunctionItem[];
+  orientations?: Array<{ title: string; description?: string }>;
+}
+
+const DEFAULT_FUNCTIONS: CoreFunctionItem[] = [
+  {
+    id: "01",
+    title: "Xây dựng và vận hành hạ tầng dữ liệu số",
+    desc: "Lập mô hình 3D số hóa không gian, chuẩn hóa hệ thống GIS và vận hành điện toán mây phục vụ dữ liệu số toàn tỉnh.",
+    icon: FiServer,
+    tag: "HẠ TẦNG SỐ",
+  },
+  {
+    id: "02",
+    title: "Triển khai nền tảng công nghệ phục vụ tỉnh và doanh nghiệp",
+    desc: "Cung cấp hệ thống giám sát IOC/DOC, tự động hóa AutoTimelapse và nền tảng Digital Twin hỗ trợ quản trị và vận hành.",
+    icon: FiLayers,
+    tag: "NỀN TẢNG CÔNG NGHỆ",
+  },
+  {
+    id: "03",
+    title: "Kết nối hệ sinh thái đổi mới sáng tạo",
+    desc: "Xây dựng mạng lưới liên kết giữa cơ quan quản lý, viện nghiên cứu, tập đoàn công nghệ và quỹ đầu tư trong nước.",
+    icon: FiShare2,
+    tag: "HỆ SINH THÁI",
+  },
+  {
+    id: "04",
+    title: "Ươm tạo, đào tạo và hỗ trợ doanh nghiệp công nghệ",
+    desc: "Đào tạo nhân lực số chất lượng cao, tư vấn chuyển đổi số và chuyển giao giải pháp cho doanh nghiệp địa phương.",
+    icon: FiAward,
+    tag: "ƯƠM TẠO & ĐÀO TẠO",
+  },
+];
+
+export function CoreFunctions({
+  items,
+  orientations,
+}: CoreFunctionsProps = {}) {
+  const defaultIcons = [FiServer, FiLayers, FiShare2, FiAward];
+  const defaultTags = [
+    "HẠ TẦNG SỐ",
+    "NỀN TẢNG CÔNG NGHỆ",
+    "HỆ SINH THÁI",
+    "ƯƠM TẠO & ĐÀO TẠO",
   ];
+
+  const displayFunctions: CoreFunctionItem[] =
+    items && items.length > 0
+      ? items
+      : orientations &&
+          orientations.length > 0 &&
+          orientations.some((o) => o.title?.trim())
+        ? orientations.slice(0, 4).map((o, idx) => ({
+            id: String(idx + 1).padStart(2, "0"),
+            title: o.title,
+            desc:
+              o.description?.trim() ||
+              DEFAULT_FUNCTIONS[idx % DEFAULT_FUNCTIONS.length].desc,
+            icon: defaultIcons[idx % defaultIcons.length],
+            tag: defaultTags[idx % defaultTags.length],
+          }))
+        : DEFAULT_FUNCTIONS;
 
   return (
     <section className="space-y-12 mb-8 select-none">
@@ -65,7 +98,7 @@ export function CoreFunctions() {
 
       {/* 4 Horizontal Columns Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {functions.map((item, index) => {
+        {displayFunctions.map((item, index) => {
           const Icon = item.icon;
           return (
             <motion.div
