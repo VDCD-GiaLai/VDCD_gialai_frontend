@@ -293,33 +293,6 @@ export function convertProjectContentToDocument(
     });
   }
 
-  // 5.3. Thực tế chuyển đổi số (Section "02")
-  if (project.transformationBefore || project.transformationAfter) {
-    const transChildren: SectionChildBlock[] = [];
-    if (project.transformationBefore) {
-      transChildren.push({
-        id: "blk-proj-trans-before",
-        type: "paragraph",
-        text: `<strong>Hiện trạng trước số hóa:</strong> ${project.transformationBefore}`,
-      });
-    }
-    if (project.transformationAfter) {
-      transChildren.push({
-        id: "blk-proj-trans-after",
-        type: "paragraph",
-        text: `<strong>Giải pháp công nghệ ứng dụng:</strong> ${project.transformationAfter}`,
-      });
-    }
-
-    blocks.push({
-      id: "sec-proj-transformation",
-      type: "section",
-      number: "02",
-      title: "Chuyển đổi số & Giải pháp công nghệ",
-      children: transChildren,
-    });
-  }
-
   return {
     version: 1,
     blocks,

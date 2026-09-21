@@ -43,7 +43,10 @@ export function SlideDetailContent({
       blog.excerpt || "",
       ...(blog.content?.blocks || []).map((b) => {
         if (b.type === "paragraph" || b.type === "heading") return b.text;
-        if (b.type === "list") return b.items.join(" ");
+        if (b.type === "quote") return b.text;
+        if (b.type === "highlight") return `${b.title || ""} ${b.text || ""}`;
+        if (b.type === "list" || b.type === "ordered_list")
+          return b.items.join(" ");
         if (b.type === "section") return b.title;
         return "";
       }),

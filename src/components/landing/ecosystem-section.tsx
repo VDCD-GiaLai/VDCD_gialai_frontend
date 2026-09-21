@@ -93,11 +93,33 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
    MAIN COMPONENT
    ──────────────────────────────────────────────────────── */
 
-export function EcosystemSection() {
+import type { OrganizationEcosystemMember } from "@/services/hero.service";
+
+interface EcosystemSectionProps {
+  capabilitiesDescription?: string;
+  members?: OrganizationEcosystemMember[] | null;
+}
+
+export function EcosystemSection({
+  capabilitiesDescription,
+  members,
+}: EcosystemSectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const displayItems: EcoItem[] =
+    members && members.length > 0 && members.some((m) => m.title?.trim())
+      ? members.map((m, idx) => ({
+          id: m.id || m.slug || String(idx + 1),
+          title: m.title,
+          description: m.description || "",
+          imageUrl:
+            m.imageUrl || SOLUTIONS[idx % SOLUTIONS.length]?.imageUrl || "",
+          href: m.websiteUrl || `/solution/${m.slug || m.id || ""}`,
+        }))
+      : ECOSYSTEM_ITEMS;
 
   const items = ECOSYSTEM_ITEMS;
 
@@ -187,9 +209,8 @@ export function EcosystemSection() {
               Sức mạnh từ Hệ sinh thái
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed mt-3 max-w-lg">
-              Là 1 trong 12 trung tâm thuộc hệ sinh thái VDCD Group, thừa hưởng
-              trọn vẹn năng lực đồng bộ từ khảo sát, thiết kế, giám sát kỹ thuật
-              cho đến ứng dụng AI và sản xuất nội dung số.
+              {capabilitiesDescription ||
+                "Là 1 trong 12 trung tâm thuộc hệ sinh thái VDCD Group, thừa hưởng trọn vẹn năng lực đồng bộ từ khảo sát, thiết kế, giám sát kỹ thuật cho đến ứng dụng AI và sản xuất nội dung số."}
             </p>
           </div>
 
