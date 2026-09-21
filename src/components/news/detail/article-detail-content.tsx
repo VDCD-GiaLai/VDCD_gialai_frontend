@@ -24,6 +24,11 @@ import type {
   SlideDetailBlogContent,
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
+import {
+  DetailSidebar,
+  RelatedArticlesWidget,
+  SidebarCtaWidget,
+} from "@/components/detail-sidebar/detail-sidebar-widgets";
 import "@/components/slides/detail/slide-detail.css";
 import "../news.css";
 
@@ -337,307 +342,202 @@ export function ArticleDetailContent({
   };
 
   return (
-    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      {/* ── 1. Reading Progress Bar ── */}
+    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 pt-24 pb-6">
+      {/* Reading Progress Bar */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      {/* ── 2. Top Header & Breadcrumbs ── */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-6">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
-          {/* Breadcrumb Navigation */}
-          <nav
-            aria-label="Breadcrumb"
-            className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
-          >
-            <ol className="flex items-center gap-2">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-[#ca2a30] transition-colors duration-200"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li className="opacity-50">/</li>
-              <li>
-                <Link
-                  href="/news"
-                  className="hover:text-[#ca2a30] transition-colors duration-200"
-                >
-                  Tin tức
-                </Link>
-              </li>
+      {/* Relative wrapper for sidebar absolute positioning */}
+      <div className="relative max-w-[1440px] mx-auto">
+        {/* Main content centered */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 2xl:relative">
+          {/* Breadcrumbs */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
+            <nav
+              aria-label="Breadcrumb"
+              className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
+            >
+              <ol className="flex items-center gap-2">
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-[#ca2a30] transition-colors duration-200"
+                  >
+                    Trang chủ
+                  </Link>
+                </li>
+                <li className="opacity-50">/</li>
+                <li>
+                  <Link
+                    href="/news"
+                    className="hover:text-[#ca2a30] transition-colors duration-200"
+                  >
+                    Tin tức
+                  </Link>
+                </li>
+                {article.category && (
+                  <>
+                    <li className="opacity-50">/</li>
+                    <li className="text-[#011A42] dark:text-zinc-200 line-clamp-1 max-w-[200px]">
+                      {article.category}
+                    </li>
+                  </>
+                )}
+              </ol>
+            </nav>
+
+            <div className="flex items-center gap-3 text-xs text-secondary dark:text-zinc-400">
               {article.category && (
-                <>
-                  <li className="opacity-50">/</li>
-                  <li className="text-[#011A42] dark:text-zinc-200 line-clamp-1 max-w-[200px]">
-                    {article.category}
-                  </li>
-                </>
+                <span className="inline-flex items-center rounded-full bg-[#ca2a30]/10 px-2.5 py-0.5 font-semibold text-[#ca2a30]">
+                  {article.category}
+                </span>
               )}
-            </ol>
-          </nav>
-
-          {/* Meta Bar: Category Badge + Date + Reading Time */}
-          <div className="flex items-center gap-3 text-xs text-secondary dark:text-zinc-400">
-            {article.category && (
-              <span className="inline-flex items-center rounded-full bg-[#ca2a30]/10 px-2.5 py-0.5 font-semibold text-[#ca2a30]">
-                {article.category}
-              </span>
-            )}
-            {article.publishedAt && (
+              {article.publishedAt && (
+                <span className="inline-flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5" weight="thin" />
+                  {formatDate(article.publishedAt)}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" weight="thin" />
-                {formatDate(article.publishedAt)}
+                <Clock className="w-3.5 h-3.5" weight="thin" />
+                {readingTimeMinutes} phút đọc
               </span>
+            </div>
+          </div>
+
+          {/* Visual Content Renderer */}
+          <article className="slide-detail-article py-6">
+            {/* Hero Layout Switcher */}
+            {heroPlacement === "above_title" && (
+              <>
+                {renderHeroMedia()}
+                {renderHeroHeader()}
+                {renderHeroExcerpt()}
+              </>
             )}
-            <span className="inline-flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" weight="thin" />
-              {readingTimeMinutes} phút đọc
-            </span>
-          </div>
-        </div>
-      </div>
 
-      {/* ── 3. Visual Content Renderer ── */}
-      <main className="w-full pb-12">
-        <article className="slide-detail-article px-4 sm:px-6 py-6">
-          {/* Hero Layout Switcher */}
-          {heroPlacement === "above_title" && (
-            <>
-              {renderHeroMedia()}
-              {renderHeroHeader()}
-              {renderHeroExcerpt()}
-            </>
-          )}
+            {heroPlacement === "between_title_desc" && (
+              <>
+                {renderHeroHeader()}
+                {renderHeroMedia()}
+                {renderHeroExcerpt()}
+              </>
+            )}
 
-          {heroPlacement === "between_title_desc" && (
-            <>
-              {renderHeroHeader()}
-              {renderHeroMedia()}
-              {renderHeroExcerpt()}
-            </>
-          )}
+            {heroPlacement === "below_desc" && (
+              <>
+                {renderHeroHeader()}
+                {renderHeroExcerpt()}
+                {renderHeroMedia()}
+              </>
+            )}
 
-          {heroPlacement === "below_desc" && (
-            <>
-              {renderHeroHeader()}
-              {renderHeroExcerpt()}
-              {renderHeroMedia()}
-            </>
-          )}
-
-          {/* Block Stream Renderer */}
-          {blocks.length > 0 ? (
-            <div className="mt-8 space-y-6">
-              {blocks.map((block) => renderBlock(block))}
-            </div>
-          ) : legacyHtml ? (
-            <div
-              className="mt-8 slide-blog-paragraph space-y-4"
-              dangerouslySetInnerHTML={{ __html: legacyHtml }}
-            />
-          ) : null}
-
-          {/* ── Linked Entities (Project / Program / Solution) ── */}
-          {(article.project || article.program || article.solution) && (
-            <section className="mt-12 pt-8 border-t border-whisper-border dark:border-zinc-800">
-              <h4 className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#6C7E96] dark:text-zinc-400 mb-4">
-                Nội dung liên quan
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {article.project && (
-                  <Link
-                    href={`/projects/${article.project.slug || article.project.id}`}
-                    className="group p-4 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                  >
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <Briefcase
-                        className="w-3.5 h-3.5 text-[#ca2a30]"
-                        weight="bold"
-                      />
-                      <span className="text-[11px] font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
-                        Dự án
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {article.project.title}
-                    </p>
-                  </Link>
-                )}
-
-                {article.program && (
-                  <Link
-                    href={`/programs/${article.program.slug || article.program.id}`}
-                    className="group p-4 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                  >
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <SquaresFour
-                        className="w-3.5 h-3.5 text-[#ca2a30]"
-                        weight="bold"
-                      />
-                      <span className="text-[11px] font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
-                        Chương trình
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {article.program.title}
-                    </p>
-                  </Link>
-                )}
-
-                {article.solution && (
-                  <Link
-                    href={`/solution/${article.solution.slug || article.solution.id}`}
-                    className="group p-4 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                  >
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <Lightbulb
-                        className="w-3.5 h-3.5 text-[#ca2a30]"
-                        weight="bold"
-                      />
-                      <span className="text-[11px] font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
-                        Giải pháp
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {article.solution.title}
-                    </p>
-                  </Link>
-                )}
+            {/* Block Stream Renderer */}
+            {blocks.length > 0 ? (
+              <div className="mt-8 space-y-6">
+                {blocks.map((block) => renderBlock(block))}
               </div>
-            </section>
-          )}
+            ) : legacyHtml ? (
+              <div
+                className="mt-8 slide-blog-paragraph space-y-4"
+                dangerouslySetInnerHTML={{ __html: legacyHtml }}
+              />
+            ) : null}
 
-          {/* ── Tags Cloud ── */}
-          {tagList.length > 0 && (
-            <div className="mt-8 pt-6 border-t border-whisper-border dark:border-zinc-800 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#6C7E96] dark:text-zinc-400 mr-1">
-                <Tag className="w-3.5 h-3.5" weight="thin" />
-                Thẻ:
-              </span>
-              {tagList.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/news?tags=${encodeURIComponent(tag)}`}
-                  className="inline-flex items-center px-3 py-1 rounded-lg text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-[#ca2a30]/10 hover:text-[#ca2a30] transition-colors duration-200 font-mono-label font-medium"
-                >
-                  #{tag}
-                </Link>
-              ))}
-            </div>
-          )}
-        </article>
-      </main>
+            {/* Tags Cloud */}
+            {tagList.length > 0 && (
+              <div className="mt-8 pt-6 border-t border-whisper-border dark:border-zinc-800 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#6C7E96] dark:text-zinc-400 mr-1">
+                  <Tag className="w-3.5 h-3.5" weight="thin" />
+                  Thẻ:
+                </span>
+                {tagList.map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`/news?tags=${encodeURIComponent(tag)}`}
+                    className="inline-flex items-center px-3 py-1 rounded-lg text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-[#ca2a30]/10 hover:text-[#ca2a30] transition-colors duration-200 font-mono-label font-medium"
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </article>
 
-      {/* ── 4. Social Sharing Bar ── */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
-          <div className="flex items-center gap-3">
-            <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-              Chia sẻ bài viết:
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleShareFacebook}
-                className="share-button"
-                aria-label="Chia sẻ trên Facebook"
+          {/* Social Sharing Bar */}
+          <div className="pb-12">
+            <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
+              <div className="flex items-center gap-3">
+                <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                  Chia sẻ bài viết:
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleShareFacebook}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Facebook"
+                  >
+                    <ShareNetwork className="w-4 h-4" weight="thin" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleShareTwitter}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Twitter / X"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3.5 h-3.5"
+                      fill="currentColor"
+                    >
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className="share-button"
+                    aria-label="Sao chép liên kết bài viết"
+                  >
+                    {isCopied ? (
+                      <Check
+                        className="w-4 h-4 text-emerald-500"
+                        weight="bold"
+                      />
+                    ) : (
+                      <Copy className="w-4 h-4" weight="thin" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
               >
-                <ShareNetwork className="w-4 h-4" weight="thin" />
-              </button>
-              <button
-                type="button"
-                onClick={handleShareTwitter}
-                className="share-button"
-                aria-label="Chia sẻ trên Twitter / X"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-3.5 h-3.5"
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="share-button"
-                aria-label="Sao chép liên kết bài viết"
-              >
-                {isCopied ? (
-                  <Check className="w-4 h-4 text-emerald-500" weight="bold" />
-                ) : (
-                  <Copy className="w-4 h-4" weight="thin" />
-                )}
-              </button>
+                Xem tất cả tin tức & sự kiện
+                <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+              </Link>
             </div>
           </div>
 
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
+          {/* Sidebar: inline trên mobile, absolute bên phải trên 2xl */}
+          <DetailSidebar
+            mobileTitle="Tin tức liên quan"
+            cta={
+              <SidebarCtaWidget
+                title="Nhận tư vấn chuyên sâu"
+                description="Kết nối với đội ngũ chuyên gia VDCD để được hỗ trợ giải pháp và hợp tác chiến lược."
+              />
+            }
           >
-            Xem tất cả tin tức & sự kiện
-            <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-          </Link>
+            <RelatedArticlesWidget
+              articles={relatedArticles}
+              title="Tin tức nổi bật"
+            />
+          </DetailSidebar>
         </div>
       </div>
-
-      {/* ── 5. Related Articles ── */}
-      {relatedArticles.length > 0 && (
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-20">
-          <h3 className="text-xl font-bold font-heading text-[#011A42] dark:text-white mb-6">
-            Bài viết liên quan
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedArticles.map((rel) => (
-              <Link
-                key={rel.id}
-                href={`/news/${rel.slug}`}
-                className="group block p-4 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden rounded-lg mb-3 bg-zinc-100 dark:bg-zinc-800">
-                  {rel.thumbnail ? (
-                    <Image
-                      src={rel.thumbnail}
-                      alt={rel.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-zinc-400 dark:text-zinc-600 font-heading text-xs">
-                        VDCD
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {rel.publishedAt && (
-                  <p className="text-[11px] text-secondary dark:text-zinc-500 mb-1.5 flex items-center gap-1">
-                    <Calendar className="w-3 h-3" weight="thin" />
-                    {formatDate(rel.publishedAt)}
-                  </p>
-                )}
-
-                <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                  {rel.title}
-                </h4>
-
-                {"excerpt" in rel && rel.excerpt && (
-                  <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed mt-1">
-                    {rel.excerpt}
-                  </p>
-                )}
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
 }

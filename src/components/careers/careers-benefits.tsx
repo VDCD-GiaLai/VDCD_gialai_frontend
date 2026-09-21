@@ -23,12 +23,18 @@ const ICON_MAP: Record<string, React.ComponentType<any>> = {
 };
 
 const BENEFIT_IMAGES: Record<string, string> = {
-  "Phát triển chuyên môn": "https://picsum.photos/id/180/800/500",
-  "Môi trường hiện đại": "https://picsum.photos/id/1060/800/500",
-  "Đào tạo liên tục": "https://picsum.photos/id/20/800/500",
-  "Đãi ngộ cạnh tranh": "https://picsum.photos/id/368/800/500",
-  "Tác động cộng đồng": "https://picsum.photos/id/1015/800/500",
-  "Cân bằng cuộc sống": "https://picsum.photos/id/1025/800/500",
+  "Phát triển chuyên môn":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image62.png?tr=w-800,q-85,f-auto",
+  "Môi trường hiện đại":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image107.png?tr=w-800,q-85,f-auto",
+  "Đào tạo liên tục":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image112.png?tr=w-800,q-85,f-auto",
+  "Đãi ngộ cạnh tranh":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image115.png?tr=w-800,q-85,f-auto",
+  "Tác động cộng đồng":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/articles/art_4_exact_1_E-GUKCMoPg_Njr_YThMe.jpg",
+  "Cân bằng cuộc sống":
+    "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/doc_images/solution_image101.png?tr=w-800,q-85,f-auto",
 };
 
 const fadeInUp = {
@@ -79,7 +85,7 @@ export function CareersBenefits() {
             const IconComponent = ICON_MAP[benefit.icon] || Globe;
             const imageUrl =
               BENEFIT_IMAGES[benefit.title] ||
-              "https://picsum.photos/id/180/800/500";
+              "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG";
 
             return (
               <motion.div

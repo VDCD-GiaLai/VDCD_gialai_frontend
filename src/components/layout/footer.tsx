@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FooterPartners } from "./footer-partners";
+import { FooterSolutionsLink } from "./footer-solutions-link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
 import { FaFacebookF, FaTiktok } from "react-icons/fa";
@@ -221,14 +222,7 @@ export async function Footer() {
               Chương trình đổi mới
             </span>
           </Link>
-          <Link
-            href="/solution"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Giải pháp công nghệ
-            </span>
-          </Link>
+          <FooterSolutionsLink />
           <Link
             href="/projects"
             className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"

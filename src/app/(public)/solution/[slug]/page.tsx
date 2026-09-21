@@ -97,7 +97,7 @@ export default async function SolutionDetailPage({
   const relatedSolutions = await fetchRelatedSolutionsFromApi(
     slug,
     solution.field?.id,
-    2,
+    4,
   );
 
   return (

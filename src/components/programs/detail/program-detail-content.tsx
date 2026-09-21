@@ -25,6 +25,11 @@ import type {
   ListItemObject,
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
+import {
+  DetailSidebar,
+  RelatedProgramsWidget,
+  SidebarCtaWidget,
+} from "@/components/detail-sidebar/detail-sidebar-widgets";
 import "@/components/slides/detail/slide-detail.css";
 import "../programs.css";
 
@@ -322,269 +327,193 @@ export function ProgramDetailContent({
       {/* ── 1. Reading Progress Bar ── */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* ── 2. Top Navigation & Breadcrumbs ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
-          <nav
-            aria-label="Breadcrumb"
-            className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
-          >
-            <ol className="flex items-center gap-2 flex-wrap">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-accent-red transition-colors"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link
-                  href={APP_ROUTES.PROGRAMS}
-                  className="hover:text-accent-red transition-colors"
-                >
-                  Chương trình
-                </Link>
-              </li>
-              {program.field && (
-                <>
-                  <li>/</li>
-                  <li className="text-zinc-600 dark:text-zinc-300">
-                    {program.field.name}
-                  </li>
-                </>
-              )}
-            </ol>
-          </nav>
-
-          <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
-            {(program.publishedAt || program.createdAt) && (
-              <span className="inline-flex items-center gap-1.5 font-mono-label">
-                <Calendar className="w-3.5 h-3.5" weight="thin" />
-                {formatDate(program.publishedAt || program.createdAt)}
-              </span>
-            )}
-            <span className="inline-flex items-center gap-1.5 font-mono-label">
-              <Clock className="w-3.5 h-3.5" weight="thin" />
-              {readingTimeMinutes} phút đọc
-            </span>
-          </div>
-        </div>
-
-        {/* ── 3. Program Hero Header ── */}
-        <header className="space-y-4 mb-8">
-          {program.field?.name && (
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-[#ca2a30]/10 px-3.5 py-1 text-xs font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
-              <Briefcase className="w-3.5 h-3.5" weight="bold" />
-              <span>{program.field.name}</span>
-            </div>
-          )}
-
-          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#011A42] dark:text-white leading-[1.15]">
-            {program.title}
-          </h1>
-
-          {program.shortDescription && (
-            <p className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal">
-              {program.shortDescription}
-            </p>
-          )}
-
-          {/* Hero Thumbnail */}
-          {program.thumbnail && (
-            <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
-              <div className="relative aspect-video w-full overflow-hidden">
-                <Image
-                  src={program.thumbnail}
-                  alt={program.title}
-                  fill
-                  priority
-                  sizes="(max-width: 896px) 100vw, 896px"
-                  className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                />
-              </div>
-            </figure>
-          )}
-        </header>
-
-        {/* ── 4. Main Body Stream ── */}
-        <main className="w-full pb-12">
-          {blocks.length > 0 ? (
-            <div className="space-y-6">
-              {blocks.map((block) => renderBlock(block))}
-            </div>
-          ) : legacyHtml ? (
-            <div
-              className="slide-blog-paragraph space-y-4 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: legacyHtml }}
-            />
-          ) : null}
-        </main>
-
-        {/* ── 5. Social Sharing Bar ── */}
-        <div className="pt-8 pb-12">
-          <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
-            <div className="flex items-center gap-3">
-              <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-                Chia sẻ chương trình:
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleShareFacebook}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Facebook"
-                >
-                  <ShareNetwork className="w-4 h-4" weight="thin" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleShareTwitter}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Twitter / X"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-3.5 h-3.5"
-                    fill="currentColor"
-                  >
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  className="share-button"
-                  aria-label="Sao chép liên kết chương trình"
-                >
-                  {isCopied ? (
-                    <Check className="w-4 h-4 text-emerald-500" weight="bold" />
-                  ) : (
-                    <Copy className="w-4 h-4" weight="thin" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <Link
-              href={APP_ROUTES.PROGRAMS}
-              className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
+      {/* ── Relative wrapper for sidebar absolute positioning ── */}
+      <div className="relative max-w-[1440px] mx-auto">
+        {/* ── Main content centered like original ── */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 2xl:relative">
+          {/* ── 2. Top Navigation & Breadcrumbs ── */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
+            <nav
+              aria-label="Breadcrumb"
+              className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
             >
-              Tất cả chương trình
-              <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-            </Link>
-          </div>
-        </div>
+              <ol className="flex items-center gap-2 flex-wrap">
+                <li>
+                  <Link
+                    href="/"
+                    className="hover:text-accent-red transition-colors"
+                  >
+                    Trang chủ
+                  </Link>
+                </li>
+                <li>/</li>
+                <li>
+                  <Link
+                    href={APP_ROUTES.PROGRAMS}
+                    className="hover:text-accent-red transition-colors"
+                  >
+                    Chương trình
+                  </Link>
+                </li>
+                {program.field && (
+                  <>
+                    <li>/</li>
+                    <li className="text-zinc-600 dark:text-zinc-300">
+                      {program.field.name}
+                    </li>
+                  </>
+                )}
+              </ol>
+            </nav>
 
-        {/* ── 6. Related Programs ── */}
-        {relatedPrograms.length > 0 && (
-          <section className="pb-16" aria-labelledby="related-programs-heading">
-            <div className="flex items-center justify-between mb-6">
-              <h3
-                id="related-programs-heading"
-                className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white"
-              >
-                Chương trình liên quan
-              </h3>
+            <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
+              {program.publishedAt && (
+                <span className="inline-flex items-center gap-1.5 font-mono-label">
+                  <Calendar className="w-3.5 h-3.5" weight="thin" />
+                  {formatDate(program.publishedAt)}
+                </span>
+              )}
+              <span className="inline-flex items-center gap-1.5 font-mono-label">
+                <Clock className="w-3.5 h-3.5" weight="thin" />
+                {readingTimeMinutes} phút đọc
+              </span>
+            </div>
+          </div>
+
+          {/* ── 3. Program Hero Header ── */}
+          <header className="space-y-4 mb-8">
+            {program.field?.name && (
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#ca2a30]/10 px-3.5 py-1 text-xs font-bold text-[#ca2a30] uppercase tracking-wider font-mono-label">
+                <Briefcase className="w-3.5 h-3.5" weight="bold" />
+                <span>{program.field.name}</span>
+              </div>
+            )}
+
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#011A42] dark:text-white leading-[1.15]">
+              {program.title}
+            </h1>
+
+            {program.shortDescription && (
+              <p className="text-base sm:text-lg leading-relaxed text-[#6C7E96] dark:text-zinc-400 font-normal">
+                {program.shortDescription}
+              </p>
+            )}
+
+            {program.thumbnail && (
+              <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
+                <div className="relative aspect-video w-full overflow-hidden">
+                  <Image
+                    src={program.thumbnail}
+                    alt={program.title}
+                    fill
+                    priority
+                    sizes="(max-width: 896px) 100vw, 896px"
+                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                  />
+                </div>
+              </figure>
+            )}
+          </header>
+
+          {/* ── 4. Main Body Stream ── */}
+          <main className="w-full pb-12">
+            {blocks.length > 0 ? (
+              <div className="space-y-6">
+                {blocks.map((block) => renderBlock(block))}
+              </div>
+            ) : legacyHtml ? (
+              <div
+                className="slide-blog-paragraph space-y-4 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: legacyHtml }}
+              />
+            ) : null}
+          </main>
+
+          {/* ── 5. Social Sharing Bar ── */}
+          <div className="pt-8 pb-12">
+            <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
+              <div className="flex items-center gap-3">
+                <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                  Chia sẻ chương trình:
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleShareFacebook}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Facebook"
+                  >
+                    <ShareNetwork className="w-4 h-4" weight="thin" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleShareTwitter}
+                    className="share-button"
+                    aria-label="Chia sẻ trên Twitter / X"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3.5 h-3.5"
+                      fill="currentColor"
+                    >
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className="share-button"
+                    aria-label="Sao chép liên kết chương trình"
+                  >
+                    {isCopied ? (
+                      <Check
+                        className="w-4 h-4 text-emerald-500"
+                        weight="bold"
+                      />
+                    ) : (
+                      <Copy className="w-4 h-4" weight="thin" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
               <Link
                 href={APP_ROUTES.PROGRAMS}
-                className="text-xs font-mono-label font-bold uppercase tracking-wider text-[#ca2a30] hover:underline"
+                className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
               >
-                Xem thêm
+                Tất cả chương trình
+                <ArrowRight className="w-3.5 h-3.5" weight="bold" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {relatedPrograms.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/programs/${rel.slug}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  {rel.thumbnail && (
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                      <Image
-                        src={rel.thumbnail}
-                        alt={rel.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    {rel.field?.name && (
-                      <p className="text-[11px] font-bold uppercase text-[#ca2a30] tracking-wider mb-2 font-mono-label">
-                        {rel.field.name}
-                      </p>
-                    )}
-                    <h4 className="text-base font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2 uppercase font-heading">
-                      {rel.title}
-                    </h4>
-                    {rel.shortDescription && (
-                      <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed">
-                        {rel.shortDescription}
-                      </p>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+          </div>
 
-        {/* ── 7. Related Articles ── */}
-        {program.relatedArticles && program.relatedArticles.length > 0 && (
-          <section className="pb-16" aria-labelledby="related-articles-heading">
-            <h3
-              id="related-articles-heading"
-              className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white mb-6"
+          {/* ── 6. Back To Programs Bottom Button ── */}
+          <div className="pb-12 text-center">
+            <Link
+              href={APP_ROUTES.PROGRAMS}
+              className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300"
             >
-              Tin tức & Hoạt động liên quan
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {program.relatedArticles.map((art) => (
-                <Link
-                  key={art.id}
-                  href={`/news/${art.slug}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  {art.thumbnail && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                      <Image
-                        src={art.thumbnail}
-                        alt={art.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    {art.publishedAt && (
-                      <span className="text-[11px] font-mono-label text-[#6C7E96] dark:text-zinc-400 block mb-1.5">
-                        {formatDate(art.publishedAt)}
-                      </span>
-                    )}
-                    <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {art.title}
-                    </h4>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+              <ArrowLeft weight="thin" className="w-4 h-4" />
+              Quay lại danh sách chương trình
+            </Link>
+          </div>
 
-        {/* ── 8. Back To Programs Bottom Button ── */}
-        <div className="pb-12 text-center">
-          <Link
-            href={APP_ROUTES.PROGRAMS}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300"
+          {/* ── Sidebar: inline trên mobile, absolute bên phải trên 2xl ── */}
+          <DetailSidebar
+            mobileTitle="Chương trình liên quan"
+            cta={
+              <SidebarCtaWidget
+                title="Tham gia chương trình"
+                description="Đăng ký ngay để nhận thông tin chi tiết và được tư vấn trực tiếp từ đội ngũ VDCD."
+                primaryLabel="Đăng ký tham gia"
+              />
+            }
           >
-            <ArrowLeft weight="thin" className="w-4 h-4" />
-            Quay lại danh sách chương trình
-          </Link>
+            <RelatedProgramsWidget
+              programs={relatedPrograms}
+              title="Chương trình nổi bật"
+            />
+          </DetailSidebar>
         </div>
       </div>
     </article>
