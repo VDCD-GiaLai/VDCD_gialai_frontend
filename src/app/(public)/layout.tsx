@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { FloatingContactWidget } from "@/components/layout/floating-contact-widget";
 import { PageTransitionOverlay } from "@/components/layout/page-transition-overlay";
 
 export default function PublicLayout({
@@ -13,6 +14,7 @@ export default function PublicLayout({
       <Header />
       <main className="flex-grow">{children}</main>
       <Footer />
+      <FloatingContactWidget />
       <PageTransitionOverlay />
     </div>
   );
