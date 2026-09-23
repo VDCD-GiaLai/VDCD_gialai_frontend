@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { FiPhone, FiMail, FiMapPin, FiX } from "react-icons/fi";
 import { SiZalo } from "react-icons/si";
 import { FaFacebookMessenger } from "react-icons/fa6";
@@ -19,6 +19,50 @@ interface ContactActionItem {
   bgGradient: string;
   shadowColor: string;
 }
+
+const dialContainerVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.03,
+      staggerDirection: -1,
+      when: "afterChildren",
+    },
+    transitionEnd: {
+      display: "none",
+    },
+  },
+  visible: {
+    opacity: 1,
+    display: "flex",
+    transition: {
+      staggerChildren: 0.045,
+      delayChildren: 0.02,
+    },
+  },
+};
+
+const dialItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 16,
+    scale: 0.85,
+    transition: {
+      duration: 0.15,
+      ease: "easeIn",
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 450,
+      damping: 25,
+    },
+  },
+};
 
 export function FloatingContactWidget() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -143,45 +187,32 @@ export function FloatingContactWidget() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="flex flex-col items-end gap-3 mb-4 pointer-events-auto"
+              key="speed-dial-menu-container"
+              variants={dialContainerVariants}
               initial="hidden"
               animate="visible"
               exit="hidden"
+              className={`flex flex-col items-end gap-3 mb-4 ${
+                isOpen ? "pointer-events-auto" : "pointer-events-none"
+              }`}
+              style={{ pointerEvents: isOpen ? "auto" : "none" }}
+              aria-hidden={!isOpen}
             >
-              {actionItems.map((item, index) => {
+              {actionItems.map((item) => {
                 const isInternal =
                   !item.isExternal && item.href.startsWith("/");
 
+                const handleItemClick = (e: React.MouseEvent) => {
+                  if (!isOpen) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                  }
+                  setIsOpen(false);
+                };
+
                 const buttonContent = (
-                  <motion.div
-                    key={item.id}
-                    custom={index}
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: 20,
-                        scale: 0.8,
-                      },
-                      visible: (i: number) => ({
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        transition: {
-                          type: "spring",
-                          stiffness: 450,
-                          damping: 25,
-                          delay: (actionItems.length - 1 - i) * 0.045,
-                        },
-                      }),
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: 12,
-                      scale: 0.85,
-                      transition: { duration: 0.15 },
-                    }}
-                    className="group flex items-center justify-end gap-3 cursor-pointer"
-                  >
+                  <div className="group flex items-center justify-end gap-3 cursor-pointer">
                     {/* Label Badge on the Left */}
                     <div className="px-3.5 py-1.5 rounded-2xl bg-white/95 dark:bg-zinc-900/95 border border-zinc-200/80 dark:border-zinc-800 shadow-lg shadow-black/5 dark:shadow-black/20 backdrop-blur-md transition-all duration-300 group-hover:scale-105 group-hover:border-accent-red/40 group-hover:shadow-md text-right">
                       <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-100 flex items-center justify-end gap-1.5">
@@ -198,31 +229,47 @@ export function FloatingContactWidget() {
                     >
                       {item.icon}
                     </div>
-                  </motion.div>
+                  </div>
                 );
 
-                return isInternal ? (
-                  <Link
+                return (
+                  <motion.div
                     key={item.id}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="outline-none focus-visible:ring-2 focus-visible:ring-accent-red rounded-full"
-                    aria-label={`${item.name} - ${item.subtext}`}
+                    variants={dialItemVariants}
+                    className={
+                      isOpen ? "pointer-events-auto" : "pointer-events-none"
+                    }
                   >
-                    {buttonContent}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    target={item.isExternal ? "_blank" : undefined}
-                    rel={item.isExternal ? "noopener noreferrer" : undefined}
-                    onClick={() => setIsOpen(false)}
-                    className="outline-none focus-visible:ring-2 focus-visible:ring-accent-red rounded-full"
-                    aria-label={`${item.name} - ${item.subtext}`}
-                  >
-                    {buttonContent}
-                  </a>
+                    {isInternal ? (
+                      <Link
+                        href={item.href}
+                        onClick={handleItemClick}
+                        tabIndex={isOpen ? 0 : -1}
+                        className={`outline-none focus-visible:ring-2 focus-visible:ring-accent-red rounded-full block ${
+                          isOpen ? "pointer-events-auto" : "pointer-events-none"
+                        }`}
+                        aria-label={`${item.name} - ${item.subtext}`}
+                      >
+                        {buttonContent}
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        target={item.isExternal ? "_blank" : undefined}
+                        rel={
+                          item.isExternal ? "noopener noreferrer" : undefined
+                        }
+                        onClick={handleItemClick}
+                        tabIndex={isOpen ? 0 : -1}
+                        className={`outline-none focus-visible:ring-2 focus-visible:ring-accent-red rounded-full block ${
+                          isOpen ? "pointer-events-auto" : "pointer-events-none"
+                        }`}
+                        aria-label={`${item.name} - ${item.subtext}`}
+                      >
+                        {buttonContent}
+                      </a>
+                    )}
+                  </motion.div>
                 );
               })}
             </motion.div>
