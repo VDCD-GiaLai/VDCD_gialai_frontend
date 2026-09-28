@@ -6,12 +6,18 @@ export interface MegaMenuProgram {
   href: string;
 }
 
+/** A child navigation item under a solution in Column 3 */
+export interface MegaMenuChildItem {
+  label: string;
+  href?: string;
+}
+
 /** A solution item for Column 2 (selector) + Column 3 (detail) */
 export interface MegaMenuSolution {
   id: string;
   name: string;
   slug: string;
-  items: string[];
+  items: MegaMenuChildItem[];
   cta: {
     label: string;
     href: string;
@@ -48,13 +54,34 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "UAV",
     slug: "uav",
     items: [
-      "Bay quét 3D, trắc địa số và thành lập bản đồ",
-      "Scan vật thể",
-      "Tài nguyên và khoáng sản",
-      "Lâm nghiệp và nông nghiệp",
-      "Công trình và hạ tầng",
-      "Điện và năng lượng",
-      "Phòng, chống thiên tai",
+      {
+        label: "Bay quét 3D, trắc địa số và thành lập bản đồ",
+        href: "/solution/bay-quet-3d",
+      },
+      {
+        label: "Scan vật thể",
+        href: "/solution/scan-vat-the",
+      },
+      {
+        label: "Tài nguyên và khoáng sản",
+        href: "/solution/tai-nguyen-khoang-san",
+      },
+      {
+        label: "Lâm nghiệp và nông nghiệp",
+        href: "/solution/lam-nghiep-nong-nghiep",
+      },
+      {
+        label: "Công trình và hạ tầng",
+        href: "/solution/cong-trinh",
+      },
+      {
+        label: "Điện và năng lượng",
+        href: "/solution/nang-luong",
+      },
+      {
+        label: "Phòng, chống thiên tai",
+        href: "/solution/phong-chong-thien-tai",
+      },
     ],
     cta: { label: "Xem giải pháp UAV", href: "/solution/uav" },
   },
@@ -63,11 +90,26 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "AI",
     slug: "ai",
     items: [
-      "Nhận diện và số hóa ranh giới thửa đất",
-      "Nhận diện, đếm và phân loại đối tượng",
-      "Giám sát giao thông và đô thị thông minh",
-      "Phát hiện biến động và cảnh báo bất thường",
-      "Kiểm kê tài nguyên, rừng và cây trồng",
+      {
+        label: "Nhận diện và số hóa ranh giới thửa đất",
+        href: "/solution/ai",
+      },
+      {
+        label: "Nhận diện, đếm và phân loại đối tượng",
+        href: "/solution/ai",
+      },
+      {
+        label: "Giám sát giao thông và đô thị thông minh",
+        href: "/solution/ai",
+      },
+      {
+        label: "Phát hiện biến động và cảnh báo bất thường",
+        href: "/solution/ai",
+      },
+      {
+        label: "Kiểm kê tài nguyên, rừng và cây trồng",
+        href: "/solution/ai",
+      },
     ],
     cta: { label: "Xem giải pháp AI", href: "/solution/ai" },
   },
@@ -76,11 +118,26 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "Autotimelapse",
     slug: "autotimelapse",
     items: [
-      "Công trình xây dựng",
-      "Nông nghiệp",
-      "Môi trường và khí hậu",
-      "Du lịch và trải nghiệm",
-      "Giám sát an ninh",
+      {
+        label: "Công trình xây dựng",
+        href: "/solution/xay-dung",
+      },
+      {
+        label: "Nông nghiệp",
+        href: "/solution/nong-nghiep",
+      },
+      {
+        label: "Môi trường và khí hậu",
+        href: "/solution/moi-truong-khi-hau",
+      },
+      {
+        label: "Du lịch và trải nghiệm",
+        href: "/solution/du-lich",
+      },
+      {
+        label: "Giám sát an ninh",
+        href: "/solution/an-ninh",
+      },
     ],
     cta: {
       label: "Xem giải pháp Autotimelapse",
@@ -92,12 +149,30 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "VR360",
     slug: "vr360",
     items: [
-      "Bất động sản, kiến trúc và xây dựng",
-      "Du lịch, khách sạn và khu nghỉ dưỡng",
-      "Di tích, bảo tàng và không gian văn hóa",
-      "Showroom, cửa hàng và triển lãm",
-      "Giáo dục, đào tạo và văn phòng",
-      "Nhà máy và khu công nghiệp",
+      {
+        label: "Bất động sản, kiến trúc và xây dựng",
+        href: "/solution/vr360",
+      },
+      {
+        label: "Du lịch, khách sạn và khu nghỉ dưỡng",
+        href: "/solution/vr360",
+      },
+      {
+        label: "Di tích, bảo tàng và không gian văn hóa",
+        href: "/solution/vr360",
+      },
+      {
+        label: "Showroom, cửa hàng và triển lãm",
+        href: "/solution/vr360",
+      },
+      {
+        label: "Giáo dục, đào tạo và văn phòng",
+        href: "/solution/vr360",
+      },
+      {
+        label: "Nhà máy và khu công nghiệp",
+        href: "/solution/vr360",
+      },
     ],
     cta: { label: "Xem giải pháp VR360", href: "/solution/vr360" },
   },
@@ -106,11 +181,26 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "SmartScale",
     slug: "smartscale",
     items: [
-      "Khai thác khoáng sản và vật liệu xây dựng",
-      "Nhà máy sản xuất và khu công nghiệp",
-      "Vận tải, logistics, cảng và kho bãi",
-      "Nông nghiệp, chăn nuôi và nông sản",
-      "Năng lượng và sinh khối",
+      {
+        label: "Khai thác khoáng sản và vật liệu xây dựng",
+        href: "/solution/smartscale",
+      },
+      {
+        label: "Nhà máy sản xuất và khu công nghiệp",
+        href: "/solution/smartscale",
+      },
+      {
+        label: "Vận tải, logistics, cảng và kho bãi",
+        href: "/solution/smartscale",
+      },
+      {
+        label: "Nông nghiệp, chăn nuôi và nông sản",
+        href: "/solution/smartscale",
+      },
+      {
+        label: "Năng lượng và sinh khối",
+        href: "/solution/smartscale",
+      },
     ],
     cta: { label: "Xem giải pháp SmartScale", href: "/solution/smartscale" },
   },
@@ -119,7 +209,11 @@ export const MEGA_MENU_SOLUTIONS: MegaMenuSolution[] = [
     name: "Data Center",
     slug: "data-center",
     items: [
-      "Hạ tầng lưu trữ, xử lý, tích hợp và chia sẻ dữ liệu tập trung, phục vụ vận hành các hệ thống và nền tảng công nghệ.",
+      {
+        label:
+          "Hạ tầng lưu trữ, xử lý, tích hợp và chia sẻ dữ liệu tập trung, phục vụ vận hành các hệ thống và nền tảng công nghệ.",
+        href: "/solution/data-center",
+      },
     ],
     cta: { label: "Xem giải pháp Data Center", href: "/solution/data-center" },
   },

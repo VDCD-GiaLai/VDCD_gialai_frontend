@@ -280,12 +280,30 @@ const SolutionDetail = ({
         {solution.name}
       </Link>
 
-      <ul className="space-y-0.5">
-        {solution.items.map((item) => (
-          <li key={item} className="mega-menu-section-item">
-            {item}
-          </li>
-        ))}
+      <ul className="space-y-0.5" role="menu">
+        {solution.items.map((item) => {
+          const label = typeof item === "string" ? item : item.label;
+          const href = typeof item === "string" ? undefined : item.href;
+          return (
+            <li key={label} role="none">
+              {href ? (
+                <Link
+                  href={href}
+                  role="menuitem"
+                  tabIndex={0}
+                  onClick={onNavigate}
+                  className="mega-menu-section-item block"
+                >
+                  {label}
+                </Link>
+              ) : (
+                <span className="mega-menu-section-item block select-none">
+                  {label}
+                </span>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       <Link
@@ -446,14 +464,28 @@ const MobileMegaMenu = ({
               </button>
               {activeSolutionId === solution.id && (
                 <div className="pl-3 pb-2">
-                  {solution.items.map((item) => (
-                    <p
-                      key={item}
-                      className="text-sm text-zinc-600 dark:text-zinc-400 py-0.5"
-                    >
-                      {item}
-                    </p>
-                  ))}
+                  {solution.items.map((item) => {
+                    const label = typeof item === "string" ? item : item.label;
+                    const href =
+                      typeof item === "string" ? undefined : item.href;
+                    return href ? (
+                      <Link
+                        key={label}
+                        href={href}
+                        onClick={onMobileNavigate}
+                        className="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-accent-red py-1 transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <p
+                        key={label}
+                        className="text-sm text-zinc-600 dark:text-zinc-400 py-0.5"
+                      >
+                        {label}
+                      </p>
+                    );
+                  })}
                   <Link
                     href={solution.cta.href}
                     onClick={onMobileNavigate}
