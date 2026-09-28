@@ -14,6 +14,7 @@ import type {
   ContentBlock,
   SectionChildBlock,
   HeroMeta,
+  PaginatedResponse,
 } from "@/types";
 
 export interface BackendProject {
@@ -302,6 +303,61 @@ export function convertProjectContentToDocument(
       caption: project.galleryImages?.[0]?.caption || undefined,
     },
   };
+}
+
+export interface ProjectListParams {
+  page?: number;
+  limit?: number;
+}
+
+export async function fetchProjectsPaginatedFromApi(
+  params: ProjectListParams = {},
+): Promise<PaginatedResponse<ProjectEntry>> {
+  const { page = 1, limit = 10 } = params;
+  const cacheKey = `projects_paginated_page_${page}_limit_${limit}`;
+
+  const getMockPaginated = (): PaginatedResponse<ProjectEntry> => {
+    const total = PROJECTS_DATA.length;
+    const items = PROJECTS_DATA.slice((page - 1) * limit, page * limit);
+    return {
+      items,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  };
+
+  return fetchWithFallback<PaginatedResponse<ProjectEntry>>({
+    key: cacheKey,
+    useMock: USE_MOCK_DATA,
+    fallback: getMockPaginated,
+    fetcher: async () => {
+      const res = await fetch(
+        `${API_BASE_URL}/projects?page=${page}&limit=${limit}`,
+        {
+          cache: "no-store",
+        },
+      );
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      const body = await res.json();
+      const payload = body.data ?? body;
+      const rawItems: BackendProject[] =
+        payload.data ??
+        payload.items ??
+        (Array.isArray(payload) ? payload : []);
+      const items = rawItems.map((p) => mapBackendProjectToEntry(p));
+      const total: number = payload.total ?? items.length;
+
+      return {
+        items,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      };
+    },
+  });
 }
 
 export async function fetchProjectsFromApi(
