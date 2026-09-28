@@ -80,10 +80,16 @@
 
 /* ── Detail Section Item ─────────────────────────────── */
 .mega-menu-section-item {
+  display: block;
   font-size: 0.8125rem;
   color: var(--color-on-surface-variant);
   padding: 0.25rem 0;
   transition: color 0.15s ease;
+  text-decoration: none;
+}
+
+a.mega-menu-section-item {
+  cursor: pointer;
 }
 
 .mega-menu-section-item:hover {
