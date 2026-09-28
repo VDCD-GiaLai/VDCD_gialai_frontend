@@ -6,18 +6,293 @@ import { OptimizedImage } from "@/components/ui/optimized-image";
 import { MapPin, ArrowRight } from "@phosphor-icons/react";
 import type { ProjectEntry } from "@/data/projects.data";
 import { CommonCtaSection } from "@/components/ui/common-cta-section";
+import { Pagination } from "@/components/ui/pagination";
 
 interface ProjectsDirectoryProps {
   projects: ProjectEntry[];
+  total?: number;
+  currentPage?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
+  isLoading?: boolean;
+}
+
+/**
+ * Computes asymmetric editorial column span and height classes.
+ * Ensures that rows cleanly sum to 12 columns across all device sizes,
+ * even when the current page has fewer than 10 items.
+ */
+function getGridItemStyle(idx: number, count: number) {
+  // Full 10-item standard page
+  if (count === 10) {
+    if (idx === 0 || idx === 8) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1 || idx === 7) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 2 || idx === 3 || idx === 5 || idx === 6) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 4 || idx === 9) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+        isHeroWide: true,
+      };
+    }
+  }
+
+  // Adaptive layout for partial page (count < 10)
+  if (count === 1) {
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-12 h-[420px] lg:h-[480px]",
+      isHeroWide: true,
+    };
+  }
+  if (count === 2) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+      isHeroWide: false,
+    };
+  }
+  if (count === 3) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-12 h-[380px] lg:h-[420px]",
+      isHeroWide: true,
+    };
+  }
+  if (count === 4) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+      isHeroWide: false,
+    };
+  }
+  if (count === 5) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 2 || idx === 3) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+      isHeroWide: true,
+    };
+  }
+  if (count === 6) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+      isHeroWide: false,
+    };
+  }
+  if (count === 7) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 2 || idx === 3) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 4) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+        isHeroWide: true,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+      isHeroWide: false,
+    };
+  }
+  if (count === 8) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 2 || idx === 3) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 4) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 5 || idx === 6) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+      isHeroWide: true,
+    };
+  }
+  if (count === 9) {
+    if (idx === 0) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 1) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 2 || idx === 3) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 4) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+        isHeroWide: true,
+      };
+    }
+    if (idx === 5 || idx === 6) {
+      return {
+        colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+        isHeroWide: false,
+      };
+    }
+    if (idx === 7) {
+      return {
+        colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+        isHeroWide: false,
+      };
+    }
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+      isHeroWide: true,
+    };
+  }
+
+  // Fallback pattern for arbitrary counts
+  const mod = idx % 10;
+  if (mod === 0 || mod === 8) {
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]",
+      isHeroWide: true,
+    };
+  }
+  if (mod === 1 || mod === 7) {
+    return {
+      colSpanClass: "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]",
+      isHeroWide: false,
+    };
+  }
+  if (mod === 2 || mod === 3 || mod === 5 || mod === 6) {
+    return {
+      colSpanClass: "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]",
+      isHeroWide: false,
+    };
+  }
+  return {
+    colSpanClass: "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]",
+    isHeroWide: true,
+  };
 }
 
 export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
   projects,
+  total,
+  currentPage = 1,
+  totalPages = 1,
+  onPageChange,
+  isLoading = false,
 }) => {
-  // Take exactly 10 featured projects
-  const displayProjects = React.useMemo(() => {
-    return projects.slice(0, 10);
-  }, [projects]);
+  const displayProjects = projects;
+  const projectCount = total ?? projects.length;
 
   return (
     <section
@@ -36,42 +311,27 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
               NHỮNG DỰ ÁN TIÊU BIỂU
             </h2>
           </div>
+
+          <div className="flex items-center gap-4">
+            <span className="hidden md:block w-16 h-[1px] bg-zinc-300 dark:bg-zinc-700" />
+            <p className="text-secondary dark:text-zinc-400 text-xs md:text-sm font-mono uppercase tracking-[0.2em]">
+              [{projectCount}] DỰ ÁN
+            </p>
+          </div>
         </div>
 
-        {/* ── ASYMMETRIC EDITORIAL MASONRY GRID (10 FEATURED PROJECTS) ── */}
+        {/* ── ASYMMETRIC EDITORIAL MASONRY GRID ── */}
         {displayProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-16 md:mb-24">
+          <div
+            className={`grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-12 md:mb-16 transition-opacity duration-300 ${
+              isLoading ? "opacity-40 pointer-events-none" : "opacity-100"
+            }`}
+          >
             {displayProjects.map((project, idx) => {
-              // Varied architectural proportions per item:
-              // 0: Wide Panorama (8 cols)
-              // 1: Vertical Portrait (4 cols)
-              // 2: Half Canvas (6 cols)
-              // 3: Half Canvas (6 cols)
-              // 4: Full-width Ribbon (12 cols)
-              // 5: Half Canvas (6 cols)
-              // 6: Half Canvas (6 cols)
-              // 7: Vertical Portrait (4 cols)
-              // 8: Wide Panorama (8 cols)
-              // 9: Full-width Panorama (12 cols)
-              const mod = idx % 5;
-              let colSpanClass = "md:col-span-6 lg:col-span-4 h-[380px]";
-              let isHeroWide = false;
-
-              if (idx === 0 || idx === 8) {
-                colSpanClass =
-                  "md:col-span-12 lg:col-span-8 h-[420px] lg:h-[460px]";
-                isHeroWide = true;
-              } else if (idx === 1 || idx === 7) {
-                colSpanClass =
-                  "md:col-span-12 lg:col-span-4 h-[420px] lg:h-[460px]";
-              } else if (idx === 2 || idx === 3 || idx === 5 || idx === 6) {
-                colSpanClass =
-                  "md:col-span-6 lg:col-span-6 h-[380px] lg:h-[400px]";
-              } else if (idx === 4 || idx === 9) {
-                colSpanClass =
-                  "md:col-span-12 lg:col-span-12 h-[340px] lg:h-[380px]";
-                isHeroWide = true;
-              }
+              const { colSpanClass, isHeroWide } = getGridItemStyle(
+                idx,
+                displayProjects.length,
+              );
 
               return (
                 <article
@@ -157,6 +417,18 @@ export const ProjectsDirectory: React.FC<ProjectsDirectoryProps> = ({
                 </article>
               );
             })}
+          </div>
+        ) : null}
+
+        {/* ── PAGINATION CONTROLS ── */}
+        {totalPages > 1 && onPageChange ? (
+          <div className="flex justify-center mb-16 md:mb-20">
+            <Pagination
+              total={totalPages}
+              page={currentPage}
+              onChange={onPageChange}
+              showControls
+            />
           </div>
         ) : null}
 
