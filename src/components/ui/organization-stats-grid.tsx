@@ -104,8 +104,8 @@ export function OrganizationStatsGrid({
             key={idx}
             className={`py-6 md:py-8 px-4 md:px-6 flex flex-col items-center text-center group cursor-pointer transition-colors duration-300 ${itemBgClassName}`}
           >
-            {/* Number with AnimatedCounter */}
-            <div className="text-4xl md:text-5xl font-black text-black dark:text-white group-hover:text-accent-red tracking-tighter font-heading tabular-nums leading-none mb-3 transition-colors duration-300">
+            {/* Number with AnimatedCounter - Distinct Red Color for hierarchy */}
+            <div className="text-4xl md:text-5xl font-black text-accent-red tracking-tighter font-heading tabular-nums leading-none mb-3">
               <AnimatedCounter
                 target={val}
                 suffix={item.suffix}

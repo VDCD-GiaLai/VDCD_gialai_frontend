@@ -205,7 +205,7 @@ export function EcosystemSection({
             <span className="inline-block font-mono-label text-xs font-bold text-accent-red tracking-widest uppercase mb-3">
               VDCD Group
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white leading-[1.15] font-heading">
+            <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold tracking-tighter uppercase text-black dark:text-white leading-[1.1] font-heading">
               Sức mạnh từ Hệ sinh thái
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base leading-relaxed mt-3 max-w-lg">

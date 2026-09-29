@@ -167,7 +167,7 @@ export function PartnersSection() {
           </span>
 
           {/* Title */}
-          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tighter text-black dark:text-white mb-5 leading-[1.15] font-heading">
+          <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold tracking-tighter uppercase text-black dark:text-white mb-5 leading-[1.1] font-heading">
             Đồng hành cùng những thương hiệu hàng đầu
           </h2>
 

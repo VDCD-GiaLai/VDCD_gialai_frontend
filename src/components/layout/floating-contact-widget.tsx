@@ -6,7 +6,6 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { FiPhone, FiMail, FiMapPin, FiX } from "react-icons/fi";
 import { SiZalo } from "react-icons/si";
 import { FaFacebookMessenger } from "react-icons/fa6";
-import { BsChatDotsFill } from "react-icons/bs";
 import { DEFAULT_ORGANIZATION_INFO } from "@/data/hero.data";
 
 interface ContactActionItem {
@@ -278,14 +277,6 @@ export function FloatingContactWidget() {
 
         {/* Main Floating Trigger Button */}
         <div className="relative pointer-events-auto">
-          {/* Subtle Ripple/Pulse Animation when closed */}
-          {!isOpen && (
-            <>
-              <span className="absolute -inset-1.5 rounded-full bg-accent-red/25 animate-ping pointer-events-none opacity-75" />
-              <span className="absolute -inset-1 rounded-full border-2 border-accent-red/40 animate-pulse pointer-events-none" />
-            </>
-          )}
-
           <motion.button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
@@ -311,7 +302,23 @@ export function FloatingContactWidget() {
               {isOpen ? (
                 <FiX className="w-7 h-7" />
               ) : (
-                <BsChatDotsFill className="w-6 h-6 sm:w-7 sm:h-7" />
+                <svg
+                  viewBox="0 0 185 120"
+                  className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-xs"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M98.36,108.34c-2,2.62-3.8,5.24-5.91,7.59-.78,.87-2.25,1.48-3.45,1.57-13.8,1.06-13.75,.99-22.03-10.07C45.4,78.61,23.78,49.81,2.18,21c-.53-.71-1.06-1.43-2.18-2.93,8.39,0,16.08,.36,23.71-.12,5.33-.34,8.4,1.58,11.54,5.84,19.74,26.78,39.83,53.3,59.8,79.91,1.09,1.45,2.1,2.95,3.3,4.64Z"
+                    fill="#ffffff"
+                  />
+                  <path
+                    d="M105.55,98.15c-5.18-6.94-9.88-13.23-14.76-19.77,8.48-11.29,16.85-22.45,25.22-33.61,10.21-13.62,20.46-27.21,30.58-40.89,1.7-2.29,3.54-3.33,6.43-3.28,8.16,.16,16.32,.05,25.6,.05-24.6,32.82-48.53,64.75-73.07,97.48Z"
+                    fill="#ffffff"
+                    opacity="0.92"
+                  />
+                </svg>
               )}
             </motion.div>
 
