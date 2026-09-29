@@ -26,6 +26,11 @@ import type {
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import {
+  getHeadingStyles,
+  getParagraphStyles,
+  renderPublicImageBlock,
+} from "@/components/content-blocks/block-renderers";
+import {
   DetailSidebar,
   RelatedProgramsWidget,
   SidebarCtaWidget,
@@ -220,6 +225,7 @@ export function ProgramDetailContent({
               return (
                 <Tag
                   className={headingClasses[block.level] || headingClasses[2]}
+                  style={getHeadingStyles(block)}
                 >
                   {block.text}
                 </Tag>
@@ -230,27 +236,16 @@ export function ProgramDetailContent({
               return (
                 <p
                   className="slide-blog-paragraph mb-4"
+                  style={getParagraphStyles(block)}
                   dangerouslySetInnerHTML={{ __html: block.text }}
                 />
               );
 
             case "image":
-              return block.url ? (
-                <figure className="my-6 slide-blog-figure">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={block.url}
-                    alt={block.alt || "Hình ảnh chương trình"}
-                    className="w-full rounded-xl object-cover"
-                    loading="lazy"
-                  />
-                  {block.caption && (
-                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-                      {block.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ) : null;
+              return renderPublicImageBlock(
+                block,
+                program.title || "Hình ảnh chương trình",
+              );
 
             case "list":
               return (
@@ -399,7 +394,7 @@ export function ProgramDetailContent({
               </p>
             )}
 
-            {program.thumbnail && (
+            {program.thumbnail && !parsedContent?.heroMeta?.hideInContent && (
               <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
                 <div className="relative aspect-video w-full overflow-hidden">
                   <Image

@@ -8,6 +8,8 @@ export interface HeroMeta {
   position?: "top" | "center" | "bottom";
   /** Chú thích ảnh bìa hiển thị trực tiếp dưới ảnh */
   caption?: string;
+  /** Chỉ dùng làm thumbnail đại diện, ẩn khỏi phần thân nội dung bài viết */
+  hideInContent?: boolean;
 }
 
 // ─── Block Spacing ──────────────────────────────────────────
@@ -26,6 +28,14 @@ export interface HeadingBlock {
   text: string;
   /** Kích thước font độc lập với semantic level (number: 10-96px) */
   fontSize?: number;
+  lineHeight?: number;
+  color?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderRadius?: number;
+  padding?: number;
+  textAlign?: "left" | "center" | "right" | "justify";
   spacing?: BlockSpacing;
 }
 
@@ -35,6 +45,15 @@ export interface ParagraphBlock {
   type: "paragraph";
   text: string; // HTML/rich text string
   fontSize?: number;
+  lineHeight?: number;
+  color?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderRadius?: number;
+  padding?: number;
+  indent?: number;
+  textAlign?: "left" | "center" | "right" | "justify";
   spacing?: BlockSpacing;
 }
 
@@ -54,6 +73,13 @@ export interface ImageBlock {
   mediaId?: string | null; // Alias tương đương fileId
   alt?: string;
   caption?: string | null; // Chỉ thuộc Image Block
+  /** Hỗ trợ 2 ảnh song song */
+  layout?: "single" | "dual";
+  secondaryUrl?: string | null;
+  secondaryFileId?: string | null;
+  secondaryAlt?: string;
+  secondaryCaption?: string | null;
+  aspectRatio?: string | null;
   data?: ImageDataPayload; // Hỗ trợ lồng container payload
   spacing?: BlockSpacing;
 }

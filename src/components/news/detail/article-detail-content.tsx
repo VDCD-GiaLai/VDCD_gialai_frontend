@@ -25,6 +25,11 @@ import type {
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import {
+  getHeadingStyles,
+  getParagraphStyles,
+  renderPublicImageBlock,
+} from "@/components/content-blocks/block-renderers";
+import {
   DetailSidebar,
   RelatedArticlesWidget,
   SidebarCtaWidget,
@@ -197,8 +202,9 @@ export function ArticleDetailContent({
       </p>
     ) : null;
 
-  const renderHeroMedia = () =>
-    article.thumbnail ? (
+  const renderHeroMedia = () => {
+    if (heroMeta?.hideInContent) return null;
+    return article.thumbnail ? (
       <figure
         className="my-6 overflow-hidden rounded-xl slide-blog-figure"
         key="hero-media"
@@ -218,6 +224,7 @@ export function ArticleDetailContent({
         )}
       </figure>
     ) : null;
+  };
 
   // ── 7. Block Stream Renderer ──
   const renderBlock = (block: SlideDetailBlogBlock): React.ReactNode => {
@@ -236,38 +243,42 @@ export function ArticleDetailContent({
       <div key={block.id} style={spacingStyle} className="w-full">
         {(() => {
           switch (block.type) {
-            case "heading":
-              return block.level === 2 ? (
-                <h2 className="slide-blog-heading-2 mt-8 mb-4">{block.text}</h2>
-              ) : (
-                <h3 className="slide-blog-heading-3 mt-6 mb-3">{block.text}</h3>
+            case "heading": {
+              const Tag = `h${block.level || 2}` as
+                "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+              const defaultClass =
+                block.level === 1
+                  ? "text-2xl sm:text-3xl font-bold mt-8 mb-4"
+                  : block.level === 2
+                    ? "slide-blog-heading-2 mt-8 mb-4"
+                    : block.level === 3
+                      ? "slide-blog-heading-3 mt-6 mb-3"
+                      : "text-lg font-semibold mt-4 mb-2";
+
+              return (
+                <Tag
+                  className={`${defaultClass} text-[#011A42] dark:text-white font-heading`}
+                  style={getHeadingStyles(block)}
+                >
+                  {block.text}
+                </Tag>
               );
+            }
 
             case "paragraph":
               return (
                 <p
                   className="slide-blog-paragraph mb-4"
+                  style={getParagraphStyles(block)}
                   dangerouslySetInnerHTML={{ __html: block.text }}
                 />
               );
 
             case "image":
-              return block.url ? (
-                <figure className="my-6 slide-blog-figure">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={block.url}
-                    alt={block.alt || "Hình ảnh minh hoạ"}
-                    className="w-full rounded-lg object-cover"
-                    loading="lazy"
-                  />
-                  {block.caption && (
-                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-                      {block.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ) : null;
+              return renderPublicImageBlock(
+                block,
+                article.title || "Ảnh bài viết",
+              );
 
             case "list":
               return (

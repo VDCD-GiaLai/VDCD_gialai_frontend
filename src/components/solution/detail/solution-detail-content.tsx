@@ -28,6 +28,11 @@ import type {
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
 import {
+  getHeadingStyles,
+  getParagraphStyles,
+  renderPublicImageBlock,
+} from "@/components/content-blocks/block-renderers";
+import {
   DetailSidebar,
   FeaturedSolutionsWidget,
   SidebarCtaWidget,
@@ -54,7 +59,14 @@ export function SolutionDetailContent({
     restDelta: 0.001,
   });
 
-  // â”€â”€ 2. Content Blocks â”€â”€
+  // ── 2. Content Blocks ──
+  const heroMeta = React.useMemo(() => {
+    if (solution.content && typeof solution.content === "object") {
+      return (solution.content as DocumentContent).heroMeta;
+    }
+    return undefined;
+  }, [solution.content]);
+
   const blocks: ContentBlock[] = React.useMemo(() => {
     if (!solution.content) return [];
     if (
@@ -252,14 +264,10 @@ export function SolutionDetailContent({
                 5: "font-heading font-semibold text-base text-[#011A42] dark:text-white mt-4 mb-2",
                 6: "font-heading font-semibold text-sm text-[#011A42] dark:text-white mt-4 mb-2",
               };
-              const headingStyle: React.CSSProperties = {
-                fontSize: block.fontSize ? `${block.fontSize}px` : undefined,
-              };
-
               return (
                 <Tag
                   className={headingClasses[block.level] || headingClasses[2]}
-                  style={headingStyle}
+                  style={getHeadingStyles(block)}
                 >
                   {block.text}
                 </Tag>
@@ -267,38 +275,20 @@ export function SolutionDetailContent({
             }
 
             case "paragraph": {
-              const pStyle: React.CSSProperties = {
-                fontSize: block.fontSize ? `${block.fontSize}px` : undefined,
-              };
               return (
                 <p
                   className="slide-blog-paragraph mb-4"
-                  style={pStyle}
+                  style={getParagraphStyles(block)}
                   dangerouslySetInnerHTML={{ __html: block.text }}
                 />
               );
             }
 
             case "image":
-              return block.url ? (
-                <figure className="blog-preview-image my-6">
-                  <div className="overflow-hidden rounded-xl border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={block.url}
-                      alt={block.alt || "HÃ¬nh áº£nh giáº£i phÃ¡p"}
-                      className="w-full object-cover rounded-xl"
-                      loading="lazy"
-                    />
-                  </div>
-                  {/* Chá»‰ render náº¿u cÃ³ caption (Section 4.2) */}
-                  {block.caption && (
-                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-                      {block.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ) : null;
+              return renderPublicImageBlock(
+                block,
+                solution.title || "Hình ảnh giải pháp",
+              );
 
             case "list":
             case "ordered_list":
@@ -455,7 +445,7 @@ export function SolutionDetailContent({
               </p>
             )}
 
-            {solution.thumbnail && (
+            {solution.thumbnail && !heroMeta?.hideInContent && (
               <figure className="my-6 overflow-hidden rounded-2xl shadow-md border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
                 <div className="relative aspect-video w-full overflow-hidden">
                   <Image

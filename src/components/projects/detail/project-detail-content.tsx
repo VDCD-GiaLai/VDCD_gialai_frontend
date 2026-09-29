@@ -32,6 +32,11 @@ import type {
   HeroMeta,
 } from "@/types";
 import { CtaBlockRenderer } from "@/components/content-blocks/cta-block-renderer";
+import {
+  getHeadingStyles,
+  getParagraphStyles,
+  renderPublicImageBlock,
+} from "@/components/content-blocks/block-renderers";
 import { CommonCtaSection } from "@/components/ui/common-cta-section";
 import { ProjectDetailGallery } from "./project-detail-gallery";
 import "@/components/slides/detail/slide-detail.css";
@@ -295,14 +300,10 @@ export function ProjectDetailContent({
                 5: "font-heading font-semibold text-base text-[#011A42] dark:text-white mt-4 mb-2",
                 6: "font-heading font-semibold text-sm text-[#011A42] dark:text-white mt-4 mb-2",
               };
-              const headingStyle: React.CSSProperties = {
-                fontSize: block.fontSize ? `${block.fontSize}px` : undefined,
-              };
-
               return (
                 <Tag
                   className={headingClasses[block.level] || headingClasses[2]}
-                  style={headingStyle}
+                  style={getHeadingStyles(block)}
                 >
                   {block.text}
                 </Tag>
@@ -310,38 +311,20 @@ export function ProjectDetailContent({
             }
 
             case "paragraph": {
-              const pStyle: React.CSSProperties = {
-                fontSize: block.fontSize ? `${block.fontSize}px` : undefined,
-              };
               return (
                 <p
                   className="slide-blog-paragraph mb-4"
-                  style={pStyle}
+                  style={getParagraphStyles(block)}
                   dangerouslySetInnerHTML={{ __html: block.text }}
                 />
               );
             }
 
             case "image":
-              return block.url ? (
-                <figure className="blog-preview-image my-6">
-                  <div className="overflow-hidden rounded-xl border border-whisper-border dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={block.url}
-                      alt={block.alt || project?.title || "Hình ảnh dự án"}
-                      className="w-full object-cover rounded-xl"
-                      loading="lazy"
-                    />
-                  </div>
-                  {/* Chỉ render nếu có caption (Section 4.2) */}
-                  {block.caption && (
-                    <figcaption className="mt-2.5 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400">
-                      {block.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ) : null;
+              return renderPublicImageBlock(
+                block,
+                project?.title || "Hình ảnh dự án",
+              );
 
             case "list":
             case "ordered_list":
