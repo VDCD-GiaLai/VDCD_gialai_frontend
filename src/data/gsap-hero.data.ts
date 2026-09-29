@@ -16,7 +16,12 @@ function splitTitle(raw: string): [string, string] {
     const [line1, ...rest] = raw.split("\n");
     return [line1, rest.join(" ")];
   }
-  const parts = raw.split(" ");
+  const clean = raw.trim();
+  if (clean.toLowerCase().startsWith("số hóa dữ liệu")) {
+    const rest = clean.slice(6).trim();
+    return ["SỐ HÓA", rest || "DỰ ÁN VDCD"];
+  }
+  const parts = clean.split(" ");
   const mid = Math.ceil(parts.length / 2);
   return [
     parts.slice(0, mid).join(" "),

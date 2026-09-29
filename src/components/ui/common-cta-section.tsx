@@ -202,10 +202,10 @@ export function CommonCtaSection({
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-16 space-y-6 relative overflow-hidden transition-all duration-300">
+      <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 p-8 md:p-14 flex flex-col items-center relative overflow-hidden transition-all duration-300">
         {/* Eyebrow badge */}
         {badge && (
-          <div className="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-1">
+          <div className="flex items-center justify-center gap-2 text-accent-red font-mono text-xs font-bold uppercase tracking-widest mb-3">
             <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse" />
             {badge}
           </div>
@@ -213,21 +213,21 @@ export function CommonCtaSection({
 
         {/* Headline */}
         {title && (
-          <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300">
+          <h3 className="text-2xl md:text-4xl font-bold font-heading tracking-tight uppercase max-w-4xl mx-auto leading-tight text-zinc-950 dark:text-white transition-colors duration-300 mb-4">
             {title}
           </h3>
         )}
 
         {/* Description */}
         {description && (
-          <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed pb-4 transition-colors duration-300 font-sans">
+          <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-8 transition-colors duration-300 font-sans">
             {description}
           </p>
         )}
 
         {/* Dual Action Buttons */}
         {(resolvedPrimary || resolvedSecondary) && (
-          <div className="flex flex-wrap justify-center gap-4 pt-2 relative z-10">
+          <div className="flex flex-wrap justify-center gap-4 relative z-10">
             {resolvedPrimary && (
               <CtaButtonComponent button={resolvedPrimary} variant="primary" />
             )}

@@ -218,13 +218,13 @@ export function ProgramsSolutionsSection() {
   return (
     <section
       id="programs-solutions"
-      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
+      className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 py-16 md:py-24"
     >
       <div ref={containerRef}>
         {/* ── Section Header ── */}
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-8 md:mb-10">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 mb-12 md:mb-14">
           <div className="ps-reveal text-center mb-8">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white font-heading leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold tracking-tighter uppercase text-black dark:text-white font-heading leading-[1.1]">
               Hoạt động và giải pháp
             </h2>
             <p className="text-secondary dark:text-zinc-400 text-sm md:text-base mt-4 max-w-xl mx-auto leading-relaxed">

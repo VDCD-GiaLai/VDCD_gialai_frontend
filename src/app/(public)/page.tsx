@@ -43,11 +43,8 @@ export default function LandingPage() {
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
       <DigitalPioneerSection />
 
-      {/* Introduction Section - Redesigned based on Taito.ai layout */}
-      <section
-        id="about"
-        className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300"
-      ></section>
+      {/* Anchor for About section */}
+      <div id="about" />
 
       {/* Khối 4: Hoạt động và giải pháp */}
       <Suspense>

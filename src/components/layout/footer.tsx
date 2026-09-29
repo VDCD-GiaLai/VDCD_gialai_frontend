@@ -35,16 +35,16 @@ export async function Footer() {
 
   return (
     <footer className="bg-gradient-to-b from-canvas-white via-pure-surface to-slate-50/50 dark:from-[#08080a] dark:via-zinc-950 dark:to-[#0c0c0e] text-secondary border-t border-whisper-border/30 dark:border-zinc-800/40 py-16 px-6 md:px-12 transition-all duration-300">
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-12">
+      <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-8 mb-12">
         {/* Column 1: Logo & Info */}
-        <div className="lg:col-span-3 flex flex-col gap-4">
-          <div className="relative w-52 h-[100px] -ml-2 -mt-4 mb-2">
+        <div className="flex flex-col items-center text-center gap-4 shrink-0 w-full lg:w-auto lg:max-w-[260px]">
+          <div className="relative w-52 h-[100px] -mt-4 mb-2 mx-auto">
             {/* Light Mode Logo */}
             <Image
               alt="VDCD Gia Lai Logo"
               fill
               sizes="208px"
-              className="object-contain object-left dark:hidden transition-all duration-300"
+              className="object-contain object-center dark:hidden transition-all duration-300"
               src="/GL_NOBGArtboard 4.webp"
               priority
             />
@@ -53,17 +53,17 @@ export async function Footer() {
               alt="VDCD Gia Lai Logo"
               fill
               sizes="208px"
-              className="object-contain object-left hidden dark:block transition-all duration-300"
+              className="object-contain object-center hidden dark:block transition-all duration-300"
               src="/GL_NOBGArtboard 4_white.webp"
               priority
             />
           </div>
-          <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed max-w-[280px] -mt-4">
+          <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed max-w-[260px] -mt-4 text-center">
             Kiến tạo tương lai số bền vững cho doanh nghiệp và cộng đồng.
           </p>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center justify-center gap-3 mt-4">
             {facebook && (
               <a
                 href={facebook}
@@ -123,169 +123,176 @@ export async function Footer() {
           </div>
         </div>
 
-        {/* Column 2: Liên hệ */}
-        <div className="lg:col-span-3 flex flex-col gap-3">
-          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Liên hệ
-          </h3>
-          <div className="flex flex-col gap-4 text-sm text-secondary dark:text-zinc-400">
-            <div className="group flex items-start gap-3 transition-colors duration-300">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <FiMapPin
-                  className="text-base"
-                  role="none"
-                  aria-hidden="true"
-                />
-              </div>
-              <span className="leading-relaxed pt-1 select-all font-medium text-slate-600 dark:text-zinc-300 pr-4">
-                {address}
-              </span>
-            </div>
-
-            {hotline && (
-              <a
-                href={`tel:${hotline}`}
-                aria-label={`Gọi điện hotline ${hotline}`}
-                className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
-              >
+        {/* 4 Info & Navigation Columns extending all the way to the right edge */}
+        <div className="w-full lg:flex-1 grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-between items-start gap-8 lg:gap-6 lg:ml-8 xl:ml-16">
+          {/* Column 2: Liên hệ */}
+          <div className="flex flex-col gap-3 lg:max-w-[260px]">
+            <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+              Liên hệ
+            </h3>
+            <div className="flex flex-col gap-4 text-sm text-secondary dark:text-zinc-400">
+              <div className="group flex items-start gap-3 transition-colors duration-300">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                  <FiPhone
+                  <FiMapPin
                     className="text-base"
                     role="none"
                     aria-hidden="true"
                   />
                 </div>
-                <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors">
-                  {hotline}
+                <span className="leading-relaxed pt-1 select-all font-medium text-slate-600 dark:text-zinc-300 pr-2">
+                  {address}
+                </span>
+              </div>
+
+              {hotline && (
+                <a
+                  href={`tel:${hotline}`}
+                  aria-label={`Gọi điện hotline ${hotline}`}
+                  className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
+                >
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
+                    <FiPhone
+                      className="text-base"
+                      role="none"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors">
+                    {hotline}
+                  </span>
+                </a>
+              )}
+
+              <a
+                href={`mailto:${email}`}
+                aria-label={`Gửi email đến ${email}`}
+                className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
+              >
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
+                  <FiMail
+                    className="text-base"
+                    role="none"
+                    aria-hidden="true"
+                  />
+                </div>
+                <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors break-all pr-2">
+                  {email}
                 </span>
               </a>
-            )}
+            </div>
+          </div>
 
-            <a
-              href={`mailto:${email}`}
-              aria-label={`Gửi email đến ${email}`}
-              className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
+          {/* Column 3: Về chúng tôi */}
+          <div className="flex flex-col gap-3">
+            <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+              Về chúng tôi
+            </h3>
+            <Link
+              href="/about-us#vision"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
-                <FiMail className="text-base" role="none" aria-hidden="true" />
-              </div>
-              <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors break-all pr-4">
-                {email}
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Tầm nhìn & Sứ mệnh
+              </span>
+            </Link>
+            <Link
+              href="/about-us#stats"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Hệ sinh thái VDCD Group
+              </span>
+            </Link>
+            <a
+              href="/company-profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Hồ sơ năng lực
               </span>
             </a>
           </div>
-        </div>
 
-        {/* Column 3: Về chúng tôi */}
-        <div className="lg:col-span-2 flex flex-col gap-3">
-          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Về chúng tôi
-          </h3>
-          <Link
-            href="/about-us#vision"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Tầm nhìn & Sứ mệnh
-            </span>
-          </Link>
-          <Link
-            href="/about-us#stats"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Hệ sinh thái VDCD Group
-            </span>
-          </Link>
-          <a
-            href="/company-profile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Hồ sơ năng lực
-            </span>
-          </a>
-        </div>
+          {/* Column 4: Chương trình & Giải pháp */}
+          <div className="flex flex-col gap-3">
+            <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+              Chương trình & Giải pháp
+            </h3>
+            <Link
+              href="/programs"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Chương trình đổi mới
+              </span>
+            </Link>
+            <FooterSolutionsLink />
+            <Link
+              href="/projects"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Dự án tiêu biểu
+              </span>
+            </Link>
+          </div>
 
-        {/* Column 4: Chương trình & Giải pháp */}
-        <div className="lg:col-span-2 flex flex-col gap-3">
-          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Chương trình & Giải pháp
-          </h3>
-          <Link
-            href="/programs"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Chương trình đổi mới
-            </span>
-          </Link>
-          <FooterSolutionsLink />
-          <Link
-            href="/projects"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Dự án tiêu biểu
-            </span>
-          </Link>
-        </div>
-
-        {/* Column 5: Chính sách & Pháp lý */}
-        <div className="lg:col-span-2 flex flex-col gap-3">
-          <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
-            Chính sách & Pháp lý
-          </h3>
-          <Link
-            href="/policies/dieu-khoan-su-dung"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Điều khoản sử dụng
-            </span>
-          </Link>
-          <Link
-            href="/policies/chinh-sach-bao-mat"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Chính sách bảo mật
-            </span>
-          </Link>
-          <Link
-            href="/policies/hinh-thuc-thanh-toan"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Hình thức thanh toán
-            </span>
-          </Link>
-          <Link
-            href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Vận chuyển & Giao nhận
-            </span>
-          </Link>
-          <Link
-            href="/policies/chinh-sach-doi-tra"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Chính sách đổi trả
-            </span>
-          </Link>
-          <Link
-            href="/policies/tiep-nhan-giai-quyet-khieu-nai"
-            className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-              Giải quyết khiếu nại
-            </span>
-          </Link>
+          {/* Column 5: Chính sách & Pháp lý */}
+          <div className="flex flex-col gap-3">
+            <h3 className="font-heading text-xs font-semibold text-black dark:text-white uppercase tracking-widest mb-6 relative inline-block after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-accent-red/70 self-start">
+              Chính sách & Pháp lý
+            </h3>
+            <Link
+              href="/policies/dieu-khoan-su-dung"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Điều khoản sử dụng
+              </span>
+            </Link>
+            <Link
+              href="/policies/chinh-sach-bao-mat"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Chính sách bảo mật
+              </span>
+            </Link>
+            <Link
+              href="/policies/hinh-thuc-thanh-toan"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Hình thức thanh toán
+              </span>
+            </Link>
+            <Link
+              href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Vận chuyển & Giao nhận
+              </span>
+            </Link>
+            <Link
+              href="/policies/chinh-sach-doi-tra"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Chính sách đổi trả
+              </span>
+            </Link>
+            <Link
+              href="/policies/tiep-nhan-giai-quyet-khieu-nai"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Giải quyết khiếu nại
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -319,7 +326,7 @@ export async function Footer() {
             Thanh toán
           </Link>
         </div>
-        <p className="text-slate-400 dark:text-zinc-500 font-medium">
+        <p className="text-slate-400 dark:text-zinc-500 font-medium pb-8 md:pb-0 md:mr-24 lg:mr-28">
           Developed & Designed by{" "}
           <a
             href="https://looperslab.com/"

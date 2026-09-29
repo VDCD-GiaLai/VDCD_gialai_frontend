@@ -117,7 +117,7 @@ export interface OrganizationInfo {
 export const MOCK_HERO_SLIDES: HeroSlideItem[] = [
   {
     id: "3e5ee0d9-b226-4fa2-bf4f-e221d604e33e",
-    title: "SỐ HÓA DỮ LIỆU ĐẤT ĐAI",
+    title: "SỐ HÓA\nDỮ LIỆU ĐẤT ĐAI",
     subtitle: "UBND TỈNH GIA LAI",
     description:
       "Ứng dụng công nghệ bay chụp UAV, trắc địa số hóa và xây dựng cơ sở dữ liệu đất đai chính xác phục vụ công tác quản lý và quy hoạch trên toàn tỉnh.",
