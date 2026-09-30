@@ -85,9 +85,19 @@ export default async function PolicyDetailPage({ params }: PolicyPageProps) {
                 {sec.heading}
               </h2>
               <div className="space-y-3 text-slate-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed pl-8">
-                {sec.paragraphs.map((p, pIdx) => (
-                  <p key={pIdx}>{p}</p>
-                ))}
+                {sec.paragraphs.map((p, pIdx) => {
+                  const isBullet = p.startsWith("•") || p.startsWith("-");
+                  return (
+                    <p
+                      key={pIdx}
+                      className={
+                        isBullet ? "pl-3 text-slate-700 dark:text-zinc-200" : ""
+                      }
+                    >
+                      {p}
+                    </p>
+                  );
+                })}
               </div>
             </section>
           ))}
