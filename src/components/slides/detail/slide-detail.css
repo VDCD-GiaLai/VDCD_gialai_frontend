@@ -71,6 +71,20 @@
   opacity: 0.8;
 }
 
+/* ── Inline Indented Line / Selection ────────────────────── */
+.ve-indent {
+  display: block;
+  padding-left: 1.5rem;
+  border-left: 3px solid #cbd5e1;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.dark .ve-indent {
+  border-left-color: #475569;
+}
+
 /* ── Figure & Image Caption ──────────────────────────────── */
 .slide-blog-figure {
   position: relative;
