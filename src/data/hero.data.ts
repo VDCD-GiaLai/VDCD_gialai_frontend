@@ -209,7 +209,7 @@ export const DEFAULT_ORGANIZATION_INFO: OrganizationInfo = {
     "Trở thành trung tâm đổi mới sáng tạo hàng đầu khu vực Tây Nguyên vào năm 2030.",
   coreValues: "Sáng tạo — Chính trực — Hợp tác — Tác động",
   foundedYear: 2020,
-  address: "Số 226 Đống Đa, Phường Quy Nhơn, Tỉnh Gia Lai",
+  address: "62A Diên Hồng, Phường Quy Nhơn, Tỉnh Gia Lai",
   email: "dmstgialai@vdcd.vn",
   hotline: "0373600099",
   announcement: {
