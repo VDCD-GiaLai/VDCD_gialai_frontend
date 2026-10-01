@@ -73,6 +73,7 @@ export interface GsapHeroSlide {
 
 export interface JobPosition {
   id: string;
+  slug?: string;
   title: string;
   department: string;
   location: string;
