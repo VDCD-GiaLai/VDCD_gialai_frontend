@@ -20,6 +20,7 @@ import {
 } from "@/schemas/lead.schema";
 import { LeadService } from "@/services/lead.service";
 import type { CreateLeadPayload, JobPosition } from "@/types";
+import { JobRichContent } from "@/lib/job-utils";
 
 /* ── Animation ───────────────────────────────────────── */
 
@@ -220,7 +221,7 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
             </h1>
 
             {job && (
-              <div className="space-y-3 mb-6">
+              <div className="space-y-4 mb-6">
                 <div className="flex flex-wrap items-center gap-3 text-sm text-secondary dark:text-zinc-400">
                   <span className="font-mono-label text-xs font-bold uppercase tracking-wider text-accent-red">
                     {job.department}
@@ -231,13 +232,40 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                   <span>{job.employmentType}</span>
                 </div>
                 {job.salary && (
-                  <p className="text-sm text-secondary dark:text-zinc-400">
+                  <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                     Mức lương: {job.salary}
                   </p>
                 )}
-                <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed">
-                  {job.description}
-                </p>
+                {job.deadline && (
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                    Hạn nộp hồ sơ:{" "}
+                    <strong className="text-zinc-800 dark:text-zinc-200">
+                      {job.deadline}
+                    </strong>
+                  </p>
+                )}
+                <div className="border-t border-zinc-200/80 dark:border-zinc-800/80 pt-3">
+                  <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider text-accent-red mb-2">
+                    Mô tả công việc
+                  </h4>
+                  <JobRichContent html={job.description} />
+                </div>
+                {job.requirements && (
+                  <div className="border-t border-zinc-200/80 dark:border-zinc-800/80 pt-3">
+                    <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider text-accent-red mb-2">
+                      Yêu cầu ứng viên
+                    </h4>
+                    <JobRichContent html={job.requirements} />
+                  </div>
+                )}
+                {job.benefits && (
+                  <div className="border-t border-zinc-200/80 dark:border-zinc-800/80 pt-3">
+                    <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider text-accent-red mb-2">
+                      Quyền lợi
+                    </h4>
+                    <JobRichContent html={job.benefits} />
+                  </div>
+                )}
                 {job.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 pt-2">
                     {job.tags.map((tag) => (

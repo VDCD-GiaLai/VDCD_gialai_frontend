@@ -50,12 +50,16 @@ export function mapBackendJobToPosition(bj: BackendJob): JobPosition {
     employmentType: bj.type || "Toàn thời gian",
     salary: bj.salaryRange || "Thoả thuận",
     postedDate: bj.createdAt ? bj.createdAt.slice(0, 10) : "2026-07-20",
+    deadline: bj.deadline ? bj.deadline.slice(0, 10) : undefined,
     description: bj.description || "",
+    requirements: bj.requirements || "",
+    benefits: bj.benefits || "",
     experience: bj.experience || "1 - 3 năm",
     tags:
       Array.isArray(bj.tags) && bj.tags.length > 0
         ? bj.tags
         : ["VDCD", "Gia Lai", "Công nghệ"],
+    isUrgent: Boolean(bj.isUrgent),
   };
 }
 

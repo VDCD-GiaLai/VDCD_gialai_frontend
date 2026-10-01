@@ -79,9 +79,13 @@ export interface JobPosition {
   employmentType: string;
   salary?: string;
   postedDate: string;
+  deadline?: string;
   description: string;
+  requirements?: string;
+  benefits?: string;
   experience: string;
   tags: string[];
+  isUrgent?: boolean;
 }
 
 export interface Benefit {

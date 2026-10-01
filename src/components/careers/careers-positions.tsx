@@ -14,6 +14,11 @@ import {
   CheckCircle,
   Info,
   WarningCircle,
+  FileText,
+  ListChecks,
+  Gift,
+  Flame,
+  CalendarCheck,
 } from "@phosphor-icons/react";
 import { EmptyState } from "@/components/ui/empty-state";
 import { OPEN_POSITIONS, DEPARTMENTS } from "@/data/careers.data";
@@ -21,6 +26,7 @@ import { formatDate } from "@/lib/utils";
 import type { JobPosition } from "@/types";
 import { LeadService } from "@/services/lead.service";
 import { fetchJobsFromApi } from "@/services/job.service";
+import { JobRichContent, getPlainTextExcerpt } from "@/lib/job-utils";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -412,9 +418,20 @@ const JobCard = ({ job }: { job: JobPosition }) => {
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
         <div className="flex-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg md:text-xl font-bold text-black dark:text-white font-heading tracking-tight mb-2 group-hover:text-accent-red transition-colors duration-300">
-              {job.title}
-            </h3>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h3 className="text-lg md:text-xl font-bold text-black dark:text-white font-heading tracking-tight group-hover:text-accent-red transition-colors duration-300">
+                {job.title}
+              </h3>
+              {job.isUrgent && (
+                <span className="job-urgent-badge font-mono-label">
+                  <Flame
+                    weight="fill"
+                    className="w-3.5 h-3.5 text-accent-red"
+                  />
+                  Tuyển gấp
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-1.5 text-xs font-mono-label font-bold text-accent-red shrink-0 md:hidden">
               <span>{isExpanded ? "Thu gọn" : "Xem chi tiết"}</span>
               <CaretDown
@@ -425,11 +442,26 @@ const JobCard = ({ job }: { job: JobPosition }) => {
               />
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3 text-xs text-secondary dark:text-zinc-400">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-secondary dark:text-zinc-400 mt-2">
             <span className="inline-flex items-center gap-1.5 font-mono-label font-bold uppercase tracking-wider text-accent-red">
               <Briefcase className="w-3.5 h-3.5" weight="thin" />
               {job.department}
             </span>
+            {job.deadline && (
+              <>
+                <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                <span className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 font-medium">
+                  <CalendarCheck
+                    className="w-3.5 h-3.5 text-accent-red"
+                    weight="thin"
+                  />
+                  Hạn nộp:{" "}
+                  <strong className="text-zinc-800 dark:text-zinc-200 font-semibold">
+                    {formatDate(job.deadline)}
+                  </strong>
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -450,8 +482,9 @@ const JobCard = ({ job }: { job: JobPosition }) => {
         </div>
       </div>
 
-      <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed mb-4">
-        {job.description}
+      {/* Summary / Excerpt: Clean plain text without raw HTML tags */}
+      <p className="text-secondary dark:text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2 md:line-clamp-3">
+        {getPlainTextExcerpt(job.description)}
       </p>
 
       <div className="flex flex-wrap items-center gap-4 text-xs text-secondary dark:text-zinc-400 mb-5">
@@ -466,7 +499,7 @@ const JobCard = ({ job }: { job: JobPosition }) => {
           </span>
         )}
         {job.salary && (
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400">
             <CurrencyCircleDollar className="w-3.5 h-3.5" weight="thin" />
             {job.salary}
           </span>
@@ -500,61 +533,83 @@ const JobCard = ({ job }: { job: JobPosition }) => {
             className="overflow-hidden border-t border-zinc-200/80 dark:border-zinc-800/80 pt-6 mt-6 space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Job detail sections */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-50/60 dark:bg-zinc-900/40 p-5 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60">
-              <div>
-                <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider text-accent-red mb-3">
-                  Mô tả & Trách nhiệm công việc
-                </h4>
-                <ul className="space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>
-                      Trực tiếp tham gia thiết kế, phát triển và triển khai sản
-                      phẩm/dự án số hóa của công ty.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>
-                      Phối hợp cùng đội ngũ Product, Design và QA để đảm bảo
-                      tiến độ và chất lượng bàn giao.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>
-                      Tối ưu hiệu năng ứng dụng, bảo mật dữ liệu và sẵn sàng
-                      giải quyết sự cố kỹ thuật.
-                    </span>
-                  </li>
-                </ul>
+            {/* 3 Detailed Breakdown Cards: Mô tả, Yêu cầu, Quyền lợi */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-zinc-50/70 dark:bg-zinc-900/40 p-5 md:p-6 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70">
+              {/* Box 1: Mô tả công việc */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-accent-red border-b border-zinc-200/60 dark:border-zinc-800/60 pb-2">
+                  <FileText className="w-4 h-4 shrink-0" weight="bold" />
+                  <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider">
+                    Mô tả công việc
+                  </h4>
+                </div>
+                <JobRichContent
+                  html={job.description}
+                  fallback={
+                    <p className="text-xs text-zinc-500 italic">
+                      Chi tiết công việc sẽ được trao đổi cụ thể trong buổi
+                      phỏng vấn.
+                    </p>
+                  }
+                />
               </div>
 
-              <div>
-                <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider text-accent-red mb-3">
-                  Yêu cầu & Quyền lợi ứng viên
-                </h4>
-                <ul className="space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>
-                      Kinh nghiệm thực chiến tương đương vị trí tuyển dụng (
-                      {job.experience}).
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>Thành thạo công nghệ: {job.tags.join(", ")}.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
-                    <span>
-                      Hưởng đầy đủ chế độ BHXH, BHYT, thưởng KPI, hỗ trợ đào tạo
-                      chuyên sâu.
-                    </span>
-                  </li>
-                </ul>
+              {/* Box 2: Yêu cầu ứng viên */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-accent-red border-b border-zinc-200/60 dark:border-zinc-800/60 pb-2">
+                  <ListChecks className="w-4 h-4 shrink-0" weight="bold" />
+                  <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider">
+                    Yêu cầu ứng viên
+                  </h4>
+                </div>
+                <JobRichContent
+                  html={job.requirements}
+                  fallback={
+                    <ul className="space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
+                      <li className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
+                        <span>Kinh nghiệm: {job.experience}.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
+                        <span>Kỹ năng: {job.tags.join(", ")}.</span>
+                      </li>
+                    </ul>
+                  }
+                />
+              </div>
+
+              {/* Box 3: Quyền lợi ứng viên */}
+              <div className="space-y-3 md:col-span-2 lg:col-span-1">
+                <div className="flex items-center gap-2 text-accent-red border-b border-zinc-200/60 dark:border-zinc-800/60 pb-2">
+                  <Gift className="w-4 h-4 shrink-0" weight="bold" />
+                  <h4 className="text-xs font-bold font-mono-label uppercase tracking-wider">
+                    Quyền lợi ứng viên
+                  </h4>
+                </div>
+                <JobRichContent
+                  html={job.benefits}
+                  fallback={
+                    <ul className="space-y-2 text-xs text-zinc-700 dark:text-zinc-300">
+                      <li className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
+                        <span>
+                          Mức lương cạnh tranh: {job.salary || "Thỏa thuận"}.
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
+                        <span>Đầy đủ chế độ BHXH, BHYT theo quy định.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-red mt-1.5 shrink-0" />
+                        <span>
+                          Thưởng KPI, thưởng dự án, đào tạo chuyên sâu.
+                        </span>
+                      </li>
+                    </ul>
+                  }
+                />
               </div>
             </div>
 
