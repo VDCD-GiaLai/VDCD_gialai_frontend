@@ -44,6 +44,7 @@ export interface JobsResponse {
 export function mapBackendJobToPosition(bj: BackendJob): JobPosition {
   return {
     id: bj.slug || bj.id,
+    slug: bj.slug,
     title: bj.title,
     department: bj.department || "Công nghệ",
     location: bj.location || "TP. Pleiku, Gia Lai",
