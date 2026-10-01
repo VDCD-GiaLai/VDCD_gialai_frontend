@@ -191,3 +191,130 @@
   color: #ffffff !important;
   border-color: #e80002 !important;
 }
+
+/* ── Rich Text / Job Content ────────────────────────────── */
+.job-rich-content {
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.625;
+  color: #3f3f46;
+}
+
+.dark .job-rich-content {
+  color: #d4d4d8;
+}
+
+.job-rich-intro {
+  margin-bottom: 0.625rem;
+  color: inherit;
+  line-height: 1.6;
+}
+
+.job-rich-list,
+.job-rich-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.job-rich-list > li,
+.job-rich-content ul > li {
+  position: relative;
+  padding-left: 1.125rem;
+  line-height: 1.55;
+  color: inherit;
+}
+
+.job-rich-list > li::before,
+.job-rich-content ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-accent-red, #e80002);
+}
+
+.job-rich-content li > p {
+  margin: 0;
+  display: inline;
+}
+
+.job-rich-content ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.job-rich-content p {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.job-rich-content p:last-child {
+  margin-bottom: 0;
+}
+
+.job-rich-content strong,
+.job-rich-content b {
+  font-weight: 700;
+  color: #09090b;
+}
+
+.dark .job-rich-content strong,
+.dark .job-rich-content b {
+  color: #ffffff;
+}
+
+.job-rich-content em,
+.job-rich-content i {
+  font-style: italic;
+  color: #52525b;
+}
+
+.dark .job-rich-content em,
+.dark .job-rich-content i {
+  color: #a1a1aa;
+}
+
+/* ── Urgent Badge Pulse Animation ───────────────────────── */
+@keyframes urgent-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+.job-urgent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  animation: urgent-pulse 2.5s infinite ease-in-out;
+}
+
+.dark .job-urgent-badge {
+  background-color: rgba(69, 10, 10, 0.4);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+}
