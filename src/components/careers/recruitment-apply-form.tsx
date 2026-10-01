@@ -21,6 +21,7 @@ import {
 import { LeadService } from "@/services/lead.service";
 import type { CreateLeadPayload, JobPosition } from "@/types";
 import { JobRichContent } from "@/lib/job-utils";
+import { JobShareActions } from "./job-share-actions";
 
 /* ── Animation ───────────────────────────────────────── */
 
@@ -278,6 +279,12 @@ export function RecruitmentApplyForm({ job }: RecruitmentApplyFormProps) {
                     ))}
                   </div>
                 )}
+                <div className="pt-3 border-t border-zinc-200/80 dark:border-zinc-800/80 space-y-1.5">
+                  <p className="text-[10px] font-mono-label font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                    Chia sẻ bài tuyển dụng
+                  </p>
+                  <JobShareActions job={job} variant="full" />
+                </div>
               </div>
             )}
 

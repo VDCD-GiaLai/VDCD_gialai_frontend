@@ -61,6 +61,7 @@ export const BENEFITS: Benefit[] = [
 
 export const DEPARTMENTS = [
   "Tất cả",
+  "Nội Nghiệp",
   "Công nghệ",
   "Hành chính",
   "Dịch vụ số",
@@ -88,6 +89,34 @@ export const EMPLOYMENT_TYPES = [
 /* ── Open Positions ──────────────────────────────────────── */
 
 export const OPEN_POSITIONS: JobPosition[] = [
+  {
+    id: "thuc-tap-sinh-xu-ly-du-lieu-ban-do",
+    title: "NHÂN VIÊN TRIỂN KHAI VÀ VẬN HÀNH DỮ LIỆU BẢN ĐỒ 3DG",
+    department: "Nội Nghiệp",
+    location: "62A Diên Hồng, Quy Nhơn, Gia Lai",
+    employmentType: "Toàn thời gian",
+    salary: "3 - 5 triệu",
+    postedDate: "2026-08-31",
+    deadline: "2026-10-30",
+    description:
+      "<p><em>Thực hiện xây dựng, cập nhật và quản lý dữ liệu bản đồ trên nền tảng 3DG.<br></em> Kiểm tra, rà soát và chuẩn hóa dữ liệu bản đồ theo quy trình của Trung tâm.<br>* Hỗ trợ triển khai các dự án số hóa dữ liệu, bản đồ và hệ thống thông tin địa lý (GIS).<br>* Tiếp nhận yêu cầu từ khách hàng, đối tác hoặc các phòng ban liên quan để thực hiện cập nhật dữ liệu.<br>* Hỗ trợ vận hành hệ thống, theo dõi và xử lý các vấn đề phát sinh trong quá trình sử dụng.<br>* Phối hợp với đội ngũ kỹ thuật để đảm bảo dữ liệu được cập nhật chính xác và kịp thời.<br>* Thực hiện báo cáo tiến độ công việc theo yêu cầu của cấp quản lý.<br>* Tham gia các khóa đào tạo chuyên môn và các nhiệm vụ khác được phân công.</p>",
+    requirements:
+      "<ul><li><p>Sinh viên năm cuối hoặc mới tốt nghiệp các ngành: <strong>Địa lý, GIS, Bản đồ, Trắc địa, Viễn thám, Môi trường, Nông nghiệp, Thống kê, Kinh tế, CNTT</strong> hoặc các ngành liên quan.</p></li><li><p><strong>Không bắt buộc học CNTT</strong>, ưu tiên ứng viên có khả năng làm việc với dữ liệu và sử dụng máy tính tốt.</p></li><li><p>Cẩn thận, tỉ mỉ, kiên nhẫn và có khả năng làm việc với lượng lớn dữ liệu.</p></li><li><p>Có khả năng đọc hiểu và làm theo hướng dẫn/quy trình.</p></li><li><p>Biết sử dụng Excel/Google Sheets là một lợi thế.</p></li><li><p>Có kiến thức hoặc kinh nghiệm về <strong>bản đồ, GIS, dữ liệu không gian</strong> là lợi thế nhưng không bắt buộc.</p></li><li><p>Có tinh thần học hỏi và sẵn sàng làm việc theo quy trình.</p></li></ul>",
+    benefits:
+      "<ul><li><p>Trợ cấp: <strong>3 - 5 triệu/tháng</strong>.</p></li><li><p>Được đào tạo và hướng dẫn về <strong>xử lý dữ liệu bản đồ, dữ liệu không gian và quy trình kiểm soát chất lượng dữ liệu</strong>.</p></li><li><p>Được tiếp cận các công cụ và quy trình thực tế trong lĩnh vực Map Data.</p></li><li><p>Được mentoring bởi Senior Data Engineer/nhân sự có kinh nghiệm.</p></li><li><p>Có cơ hội tiếp tục làm việc chính thức sau kỳ thực tập nếu phù hợp.</p></li><li><p>Được xác nhận/chứng nhận hoàn thành chương trình thực tập.</p></li></ul>",
+    experience: "Không yêu cầu kinh nghiệm",
+    tags: [
+      "Xử lý dữ liệu",
+      "Nhập liệu",
+      "Excel / Google Sheets",
+      "Phân tích dữ liệu cơ bản",
+      "GIS cơ bản",
+      "Đọc hiểu bản đồ",
+      "Cẩn thận",
+      "tỉ mỉ",
+    ],
+    isUrgent: true,
+  },
   {
     id: "pos-001",
     title: "Kỹ sư phần mềm Full-stack",

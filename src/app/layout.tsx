@@ -21,7 +21,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const SITE_URL = "https://trungtamdoimoisangtao.com";
+const SITE_URL = "https://doimoisangtaogialai.vn";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -78,10 +78,10 @@ export const metadata: Metadata = {
       "Trung tâm Đổi mới Sáng tạo Gia Lai kết nối công nghệ, chuyên gia và nguồn lực, đồng hành cùng doanh nghiệp, startup và cơ quan quản lý trong đổi mới sáng tạo và chuyển đổi số.",
     images: [
       {
-        url: `${SITE_URL}/logo.svg`,
+        url: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG?tr=w-1200,h-630,fo-auto",
         width: 1200,
         height: 630,
-        alt: "Logo Trung Tâm Đổi Mới Sáng Tạo Gia Lai",
+        alt: "Trung Tâm Đổi Mới Sáng Tạo Gia Lai",
       },
     ],
   },
@@ -90,7 +90,9 @@ export const metadata: Metadata = {
     title: "Trung Tâm Đổi Mới Sáng Tạo Gia Lai",
     description:
       "Trung tâm Đổi mới Sáng tạo Gia Lai kết nối công nghệ, chuyên gia và nguồn lực, đồng hành cùng doanh nghiệp, startup và cơ quan quản lý trong đổi mới sáng tạo và chuyển đổi số.",
-    images: [`${SITE_URL}/logo.svg`],
+    images: [
+      "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG?tr=w-1200,h-630,fo-auto",
+    ],
   },
 };
 
@@ -208,16 +210,16 @@ export default function RootLayout({
         <link rel="manifest" href="/favicons/manifest.json" />
 
         {/* Canonical Link */}
-        <link rel="canonical" href="https://trungtamdoimoisangtao.com/" />
+        <link rel="canonical" href="https://doimoisangtaogialai.vn/" />
 
         {/* WebMCP & AI Agent Search Integration */}
         <meta
           name="webmcp:search"
-          content="https://trungtamdoimoisangtao.com/news?search={query}"
+          content="https://doimoisangtaogialai.vn/news?search={query}"
         />
         <meta
           name="mcp-server"
-          content="https://trungtamdoimoisangtao.com/api/mcp"
+          content="https://doimoisangtaogialai.vn/api/mcp"
         />
 
         {/* Preconnect & DNS Prefetch */}

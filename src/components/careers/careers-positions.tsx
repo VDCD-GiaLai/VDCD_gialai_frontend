@@ -20,6 +20,7 @@ import {
   Flame,
   CalendarCheck,
 } from "@phosphor-icons/react";
+import { useSearchParams } from "next/navigation";
 import { EmptyState } from "@/components/ui/empty-state";
 import { OPEN_POSITIONS, DEPARTMENTS } from "@/data/careers.data";
 import { formatDate } from "@/lib/utils";
@@ -27,6 +28,7 @@ import type { JobPosition } from "@/types";
 import { LeadService } from "@/services/lead.service";
 import { fetchJobsFromApi } from "@/services/job.service";
 import { JobRichContent, getPlainTextExcerpt } from "@/lib/job-utils";
+import { JobShareActions } from "./job-share-actions";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -404,12 +406,36 @@ function PositionApplyForm({ jobTitle }: ApplyFormProps) {
 
 /* ── Interactive Expandable Job Card ──────────────────────── */
 
-const JobCard = ({ job }: { job: JobPosition }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
+const JobCard = ({
+  job,
+  isTargetJob = false,
+}: {
+  job: JobPosition;
+  isTargetJob?: boolean;
+}) => {
+  const [isExpanded, setIsExpanded] = React.useState(isTargetJob || false);
+
+  React.useEffect(() => {
+    if (isTargetJob) {
+      const timer = setTimeout(() => {
+        setIsExpanded(true);
+        const el = document.getElementById(`job-${job.id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isTargetJob, job.id]);
 
   return (
     <motion.article
-      className="job-card rounded-xl p-6 md:p-8 cursor-pointer transition-all duration-300"
+      id={`job-${job.id}`}
+      className={`job-card rounded-xl p-6 md:p-8 cursor-pointer transition-all duration-300 ${
+        isTargetJob
+          ? "ring-2 ring-accent-red shadow-lg border-accent-red/40"
+          : ""
+      }`}
       variants={fadeInUp}
       role="article"
       aria-label={`Vị trí ${job.title}`}
@@ -487,7 +513,7 @@ const JobCard = ({ job }: { job: JobPosition }) => {
         {getPlainTextExcerpt(job.description)}
       </p>
 
-      <div className="flex flex-wrap items-center gap-4 text-xs text-secondary dark:text-zinc-400 mb-5">
+      <div className="flex flex-wrap items-center gap-4 text-xs text-secondary dark:text-zinc-400 mb-4">
         <span className="inline-flex items-center gap-1.5">
           <Clock className="w-3.5 h-3.5" weight="thin" />
           {mapType(job.employmentType)}
@@ -510,16 +536,22 @@ const JobCard = ({ job }: { job: JobPosition }) => {
         </span>
       </div>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-2 mb-2">
-        {job.tags.map((tag) => (
-          <span
-            key={tag}
-            className="px-3 py-1 text-[11px] font-mono-label font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 rounded-full"
-          >
-            {tag}
-          </span>
-        ))}
+      {/* Bottom Bar: Tags on left, Share & Copy Actions on right */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/60">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2">
+          {job.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 text-[11px] font-mono-label font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Share & Copy Actions */}
+        <JobShareActions job={job} variant="compact" />
       </div>
 
       {/* Expandable Panel: Detailed Breakdown + Form Ứng Tuyển */}
@@ -613,6 +645,20 @@ const JobCard = ({ job }: { job: JobPosition }) => {
               </div>
             </div>
 
+            {/* Share Banner */}
+            <div className="bg-gradient-to-r from-red-50/70 via-zinc-50 to-zinc-50 dark:from-red-950/20 dark:via-zinc-900/40 dark:to-zinc-900/40 p-4 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-0.5">
+                <p className="text-xs font-bold font-heading text-black dark:text-white">
+                  Biết ai phù hợp với vị trí này?
+                </p>
+                <p className="text-[11px] text-secondary dark:text-zinc-400">
+                  Chia sẻ ngay cơ hội việc làm tại VDCD Gia Lai cho bạn bè và
+                  đồng nghiệp
+                </p>
+              </div>
+              <JobShareActions job={job} variant="full" />
+            </div>
+
             {/* Inline Application Form */}
             <div className="bg-white dark:bg-zinc-950 p-6 md:p-8 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
               <PositionApplyForm jobTitle={job.title} />
@@ -625,6 +671,9 @@ const JobCard = ({ job }: { job: JobPosition }) => {
 };
 
 export function CareersPositions() {
+  const searchParams = useSearchParams();
+  const targetJobParam = searchParams?.get("job");
+
   const [searchQuery, setSearchQuery] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [activeDepartment, setActiveDepartment] = React.useState("Tất cả");
@@ -820,7 +869,17 @@ export function CareersPositions() {
             variants={staggerContainer}
           >
             {jobs.map((job) => (
-              <JobCard key={job.id} job={job} />
+              <JobCard
+                key={job.id}
+                job={job}
+                isTargetJob={Boolean(
+                  targetJobParam &&
+                  (job.id === targetJobParam ||
+                    job.title
+                      .toLowerCase()
+                      .includes(targetJobParam.toLowerCase())),
+                )}
+              />
             ))}
           </motion.div>
         ) : (
