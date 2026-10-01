@@ -14,20 +14,20 @@ export const POLICIES: Record<string, PolicyDocument> = {
     slug: "dieu-khoan-su-dung",
     title: "Điều khoản sử dụng",
     subtitle:
-      "Quy định & Điều kiện truy cập và sử dụng dịch vụ trên website trungtamdoimoisangtao.com",
+      "Quy định & Điều kiện truy cập và sử dụng dịch vụ trên website doimoisangtaogialai.vn",
     lastUpdated: "30/09/2026",
     content: [
       {
         heading: "Lời mở đầu",
         paragraphs: [
-          "Chào mừng Quý khách hàng, đối tác và người dùng đến với website Trung Tâm Đổi Mới Sáng Tạo Gia Lai tại địa chỉ trungtamdoimoisangtao.com.",
+          "Chào mừng Quý khách hàng, đối tác và người dùng đến với website Trung Tâm Đổi Mới Sáng Tạo Gia Lai tại địa chỉ doimoisangtaogialai.vn.",
           "Khi truy cập, sử dụng website và các nội dung, thông tin, dịch vụ được cung cấp trên website, Quý khách được xem là đã đọc, hiểu và đồng ý tuân thủ các Điều khoản sử dụng dưới đây. Vui lòng đọc kỹ các quy định trước khi tiếp tục sử dụng website.",
         ],
       },
       {
         heading: "1. Phạm vi áp dụng",
         paragraphs: [
-          "Điều khoản sử dụng này áp dụng đối với tất cả cá nhân, tổ chức truy cập, tìm kiếm thông tin, đăng ký, liên hệ hoặc sử dụng các nội dung và dịch vụ được cung cấp trên website trungtamdoimoisangtao.com.",
+          "Điều khoản sử dụng này áp dụng đối với tất cả cá nhân, tổ chức truy cập, tìm kiếm thông tin, đăng ký, liên hệ hoặc sử dụng các nội dung và dịch vụ được cung cấp trên website doimoisangtaogialai.vn.",
           "Các điều khoản này nhằm quy định quyền, nghĩa vụ và trách nhiệm của người sử dụng trong quá trình truy cập và sử dụng website.",
         ],
       },
@@ -134,7 +134,7 @@ export const POLICIES: Record<string, PolicyDocument> = {
       {
         heading: "13. Hiệu lực của điều khoản",
         paragraphs: [
-          "Điều khoản sử dụng này có hiệu lực kể từ ngày được công bố trên website trungtamdoimoisangtao.com.",
+          "Điều khoản sử dụng này có hiệu lực kể từ ngày được công bố trên website doimoisangtaogialai.vn.",
           "Việc tiếp tục truy cập và sử dụng website sau thời điểm Điều khoản sử dụng được cập nhật đồng nghĩa với việc Quý khách xác nhận đã đọc, hiểu và đồng ý với các nội dung được công bố.",
           "Trung Tâm Đổi Mới Sáng Tạo Gia Lai có quyền cập nhật Điều khoản sử dụng để phù hợp với tình hình hoạt động thực tế và quy định pháp luật hiện hành.",
         ],
@@ -152,14 +152,14 @@ export const POLICIES: Record<string, PolicyDocument> = {
       {
         heading: "Lời mở đầu",
         paragraphs: [
-          "Trung Tâm Đổi Mới Sáng Tạo Gia Lai tôn trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của khách truy cập, đối tác, doanh nghiệp, chuyên gia, nhà đầu tư, startup và các tổ chức, cá nhân sử dụng website trungtamdoimoisangtao.com.",
+          "Trung Tâm Đổi Mới Sáng Tạo Gia Lai tôn trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của khách truy cập, đối tác, doanh nghiệp, chuyên gia, nhà đầu tư, startup và các tổ chức, cá nhân sử dụng website doimoisangtaogialai.vn.",
           "Chính sách bảo mật này giải thích cách Trung Tâm Đổi Mới Sáng Tạo Gia Lai thu thập, sử dụng, lưu trữ và bảo vệ thông tin mà người dùng cung cấp khi truy cập và sử dụng website.",
         ],
       },
       {
         heading: "1. Phạm vi áp dụng",
         paragraphs: [
-          "Chính sách này áp dụng đối với thông tin được thu thập thông qua website trungtamdoimoisangtao.com, bao gồm các trang giới thiệu, chương trình, giải pháp công nghệ, dự án, tin tức, tuyển dụng, liên hệ và các biểu mẫu trực tuyến trên website.",
+          "Chính sách này áp dụng đối với thông tin được thu thập thông qua website doimoisangtaogialai.vn, bao gồm các trang giới thiệu, chương trình, giải pháp công nghệ, dự án, tin tức, tuyển dụng, liên hệ và các biểu mẫu trực tuyến trên website.",
           "Khi truy cập hoặc cung cấp thông tin cho website, người dùng được xem là đã đọc và hiểu các nội dung được quy định trong Chính sách bảo mật này.",
         ],
       },

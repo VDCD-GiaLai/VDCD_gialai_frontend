@@ -12,7 +12,9 @@ export function CareersPageContent() {
     <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
       <CareersHeroSlider />
       <CareersBenefits />
-      <CareersPositions />
+      <React.Suspense fallback={null}>
+        <CareersPositions />
+      </React.Suspense>
       <CareersCta />
     </div>
   );
