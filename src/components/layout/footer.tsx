@@ -269,6 +269,14 @@ export async function Footer() {
               </span>
             </Link>
             <Link
+              href="/policies/chinh-sach-gia"
+              className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
+            >
+              <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                Chính sách giá
+              </span>
+            </Link>
+            <Link
               href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
