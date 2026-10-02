@@ -515,4 +515,83 @@ export const POLICIES: Record<string, PolicyDocument> = {
       },
     ],
   },
+
+  "chinh-sach-gia": {
+    slug: "chinh-sach-gia",
+    title: "Chính sách giá",
+    subtitle:
+      "Nguyên tắc xây dựng giá minh bạch, chính sách ưu đãi & quy định chi phí dịch vụ tại VDCD Gia Lai",
+    lastUpdated: "02/10/2026",
+    content: [
+      {
+        heading: "Lời mở đầu & Nguyên tắc chung",
+        paragraphs: [
+          "Trung Tâm Đổi Mới Sáng Tạo Gia Lai (VDCD Gia Lai) luôn hướng đến việc xây dựng chính sách giá minh bạch, hợp lý và phù hợp với nhu cầu thực tế của từng khách hàng và đối tác.",
+          "Mức giá được xác định dựa trên loại sản phẩm, dịch vụ, số lượng, quy mô giải pháp, phạm vi công việc và các yêu cầu kỹ thuật cụ thể của từng đơn hàng hoặc hợp đồng.",
+        ],
+      },
+      {
+        heading: "1. Nguyên tắc xây dựng giá",
+        paragraphs: [
+          "Giá sản phẩm và dịch vụ được xây dựng dựa trên chất lượng cung cấp, chi phí thực hiện và yêu cầu thực tế của khách hàng. Chúng tôi ưu tiên công khai thông tin rõ ràng, hạn chế các khoản chi phí phát sinh ngoài thỏa thuận.",
+          "Đối với những sản phẩm hoặc dịch vụ có nhiều lựa chọn về quy cách, số lượng và phạm vi triển khai, mức giá có thể được điều chỉnh tương ứng. Khách hàng sẽ được tư vấn cụ thể trước khi xác nhận đơn hàng hoặc ký kết thỏa thuận.",
+        ],
+      },
+      {
+        heading: "2. Giá sản phẩm và dịch vụ",
+        paragraphs: [
+          "Mức giá được áp dụng có thể khác nhau tùy thuộc vào từng sản phẩm, dịch vụ và thời điểm khách hàng đăng ký.",
+          "Đối với các sản phẩm có giá niêm yết, khách hàng có thể tham khảo trực tiếp mức giá được công bố trên website. Trường hợp sản phẩm hoặc dịch vụ chưa có giá công khai, khách hàng vui lòng liên hệ để được tư vấn và báo giá theo nhu cầu thực tế.",
+          "Báo giá có thể bao gồm hoặc không bao gồm các chi phí liên quan như vận chuyển, lắp đặt, tùy chỉnh hoặc các yêu cầu phát sinh. Các khoản chi phí này sẽ được thông tin trước khi khách hàng xác nhận sử dụng dịch vụ.",
+        ],
+      },
+      {
+        heading: "3. Chính sách giá theo số lượng",
+        paragraphs: [
+          "Đối với khách hàng có nhu cầu sử dụng sản phẩm hoặc dịch vụ với số lượng lớn, chúng tôi có thể áp dụng mức giá phù hợp theo quy mô đơn hàng.",
+          "Mức ưu đãi cụ thể sẽ được xác định dựa trên số lượng, yêu cầu thực hiện, thời gian triển khai và các điều kiện liên quan. Khách hàng vui lòng liên hệ trực tiếp để nhận báo giá chi tiết.",
+        ],
+      },
+      {
+        heading: "4. Chính sách ưu đãi & khuyến mại",
+        paragraphs: [
+          "Trong từng thời điểm, chúng tôi có thể triển khai các chương trình ưu đãi, khuyến mại hoặc chính sách hỗ trợ dành cho khách hàng.",
+          "Nội dung, thời gian áp dụng và điều kiện của từng chương trình sẽ được thông báo cụ thể. Các chương trình ưu đãi có thể không áp dụng đồng thời với nhau, trừ khi có thông báo khác.",
+        ],
+      },
+      {
+        heading: "5. Thời điểm áp dụng giá",
+        paragraphs: [
+          "Giá được áp dụng theo báo giá hoặc thông tin được xác nhận tại thời điểm khách hàng đặt hàng, đăng ký hoặc ký kết thỏa thuận.",
+          "Trong trường hợp giá sản phẩm, chi phí nguyên vật liệu, vận chuyển hoặc các yếu tố liên quan có sự thay đổi, mức giá mới có thể được điều chỉnh tương ứng. Những thay đổi về giá sẽ được thông báo cho khách hàng trước khi xác nhận giao dịch.",
+        ],
+      },
+      {
+        heading: "6. Báo giá và xác nhận đơn hàng",
+        paragraphs: [
+          "Trước khi thực hiện đơn hàng hoặc cung cấp dịch vụ, khách hàng sẽ được tư vấn về phạm vi công việc, số lượng, quy cách, chi phí và các điều kiện liên quan.",
+          "Đơn hàng chỉ được xác nhận sau khi hai bên thống nhất về nội dung và mức giá áp dụng. Những yêu cầu phát sinh sau khi đơn hàng đã được xác nhận có thể làm thay đổi tổng chi phí và sẽ được thông báo trước khi thực hiện.",
+        ],
+      },
+      {
+        heading: "7. Chi phí phát sinh",
+        paragraphs: [
+          "Chúng tôi cố gắng hạn chế tối đa các khoản chi phí ngoài dự kiến. Trường hợp khách hàng thay đổi yêu cầu, bổ sung hạng mục hoặc phát sinh các điều kiện ngoài phạm vi thỏa thuận ban đầu, chi phí có thể được điều chỉnh.",
+          "Mọi khoản chi phí phát sinh liên quan đến thay đổi yêu cầu sẽ được trao đổi và thống nhất với khách hàng trước khi thực hiện.",
+        ],
+      },
+      {
+        heading: "8. Tiếp nhận yêu cầu & Liên hệ nhận báo giá",
+        paragraphs: [
+          "Để nhận thông tin về giá sản phẩm, dịch vụ hoặc chính sách ưu đãi đang được áp dụng, khách hàng vui lòng liên hệ với chúng tôi qua các kênh thông tin được công bố trên website.",
+          "Khi liên hệ, khách hàng nên cung cấp thông tin về sản phẩm hoặc dịch vụ cần sử dụng, số lượng, yêu cầu cụ thể và thời gian dự kiến. Những thông tin này giúp chúng tôi tư vấn và xây dựng báo giá phù hợp hơn với nhu cầu thực tế.",
+          "VDCD Gia Lai cam kết cung cấp thông tin giá rõ ràng, minh bạch và hỗ trợ khách hàng lựa chọn phương án tối ưu với nhu cầu và ngân sách.",
+          "• Đơn vị: Trung Tâm Đổi Mới Sáng Tạo Gia Lai (VDCD Gia Lai)",
+          "• Địa chỉ: 62A Diên Hồng, Phường Quy Nhơn, Tỉnh Gia Lai",
+          "• Hotline: 0373 600 099",
+          "• Email: dmstgialai@vdcd.vn",
+        ],
+      },
+    ],
+  },
 };
