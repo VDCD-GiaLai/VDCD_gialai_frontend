@@ -1,3 +1,5 @@
+import type { SidebarConfig } from "./sidebar-config";
+
 // ─── Hero Metadata ──────────────────────────────────────────
 export type HeroPlacement = "above_title" | "between_title_desc" | "below_desc";
 
@@ -242,6 +244,7 @@ export interface DocumentContent {
   version: 1;
   blocks: ContentBlock[];
   heroMeta?: HeroMeta;
+  sidebarConfig?: SidebarConfig | null;
 }
 
 /** Chuẩn danh tính hợp nhất theo đặc tả */

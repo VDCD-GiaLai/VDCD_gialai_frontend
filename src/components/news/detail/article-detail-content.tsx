@@ -30,10 +30,10 @@ import {
   renderPublicImageBlock,
 } from "@/components/content-blocks/block-renderers";
 import {
-  DetailSidebar,
+  DynamicDetailSidebar,
   RelatedArticlesWidget,
   SidebarCtaWidget,
-} from "@/components/detail-sidebar/detail-sidebar-widgets";
+} from "@/components/detail-sidebar";
 import "@/components/slides/detail/slide-detail.css";
 import "../news.css";
 
@@ -535,20 +535,28 @@ export function ArticleDetailContent({
 
             {/* Sidebar: inline trên mobile, sticky bên phải trên xl */}
           </div>
-          <DetailSidebar
-            mobileTitle="Tin tức liên quan"
-            cta={
+          <DynamicDetailSidebar
+            sidebarConfig={
+              article.sidebarConfig ??
+              (typeof article.content === "object"
+                ? article.content?.sidebarConfig
+                : null)
+            }
+            defaultMobileTitle="Tin tức liên quan"
+            articles={relatedArticles}
+            defaultCta={
               <SidebarCtaWidget
                 title="Nhận tư vấn chuyên sâu"
                 description="Kết nối với đội ngũ chuyên gia VDCD để được hỗ trợ giải pháp và hợp tác chiến lược."
               />
             }
-          >
-            <RelatedArticlesWidget
-              articles={relatedArticles}
-              title="Tin tức nổi bật"
-            />
-          </DetailSidebar>
+            defaultWidgets={
+              <RelatedArticlesWidget
+                articles={relatedArticles}
+                title="Tin tức nổi bật"
+              />
+            }
+          />
         </div>
       </div>
     </div>

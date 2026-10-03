@@ -15,6 +15,7 @@ import type {
   SectionChildBlock,
   HeroMeta,
   PaginatedResponse,
+  SidebarConfig,
 } from "@/types";
 
 export interface BackendProject {
@@ -28,6 +29,7 @@ export interface BackendProject {
   metaDescription?: string;
   isPublished: boolean;
   content?: DocumentContent | string | null;
+  sidebarConfig?: SidebarConfig | null;
   heroMeta?: HeroMeta;
   publishedAt?: string;
   createdAt?: string;
@@ -135,6 +137,12 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     metaTitle: bp.metaTitle || undefined,
     metaDescription: bp.metaDescription || undefined,
     content: bp.content || undefined,
+    sidebarConfig:
+      bp.sidebarConfig ||
+      (typeof bp.content === "object"
+        ? bp.content?.sidebarConfig
+        : undefined) ||
+      undefined,
     heroMeta: bp.heroMeta || undefined,
     publishedAt: bp.publishedAt || undefined,
     createdAt: bp.createdAt || undefined,
