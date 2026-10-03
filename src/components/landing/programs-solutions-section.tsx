@@ -321,10 +321,10 @@ export function ProgramsSolutionsSection() {
                   key={`${activeId}-${idx}`}
                   onClick={() => setActiveCardIndex(idx)}
                   onMouseEnter={() => setActiveCardIndex(idx)}
-                  className={`relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-6 md:p-8 text-white ${
+                  className={`group relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out flex flex-col justify-between p-6 md:p-8 text-white ${
                     isOpen
-                      ? "flex-[3.5] shadow-md"
-                      : "flex-1 opacity-90 hover:opacity-100"
+                      ? "flex-[3.5] shadow-lg"
+                      : "flex-1 hover:brightness-105"
                   }`}
                 >
                   {/* Background Image */}
@@ -333,24 +333,26 @@ export function ProgramsSolutionsSection() {
                       src={item.image}
                       alt={item.title}
                       fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover object-center scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                       transformation={[
-                        { width: 500, quality: 80, format: "auto" },
+                        { width: 1200, quality: 90, format: "auto" },
                       ]}
                     />
                   </div>
 
-                  {/* Dark Overlay */}
+                  {/* Gradient Overlay: Deep at bottom for crisp text readability, clear at top & center */}
                   <div
-                    className={`absolute inset-0 transition-colors duration-500 ${
-                      isOpen ? "bg-black/50" : "bg-black/30"
+                    className={`absolute inset-0 transition-opacity duration-500 ${
+                      isOpen
+                        ? "bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-100"
+                        : "bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-75"
                     }`}
                   />
 
                   {/* Bottom: Text Content */}
                   <div className="space-y-3 relative z-10 mt-8">
-                    <h3 className="text-lg md:text-xl font-bold text-white tracking-tight font-heading leading-snug uppercase">
+                    <h3 className="text-lg md:text-xl font-bold text-white tracking-tight font-heading leading-snug uppercase drop-shadow">
                       {item.title}
                     </h3>
 
