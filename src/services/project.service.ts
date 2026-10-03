@@ -381,9 +381,12 @@ export async function fetchProjectsFromApi(
       });
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
-      const items: BackendProject[] = body.data?.data || body.data || body;
-      if (Array.isArray(items) && items.length > 0) {
-        return items.map((p) => mapBackendProjectToEntry(p));
+      const payload = body.data ?? body;
+      const rawItems: BackendProject[] = Array.isArray(payload)
+        ? payload
+        : (payload.items ?? payload.data ?? []);
+      if (Array.isArray(rawItems) && rawItems.length > 0) {
+        return rawItems.map((p) => mapBackendProjectToEntry(p));
       }
       throw new Error("No projects returned");
     },

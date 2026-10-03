@@ -131,7 +131,7 @@ export function ProgramsSolutionsSection() {
     let cancelled = false;
     Promise.all([
       fetchFeaturedProgramsFromApi(4).catch(() => []),
-      fetchSolutionsFromApi(6).catch(() => []),
+      fetchSolutionsFromApi(20).catch(() => []),
     ]).then(([progs, sols]) => {
       if (cancelled) return;
       if ((progs && progs.length > 0) || (sols && sols.length > 0)) {
@@ -156,7 +156,7 @@ export function ProgramsSolutionsSection() {
             };
           }
           if (sols && sols.length > 0) {
-            // Keep the exact 6 core solutions
+            // Keep the exact 6 core solutions in canonical order
             const coreSlugs = [
               "uav",
               "ai",
@@ -165,33 +165,76 @@ export function ProgramsSolutionsSection() {
               "vr360",
               "data-center",
             ];
-            const coreSols = sols.filter((s) =>
-              coreSlugs.includes(s.slug?.toLowerCase() || ""),
-            );
 
-            if (coreSols.length > 0) {
+            let displaySols = coreSlugs
+              .map((cs) =>
+                sols.find(
+                  (s) =>
+                    s.slug?.toLowerCase() === cs ||
+                    s.slug?.toLowerCase().includes(cs),
+                ),
+              )
+              .filter(Boolean) as typeof sols;
+
+            // If not all 6 found via coreSlugs, supplement with any remaining solutions from API
+            if (displaySols.length < 6) {
+              const remaining = sols.filter(
+                (s) => !displaySols.some((d) => d.slug === s.slug),
+              );
+              displaySols = [...displaySols, ...remaining].slice(0, 6);
+            }
+
+            if (displaySols.length > 0) {
               updated[1] = {
                 id: "solutions",
                 label: "Giải pháp công nghệ",
-                items: coreSols.map((s) => {
+                items: displaySols.map((s) => {
                   let shortTitle = s.title;
-                  if (s.slug === "uav") shortTitle = "UAV";
-                  else if (s.slug === "ai") shortTitle = "AI";
-                  else if (s.slug === "autotimelapse")
+                  const lower = s.slug?.toLowerCase() || "";
+                  if (lower.includes("uav")) shortTitle = "UAV";
+                  else if (lower.includes("ai")) shortTitle = "AI";
+                  else if (
+                    lower.includes("autotimelapse") ||
+                    lower.includes("timelapse")
+                  )
                     shortTitle = "Autotimelapse";
-                  else if (s.slug === "smartscale") shortTitle = "SmartScale";
-                  else if (s.slug === "vr360") shortTitle = "VR360";
-                  else if (s.slug === "data-center") shortTitle = "Data Center";
+                  else if (
+                    lower.includes("smartscale") ||
+                    lower.includes("scale")
+                  )
+                    shortTitle = "SmartScale";
+                  else if (
+                    lower.includes("vr360") ||
+                    lower.includes("vr") ||
+                    lower.includes("scan")
+                  )
+                    shortTitle = "VR360";
+                  else if (
+                    lower.includes("data-center") ||
+                    lower.includes("datacenter")
+                  )
+                    shortTitle = "Data Center";
+
+                  const apiThumb =
+                    s.thumbnail ||
+                    (s as unknown as Record<string, string>).imageUrl ||
+                    (s as unknown as Record<string, string>).thumbnailUrl ||
+                    (s as unknown as Record<string, string>).coverImage;
 
                   return {
                     title: shortTitle,
                     image:
-                      s.thumbnail ||
+                      apiThumb ||
                       CATEGORIES[1].items.find(
-                        (c) => c.href === `/solution/${s.slug}`,
+                        (c) =>
+                          c.href === `/solution/${s.slug}` ||
+                          c.title.toLowerCase() === shortTitle.toLowerCase(),
                       )?.image ||
                       "/images/home/sol_ai.webp",
-                    description: s.description || s.title,
+                    description:
+                      s.shortDescription ||
+                      (s as unknown as Record<string, string>).description ||
+                      s.title,
                     href: s.websiteUrl || `/solution/${s.slug}`,
                   };
                 }),

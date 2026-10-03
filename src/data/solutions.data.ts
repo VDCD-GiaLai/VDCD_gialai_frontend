@@ -3,6 +3,7 @@ export interface SolutionItem {
   title: string;
   slug: string;
   description: string;
+  shortDescription?: string | null;
   icon?: string;
   thumbnail?: string;
   websiteUrl?: string;
