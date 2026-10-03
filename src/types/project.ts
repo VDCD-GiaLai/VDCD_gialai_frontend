@@ -1,4 +1,5 @@
 import type { DocumentContent, HeroMeta } from "./slide-detail-blog";
+import type { SidebarConfig } from "./sidebar-config";
 
 /* ── Operation Fields & Categories ──────────────────────── */
 export interface ProjectField {
@@ -32,6 +33,7 @@ export interface ProjectEntityContract {
   metaTitle?: string | null;
   metaDescription?: string | null;
   isPublished: boolean;
+  sidebarConfig?: SidebarConfig | null;
   publishedAt?: string | null;
   createdAt?: string;
   updatedAt?: string;
