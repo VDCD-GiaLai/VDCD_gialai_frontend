@@ -287,6 +287,10 @@ export async function fetchSolutionBySlugFromApi(
         createdAt: data.createdAt || new Date().toISOString(),
         updatedAt: data.updatedAt || new Date().toISOString(),
         content: contentDoc,
+        sidebarConfig:
+          data.sidebarConfig ??
+          (data.content as Record<string, unknown> | null)?.sidebarConfig ??
+          null,
         relatedArticles: data.relatedArticles || [],
       } as SolutionDetail;
     },

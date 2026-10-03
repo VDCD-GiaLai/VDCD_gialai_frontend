@@ -1,4 +1,4 @@
-import type { DocumentContent, HeroMeta } from "@/types";
+import type { DocumentContent, HeroMeta, SidebarConfig } from "@/types";
 
 export interface WorkflowStage {
   number: string;
@@ -66,6 +66,7 @@ export interface ProjectEntry {
   /** Document Model nhúng vào content */
   content?: DocumentContent | string | null;
   heroMeta?: HeroMeta;
+  sidebarConfig?: SidebarConfig | null;
   publishedAt?: string;
   createdAt?: string;
 }

@@ -137,9 +137,17 @@ export async function fetchProgramBySlugFromApi(
         return null;
       }
 
+      const parsedContent = parseProgramContent(data.content);
+      const sidebarConfig =
+        data.sidebarConfig ??
+        (parsedContent && typeof parsedContent === "object"
+          ? (parsedContent as any).sidebarConfig
+          : undefined);
+
       return {
         ...data,
-        content: parseProgramContent(data.content),
+        content: parsedContent,
+        sidebarConfig: sidebarConfig ?? null,
         relatedArticles: data.relatedArticles ?? [],
       } as ProgramDetail;
     },

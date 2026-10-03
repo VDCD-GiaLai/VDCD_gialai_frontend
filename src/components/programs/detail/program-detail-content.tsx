@@ -31,10 +31,10 @@ import {
   renderPublicImageBlock,
 } from "@/components/content-blocks/block-renderers";
 import {
-  DetailSidebar,
+  DynamicDetailSidebar,
   RelatedProgramsWidget,
   SidebarCtaWidget,
-} from "@/components/detail-sidebar/detail-sidebar-widgets";
+} from "@/components/detail-sidebar";
 import "@/components/slides/detail/slide-detail.css";
 import "../programs.css";
 
@@ -496,21 +496,29 @@ export function ProgramDetailContent({
 
             {/* Sidebar: inline trên mobile, sticky bên phải trên xl */}
           </div>
-          <DetailSidebar
-            mobileTitle="Chương trình liên quan"
-            cta={
+          <DynamicDetailSidebar
+            sidebarConfig={
+              program.sidebarConfig ??
+              (typeof program.content === "object"
+                ? program.content?.sidebarConfig
+                : null)
+            }
+            defaultMobileTitle="Chương trình liên quan"
+            programs={relatedPrograms}
+            defaultCta={
               <SidebarCtaWidget
                 title="Tham gia chương trình"
                 description="Đăng ký ngay để nhận thông tin chi tiết và được tư vấn trực tiếp từ đội ngũ VDCD."
                 primaryLabel="Đăng ký tham gia"
               />
             }
-          >
-            <RelatedProgramsWidget
-              programs={relatedPrograms}
-              title="Chương trình nổi bật"
-            />
-          </DetailSidebar>
+            defaultWidgets={
+              <RelatedProgramsWidget
+                programs={relatedPrograms}
+                title="Chương trình nổi bật"
+              />
+            }
+          />
         </div>
       </div>
     </article>

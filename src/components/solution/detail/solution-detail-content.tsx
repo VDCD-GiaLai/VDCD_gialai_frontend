@@ -33,10 +33,10 @@ import {
   renderPublicImageBlock,
 } from "@/components/content-blocks/block-renderers";
 import {
-  DetailSidebar,
+  DynamicDetailSidebar,
   FeaturedSolutionsWidget,
   SidebarCtaWidget,
-} from "@/components/detail-sidebar/detail-sidebar-widgets";
+} from "@/components/detail-sidebar";
 import "@/components/slides/detail/slide-detail.css";
 import "@/components/programs/programs.css";
 
@@ -552,21 +552,26 @@ export function SolutionDetailContent({
 
             {/* Sidebar: inline trên mobile, sticky bên phải trên xl */}
           </div>
-          <DetailSidebar
-            mobileTitle="Giải pháp liên quan"
-            cta={
+          <DynamicDetailSidebar
+            sidebarConfig={
+              solution.sidebarConfig ?? solution.content?.sidebarConfig
+            }
+            defaultMobileTitle="Giải pháp liên quan"
+            solutions={relatedSolutions}
+            defaultCta={
               <SidebarCtaWidget
                 title="Yêu cầu tư vấn giải pháp"
                 description="Đăng ký để nhận demo sản phẩm và tư vấn kỹ thuật chuyên sâu từ đội ngũ VDCD."
                 primaryLabel="Yêu cầu demo"
               />
             }
-          >
-            <FeaturedSolutionsWidget
-              solutions={relatedSolutions}
-              title="Giải pháp nổi bật"
-            />
-          </DetailSidebar>
+            defaultWidgets={
+              <FeaturedSolutionsWidget
+                solutions={relatedSolutions}
+                title="Giải pháp nổi bật"
+              />
+            }
+          />
         </div>
       </div>
     </article>

@@ -509,6 +509,107 @@ export function RelatedArticlesWidget({
 }
 
 /* ══════════════════════════════════════════════════════════
+ *  WIDGET 4: Related Projects
+ *  sm-2xl: 3-col inline cards  |  2xl: compact sidebar list
+ * ══════════════════════════════════════════════════════════ */
+
+interface RelatedProjectsWidgetProps {
+  projects: any[];
+  title?: string;
+}
+
+export function RelatedProjectsWidget({
+  projects,
+  title = "Dự án nổi bật",
+}: RelatedProjectsWidgetProps) {
+  if (!projects.length) return null;
+
+  return (
+    <>
+      {/* ── sm-2xl: 3-column card grid ── */}
+      <div className="hidden sm:block xl:hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {projects.slice(0, 3).map((p) => (
+            <InlineCard
+              key={p.id || p.slug}
+              href={`/projects/${p.slug || p.id}`}
+              thumbnail={p.thumbnail || p.coverImage}
+              title={p.title}
+              description={p.shortDescription || p.overview || p.description}
+              badge={p.category || p.field?.name}
+              fallbackIcon={
+                <Briefcase
+                  className="w-8 h-8 text-zinc-300 dark:text-zinc-600"
+                  weight="thin"
+                />
+              }
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Mobile: vertical card list ── */}
+      <div className="sm:hidden space-y-3">
+        {projects.slice(0, 3).map((p) => (
+          <InlineCard
+            key={p.id || p.slug}
+            href={`/projects/${p.slug || p.id}`}
+            thumbnail={p.thumbnail || p.coverImage}
+            title={p.title}
+            description={p.shortDescription || p.overview || p.description}
+            badge={p.category || p.field?.name}
+            fallbackIcon={
+              <Briefcase
+                className="w-8 h-8 text-zinc-300 dark:text-zinc-600"
+                weight="thin"
+              />
+            }
+          />
+        ))}
+      </div>
+
+      {/* ── 2xl: compact sidebar widget ── */}
+      <div className="hidden xl:block">
+        <CompactWidget
+          title={title}
+          icon={<Briefcase className="w-3.5 h-3.5" weight="bold" />}
+          viewAllHref="/projects"
+        >
+          {projects.map((proj) => (
+            <Link
+              key={proj.id || proj.slug}
+              href={`/projects/${proj.slug || proj.id}`}
+              className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+            >
+              {proj.thumbnail || proj.coverImage ? (
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                  <Image
+                    src={proj.thumbnail || proj.coverImage}
+                    alt={proj.title}
+                    fill
+                    sizes="260px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
+                  <Briefcase className="w-6 h-6 text-zinc-400" weight="thin" />
+                </div>
+              )}
+              <div className="px-3.5 py-2.5">
+                <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                  {proj.title}
+                </h5>
+              </div>
+            </Link>
+          ))}
+        </CompactWidget>
+      </div>
+    </>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════
  *  CTA Widget
  * ══════════════════════════════════════════════════════════ */
 
@@ -518,6 +619,7 @@ interface SidebarCtaWidgetProps {
   primaryLabel?: string;
   primaryHref?: string;
   secondaryLabel?: string;
+  secondaryHref?: string;
   secondaryOnClick?: () => void;
 }
 
@@ -527,6 +629,7 @@ export function SidebarCtaWidget({
   primaryLabel = "Liên hệ tư vấn",
   primaryHref = "/contact",
   secondaryLabel = "Khám phá giải pháp",
+  secondaryHref,
   secondaryOnClick,
 }: SidebarCtaWidgetProps) {
   const handleSecondary =
@@ -572,14 +675,24 @@ export function SidebarCtaWidget({
           <Envelope className="w-3 h-3" weight="thin" />
           {primaryLabel}
         </Link>
-        <button
-          type="button"
-          onClick={handleSecondary}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono-label text-[9px] sm:text-[10px] xl:text-[9px] font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] dark:hover:border-[#ca2a30] dark:hover:text-[#ca2a30] transition-all duration-300 cursor-pointer whitespace-nowrap"
-        >
-          <ArrowUpRight className="w-3 h-3" weight="thin" />
-          {secondaryLabel}
-        </button>
+        {secondaryHref ? (
+          <Link
+            href={secondaryHref}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono-label text-[9px] sm:text-[10px] xl:text-[9px] font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] dark:hover:border-[#ca2a30] dark:hover:text-[#ca2a30] transition-all duration-300 whitespace-nowrap"
+          >
+            <ArrowUpRight className="w-3 h-3" weight="thin" />
+            {secondaryLabel}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={handleSecondary}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono-label text-[9px] sm:text-[10px] xl:text-[9px] font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] dark:hover:border-[#ca2a30] dark:hover:text-[#ca2a30] transition-all duration-300 cursor-pointer whitespace-nowrap"
+          >
+            <ArrowUpRight className="w-3 h-3" weight="thin" />
+            {secondaryLabel}
+          </button>
+        )}
       </div>
     </motion.div>
   );

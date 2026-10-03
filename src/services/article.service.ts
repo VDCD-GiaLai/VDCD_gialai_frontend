@@ -159,10 +159,18 @@ export async function fetchArticleBySlugFromApi(
         return null;
       }
 
+      const parsedContent = parseArticleContent(data.content);
+      const sidebarConfig =
+        data.sidebarConfig ??
+        (parsedContent && typeof parsedContent === "object"
+          ? (parsedContent as any).sidebarConfig
+          : undefined);
+
       return {
         ...data,
         isPublished: true,
-        content: parseArticleContent(data.content),
+        content: parsedContent,
+        sidebarConfig: sidebarConfig ?? null,
         relatedArticles: data.relatedArticles ?? [],
       } as ArticleDetail;
     },
