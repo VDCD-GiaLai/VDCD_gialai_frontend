@@ -1,4 +1,5 @@
 import type { SlideDetailBlogContent } from "./slide-detail-blog";
+import type { SidebarConfig } from "./sidebar-config";
 
 export interface User {
   id: string;
@@ -166,6 +167,7 @@ export interface Article {
   project?: { id: string; title: string; slug?: string } | null;
   program?: { id: string; title: string; slug?: string } | null;
   solution?: { id: string; title: string; slug?: string } | null;
+  sidebarConfig?: SidebarConfig | null;
 }
 
 export interface ArticleDetail extends Article {
@@ -209,6 +211,7 @@ export interface Program {
   metaTitle?: string | null;
   metaDescription?: string | null;
   isPublished: boolean;
+  sidebarConfig?: SidebarConfig | null;
   publishedAt?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -246,6 +249,7 @@ export interface SolutionEntityContract {
   metaTitle: string | null;
   metaDescription: string | null;
   isPublished: boolean;
+  sidebarConfig?: SidebarConfig | null;
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
@@ -267,3 +271,7 @@ export * from "./project";
 /* ── Slide Detail Blogs ──────────────────────────────── */
 
 export * from "./slide-detail-blog";
+
+/* ── Sidebar Config ──────────────────────────────────── */
+
+export * from "./sidebar-config";

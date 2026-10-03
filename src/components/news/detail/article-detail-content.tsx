@@ -357,182 +357,184 @@ export function ArticleDetailContent({
       {/* Reading Progress Bar */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      {/* Relative wrapper for sidebar absolute positioning */}
-      <div className="relative max-w-[1440px] mx-auto">
-        {/* Main content centered */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 2xl:relative">
-          {/* Breadcrumbs */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
-            <nav
-              aria-label="Breadcrumb"
-              className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
-            >
-              <ol className="flex items-center gap-2">
-                <li>
-                  <Link
-                    href="/"
-                    className="hover:text-[#ca2a30] transition-colors duration-200"
-                  >
-                    Trang chủ
-                  </Link>
-                </li>
-                <li className="opacity-50">/</li>
-                <li>
-                  <Link
-                    href="/news"
-                    className="hover:text-[#ca2a30] transition-colors duration-200"
-                  >
-                    Tin tức
-                  </Link>
-                </li>
-                {article.category && (
-                  <>
-                    <li className="opacity-50">/</li>
-                    <li className="text-[#011A42] dark:text-zinc-200 line-clamp-1 max-w-[200px]">
-                      {article.category}
-                    </li>
-                  </>
-                )}
-              </ol>
-            </nav>
-
-            <div className="flex items-center gap-3 text-xs text-secondary dark:text-zinc-400">
-              {article.category && (
-                <span className="inline-flex items-center rounded-full bg-[#ca2a30]/10 px-2.5 py-0.5 font-semibold text-[#ca2a30]">
-                  {article.category}
-                </span>
-              )}
-              {article.publishedAt && (
-                <span className="inline-flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" weight="thin" />
-                  {formatDate(article.publishedAt)}
-                </span>
-              )}
-              <span className="inline-flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" weight="thin" />
-                {readingTimeMinutes} phút đọc
-              </span>
-            </div>
-          </div>
-
-          {/* Visual Content Renderer */}
-          <article className="slide-detail-article py-6">
-            {/* Hero Layout Switcher */}
-            {heroPlacement === "above_title" && (
-              <>
-                {renderHeroMedia()}
-                {renderHeroHeader()}
-                {renderHeroExcerpt()}
-              </>
-            )}
-
-            {heroPlacement === "between_title_desc" && (
-              <>
-                {renderHeroHeader()}
-                {renderHeroMedia()}
-                {renderHeroExcerpt()}
-              </>
-            )}
-
-            {heroPlacement === "below_desc" && (
-              <>
-                {renderHeroHeader()}
-                {renderHeroExcerpt()}
-                {renderHeroMedia()}
-              </>
-            )}
-
-            {/* Block Stream Renderer */}
-            {blocks.length > 0 ? (
-              <div className="mt-8 space-y-6">
-                {blocks.map((block) => renderBlock(block))}
-              </div>
-            ) : legacyHtml ? (
-              <div
-                className="mt-8 slide-blog-paragraph space-y-4"
-                dangerouslySetInnerHTML={{ __html: legacyHtml }}
-              />
-            ) : null}
-
-            {/* Tags Cloud */}
-            {tagList.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-whisper-border dark:border-zinc-800 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#6C7E96] dark:text-zinc-400 mr-1">
-                  <Tag className="w-3.5 h-3.5" weight="thin" />
-                  Thẻ:
-                </span>
-                {tagList.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/news?tags=${encodeURIComponent(tag)}`}
-                    className="inline-flex items-center px-3 py-1 rounded-lg text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-[#ca2a30]/10 hover:text-[#ca2a30] transition-colors duration-200 font-mono-label font-medium"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </article>
-
-          {/* Social Sharing Bar */}
-          <div className="pb-12">
-            <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
-              <div className="flex items-center gap-3">
-                <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-                  Chia sẻ bài viết:
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={handleShareFacebook}
-                    className="share-button"
-                    aria-label="Chia sẻ trên Facebook"
-                  >
-                    <ShareNetwork className="w-4 h-4" weight="thin" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleShareTwitter}
-                    className="share-button"
-                    aria-label="Chia sẻ trên Twitter / X"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="w-3.5 h-3.5"
-                      fill="currentColor"
-                    >
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleCopyLink}
-                    className="share-button"
-                    aria-label="Sao chép liên kết bài viết"
-                  >
-                    {isCopied ? (
-                      <Check
-                        className="w-4 h-4 text-emerald-500"
-                        weight="bold"
-                      />
-                    ) : (
-                      <Copy className="w-4 h-4" weight="thin" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <Link
-                href="/news"
-                className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
+      {/* Flex wrapper for content + sidebar on xl+ */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          {/* Main content */}
+          <div className="flex-1 min-w-0 max-w-4xl">
+            {/* Breadcrumbs */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
+              <nav
+                aria-label="Breadcrumb"
+                className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
               >
-                Xem tất cả tin tức & sự kiện
-                <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-              </Link>
-            </div>
-          </div>
+                <ol className="flex items-center gap-2">
+                  <li>
+                    <Link
+                      href="/"
+                      className="hover:text-[#ca2a30] transition-colors duration-200"
+                    >
+                      Trang chủ
+                    </Link>
+                  </li>
+                  <li className="opacity-50">/</li>
+                  <li>
+                    <Link
+                      href="/news"
+                      className="hover:text-[#ca2a30] transition-colors duration-200"
+                    >
+                      Tin tức
+                    </Link>
+                  </li>
+                  {article.category && (
+                    <>
+                      <li className="opacity-50">/</li>
+                      <li className="text-[#011A42] dark:text-zinc-200 line-clamp-1 max-w-[200px]">
+                        {article.category}
+                      </li>
+                    </>
+                  )}
+                </ol>
+              </nav>
 
-          {/* Sidebar: inline trên mobile, absolute bên phải trên 2xl */}
+              <div className="flex items-center gap-3 text-xs text-secondary dark:text-zinc-400">
+                {article.category && (
+                  <span className="inline-flex items-center rounded-full bg-[#ca2a30]/10 px-2.5 py-0.5 font-semibold text-[#ca2a30]">
+                    {article.category}
+                  </span>
+                )}
+                {article.publishedAt && (
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" weight="thin" />
+                    {formatDate(article.publishedAt)}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5" weight="thin" />
+                  {readingTimeMinutes} phút đọc
+                </span>
+              </div>
+            </div>
+
+            {/* Visual Content Renderer */}
+            <article className="slide-detail-article py-6">
+              {/* Hero Layout Switcher */}
+              {heroPlacement === "above_title" && (
+                <>
+                  {renderHeroMedia()}
+                  {renderHeroHeader()}
+                  {renderHeroExcerpt()}
+                </>
+              )}
+
+              {heroPlacement === "between_title_desc" && (
+                <>
+                  {renderHeroHeader()}
+                  {renderHeroMedia()}
+                  {renderHeroExcerpt()}
+                </>
+              )}
+
+              {heroPlacement === "below_desc" && (
+                <>
+                  {renderHeroHeader()}
+                  {renderHeroExcerpt()}
+                  {renderHeroMedia()}
+                </>
+              )}
+
+              {/* Block Stream Renderer */}
+              {blocks.length > 0 ? (
+                <div className="mt-8 space-y-6">
+                  {blocks.map((block) => renderBlock(block))}
+                </div>
+              ) : legacyHtml ? (
+                <div
+                  className="mt-8 slide-blog-paragraph space-y-4"
+                  dangerouslySetInnerHTML={{ __html: legacyHtml }}
+                />
+              ) : null}
+
+              {/* Tags Cloud */}
+              {tagList.length > 0 && (
+                <div className="mt-8 pt-6 border-t border-whisper-border dark:border-zinc-800 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#6C7E96] dark:text-zinc-400 mr-1">
+                    <Tag className="w-3.5 h-3.5" weight="thin" />
+                    Thẻ:
+                  </span>
+                  {tagList.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/news?tags=${encodeURIComponent(tag)}`}
+                      className="inline-flex items-center px-3 py-1 rounded-lg text-xs bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 hover:bg-[#ca2a30]/10 hover:text-[#ca2a30] transition-colors duration-200 font-mono-label font-medium"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </article>
+
+            {/* Social Sharing Bar */}
+            <div className="pb-12">
+              <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                    Chia sẻ bài viết:
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleShareFacebook}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Facebook"
+                    >
+                      <ShareNetwork className="w-4 h-4" weight="thin" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleShareTwitter}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Twitter / X"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                      >
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCopyLink}
+                      className="share-button"
+                      aria-label="Sao chép liên kết bài viết"
+                    >
+                      {isCopied ? (
+                        <Check
+                          className="w-4 h-4 text-emerald-500"
+                          weight="bold"
+                        />
+                      ) : (
+                        <Copy className="w-4 h-4" weight="thin" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <Link
+                  href="/news"
+                  className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
+                >
+                  Xem tất cả tin tức & sự kiện
+                  <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Sidebar: inline trên mobile, sticky bên phải trên xl */}
+          </div>
           <DetailSidebar
             mobileTitle="Tin tức liên quan"
             cta={
