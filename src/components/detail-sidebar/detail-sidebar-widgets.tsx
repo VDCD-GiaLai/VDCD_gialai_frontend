@@ -42,9 +42,9 @@ export function DetailSidebar({
       className={[
         /* Mobile + sm-xl: inline below content */
         "mt-12 pt-8 border-t border-whisper-border dark:border-zinc-800",
-        /* xl+: sticky sidebar column (parent provides flex wrapper) */
+        /* xl+: sidebar column (parent provides flex wrapper) - non-sticky */
         "xl:mt-0 xl:pt-0 xl:border-t-0",
-        "xl:sticky xl:top-28 xl:self-start xl:w-[280px] xl:shrink-0",
+        "xl:w-[280px] xl:shrink-0",
       ].join(" ")}
     >
       {/* Section Header (hidden on xl) */}
