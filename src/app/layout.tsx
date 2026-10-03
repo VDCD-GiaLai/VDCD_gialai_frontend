@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Be_Vietnam_Pro } from "next/font/google";
 import { AppProviders } from "@/providers/app-providers";
+import {
+  GoogleTrackingScripts,
+  GoogleTagManagerNoscript,
+} from "@/components/analytics/google-tracking";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -94,6 +98,9 @@ export const metadata: Metadata = {
       "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG?tr=w-1200,h-630,fo-auto",
     ],
   },
+  verification: {
+    google: "ExpqV1anfeq31VR4P_Sy7ZOaIP3qFTGSkzQvHWSc-OA",
+  },
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -161,6 +168,10 @@ export default function RootLayout({
     >
       <head>
         {/* Google Search Console Verification */}
+        <meta
+          name="google-site-verification"
+          content="ExpqV1anfeq31VR4P_Sy7ZOaIP3qFTGSkzQvHWSc-OA"
+        />
         <meta
           name="google-site-verification"
           content="OHDk64-l82grYN7qxgpHNqvavI8LupO3hDA6gd-zeeA"
@@ -257,7 +268,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <GoogleTagManagerNoscript />
         <AppProviders>{children}</AppProviders>
+        <GoogleTrackingScripts />
       </body>
     </html>
   );
