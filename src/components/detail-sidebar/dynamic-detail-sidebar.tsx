@@ -152,7 +152,14 @@ export function DynamicDetailSidebar({
       let filtered = [...solutions];
       if (slugs.length > 0) {
         filtered = slugs
-          .map((sl) => filtered.find((s) => s.slug === sl || s.id === sl))
+          .map((sl) =>
+            filtered.find(
+              (s) =>
+                s.slug === sl ||
+                s.id === sl ||
+                s.slug?.toLowerCase() === sl?.toLowerCase(),
+            ),
+          )
           .filter(Boolean);
       }
       filtered = filtered.slice(0, maxItems);
@@ -169,7 +176,14 @@ export function DynamicDetailSidebar({
       let filtered = [...programs];
       if (slugs.length > 0) {
         filtered = slugs
-          .map((sl) => filtered.find((p) => p.slug === sl || p.id === sl))
+          .map((sl) =>
+            filtered.find(
+              (p) =>
+                p.slug === sl ||
+                p.id === sl ||
+                p.slug?.toLowerCase() === sl?.toLowerCase(),
+            ),
+          )
           .filter(Boolean);
       }
       filtered = filtered.slice(0, maxItems);
@@ -186,7 +200,14 @@ export function DynamicDetailSidebar({
       let filtered = [...articles];
       if (slugs.length > 0) {
         filtered = slugs
-          .map((sl) => filtered.find((a) => a.slug === sl || a.id === sl))
+          .map((sl) =>
+            filtered.find(
+              (a) =>
+                a.slug === sl ||
+                a.id === sl ||
+                a.slug?.toLowerCase() === sl?.toLowerCase(),
+            ),
+          )
           .filter(Boolean);
       }
       filtered = filtered.slice(0, maxItems);
@@ -203,7 +224,14 @@ export function DynamicDetailSidebar({
       let filtered = [...projects];
       if (slugs.length > 0) {
         filtered = slugs
-          .map((sl) => filtered.find((p) => p.slug === sl || p.id === sl))
+          .map((sl) =>
+            filtered.find(
+              (p) =>
+                p.slug === sl ||
+                p.id === sl ||
+                p.slug?.toLowerCase() === sl?.toLowerCase(),
+            ),
+          )
           .filter(Boolean);
       }
       filtered = filtered.slice(0, maxItems);

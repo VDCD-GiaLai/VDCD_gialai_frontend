@@ -199,9 +199,41 @@ export async function fetchSolutionsFromApi(
       });
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
-      const items = body.data?.data || body.data || body;
-      if (Array.isArray(items) && items.length > 0) {
-        return items;
+      const payload = body.data ?? body;
+      const rawItems: any[] = Array.isArray(payload)
+        ? payload
+        : (payload.items ?? payload.data ?? []);
+
+      if (Array.isArray(rawItems) && rawItems.length > 0) {
+        return rawItems.map((item) => {
+          const mockMatch = ALL_MOCK_SOLUTIONS.find(
+            (m) => m.slug === item.slug,
+          );
+          return {
+            ...item,
+            id: item.id || `sol-${item.slug}`,
+            title: item.title || mockMatch?.title || "",
+            slug: item.slug || mockMatch?.slug || "",
+            description:
+              item.shortDescription ||
+              item.description ||
+              mockMatch?.description ||
+              "",
+            shortDescription:
+              item.shortDescription ||
+              item.description ||
+              mockMatch?.description ||
+              null,
+            thumbnail:
+              item.thumbnail ||
+              (item as any).imageUrl ||
+              (item as any).thumbnailUrl ||
+              mockMatch?.thumbnail ||
+              null,
+            websiteUrl: item.websiteUrl || `/solution/${item.slug}`,
+            isPublished: item.isPublished !== false,
+          };
+        });
       }
       throw new Error("No solutions returned");
     },
@@ -311,22 +343,27 @@ export async function fetchRelatedSolutionsFromApi(
         id: s.id,
         title: s.title,
         slug: s.slug,
-        shortDescription: s.description || null,
-        thumbnail: s.thumbnail || null,
-        thumbnailFileId: null,
+        shortDescription: s.shortDescription || s.description || null,
+        thumbnail:
+          s.thumbnail || (s as any).imageUrl || (s as any).thumbnailUrl || null,
+        thumbnailFileId: (s as any).thumbnailFileId || null,
         websiteUrl: s.websiteUrl || `/solution/${s.slug}`,
-        fieldId: null,
-        field: {
+        fieldId: (s as any).fieldId || null,
+        field: (s as any).field || {
           id: "fld-tech",
           name: "Giải pháp Công nghệ",
           slug: "cong-nghe-so",
         },
-        metaTitle: s.title,
-        metaDescription: s.description || null,
+        metaTitle: (s as any).metaTitle || s.title,
+        metaDescription:
+          (s as any).metaDescription ||
+          s.shortDescription ||
+          s.description ||
+          null,
         isPublished: true,
-        publishedAt: null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        publishedAt: (s as any).publishedAt || null,
+        createdAt: (s as any).createdAt || new Date().toISOString(),
+        updatedAt: (s as any).updatedAt || new Date().toISOString(),
         content: { version: 1, blocks: [] },
       }));
   } catch {

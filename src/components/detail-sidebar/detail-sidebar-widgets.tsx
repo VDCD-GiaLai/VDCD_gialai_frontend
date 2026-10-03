@@ -189,6 +189,19 @@ function InlineCard({
   );
 }
 
+export function resolveWidgetThumbnail(item: any): string | null {
+  if (!item) return null;
+  return (
+    item.thumbnail ||
+    item.coverImage ||
+    item.imageUrl ||
+    item.thumbnailUrl ||
+    item.heroImageUrl ||
+    item.image ||
+    null
+  );
+}
+
 /* ══════════════════════════════════════════════════════════
  *  WIDGET 1: Related Programs
  *  sm-2xl: 3-col inline cards  |  2xl: compact sidebar list
@@ -214,7 +227,7 @@ export function RelatedProgramsWidget({
             <InlineCard
               key={p.id}
               href={`/programs/${p.slug}`}
-              thumbnail={p.thumbnail}
+              thumbnail={resolveWidgetThumbnail(p)}
               title={p.title}
               description={p.shortDescription}
               badge={p.field?.name}
@@ -235,7 +248,7 @@ export function RelatedProgramsWidget({
           <InlineCard
             key={p.id}
             href={`/programs/${p.slug}`}
-            thumbnail={p.thumbnail}
+            thumbnail={resolveWidgetThumbnail(p)}
             title={p.title}
             description={p.shortDescription}
             badge={p.field?.name}
@@ -256,34 +269,40 @@ export function RelatedProgramsWidget({
           icon={<Briefcase className="w-3.5 h-3.5" weight="bold" />}
           viewAllHref="/programs"
         >
-          {programs.map((program) => (
-            <Link
-              key={program.id}
-              href={`/programs/${program.slug}`}
-              className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
-            >
-              {program.thumbnail ? (
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                  <Image
-                    src={program.thumbnail}
-                    alt={program.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          {programs.map((program) => {
+            const thumb = resolveWidgetThumbnail(program);
+            return (
+              <Link
+                key={program.id}
+                href={`/programs/${program.slug}`}
+                className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+              >
+                {thumb ? (
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                    <Image
+                      src={thumb}
+                      alt={program.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
+                    <Briefcase
+                      className="w-6 h-6 text-zinc-400"
+                      weight="thin"
+                    />
+                  </div>
+                )}
+                <div className="px-3.5 py-2.5">
+                  <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                    {program.title}
+                  </h5>
                 </div>
-              ) : (
-                <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
-                  <Briefcase className="w-6 h-6 text-zinc-400" weight="thin" />
-                </div>
-              )}
-              <div className="px-3.5 py-2.5">
-                <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
-                  {program.title}
-                </h5>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </CompactWidget>
       </div>
     </>
@@ -326,7 +345,7 @@ export function FeaturedSolutionsWidget({
             <InlineCard
               key={sol.id}
               href={`/solution/${sol.slug}`}
-              thumbnail={sol.thumbnail}
+              thumbnail={resolveWidgetThumbnail(sol)}
               title={sol.title}
               description={getDesc(sol)}
               fallbackIcon={
@@ -346,7 +365,7 @@ export function FeaturedSolutionsWidget({
           <InlineCard
             key={sol.id}
             href={`/solution/${sol.slug}`}
-            thumbnail={sol.thumbnail}
+            thumbnail={resolveWidgetThumbnail(sol)}
             title={sol.title}
             description={getDesc(sol)}
             fallbackIcon={
@@ -366,34 +385,40 @@ export function FeaturedSolutionsWidget({
           icon={<Lightbulb className="w-3.5 h-3.5" weight="bold" />}
           viewAllOnClick={openMegaMenu}
         >
-          {solutions.map((sol) => (
-            <Link
-              key={sol.id}
-              href={`/solution/${sol.slug}`}
-              className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
-            >
-              {sol.thumbnail ? (
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                  <Image
-                    src={sol.thumbnail}
-                    alt={sol.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          {solutions.map((sol) => {
+            const thumb = resolveWidgetThumbnail(sol);
+            return (
+              <Link
+                key={sol.id}
+                href={`/solution/${sol.slug}`}
+                className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+              >
+                {thumb ? (
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                    <Image
+                      src={thumb}
+                      alt={sol.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] w-full bg-[#ca2a30]/10 flex items-center justify-center">
+                    <Lightbulb
+                      className="w-6 h-6 text-[#ca2a30]"
+                      weight="bold"
+                    />
+                  </div>
+                )}
+                <div className="px-3.5 py-2.5">
+                  <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                    {sol.title}
+                  </h5>
                 </div>
-              ) : (
-                <div className="aspect-[16/9] w-full bg-[#ca2a30]/10 flex items-center justify-center">
-                  <Lightbulb className="w-6 h-6 text-[#ca2a30]" weight="bold" />
-                </div>
-              )}
-              <div className="px-3.5 py-2.5">
-                <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
-                  {sol.title}
-                </h5>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </CompactWidget>
       </div>
     </>
@@ -428,7 +453,7 @@ export function RelatedArticlesWidget({
             <InlineCard
               key={art.id}
               href={`/news/${art.slug}`}
-              thumbnail={art.thumbnail}
+              thumbnail={resolveWidgetThumbnail(art)}
               title={art.title}
               meta={art.publishedAt ? formatDate(art.publishedAt) : undefined}
               fallbackIcon={
@@ -448,7 +473,7 @@ export function RelatedArticlesWidget({
           <InlineCard
             key={art.id}
             href={`/news/${art.slug}`}
-            thumbnail={art.thumbnail}
+            thumbnail={resolveWidgetThumbnail(art)}
             title={art.title}
             meta={art.publishedAt ? formatDate(art.publishedAt) : undefined}
             fallbackIcon={
@@ -468,40 +493,46 @@ export function RelatedArticlesWidget({
           icon={<Newspaper className="w-3.5 h-3.5" weight="bold" />}
           viewAllHref="/news"
         >
-          {articles.map((art) => (
-            <Link
-              key={art.id}
-              href={`/news/${art.slug}`}
-              className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
-            >
-              {art.thumbnail ? (
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                  <Image
-                    src={art.thumbnail}
-                    alt={art.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-              ) : (
-                <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
-                  <Newspaper className="w-6 h-6 text-zinc-400" weight="thin" />
-                </div>
-              )}
-              <div className="px-3.5 py-2.5">
-                <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
-                  {art.title}
-                </h5>
-                {art.publishedAt && (
-                  <span className="text-[9px] text-[#6C7E96] dark:text-zinc-500 font-mono-label flex items-center gap-1 mt-0.5">
-                    <Calendar className="w-2.5 h-2.5" weight="thin" />
-                    {formatDate(art.publishedAt)}
-                  </span>
+          {articles.map((art) => {
+            const thumb = resolveWidgetThumbnail(art);
+            return (
+              <Link
+                key={art.id}
+                href={`/news/${art.slug}`}
+                className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+              >
+                {thumb ? (
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                    <Image
+                      src={thumb}
+                      alt={art.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
+                    <Newspaper
+                      className="w-6 h-6 text-zinc-400"
+                      weight="thin"
+                    />
+                  </div>
                 )}
-              </div>
-            </Link>
-          ))}
+                <div className="px-3.5 py-2.5">
+                  <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                    {art.title}
+                  </h5>
+                  {art.publishedAt && (
+                    <span className="text-[9px] text-[#6C7E96] dark:text-zinc-500 font-mono-label flex items-center gap-1 mt-0.5">
+                      <Calendar className="w-2.5 h-2.5" weight="thin" />
+                      {formatDate(art.publishedAt)}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </CompactWidget>
       </div>
     </>
@@ -533,7 +564,7 @@ export function RelatedProjectsWidget({
             <InlineCard
               key={p.id || p.slug}
               href={`/projects/${p.slug || p.id}`}
-              thumbnail={p.thumbnail || p.coverImage}
+              thumbnail={resolveWidgetThumbnail(p)}
               title={p.title}
               description={p.shortDescription || p.overview || p.description}
               badge={p.category || p.field?.name}
@@ -554,7 +585,7 @@ export function RelatedProjectsWidget({
           <InlineCard
             key={p.id || p.slug}
             href={`/projects/${p.slug || p.id}`}
-            thumbnail={p.thumbnail || p.coverImage}
+            thumbnail={resolveWidgetThumbnail(p)}
             title={p.title}
             description={p.shortDescription || p.overview || p.description}
             badge={p.category || p.field?.name}
@@ -575,34 +606,40 @@ export function RelatedProjectsWidget({
           icon={<Briefcase className="w-3.5 h-3.5" weight="bold" />}
           viewAllHref="/projects"
         >
-          {projects.map((proj) => (
-            <Link
-              key={proj.id || proj.slug}
-              href={`/projects/${proj.slug || proj.id}`}
-              className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
-            >
-              {proj.thumbnail || proj.coverImage ? (
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                  <Image
-                    src={proj.thumbnail || proj.coverImage}
-                    alt={proj.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+          {projects.map((proj) => {
+            const thumb = resolveWidgetThumbnail(proj);
+            return (
+              <Link
+                key={proj.id || proj.slug}
+                href={`/projects/${proj.slug || proj.id}`}
+                className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+              >
+                {thumb ? (
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                    <Image
+                      src={thumb}
+                      alt={proj.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
+                    <Briefcase
+                      className="w-6 h-6 text-zinc-400"
+                      weight="thin"
+                    />
+                  </div>
+                )}
+                <div className="px-3.5 py-2.5">
+                  <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                    {proj.title}
+                  </h5>
                 </div>
-              ) : (
-                <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
-                  <Briefcase className="w-6 h-6 text-zinc-400" weight="thin" />
-                </div>
-              )}
-              <div className="px-3.5 py-2.5">
-                <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
-                  {proj.title}
-                </h5>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </CompactWidget>
       </div>
     </>
