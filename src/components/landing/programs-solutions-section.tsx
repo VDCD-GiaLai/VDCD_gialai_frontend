@@ -145,6 +145,10 @@ export function ProgramsSolutionsSection() {
                 title: p.title,
                 image:
                   p.thumbnail ||
+                  (p as unknown as Record<string, string>).imageUrl ||
+                  (p as unknown as Record<string, string>).coverImage ||
+                  CATEGORIES[0].items.find((c) => c.href?.includes(p.slug))
+                    ?.image ||
                   "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
                 description: p.shortDescription || p.title,
                 href: `/programs/${p.slug}`,
@@ -181,7 +185,12 @@ export function ProgramsSolutionsSection() {
 
                   return {
                     title: shortTitle,
-                    image: s.thumbnail || "/images/home/sol_ai.webp",
+                    image:
+                      s.thumbnail ||
+                      CATEGORIES[1].items.find(
+                        (c) => c.href === `/solution/${s.slug}`,
+                      )?.image ||
+                      "/images/home/sol_ai.webp",
                     description: s.description || s.title,
                     href: s.websiteUrl || `/solution/${s.slug}`,
                   };

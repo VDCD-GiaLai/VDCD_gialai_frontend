@@ -40,15 +40,15 @@ export function DetailSidebar({
   return (
     <aside
       className={[
-        /* Mobile + sm-2xl: inline below content */
+        /* Mobile + sm-xl: inline below content */
         "mt-12 pt-8 border-t border-whisper-border dark:border-zinc-800",
-        /* 2xl+: absolute in right margin */
-        "2xl:mt-0 2xl:pt-0 2xl:border-t-0",
-        "2xl:absolute 2xl:top-0 2xl:left-full 2xl:ml-4 2xl:w-[260px]",
+        /* xl+: sticky sidebar column (parent provides flex wrapper) */
+        "xl:mt-0 xl:pt-0 xl:border-t-0",
+        "xl:sticky xl:top-28 xl:self-start xl:w-[280px] xl:shrink-0",
       ].join(" ")}
     >
-      {/* Section Header (hidden on 2xl) */}
-      <div className="flex items-center gap-3 mb-6 2xl:hidden">
+      {/* Section Header (hidden on xl) */}
+      <div className="flex items-center gap-3 mb-6 xl:hidden">
         <div className="w-1 h-5 rounded-full bg-[#ca2a30]" />
         <h3 className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-white whitespace-nowrap">
           {mobileTitle}
@@ -57,10 +57,10 @@ export function DetailSidebar({
       </div>
 
       {/* Content widgets */}
-      <div className="space-y-5 2xl:space-y-5">{children}</div>
+      <div className="space-y-5">{children}</div>
 
-      {/* CTA — full-width on sm-2xl, stacked on 2xl */}
-      {cta && <div className="mt-6 2xl:mt-5">{cta}</div>}
+      {/* CTA — full-width on sm-xl, stacked on xl */}
+      {cta && <div className="mt-6 xl:mt-5">{cta}</div>}
     </aside>
   );
 }
@@ -208,7 +208,7 @@ export function RelatedProgramsWidget({
   return (
     <>
       {/* ── sm-2xl: 3-column card grid ── */}
-      <div className="hidden sm:block 2xl:hidden">
+      <div className="hidden sm:block xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {programs.slice(0, 3).map((p) => (
             <InlineCard
@@ -250,7 +250,7 @@ export function RelatedProgramsWidget({
       </div>
 
       {/* ── 2xl: compact sidebar widget ── */}
-      <div className="hidden 2xl:block">
+      <div className="hidden xl:block">
         <CompactWidget
           title={title}
           icon={<Briefcase className="w-3.5 h-3.5" weight="bold" />}
@@ -320,7 +320,7 @@ export function FeaturedSolutionsWidget({
   return (
     <>
       {/* ── sm-2xl: 3-column card grid ── */}
-      <div className="hidden sm:block 2xl:hidden">
+      <div className="hidden sm:block xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {solutions.slice(0, 3).map((sol) => (
             <InlineCard
@@ -360,7 +360,7 @@ export function FeaturedSolutionsWidget({
       </div>
 
       {/* ── 2xl: compact sidebar widget ── */}
-      <div className="hidden 2xl:block">
+      <div className="hidden xl:block">
         <CompactWidget
           title={title}
           icon={<Lightbulb className="w-3.5 h-3.5" weight="bold" />}
@@ -422,7 +422,7 @@ export function RelatedArticlesWidget({
   return (
     <>
       {/* ── sm-2xl: 3-column card grid ── */}
-      <div className="hidden sm:block 2xl:hidden">
+      <div className="hidden sm:block xl:hidden">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {articles.slice(0, 3).map((art) => (
             <InlineCard
@@ -462,7 +462,7 @@ export function RelatedArticlesWidget({
       </div>
 
       {/* ── 2xl: compact sidebar widget ── */}
-      <div className="hidden 2xl:block">
+      <div className="hidden xl:block">
         <CompactWidget
           title={title}
           icon={<Newspaper className="w-3.5 h-3.5" weight="bold" />}
@@ -548,26 +548,26 @@ export function SidebarCtaWidget({
         /* sm-2xl: horizontal layout */
         "sm:flex sm:items-center sm:gap-6",
         /* 2xl: back to vertical compact */
-        "2xl:block",
+        "xl:block",
       ].join(" ")}
     >
-      <div className="p-4 sm:p-5 space-y-3 sm:flex-1 2xl:p-4">
+      <div className="p-4 sm:p-5 space-y-3 sm:flex-1 xl:p-4">
         <div className="flex items-center gap-2 text-[#ca2a30] font-mono-label text-[9px] font-bold uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-[#ca2a30] animate-pulse" />
           Kết nối hợp tác
         </div>
-        <h4 className="text-sm sm:text-base 2xl:text-sm font-bold font-heading uppercase tracking-tight text-[#011A42] dark:text-white leading-snug">
+        <h4 className="text-sm sm:text-base xl:text-sm font-bold font-heading uppercase tracking-tight text-[#011A42] dark:text-white leading-snug">
           {title}
         </h4>
-        <p className="text-[10px] sm:text-xs 2xl:text-[10px] text-[#6C7E96] dark:text-zinc-400 leading-relaxed">
+        <p className="text-[10px] sm:text-xs xl:text-[10px] text-[#6C7E96] dark:text-zinc-400 leading-relaxed">
           {description}
         </p>
       </div>
 
-      <div className="px-4 pb-4 sm:pr-5 sm:pb-5 sm:pl-0 sm:flex-shrink-0 2xl:px-4 2xl:pb-4 flex flex-col sm:flex-col gap-2">
+      <div className="px-4 pb-4 sm:pr-5 sm:pb-5 sm:pl-0 sm:flex-shrink-0 xl:px-4 xl:pb-4 flex flex-col sm:flex-col gap-2">
         <Link
           href={primaryHref}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono-label text-[9px] sm:text-[10px] 2xl:text-[9px] font-bold uppercase tracking-widest hover:bg-[#ca2a30] hover:text-white dark:hover:bg-[#ca2a30] dark:hover:text-white transition-all duration-300 whitespace-nowrap"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-mono-label text-[9px] sm:text-[10px] xl:text-[9px] font-bold uppercase tracking-widest hover:bg-[#ca2a30] hover:text-white dark:hover:bg-[#ca2a30] dark:hover:text-white transition-all duration-300 whitespace-nowrap"
         >
           <Envelope className="w-3 h-3" weight="thin" />
           {primaryLabel}
@@ -575,7 +575,7 @@ export function SidebarCtaWidget({
         <button
           type="button"
           onClick={handleSecondary}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono-label text-[9px] sm:text-[10px] 2xl:text-[9px] font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] dark:hover:border-[#ca2a30] dark:hover:text-[#ca2a30] transition-all duration-300 cursor-pointer whitespace-nowrap"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono-label text-[9px] sm:text-[10px] xl:text-[9px] font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] dark:hover:border-[#ca2a30] dark:hover:text-[#ca2a30] transition-all duration-300 cursor-pointer whitespace-nowrap"
         >
           <ArrowUpRight className="w-3 h-3" weight="thin" />
           {secondaryLabel}

@@ -411,7 +411,7 @@ export function ProjectDetailContent({
       {/* ── 1. Reading Progress Bar ── */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1000px] mx-auto px-4 sm:px-6">
         {/* ── 2. Top Navigation & Breadcrumbs ── */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-zinc-800">
           <nav
