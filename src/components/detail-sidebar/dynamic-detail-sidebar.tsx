@@ -373,8 +373,12 @@ export function DynamicDetailSidebar({
               (s) =>
                 s.slug === sl ||
                 s.id === sl ||
+                s.slideId === sl ||
+                s.slide?.id === sl ||
                 s.slug?.toLowerCase() === sl?.toLowerCase() ||
-                s.id?.toLowerCase() === sl?.toLowerCase(),
+                s.id?.toLowerCase() === sl?.toLowerCase() ||
+                s.slideId?.toLowerCase() === sl?.toLowerCase() ||
+                s.slide?.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);

@@ -196,10 +196,13 @@ export function resolveWidgetThumbnail(item: any): string | null {
     item.thumbnail ||
     item.coverImage ||
     item.imageUrl ||
+    item.image_url ||
     item.thumbnailUrl ||
     item.heroImageUrl ||
+    item.hero_image_url ||
     item.image ||
     item.slide?.imageUrl ||
+    item.slide?.image_url ||
     null
   );
 }
@@ -672,7 +675,7 @@ export function RelatedSlidesWidget({
           {slides.slice(0, 3).map((s) => (
             <InlineCard
               key={s.id || s.slug}
-              href={`/slides/${s.slug}`}
+              href={`/slides/${s.slug || s.id}`}
               thumbnail={resolveWidgetThumbnail(s)}
               title={s.title}
               description={s.excerpt || s.subtitle}
@@ -693,7 +696,7 @@ export function RelatedSlidesWidget({
         {slides.slice(0, 3).map((s) => (
           <InlineCard
             key={s.id || s.slug}
-            href={`/slides/${s.slug}`}
+            href={`/slides/${s.slug || s.id}`}
             thumbnail={resolveWidgetThumbnail(s)}
             title={s.title}
             description={s.excerpt || s.subtitle}
@@ -720,7 +723,7 @@ export function RelatedSlidesWidget({
             return (
               <Link
                 key={s.id || s.slug}
-                href={`/slides/${s.slug}`}
+                href={`/slides/${s.slug || s.id}`}
                 className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
               >
                 {thumb ? (
