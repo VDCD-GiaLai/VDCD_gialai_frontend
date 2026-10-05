@@ -264,6 +264,7 @@ export interface SlideDetailBlog {
   seoTitle?: string | null;
   metaDescription?: string | null;
   content: SlideDetailBlogContent;
+  sidebarConfig?: SidebarConfig | null;
   isPublished: boolean;
   publishedAt?: string | null;
   createdAt: string;
