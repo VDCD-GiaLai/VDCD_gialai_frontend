@@ -4,6 +4,7 @@ import {
   getMockSlideDetailBlogBySlug,
   getMockSlideDetailBlogBySlideId,
 } from "@/data/slide-detail-blog.data";
+import { fetchWithFallback } from "@/lib/client-cache";
 import type { SlideDetailBlog, SlideDetailBlogListParams } from "@/types";
 import { parseSidebarConfig } from "@/types/sidebar-config";
 
@@ -14,9 +15,13 @@ import { parseSidebarConfig } from "@/types/sidebar-config";
 export async function fetchSlideDetailBlogBySlugFromApi(
   slug: string,
 ): Promise<SlideDetailBlog | null> {
-  if (USE_MOCK_DATA) {
+  const getMock = (): SlideDetailBlog | null => {
     const mock = getMockSlideDetailBlogBySlug(slug);
-    return mock && mock.isPublished ? mock : null;
+    return mock && (mock.isPublished ?? true) ? mock : null;
+  };
+
+  if (USE_MOCK_DATA) {
+    return getMock();
   }
 
   try {
@@ -56,9 +61,9 @@ export async function fetchSlideDetailBlogBySlugFromApi(
       );
     }
 
-    // If backend returns 404 -> blog does not exist or is unpublished
+    // If backend returns 404 -> fallback to mock data
     if (res.status === 404) {
-      return null;
+      return getMock();
     }
 
     if (!res.ok) {
@@ -67,14 +72,16 @@ export async function fetchSlideDetailBlogBySlugFromApi(
 
     const body = await res.json();
     const item = body.data ?? body;
-    if (!item) return null;
+    if (!item) return getMock();
 
     const isPublished =
       item.isPublished !== undefined
         ? Boolean(item.isPublished)
-        : Boolean(item.publishedAt);
+        : item.publishedAt !== undefined
+          ? Boolean(item.publishedAt)
+          : true;
 
-    // If blog is draft / unpublished -> do not allow access
+    // If blog is explicitly draft / unpublished -> do not allow access
     if (!isPublished) {
       return null;
     }
@@ -91,9 +98,7 @@ export async function fetchSlideDetailBlogBySlugFromApi(
     } as SlideDetailBlog;
   } catch (err) {
     console.warn(`[SlideDetailBlogService] API error for slug '${slug}':`, err);
-    // Only if network error/offline: fallback to mock only if mock is published
-    const mock = getMockSlideDetailBlogBySlug(slug);
-    return mock && mock.isPublished ? mock : null;
+    return getMock();
   }
 }
 
@@ -109,9 +114,13 @@ export const getSlideDetailBlogBySlideId = fetchSlideDetailBlogBySlideIdFromApi;
 export async function fetchSlideDetailBlogBySlideIdFromApi(
   slideId: string,
 ): Promise<SlideDetailBlog | null> {
-  if (USE_MOCK_DATA) {
+  const getMock = (): SlideDetailBlog | null => {
     const mock = getMockSlideDetailBlogBySlideId(slideId);
-    return mock && mock.isPublished ? mock : null;
+    return mock && (mock.isPublished ?? true) ? mock : null;
+  };
+
+  if (USE_MOCK_DATA) {
+    return getMock();
   }
 
   try {
@@ -121,7 +130,7 @@ export async function fetchSlideDetailBlogBySlideIdFromApi(
     );
 
     if (res.status === 404) {
-      return null;
+      return getMock();
     }
 
     if (!res.ok) {
@@ -130,12 +139,14 @@ export async function fetchSlideDetailBlogBySlideIdFromApi(
 
     const body = await res.json();
     const item = body.data ?? body;
-    if (!item) return null;
+    if (!item) return getMock();
 
     const isPublished =
       item.isPublished !== undefined
         ? Boolean(item.isPublished)
-        : Boolean(item.publishedAt);
+        : item.publishedAt !== undefined
+          ? Boolean(item.publishedAt)
+          : true;
 
     if (!isPublished) {
       return null;
@@ -156,8 +167,7 @@ export async function fetchSlideDetailBlogBySlideIdFromApi(
       `[SlideDetailBlogService] API error for slideId '${slideId}':`,
       err,
     );
-    const mock = getMockSlideDetailBlogBySlideId(slideId);
-    return mock && mock.isPublished ? mock : null;
+    return getMock();
   }
 }
 
@@ -167,9 +177,15 @@ export async function fetchSlideDetailBlogBySlideIdFromApi(
 export async function fetchSlideDetailBlogByIdFromApi(
   id: string,
 ): Promise<SlideDetailBlog | null> {
+  const getMock = (): SlideDetailBlog | null => {
+    const mock =
+      getMockSlideDetailBlogBySlug(id) ||
+      MOCK_SLIDE_DETAIL_BLOGS.find((b) => b.id === id);
+    return mock && (mock.isPublished ?? true) ? mock : null;
+  };
+
   if (USE_MOCK_DATA) {
-    const mock = getMockSlideDetailBlogBySlug(id);
-    return mock && mock.isPublished ? mock : null;
+    return getMock();
   }
 
   try {
@@ -178,7 +194,7 @@ export async function fetchSlideDetailBlogByIdFromApi(
     });
 
     if (res.status === 404) {
-      return null;
+      return getMock();
     }
 
     if (!res.ok) {
@@ -187,12 +203,14 @@ export async function fetchSlideDetailBlogByIdFromApi(
 
     const body = await res.json();
     const item = body.data ?? body;
-    if (!item) return null;
+    if (!item) return getMock();
 
     const isPublished =
       item.isPublished !== undefined
         ? Boolean(item.isPublished)
-        : Boolean(item.publishedAt);
+        : item.publishedAt !== undefined
+          ? Boolean(item.publishedAt)
+          : true;
 
     if (!isPublished) {
       return null;
@@ -210,68 +228,74 @@ export async function fetchSlideDetailBlogByIdFromApi(
     } as SlideDetailBlog;
   } catch (err) {
     console.warn(`[SlideDetailBlogService] API error for id '${id}':`, err);
-    return null;
+    return getMock();
   }
 }
 
 /**
- * Fetch all published slide detail blogs
+ * Fetch all published slide detail blogs with robust tiered fallback
  */
 export async function fetchSlideDetailBlogsFromApi(
   params?: SlideDetailBlogListParams,
 ): Promise<SlideDetailBlog[]> {
-  if (USE_MOCK_DATA) {
-    if (typeof params?.isPublished === "boolean") {
-      return MOCK_SLIDE_DETAIL_BLOGS.filter(
-        (b) => Boolean(b.isPublished) === params.isPublished,
-      );
+  const page = params?.page ?? 1;
+  const limit = params?.limit ?? 50;
+  const isPublished = params?.isPublished;
+  const cacheKey = `slide_detail_blogs_p${page}_l${limit}_pub${isPublished ?? "all"}`;
+
+  const getMockList = (): SlideDetailBlog[] => {
+    let items = [...MOCK_SLIDE_DETAIL_BLOGS];
+    if (typeof isPublished === "boolean") {
+      items = items.filter((b) => (b.isPublished ?? true) === isPublished);
     }
-    return MOCK_SLIDE_DETAIL_BLOGS;
-  }
+    return items.slice((page - 1) * limit, page * limit);
+  };
 
-  try {
-    const qs = new URLSearchParams();
-    if (params?.page) qs.set("page", String(params.page));
-    if (params?.limit) qs.set("limit", String(params.limit));
-    if (typeof params?.isPublished === "boolean") {
-      qs.set("isPublished", String(params.isPublished));
-    }
+  return fetchWithFallback<SlideDetailBlog[]>({
+    key: cacheKey,
+    useMock: USE_MOCK_DATA,
+    fallback: getMockList,
+    fetcher: async () => {
+      const qs = new URLSearchParams();
+      if (page) qs.set("page", String(page));
+      if (limit) qs.set("limit", String(limit));
+      if (typeof isPublished === "boolean") {
+        qs.set("isPublished", String(isPublished));
+      }
 
-    const url = `${API_BASE_URL}/slide-detail-blogs${qs.toString() ? `?${qs.toString()}` : ""}`;
-    const res = await fetch(url, { cache: "no-store" });
+      const url = `${API_BASE_URL}/slide-detail-blogs${qs.toString() ? `?${qs.toString()}` : ""}`;
+      const res = await fetch(url, { cache: "no-store" });
 
-    if (!res.ok) {
-      if (res.status === 404) return [];
-      throw new Error(`HTTP error ${res.status}`);
-    }
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+      }
 
-    const body = await res.json();
-    const payload = body.data ?? body;
-    const rawItems: SlideDetailBlog[] = Array.isArray(payload)
-      ? payload
-      : (payload.data ?? payload.items ?? []);
+      const body = await res.json();
+      const payload = body.data ?? body;
+      const rawItems: SlideDetailBlog[] = Array.isArray(payload)
+        ? payload
+        : (payload.data ?? payload.items ?? []);
 
-    return rawItems
-      .map((item) => ({
-        ...item,
-        isPublished:
-          item.isPublished !== undefined
-            ? Boolean(item.isPublished)
-            : Boolean(item.publishedAt),
-      }))
-      .filter((item) => {
-        if (typeof params?.isPublished === "boolean") {
-          return item.isPublished === params.isPublished;
-        }
-        return true;
-      });
-  } catch (err) {
-    console.warn(`[SlideDetailBlogService] Error fetching slide blogs:`, err);
-    if (typeof params?.isPublished === "boolean") {
-      return MOCK_SLIDE_DETAIL_BLOGS.filter(
-        (b) => Boolean(b.isPublished) === params.isPublished,
-      );
-    }
-    return MOCK_SLIDE_DETAIL_BLOGS;
-  }
+      if (Array.isArray(rawItems) && rawItems.length > 0) {
+        return rawItems
+          .map((item) => ({
+            ...item,
+            isPublished:
+              item.isPublished !== undefined
+                ? Boolean(item.isPublished)
+                : item.publishedAt !== undefined
+                  ? Boolean(item.publishedAt)
+                  : true,
+          }))
+          .filter((item) => {
+            if (typeof isPublished === "boolean") {
+              return item.isPublished === isPublished;
+            }
+            return true;
+          });
+      }
+
+      throw new Error("No slide detail blogs returned from API");
+    },
+  });
 }
