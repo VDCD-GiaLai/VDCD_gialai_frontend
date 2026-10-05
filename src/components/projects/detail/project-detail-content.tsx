@@ -38,6 +38,12 @@ import {
 } from "@/components/content-blocks/block-renderers";
 import { CommonCtaSection } from "@/components/ui/common-cta-section";
 import { ProjectDetailGallery } from "./project-detail-gallery";
+import { DynamicDetailSidebar } from "@/components/detail-sidebar/dynamic-detail-sidebar";
+import {
+  RelatedProjectsWidget,
+  SidebarCtaWidget,
+} from "@/components/detail-sidebar/detail-sidebar-widgets";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 import "@/components/slides/detail/slide-detail.css";
 import "./project-detail.css";
 
@@ -410,366 +416,297 @@ export function ProjectDetailContent({
       {/* ── 1. Reading Progress Bar ── */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      <div className="max-w-[1000px] mx-auto px-4 sm:px-6">
-        {/* ── 2. Top Navigation & Breadcrumbs ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-zinc-800">
-          <nav
-            aria-label="Breadcrumb"
-            className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
-          >
-            <ol className="flex items-center gap-2 flex-wrap">
-              <li>
-                <NextLink
-                  href="/"
-                  className="hover:text-[#ca2a30] transition-colors"
-                >
-                  Trang chủ
-                </NextLink>
-              </li>
-              <li>/</li>
-              <li>
-                <NextLink
-                  href="/projects"
-                  className="hover:text-[#ca2a30] transition-colors"
-                >
-                  Dự án
-                </NextLink>
-              </li>
-              {project.category && (
-                <>
-                  <li>/</li>
-                  <li className="text-zinc-600 dark:text-zinc-300 line-clamp-1 max-w-[200px]">
-                    {project.category}
-                  </li>
-                </>
-              )}
-            </ol>
-          </nav>
-
-          <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400 font-mono-label">
-            {(project.publishedAt || project.createdAt) && (
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" weight="thin" />
-                {formatDate(project.publishedAt || project.createdAt!)}
-              </span>
-            )}
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" weight="thin" />
-              {readingTimeMinutes} phút đọc
-            </span>
-          </div>
-        </div>
-
-        {/* ── 3. Header: Badges Row (Exact match to Admin Tab Đọc Bài) ── */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-3">
-          {project.category && (
-            <span className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600 dark:bg-red-950/50 dark:text-red-400 border border-red-100/80 dark:border-red-900/40 font-mono-label">
-              {project.category}
-            </span>
-          )}
-          {project.location && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100/90 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 border border-slate-200/60 dark:border-zinc-700 font-mono-label">
-              <span>📍</span>
-              <span>{project.location}</span>
-            </span>
-          )}
-          {project.year && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100/90 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 border border-slate-200/60 dark:border-zinc-700 font-mono-label">
-              <span>🗓️</span>
-              <span>{project.year}</span>
-            </span>
-          )}
-        </div>
-
-        {/* ── 4. Main Title H1 ── */}
-        <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-[#011A42] dark:text-white tracking-tight leading-[1.2] mb-3 font-heading">
-          {project.title}
-        </h1>
-
-        {/* ── 5. Project Description / Overview Subtitle ── */}
-        {project.description && (
-          <p className="text-base sm:text-lg text-[#6C7E96] dark:text-zinc-400 leading-relaxed mb-6 font-normal">
-            {project.description}
-          </p>
-        )}
-
-        {/* ── 6. Project Cover Image (Hero Image) ── */}
-        <figure className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 shadow-xs mb-8">
-          <Image
-            src={coverImage}
-            alt={project.title}
-            fill
-            priority
-            sizes="(max-width: 896px) 100vw, 896px"
-            className="object-cover"
-            style={{ objectPosition: heroPosition }}
-          />
-          {heroCaption && (
-            <figcaption className="p-3 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400 border-t border-whisper-border dark:border-zinc-800">
-              {heroCaption}
-            </figcaption>
-          )}
-        </figure>
-
-        {/* ── 7. Divider ── */}
-        <div className="my-8 border-t border-slate-100 dark:border-zinc-800" />
-
-        {/* ── 8. THÔNG SỐ DỰ ÁN & DỊCH VỤ (Exact match to Admin Tab Đọc Bài) ── */}
-        <section aria-label="Thông số dự án & dịch vụ" className="mb-10">
-          <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#6C7E96] dark:text-zinc-400 mb-4 font-mono-label">
-            THÔNG SỐ DỰ ÁN & DỊCH VỤ
-          </h2>
-
-          {/* 3-column Overview Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
-              <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
-                Chuyên môn
-              </div>
-              <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
-                {project.discipline ||
-                  project.category ||
-                  "Trắc địa & Quy hoạch"}
-              </div>
-            </div>
-            <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
-              <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
-                Địa điểm triển khai
-              </div>
-              <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
-                {project.location || "Việt Nam"}
-              </div>
-            </div>
-            <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
-              <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
-                Năm thực hiện
-              </div>
-              <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
-                {project.year || "2024"}
-              </div>
-            </div>
-          </div>
-
-          {/* Dịch vụ cung cấp (Chips with checkmark) */}
-          {project.services && project.services.length > 0 && (
-            <div className="mb-6">
-              <p className="text-xs sm:text-sm text-[#6C7E96] dark:text-zinc-400 mb-2.5">
-                Dịch vụ cung cấp:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.services.map((service, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-xs sm:text-sm font-medium text-[#011A42] dark:text-zinc-200 shadow-2xs"
-                  >
-                    <span className="text-[#011A42] dark:text-zinc-300 font-bold">
-                      ✓
-                    </span>
-                    <span>{service}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Điểm nhấn kỹ thuật (3-col Cards with Red Value) */}
-          {project.technicalHighlights &&
-            project.technicalHighlights.length > 0 && (
-              <div className="mb-8">
-                <p className="text-xs sm:text-sm text-[#6C7E96] dark:text-zinc-400 mb-2.5">
-                  Điểm nhấn kỹ thuật:
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
-                  {project.technicalHighlights.map((highlight, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-3.5 sm:p-4 bg-white dark:bg-zinc-900/40 shadow-2xs"
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          {/* Main content column */}
+          <div className="flex-1 min-w-0 max-w-4xl">
+            {/* ── 2. Top Navigation & Breadcrumbs ── */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-zinc-800">
+              <nav
+                aria-label="Breadcrumb"
+                className="text-xs font-mono-label font-bold uppercase tracking-widest text-secondary dark:text-zinc-400"
+              >
+                <ol className="flex items-center gap-2 flex-wrap">
+                  <li>
+                    <NextLink
+                      href="/"
+                      className="hover:text-[#ca2a30] transition-colors"
                     >
-                      <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
-                        {highlight.label}
-                      </div>
-                      <div className="text-sm sm:text-base font-bold text-[#ca2a30]">
-                        {highlight.value}
-                      </div>
-                    </div>
-                  ))}
+                      Trang chủ
+                    </NextLink>
+                  </li>
+                  <li>/</li>
+                  <li>
+                    <NextLink
+                      href="/projects"
+                      className="hover:text-[#ca2a30] transition-colors"
+                    >
+                      Dự án
+                    </NextLink>
+                  </li>
+                  {project.category && (
+                    <>
+                      <li>/</li>
+                      <li className="text-zinc-600 dark:text-zinc-300 line-clamp-1 max-w-[200px]">
+                        {project.category}
+                      </li>
+                    </>
+                  )}
+                </ol>
+              </nav>
+
+              <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400 font-mono-label">
+                {(project.publishedAt || project.createdAt) && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" weight="thin" />
+                    {formatDate(project.publishedAt || project.createdAt!)}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" weight="thin" />
+                  {readingTimeMinutes} phút đọc
+                </span>
+              </div>
+            </div>
+
+            {/* ── 3. Header: Badges Row (Exact match to Admin Tab Đọc Bài) ── */}
+            <div className="flex flex-wrap items-center gap-2.5 mb-3">
+              {project.category && (
+                <span className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600 dark:bg-red-950/50 dark:text-red-400 border border-red-100/80 dark:border-red-900/40 font-mono-label">
+                  {project.category}
+                </span>
+              )}
+              {project.location && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100/90 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 border border-slate-200/60 dark:border-zinc-700 font-mono-label">
+                  <span>📍</span>
+                  <span>{project.location}</span>
+                </span>
+              )}
+              {project.year && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100/90 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 border border-slate-200/60 dark:border-zinc-700 font-mono-label">
+                  <span>🗓️</span>
+                  <span>{project.year}</span>
+                </span>
+              )}
+            </div>
+
+            {/* ── 4. Main Title H1 ── */}
+            <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-[#011A42] dark:text-white tracking-tight leading-[1.2] mb-3 font-heading">
+              {project.title}
+            </h1>
+
+            {/* ── 5. Project Description / Overview Subtitle ── */}
+            {project.description && (
+              <p className="text-base sm:text-lg text-[#6C7E96] dark:text-zinc-400 leading-relaxed mb-6 font-normal">
+                {project.description}
+              </p>
+            )}
+
+            {/* ── 6. Project Cover Image (Hero Image) ── */}
+            <figure className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-slate-200/80 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900 shadow-xs mb-8">
+              <Image
+                src={coverImage}
+                alt={project.title}
+                fill
+                priority
+                sizes="(max-width: 896px) 100vw, 896px"
+                className="object-cover"
+                style={{ objectPosition: heroPosition }}
+              />
+              {heroCaption && (
+                <figcaption className="p-3 text-center text-xs sm:text-sm italic text-[#6C7E96] dark:text-zinc-400 border-t border-whisper-border dark:border-zinc-800">
+                  {heroCaption}
+                </figcaption>
+              )}
+            </figure>
+
+            {/* ── 7. Divider ── */}
+            <div className="my-8 border-t border-slate-100 dark:border-zinc-800" />
+
+            {/* ── 8. THÔNG SỐ DỰ ÁN & DỊCH VỤ (Exact match to Admin Tab Đọc Bài) ── */}
+            <section aria-label="Thông số dự án & dịch vụ" className="mb-10">
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#6C7E96] dark:text-zinc-400 mb-4 font-mono-label">
+                THÔNG SỐ DỰ ÁN & DỊCH VỤ
+              </h2>
+
+              {/* 3-column Overview Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
+                  <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
+                    Chuyên môn
+                  </div>
+                  <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
+                    {project.discipline ||
+                      project.category ||
+                      "Trắc địa & Quy hoạch"}
+                  </div>
+                </div>
+                <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
+                  <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
+                    Địa điểm triển khai
+                  </div>
+                  <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
+                    {project.location || "Việt Nam"}
+                  </div>
+                </div>
+                <div className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900/40 shadow-2xs">
+                  <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
+                    Năm thực hiện
+                  </div>
+                  <div className="text-sm sm:text-base font-bold text-[#011A42] dark:text-white">
+                    {project.year || "2024"}
+                  </div>
                 </div>
               </div>
+
+              {/* Dịch vụ cung cấp (Chips with checkmark) */}
+              {project.services && project.services.length > 0 && (
+                <div className="mb-6">
+                  <p className="text-xs sm:text-sm text-[#6C7E96] dark:text-zinc-400 mb-2.5">
+                    Dịch vụ cung cấp:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.services.map((service, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-xs sm:text-sm font-medium text-[#011A42] dark:text-zinc-200 shadow-2xs"
+                      >
+                        <span className="text-[#011A42] dark:text-zinc-300 font-bold">
+                          ✓
+                        </span>
+                        <span>{service}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Điểm nhấn kỹ thuật (3-col Cards with Red Value) */}
+              {project.technicalHighlights &&
+                project.technicalHighlights.length > 0 && (
+                  <div className="mb-8">
+                    <p className="text-xs sm:text-sm text-[#6C7E96] dark:text-zinc-400 mb-2.5">
+                      Điểm nhấn kỹ thuật:
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+                      {project.technicalHighlights.map((highlight, idx) => (
+                        <div
+                          key={idx}
+                          className="rounded-xl border border-slate-200/80 dark:border-zinc-800 p-3.5 sm:p-4 bg-white dark:bg-zinc-900/40 shadow-2xs"
+                        >
+                          <div className="text-xs text-[#6C7E96] dark:text-zinc-400 mb-1">
+                            {highlight.label}
+                          </div>
+                          <div className="text-sm sm:text-base font-bold text-[#ca2a30]">
+                            {highlight.value}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+            </section>
+
+            {/* ── 9. Content Blocks Stream (Challenge, Transformation, Gallery, etc.) ── */}
+            {blocks.length > 0 && (
+              <main className="w-full pb-12">
+                <div className="space-y-6">
+                  {blocks.map((block) => renderBlock(block))}
+                </div>
+              </main>
             )}
-        </section>
 
-        {/* ── 9. Content Blocks Stream (Challenge, Transformation, Gallery, etc.) ── */}
-        {blocks.length > 0 && (
-          <main className="w-full pb-12">
-            <div className="space-y-6">
-              {blocks.map((block) => renderBlock(block))}
-            </div>
-          </main>
-        )}
+            {/* ── 9.5. Project Gallery (Synchronized with Admin Visual Editor) ── */}
+            {project.galleryImages && project.galleryImages.length > 0 && (
+              <div className="mb-12">
+                <ProjectDetailGallery galleryImages={project.galleryImages} />
+              </div>
+            )}
 
-        {/* ── 9.5. Project Gallery (Synchronized with Admin Visual Editor) ── */}
-        {project.galleryImages && project.galleryImages.length > 0 && (
-          <div className="mb-12">
-            <ProjectDetailGallery galleryImages={project.galleryImages} />
-          </div>
-        )}
+            {/* ── 10. Social Sharing Bar ── */}
+            <div className="pt-4 pb-12">
+              <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-slate-100 dark:border-zinc-800">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                    Chia sẻ dự án:
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleShareFacebook}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Facebook"
+                    >
+                      <ShareNetwork className="w-4 h-4" weight="thin" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleShareTwitter}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Twitter / X"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                      >
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCopyLink}
+                      className="share-button"
+                      aria-label="Sao chép liên kết dự án"
+                    >
+                      {isCopied ? (
+                        <Check
+                          className="w-4 h-4 text-emerald-500"
+                          weight="bold"
+                        />
+                      ) : (
+                        <Copy className="w-4 h-4" weight="thin" />
+                      )}
+                    </button>
+                  </div>
+                </div>
 
-        {/* ── 10. Social Sharing Bar ── */}
-        <div className="pt-4 pb-12">
-          <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-slate-100 dark:border-zinc-800">
-            <div className="flex items-center gap-3">
-              <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-                Chia sẻ dự án:
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleShareFacebook}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Facebook"
+                <NextLink
+                  href="/projects"
+                  className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
                 >
-                  <ShareNetwork className="w-4 h-4" weight="thin" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleShareTwitter}
-                  className="share-button"
-                  aria-label="Chia sẻ trên Twitter / X"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-3.5 h-3.5"
-                    fill="currentColor"
-                  >
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  className="share-button"
-                  aria-label="Sao chép liên kết dự án"
-                >
-                  {isCopied ? (
-                    <Check className="w-4 h-4 text-emerald-500" weight="bold" />
-                  ) : (
-                    <Copy className="w-4 h-4" weight="thin" />
-                  )}
-                </button>
+                  Xem tất cả dự án
+                  <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+                </NextLink>
               </div>
             </div>
-
-            <NextLink
-              href="/projects"
-              className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
-            >
-              Xem tất cả dự án
-              <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-            </NextLink>
           </div>
+
+          {/* Sidebar: inline trên mobile/tablet, cột bên phải trên xl */}
+          <DynamicDetailSidebar
+            sidebarConfig={
+              project.sidebarConfig ??
+              parseSidebarConfig(project.content) ??
+              parseSidebarConfig(project)
+            }
+            defaultMobileTitle="Dự án liên quan"
+            projects={relatedProjects}
+            defaultCta={
+              <SidebarCtaWidget
+                title="Khởi động dự án của bạn"
+                description="Kết nối với đội ngũ chuyên gia VDCD để được khảo sát thực địa và tư vấn phương án tối ưu."
+                primaryLabel="Liên hệ tư vấn"
+                primaryHref="/contact"
+              />
+            }
+            defaultWidgets={
+              <RelatedProjectsWidget
+                projects={relatedProjects}
+                title="Dự án nổi bật"
+              />
+            }
+          />
         </div>
-
-        {/* ── 11. Related Projects ── */}
-        {relatedProjects.length > 0 && (
-          <section className="pb-16" aria-labelledby="related-projects-heading">
-            <div className="flex items-center justify-between mb-6">
-              <h3
-                id="related-projects-heading"
-                className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white"
-              >
-                Dự án liên quan
-              </h3>
-              <NextLink
-                href="/projects"
-                className="text-xs font-mono-label font-bold uppercase tracking-wider text-[#ca2a30] hover:underline"
-              >
-                Xem thêm
-              </NextLink>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {relatedProjects.map((rel) => (
-                <NextLink
-                  key={rel.id}
-                  href={`/projects/${rel.id}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                    <Image
-                      src={
-                        rel.coverImage ||
-                        rel.thumbnail ||
-                        "/images/placeholder.webp"
-                      }
-                      alt={rel.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    {rel.category && (
-                      <p className="text-[11px] font-bold uppercase text-[#ca2a30] tracking-wider mb-1.5 font-mono-label">
-                        {rel.category}
-                      </p>
-                    )}
-                    <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2 uppercase font-heading">
-                      {rel.title}
-                    </h4>
-                    {rel.location && (
-                      <span className="text-[11px] text-[#6C7E96] dark:text-zinc-400 font-mono-label flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#ca2a30]" />
-                        {rel.location}
-                      </span>
-                    )}
-                  </div>
-                </NextLink>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── 12. Related Articles ── */}
-        {project.relatedArticles && project.relatedArticles.length > 0 && (
-          <section className="pb-16" aria-labelledby="related-articles-heading">
-            <h3
-              id="related-articles-heading"
-              className="text-xl font-bold font-heading uppercase text-[#011A42] dark:text-white mb-6"
-            >
-              Tin tức & Hoạt động liên quan
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {project.relatedArticles.map((art) => (
-                <NextLink
-                  key={art.id}
-                  href={`/news/${art.slug}`}
-                  className="group block rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 overflow-hidden hover:border-[#ca2a30] transition-all duration-300 shadow-2xs"
-                >
-                  {art.thumbnail && (
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
-                      <Image
-                        src={art.thumbnail}
-                        alt={art.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    {art.publishedAt && (
-                      <span className="text-[11px] font-mono-label text-[#6C7E96] dark:text-zinc-400 block mb-1.5">
-                        {formatDate(art.publishedAt)}
-                      </span>
-                    )}
-                    <h4 className="text-sm font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2">
-                      {art.title}
-                    </h4>
-                  </div>
-                </NextLink>
-              ))}
-            </div>
-          </section>
-        )}
       </div>
 
       {/* ── 14. Unified CTA Section ── */}

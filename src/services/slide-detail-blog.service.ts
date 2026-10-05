@@ -5,6 +5,7 @@ import {
   getMockSlideDetailBlogBySlideId,
 } from "@/data/slide-detail-blog.data";
 import type { SlideDetailBlog, SlideDetailBlogListParams } from "@/types";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 
 /**
  * Fetch a single slide detail blog by its URL slug (or slideId/id fallback)
@@ -78,8 +79,14 @@ export async function fetchSlideDetailBlogBySlugFromApi(
       return null;
     }
 
+    const sidebarConfig =
+      parseSidebarConfig(item.sidebarConfig) ??
+      parseSidebarConfig(item.content) ??
+      null;
+
     return {
       ...item,
+      sidebarConfig,
       isPublished: true,
     } as SlideDetailBlog;
   } catch (err) {
@@ -134,8 +141,14 @@ export async function fetchSlideDetailBlogBySlideIdFromApi(
       return null;
     }
 
+    const sidebarConfig =
+      parseSidebarConfig(item.sidebarConfig) ??
+      parseSidebarConfig(item.content) ??
+      null;
+
     return {
       ...item,
+      sidebarConfig,
       isPublished: true,
     } as SlideDetailBlog;
   } catch (err) {
@@ -185,8 +198,14 @@ export async function fetchSlideDetailBlogByIdFromApi(
       return null;
     }
 
+    const sidebarConfig =
+      parseSidebarConfig(item.sidebarConfig) ??
+      parseSidebarConfig(item.content) ??
+      null;
+
     return {
       ...item,
+      sidebarConfig,
       isPublished: true,
     } as SlideDetailBlog;
   } catch (err) {

@@ -34,6 +34,7 @@ import {
   RelatedProgramsWidget,
   SidebarCtaWidget,
 } from "@/components/detail-sidebar";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 import "@/components/slides/detail/slide-detail.css";
 import "../programs.css";
 
@@ -487,9 +488,8 @@ export function ProgramDetailContent({
           <DynamicDetailSidebar
             sidebarConfig={
               program.sidebarConfig ??
-              (typeof program.content === "object"
-                ? program.content?.sidebarConfig
-                : null)
+              parseSidebarConfig(program.content) ??
+              parseSidebarConfig(program)
             }
             defaultMobileTitle="Chương trình liên quan"
             programs={relatedPrograms}

@@ -36,6 +36,7 @@ import {
   FeaturedSolutionsWidget,
   SidebarCtaWidget,
 } from "@/components/detail-sidebar";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 import "@/components/slides/detail/slide-detail.css";
 import "@/components/programs/programs.css";
 
@@ -539,7 +540,9 @@ export function SolutionDetailContent({
           </div>
           <DynamicDetailSidebar
             sidebarConfig={
-              solution.sidebarConfig ?? solution.content?.sidebarConfig
+              solution.sidebarConfig ??
+              parseSidebarConfig(solution.content) ??
+              parseSidebarConfig(solution)
             }
             defaultMobileTitle="Giải pháp liên quan"
             solutions={relatedSolutions}

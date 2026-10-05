@@ -8,6 +8,7 @@ import type {
   PaginatedResponse,
   SlideDetailBlogContent,
 } from "@/types";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 
 /**
  * Parses article content if it is encoded as a JSON string
@@ -161,16 +162,16 @@ export async function fetchArticleBySlugFromApi(
 
       const parsedContent = parseArticleContent(data.content);
       const sidebarConfig =
-        data.sidebarConfig ??
-        (parsedContent && typeof parsedContent === "object"
-          ? (parsedContent as any).sidebarConfig
-          : undefined);
+        parseSidebarConfig(data.sidebarConfig) ??
+        parseSidebarConfig(parsedContent) ??
+        parseSidebarConfig(data.content) ??
+        null;
 
       return {
         ...data,
         isPublished: true,
         content: parsedContent,
-        sidebarConfig: sidebarConfig ?? null,
+        sidebarConfig,
         relatedArticles: data.relatedArticles ?? [],
       } as ArticleDetail;
     },

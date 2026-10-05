@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { SidebarConfig } from "@/types/sidebar-config";
+import { type SidebarConfig, parseSidebarConfig } from "@/types/sidebar-config";
 import {
   DetailSidebar,
   RelatedProgramsWidget,
@@ -19,7 +19,7 @@ import { fetchSlideDetailBlogsFromApi } from "@/services/slide-detail-blog.servi
 
 export interface DynamicDetailSidebarProps {
   /** Explicit or entity sidebarConfig */
-  sidebarConfig?: SidebarConfig | null;
+  sidebarConfig?: SidebarConfig | Record<string, any> | string | null;
   /** Mobile header title */
   defaultMobileTitle?: string;
   /** Fallback widgets rendered when mode is 'auto' or not configured */
@@ -45,10 +45,15 @@ export function DynamicDetailSidebar({
   projects: initialProjects,
   slides: initialSlides,
 }: DynamicDetailSidebarProps) {
+  const config = React.useMemo(
+    () => parseSidebarConfig(sidebarConfig),
+    [sidebarConfig],
+  );
+
   const isCustomMode =
-    sidebarConfig?.mode === "custom" &&
-    Array.isArray(sidebarConfig.widgets) &&
-    sidebarConfig.widgets.length > 0;
+    config?.mode === "custom" &&
+    Array.isArray(config.widgets) &&
+    config.widgets.length > 0;
 
   // Local state for auto-fetching unprovided entity types when in custom mode
   const [fetchedSolutions, setFetchedSolutions] = React.useState<any[]>([]);
@@ -57,45 +62,99 @@ export function DynamicDetailSidebar({
   const [fetchedProjects, setFetchedProjects] = React.useState<any[]>([]);
   const [fetchedSlides, setFetchedSlides] = React.useState<any[]>([]);
 
-  const solutions =
-    initialSolutions && initialSolutions.length > 0
-      ? initialSolutions
-      : fetchedSolutions;
-  const programs =
-    initialPrograms && initialPrograms.length > 0
-      ? initialPrograms
-      : fetchedPrograms;
-  const articles =
-    initialArticles && initialArticles.length > 0
-      ? initialArticles
-      : fetchedArticles;
-  const projects =
-    initialProjects && initialProjects.length > 0
-      ? initialProjects
-      : fetchedProjects;
-  const slides =
-    initialSlides && initialSlides.length > 0 ? initialSlides : fetchedSlides;
+  // Deduplicate and merge initial contextual items with full fetched collections
+  const solutions = React.useMemo(() => {
+    const list: any[] = [];
+    const seen = new Set<string>();
+    const addItem = (item: any) => {
+      if (!item) return;
+      const key = String(item.slug || item.id || "");
+      if (key && !seen.has(key.toLowerCase())) {
+        seen.add(key.toLowerCase());
+        list.push(item);
+      }
+    };
+    (initialSolutions || []).forEach(addItem);
+    (fetchedSolutions || []).forEach(addItem);
+    return list;
+  }, [initialSolutions, fetchedSolutions]);
 
-  // Fetch needed entity collections if not provided in props
+  const programs = React.useMemo(() => {
+    const list: any[] = [];
+    const seen = new Set<string>();
+    const addItem = (item: any) => {
+      if (!item) return;
+      const key = String(item.slug || item.id || "");
+      if (key && !seen.has(key.toLowerCase())) {
+        seen.add(key.toLowerCase());
+        list.push(item);
+      }
+    };
+    (initialPrograms || []).forEach(addItem);
+    (fetchedPrograms || []).forEach(addItem);
+    return list;
+  }, [initialPrograms, fetchedPrograms]);
+
+  const articles = React.useMemo(() => {
+    const list: any[] = [];
+    const seen = new Set<string>();
+    const addItem = (item: any) => {
+      if (!item) return;
+      const key = String(item.slug || item.id || "");
+      if (key && !seen.has(key.toLowerCase())) {
+        seen.add(key.toLowerCase());
+        list.push(item);
+      }
+    };
+    (initialArticles || []).forEach(addItem);
+    (fetchedArticles || []).forEach(addItem);
+    return list;
+  }, [initialArticles, fetchedArticles]);
+
+  const projects = React.useMemo(() => {
+    const list: any[] = [];
+    const seen = new Set<string>();
+    const addItem = (item: any) => {
+      if (!item) return;
+      const key = String(item.slug || item.id || "");
+      if (key && !seen.has(key.toLowerCase())) {
+        seen.add(key.toLowerCase());
+        list.push(item);
+      }
+    };
+    (initialProjects || []).forEach(addItem);
+    (fetchedProjects || []).forEach(addItem);
+    return list;
+  }, [initialProjects, fetchedProjects]);
+
+  const slides = React.useMemo(() => {
+    const list: any[] = [];
+    const seen = new Set<string>();
+    const addItem = (item: any) => {
+      if (!item) return;
+      const key = String(item.slug || item.id || "");
+      if (key && !seen.has(key.toLowerCase())) {
+        seen.add(key.toLowerCase());
+        list.push(item);
+      }
+    };
+    (initialSlides || []).forEach(addItem);
+    (fetchedSlides || []).forEach(addItem);
+    return list;
+  }, [initialSlides, fetchedSlides]);
+
+  // Fetch needed entity collections when in custom mode
   React.useEffect(() => {
-    if (!isCustomMode || !sidebarConfig?.widgets) return;
+    if (!isCustomMode || !config?.widgets) return;
 
-    const needsSolutions = sidebarConfig.widgets.some(
-      (w) => w.type === "solutions",
-    );
-    const needsPrograms = sidebarConfig.widgets.some(
-      (w) => w.type === "programs",
-    );
-    const needsArticles = sidebarConfig.widgets.some(
-      (w) => w.type === "articles",
-    );
-    const needsProjects = sidebarConfig.widgets.some(
-      (w) => w.type === "projects",
-    );
-    const needsSlides = sidebarConfig.widgets.some((w) => w.type === "slides");
+    const needsSolutions = config.widgets.some((w) => w.type === "solutions");
+    const needsPrograms = config.widgets.some((w) => w.type === "programs");
+    const needsArticles = config.widgets.some((w) => w.type === "articles");
+    const needsProjects = config.widgets.some((w) => w.type === "projects");
+    const needsSlides = config.widgets.some((w) => w.type === "slides");
 
-    if (needsSolutions && solutions.length === 0) {
-      fetchSolutionsFromApi(20)
+    if (needsSolutions && fetchedSolutions.length === 0) {
+      fetchSolutionsFromApi(50)
         .then((items) => {
           if (Array.isArray(items) && items.length > 0) {
             setFetchedSolutions(items);
@@ -104,8 +163,8 @@ export function DynamicDetailSidebar({
         .catch(() => {});
     }
 
-    if (needsPrograms && programs.length === 0) {
-      fetchProgramsFromApi({ limit: 20 })
+    if (needsPrograms && fetchedPrograms.length === 0) {
+      fetchProgramsFromApi({ limit: 50 })
         .then((res) => {
           if (res?.items && res.items.length > 0) {
             setFetchedPrograms(res.items);
@@ -114,8 +173,8 @@ export function DynamicDetailSidebar({
         .catch(() => {});
     }
 
-    if (needsArticles && articles.length === 0) {
-      fetchArticlesFromApi({ limit: 20 })
+    if (needsArticles && fetchedArticles.length === 0) {
+      fetchArticlesFromApi({ limit: 50 })
         .then((res) => {
           if (res?.items && res.items.length > 0) {
             setFetchedArticles(res.items);
@@ -124,8 +183,8 @@ export function DynamicDetailSidebar({
         .catch(() => {});
     }
 
-    if (needsProjects && projects.length === 0) {
-      fetchProjectsFromApi(20)
+    if (needsProjects && fetchedProjects.length === 0) {
+      fetchProjectsFromApi(50)
         .then((items) => {
           if (Array.isArray(items) && items.length > 0) {
             setFetchedProjects(items);
@@ -134,8 +193,8 @@ export function DynamicDetailSidebar({
         .catch(() => {});
     }
 
-    if (needsSlides && slides.length === 0) {
-      fetchSlideDetailBlogsFromApi({ isPublished: true, limit: 20 })
+    if (needsSlides && fetchedSlides.length === 0) {
+      fetchSlideDetailBlogsFromApi({ isPublished: true, limit: 50 })
         .then((items) => {
           if (Array.isArray(items) && items.length > 0) {
             setFetchedSlides(items);
@@ -145,25 +204,47 @@ export function DynamicDetailSidebar({
     }
   }, [
     isCustomMode,
-    sidebarConfig,
-    solutions.length,
-    programs.length,
-    articles.length,
-    projects.length,
-    slides.length,
+    config,
+    fetchedSolutions.length,
+    fetchedPrograms.length,
+    fetchedArticles.length,
+    fetchedProjects.length,
+    fetchedSlides.length,
   ]);
 
-  // Mode Auto or undefined: Render default children and default CTA
-  if (!isCustomMode || !sidebarConfig?.widgets) {
+  // Custom CTA resolution (supports both custom mode and auto mode with custom CTA)
+  let ctaNode: React.ReactNode = defaultCta;
+  if (config?.cta) {
+    if (config.cta.enabled === false) {
+      ctaNode = null;
+    } else {
+      ctaNode = (
+        <SidebarCtaWidget
+          title={config.cta.title || "Bắt đầu chuyển đổi số"}
+          description={
+            config.cta.description ||
+            "Liên hệ đội ngũ VDCD để nhận tư vấn giải pháp phù hợp."
+          }
+          primaryLabel={config.cta.primaryLabel || "Liên hệ tư vấn"}
+          primaryHref={config.cta.primaryHref || "/contact"}
+          secondaryLabel={config.cta.secondaryLabel || "Khám phá giải pháp"}
+          secondaryHref={config.cta.secondaryHref}
+        />
+      );
+    }
+  }
+
+  // Mode Auto or undefined: Render default children and resolved CTA
+  if (!isCustomMode || !config?.widgets) {
     return (
-      <DetailSidebar mobileTitle={defaultMobileTitle} cta={defaultCta}>
+      <DetailSidebar mobileTitle={defaultMobileTitle} cta={ctaNode}>
         {defaultWidgets}
       </DetailSidebar>
     );
   }
 
   // Mode Custom: Render configured widgets in admin-specified order
-  const renderedWidgets = sidebarConfig.widgets.map((w, idx) => {
+  const renderedWidgets = config.widgets.map((w, idx) => {
     const maxItems = w.maxItems || 3;
     const slugs = w.itemSlugs || [];
 
@@ -172,16 +253,21 @@ export function DynamicDetailSidebar({
       if (slugs.length > 0) {
         filtered = slugs
           .map((sl) =>
-            filtered.find(
+            solutions.find(
               (s) =>
                 s.slug === sl ||
                 s.id === sl ||
-                s.slug?.toLowerCase() === sl?.toLowerCase(),
+                s.slug?.toLowerCase() === sl?.toLowerCase() ||
+                s.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);
       }
+      if (filtered.length === 0 && solutions.length > 0) {
+        filtered = solutions;
+      }
       filtered = filtered.slice(0, maxItems);
+      if (filtered.length === 0) return null;
       return (
         <FeaturedSolutionsWidget
           key={`sol-${idx}`}
@@ -196,16 +282,21 @@ export function DynamicDetailSidebar({
       if (slugs.length > 0) {
         filtered = slugs
           .map((sl) =>
-            filtered.find(
+            programs.find(
               (p) =>
                 p.slug === sl ||
                 p.id === sl ||
-                p.slug?.toLowerCase() === sl?.toLowerCase(),
+                p.slug?.toLowerCase() === sl?.toLowerCase() ||
+                p.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);
       }
+      if (filtered.length === 0 && programs.length > 0) {
+        filtered = programs;
+      }
       filtered = filtered.slice(0, maxItems);
+      if (filtered.length === 0) return null;
       return (
         <RelatedProgramsWidget
           key={`prg-${idx}`}
@@ -220,16 +311,21 @@ export function DynamicDetailSidebar({
       if (slugs.length > 0) {
         filtered = slugs
           .map((sl) =>
-            filtered.find(
+            articles.find(
               (a) =>
                 a.slug === sl ||
                 a.id === sl ||
-                a.slug?.toLowerCase() === sl?.toLowerCase(),
+                a.slug?.toLowerCase() === sl?.toLowerCase() ||
+                a.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);
       }
+      if (filtered.length === 0 && articles.length > 0) {
+        filtered = articles;
+      }
       filtered = filtered.slice(0, maxItems);
+      if (filtered.length === 0) return null;
       return (
         <RelatedArticlesWidget
           key={`art-${idx}`}
@@ -244,16 +340,21 @@ export function DynamicDetailSidebar({
       if (slugs.length > 0) {
         filtered = slugs
           .map((sl) =>
-            filtered.find(
+            projects.find(
               (p) =>
                 p.slug === sl ||
                 p.id === sl ||
-                p.slug?.toLowerCase() === sl?.toLowerCase(),
+                p.slug?.toLowerCase() === sl?.toLowerCase() ||
+                p.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);
       }
+      if (filtered.length === 0 && projects.length > 0) {
+        filtered = projects;
+      }
       filtered = filtered.slice(0, maxItems);
+      if (filtered.length === 0) return null;
       return (
         <RelatedProjectsWidget
           key={`proj-${idx}`}
@@ -268,16 +369,21 @@ export function DynamicDetailSidebar({
       if (slugs.length > 0) {
         filtered = slugs
           .map((sl) =>
-            filtered.find(
+            slides.find(
               (s) =>
                 s.slug === sl ||
                 s.id === sl ||
-                s.slug?.toLowerCase() === sl?.toLowerCase(),
+                s.slug?.toLowerCase() === sl?.toLowerCase() ||
+                s.id?.toLowerCase() === sl?.toLowerCase(),
             ),
           )
           .filter(Boolean);
       }
+      if (filtered.length === 0 && slides.length > 0) {
+        filtered = slides;
+      }
       filtered = filtered.slice(0, maxItems);
+      if (filtered.length === 0) return null;
       return (
         <RelatedSlidesWidget
           key={`slide-${idx}`}
@@ -290,31 +396,7 @@ export function DynamicDetailSidebar({
     return null;
   });
 
-  // Custom CTA resolution
-  let ctaNode: React.ReactNode = defaultCta;
-  if (sidebarConfig.cta) {
-    if (sidebarConfig.cta.enabled === false) {
-      ctaNode = null;
-    } else {
-      ctaNode = (
-        <SidebarCtaWidget
-          title={sidebarConfig.cta.title || "Bắt đầu chuyển đổi số"}
-          description={
-            sidebarConfig.cta.description ||
-            "Liên hệ đội ngũ VDCD để nhận tư vấn giải pháp phù hợp."
-          }
-          primaryLabel={sidebarConfig.cta.primaryLabel || "Liên hệ tư vấn"}
-          primaryHref={sidebarConfig.cta.primaryHref || "/contact"}
-          secondaryLabel={
-            sidebarConfig.cta.secondaryLabel || "Khám phá giải pháp"
-          }
-          secondaryHref={sidebarConfig.cta.secondaryHref}
-        />
-      );
-    }
-  }
-
-  const mobileTitle = sidebarConfig.widgets[0]?.title || defaultMobileTitle;
+  const mobileTitle = config.widgets[0]?.title || defaultMobileTitle;
 
   return (
     <DetailSidebar mobileTitle={mobileTitle} cta={ctaNode}>
