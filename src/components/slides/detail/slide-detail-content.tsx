@@ -180,10 +180,10 @@ export function SlideDetailContent({
                 </div>
 
                 <Link
-                  href="/projects"
+                  href="/slides"
                   className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
                 >
-                  Xem tất cả dự án & giải pháp
+                  Tất cả bài viết slide
                   <ArrowRight className="w-3.5 h-3.5" weight="bold" />
                 </Link>
               </div>
@@ -231,6 +231,7 @@ export function SlideDetailContent({
                 : null)
             }
             defaultMobileTitle="Có thể bạn quan tâm"
+            slides={relatedBlogs}
             defaultCta={
               <SidebarCtaWidget
                 title="Nhận tư vấn chuyên sâu"

@@ -8,12 +8,14 @@ import {
   FeaturedSolutionsWidget,
   RelatedArticlesWidget,
   RelatedProjectsWidget,
+  RelatedSlidesWidget,
   SidebarCtaWidget,
 } from "./detail-sidebar-widgets";
 import { fetchSolutionsFromApi } from "@/services/solution.service";
 import { fetchProgramsFromApi } from "@/services/program.service";
 import { fetchArticlesFromApi } from "@/services/article.service";
 import { fetchProjectsFromApi } from "@/services/project.service";
+import { fetchSlideDetailBlogsFromApi } from "@/services/slide-detail-blog.service";
 
 export interface DynamicDetailSidebarProps {
   /** Explicit or entity sidebarConfig */
@@ -29,6 +31,7 @@ export interface DynamicDetailSidebarProps {
   programs?: any[];
   articles?: any[];
   projects?: any[];
+  slides?: any[];
 }
 
 export function DynamicDetailSidebar({
@@ -40,6 +43,7 @@ export function DynamicDetailSidebar({
   programs: initialPrograms,
   articles: initialArticles,
   projects: initialProjects,
+  slides: initialSlides,
 }: DynamicDetailSidebarProps) {
   const isCustomMode =
     sidebarConfig?.mode === "custom" &&
@@ -51,6 +55,7 @@ export function DynamicDetailSidebar({
   const [fetchedPrograms, setFetchedPrograms] = React.useState<any[]>([]);
   const [fetchedArticles, setFetchedArticles] = React.useState<any[]>([]);
   const [fetchedProjects, setFetchedProjects] = React.useState<any[]>([]);
+  const [fetchedSlides, setFetchedSlides] = React.useState<any[]>([]);
 
   const solutions =
     initialSolutions && initialSolutions.length > 0
@@ -68,6 +73,8 @@ export function DynamicDetailSidebar({
     initialProjects && initialProjects.length > 0
       ? initialProjects
       : fetchedProjects;
+  const slides =
+    initialSlides && initialSlides.length > 0 ? initialSlides : fetchedSlides;
 
   // Fetch needed entity collections if not provided in props
   React.useEffect(() => {
@@ -85,6 +92,7 @@ export function DynamicDetailSidebar({
     const needsProjects = sidebarConfig.widgets.some(
       (w) => w.type === "projects",
     );
+    const needsSlides = sidebarConfig.widgets.some((w) => w.type === "slides");
 
     if (needsSolutions && solutions.length === 0) {
       fetchSolutionsFromApi(20)
@@ -125,6 +133,16 @@ export function DynamicDetailSidebar({
         })
         .catch(() => {});
     }
+
+    if (needsSlides && slides.length === 0) {
+      fetchSlideDetailBlogsFromApi({ isPublished: true, limit: 20 })
+        .then((items) => {
+          if (Array.isArray(items) && items.length > 0) {
+            setFetchedSlides(items);
+          }
+        })
+        .catch(() => {});
+    }
   }, [
     isCustomMode,
     sidebarConfig,
@@ -132,6 +150,7 @@ export function DynamicDetailSidebar({
     programs.length,
     articles.length,
     projects.length,
+    slides.length,
   ]);
 
   // Mode Auto or undefined: Render default children and default CTA
@@ -240,6 +259,30 @@ export function DynamicDetailSidebar({
           key={`proj-${idx}`}
           projects={filtered}
           title={w.title || "Dự án nổi bật"}
+        />
+      );
+    }
+
+    if (w.type === "slides") {
+      let filtered = [...slides];
+      if (slugs.length > 0) {
+        filtered = slugs
+          .map((sl) =>
+            filtered.find(
+              (s) =>
+                s.slug === sl ||
+                s.id === sl ||
+                s.slug?.toLowerCase() === sl?.toLowerCase(),
+            ),
+          )
+          .filter(Boolean);
+      }
+      filtered = filtered.slice(0, maxItems);
+      return (
+        <RelatedSlidesWidget
+          key={`slide-${idx}`}
+          slides={filtered}
+          title={w.title || "Bài viết slide nổi bật"}
         />
       );
     }

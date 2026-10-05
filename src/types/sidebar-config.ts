@@ -6,7 +6,7 @@
 /* ── Widget types that can appear in sidebar ── */
 
 export type SidebarWidgetType =
-  "solutions" | "articles" | "programs" | "projects";
+  "solutions" | "articles" | "programs" | "projects" | "slides";
 
 export interface SidebarWidgetConfig {
   /** Which entity type to display */
