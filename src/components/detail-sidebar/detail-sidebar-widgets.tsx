@@ -199,6 +199,7 @@ export function resolveWidgetThumbnail(item: any): string | null {
     item.thumbnailUrl ||
     item.heroImageUrl ||
     item.image ||
+    item.slide?.imageUrl ||
     null
   );
 }
