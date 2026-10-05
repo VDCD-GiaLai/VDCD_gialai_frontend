@@ -7,7 +7,6 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import {
   Calendar,
   Clock,
-  ArrowLeft,
   ArrowRight,
   ShareNetwork,
   Copy,
@@ -771,17 +770,6 @@ export function ProjectDetailContent({
             </div>
           </section>
         )}
-
-        {/* ── 13. Back To Projects Navigation Button ── */}
-        <div className="pb-12 text-center">
-          <NextLink
-            href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300"
-          >
-            <ArrowLeft weight="thin" className="w-4 h-4" />
-            Quay lại danh sách dự án
-          </NextLink>
-        </div>
       </div>
 
       {/* ── 14. Unified CTA Section ── */}

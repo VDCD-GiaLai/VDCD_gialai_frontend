@@ -11,6 +11,7 @@ import {
   Envelope,
   ArrowUpRight,
   Calendar,
+  Presentation,
 } from "@phosphor-icons/react";
 import { formatDate } from "@/lib/utils";
 import type { Program, Article, SolutionEntityContract } from "@/types";
@@ -635,6 +636,118 @@ export function RelatedProjectsWidget({
                 <div className="px-3.5 py-2.5">
                   <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
                     {proj.title}
+                  </h5>
+                </div>
+              </Link>
+            );
+          })}
+        </CompactWidget>
+      </div>
+    </>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════
+ *  WIDGET 5: Related Slides (Chuyên đề & Bài viết Slide)
+ *  sm-2xl: 3-col inline cards  |  2xl: compact sidebar list
+ * ══════════════════════════════════════════════════════════ */
+
+interface RelatedSlidesWidgetProps {
+  slides: any[];
+  title?: string;
+}
+
+export function RelatedSlidesWidget({
+  slides,
+  title = "Bài viết slide nổi bật",
+}: RelatedSlidesWidgetProps) {
+  if (!slides.length) return null;
+
+  return (
+    <>
+      {/* ── sm-2xl: 3-column card grid ── */}
+      <div className="hidden sm:block xl:hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {slides.slice(0, 3).map((s) => (
+            <InlineCard
+              key={s.id || s.slug}
+              href={`/slides/${s.slug}`}
+              thumbnail={resolveWidgetThumbnail(s)}
+              title={s.title}
+              description={s.excerpt || s.subtitle}
+              badge={s.subtitle || "Slide"}
+              fallbackIcon={
+                <Presentation
+                  className="w-8 h-8 text-zinc-300 dark:text-zinc-600"
+                  weight="thin"
+                />
+              }
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Mobile: vertical card list ── */}
+      <div className="sm:hidden space-y-3">
+        {slides.slice(0, 3).map((s) => (
+          <InlineCard
+            key={s.id || s.slug}
+            href={`/slides/${s.slug}`}
+            thumbnail={resolveWidgetThumbnail(s)}
+            title={s.title}
+            description={s.excerpt || s.subtitle}
+            badge={s.subtitle || "Slide"}
+            fallbackIcon={
+              <Presentation
+                className="w-8 h-8 text-zinc-300 dark:text-zinc-600"
+                weight="thin"
+              />
+            }
+          />
+        ))}
+      </div>
+
+      {/* ── 2xl: compact sidebar widget ── */}
+      <div className="hidden xl:block">
+        <CompactWidget
+          title={title}
+          icon={<Presentation className="w-3.5 h-3.5" weight="bold" />}
+          viewAllHref="/slides"
+        >
+          {slides.map((s) => {
+            const thumb = resolveWidgetThumbnail(s);
+            return (
+              <Link
+                key={s.id || s.slug}
+                href={`/slides/${s.slug}`}
+                className="group block hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors duration-200"
+              >
+                {thumb ? (
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
+                    <Image
+                      src={thumb}
+                      alt={s.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[16/9] w-full bg-slate-100 dark:bg-zinc-800 flex items-center justify-center">
+                    <Presentation
+                      className="w-6 h-6 text-zinc-400"
+                      weight="thin"
+                    />
+                  </div>
+                )}
+                <div className="px-3.5 py-2.5">
+                  {s.subtitle && (
+                    <span className="text-[10px] font-semibold text-[#ca2a30] uppercase tracking-wider block mb-0.5 line-clamp-1">
+                      {s.subtitle}
+                    </span>
+                  )}
+                  <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 line-clamp-2 leading-snug">
+                    {s.title}
                   </h5>
                 </div>
               </Link>

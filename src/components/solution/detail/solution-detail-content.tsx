@@ -7,7 +7,6 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import {
   Calendar,
   Clock,
-  ArrowLeft,
   ArrowRight,
   ShareNetwork,
   Copy,
@@ -534,20 +533,6 @@ export function SolutionDetailContent({
                   <ArrowRight className="w-3.5 h-3.5" weight="bold" />
                 </button>
               </div>
-            </div>
-
-            {/* Back To Solutions */}
-            <div className="pb-12 text-center">
-              <button
-                type="button"
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent("open-mega-menu"));
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white font-mono-label text-xs font-bold uppercase tracking-widest hover:border-[#ca2a30] hover:text-[#ca2a30] transition-all duration-300 cursor-pointer"
-              >
-                <ArrowLeft weight="thin" className="w-4 h-4" />
-                Xem tất cả giải pháp
-              </button>
             </div>
 
             {/* Sidebar: inline trên mobile, sticky bên phải trên xl */}
