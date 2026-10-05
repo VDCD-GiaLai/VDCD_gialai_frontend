@@ -26,11 +26,13 @@ import "./slide-detail.css";
 interface SlideDetailContentProps {
   blog: SlideDetailBlog;
   relatedBlogs?: SlideDetailBlog[];
+  allBlogs?: SlideDetailBlog[];
 }
 
 export function SlideDetailContent({
   blog,
   relatedBlogs = [],
+  allBlogs = [],
 }: SlideDetailContentProps) {
   const [isCopied, setIsCopied] = React.useState(false);
 
@@ -234,7 +236,7 @@ export function SlideDetailContent({
               parseSidebarConfig(blog)
             }
             defaultMobileTitle="Có thể bạn quan tâm"
-            slides={relatedBlogs}
+            slides={allBlogs.length > 0 ? allBlogs : relatedBlogs}
             defaultCta={
               <SidebarCtaWidget
                 title="Nhận tư vấn chuyên sâu"

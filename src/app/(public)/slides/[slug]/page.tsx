@@ -108,5 +108,11 @@ export default async function SlideDetailPage({
     )
     .slice(0, 2);
 
-  return <SlideDetailContent blog={blog} relatedBlogs={relatedBlogs} />;
+  return (
+    <SlideDetailContent
+      blog={blog}
+      relatedBlogs={relatedBlogs}
+      allBlogs={allBlogs}
+    />
+  );
 }
