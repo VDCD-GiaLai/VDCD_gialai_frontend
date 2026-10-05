@@ -16,7 +16,11 @@ import { BlogDetailRenderer } from "./blog-detail-renderer";
 import { formatDate, copyToClipboard } from "@/lib/utils";
 import type { SlideDetailBlog } from "@/types";
 import { DynamicDetailSidebar } from "@/components/detail-sidebar/dynamic-detail-sidebar";
-import { SidebarCtaWidget } from "@/components/detail-sidebar/detail-sidebar-widgets";
+import {
+  SidebarCtaWidget,
+  RelatedSlidesWidget,
+} from "@/components/detail-sidebar/detail-sidebar-widgets";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 import "./slide-detail.css";
 
 interface SlideDetailContentProps {
@@ -226,9 +230,8 @@ export function SlideDetailContent({
           <DynamicDetailSidebar
             sidebarConfig={
               blog.sidebarConfig ??
-              (typeof blog.content === "object"
-                ? blog.content?.sidebarConfig
-                : null)
+              parseSidebarConfig(blog.content) ??
+              parseSidebarConfig(blog)
             }
             defaultMobileTitle="Có thể bạn quan tâm"
             slides={relatedBlogs}
@@ -239,34 +242,10 @@ export function SlideDetailContent({
               />
             }
             defaultWidgets={
-              relatedBlogs.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b border-whisper-border dark:border-zinc-800">
-                    <span className="w-1.5 h-4 bg-[#ca2a30] rounded-full" />
-                    <h4 className="font-mono-label text-xs font-bold uppercase tracking-wider text-[#011A42] dark:text-zinc-200">
-                      Chuyên đề liên quan
-                    </h4>
-                  </div>
-                  <div className="space-y-3">
-                    {relatedBlogs.map((rel) => (
-                      <Link
-                        key={rel.id}
-                        href={`/slides/${rel.slug}`}
-                        className="group block p-3 rounded-lg border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-colors"
-                      >
-                        <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors line-clamp-2">
-                          {rel.title}
-                        </h5>
-                        {rel.excerpt && (
-                          <p className="text-[11px] text-[#6C7E96] dark:text-zinc-400 line-clamp-2 mt-1">
-                            {rel.excerpt}
-                          </p>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : undefined
+              <RelatedSlidesWidget
+                slides={relatedBlogs}
+                title="Chuyên đề liên quan"
+              />
             }
           />
         </div>

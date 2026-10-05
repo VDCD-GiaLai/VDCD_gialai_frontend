@@ -34,6 +34,7 @@ import {
   RelatedArticlesWidget,
   SidebarCtaWidget,
 } from "@/components/detail-sidebar";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 import "@/components/slides/detail/slide-detail.css";
 import "../news.css";
 
@@ -538,9 +539,8 @@ export function ArticleDetailContent({
           <DynamicDetailSidebar
             sidebarConfig={
               article.sidebarConfig ??
-              (typeof article.content === "object"
-                ? article.content?.sidebarConfig
-                : null)
+              parseSidebarConfig(article.content) ??
+              parseSidebarConfig(article)
             }
             defaultMobileTitle="Tin tức liên quan"
             articles={relatedArticles}

@@ -17,6 +17,7 @@ import type {
   PaginatedResponse,
   SidebarConfig,
 } from "@/types";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 
 export interface BackendProject {
   id: string;
@@ -138,10 +139,8 @@ export function mapBackendProjectToEntry(bp: BackendProject): ProjectEntry {
     metaDescription: bp.metaDescription || undefined,
     content: bp.content || undefined,
     sidebarConfig:
-      bp.sidebarConfig ||
-      (typeof bp.content === "object"
-        ? bp.content?.sidebarConfig
-        : undefined) ||
+      parseSidebarConfig(bp.sidebarConfig) ??
+      parseSidebarConfig(bp.content) ??
       undefined,
     heroMeta: bp.heroMeta || undefined,
     publishedAt: bp.publishedAt || undefined,

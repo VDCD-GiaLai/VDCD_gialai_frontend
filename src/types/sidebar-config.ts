@@ -47,3 +47,74 @@ export interface SidebarConfig {
   /** CTA widget config — override defaults */
   cta?: SidebarCtaConfig;
 }
+
+/**
+ * Safely extracts and normalizes SidebarConfig from any entity, raw object, or stringified JSON.
+ */
+export function parseSidebarConfig(raw: unknown): SidebarConfig | null {
+  if (!raw) return null;
+
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (trimmed.startsWith("{")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        return parseSidebarConfig(parsed);
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  if (typeof raw === "object") {
+    const obj = raw as Record<string, any>;
+
+    // Case: Wrapped in entity with sidebarConfig property
+    if ("sidebarConfig" in obj && obj.sidebarConfig) {
+      return parseSidebarConfig(obj.sidebarConfig);
+    }
+
+    // Case: Inside content.sidebarConfig (object)
+    if (
+      obj.content &&
+      typeof obj.content === "object" &&
+      obj.content.sidebarConfig
+    ) {
+      return parseSidebarConfig(obj.content.sidebarConfig);
+    }
+
+    // Case: Inside content as JSON string
+    if (typeof obj.content === "string") {
+      try {
+        const parsedContent = JSON.parse(obj.content);
+        if (parsedContent?.sidebarConfig) {
+          return parseSidebarConfig(parsedContent.sidebarConfig);
+        }
+      } catch {}
+    }
+
+    // Case: Direct valid SidebarConfig object
+    if (obj.mode === "auto" || obj.mode === "custom") {
+      return {
+        mode: obj.mode,
+        widgets: Array.isArray(obj.widgets) ? obj.widgets : [],
+        cta: obj.cta && typeof obj.cta === "object" ? obj.cta : undefined,
+      };
+    }
+
+    // Case: widgets array or cta provided without explicit mode
+    if (Array.isArray(obj.widgets) || obj.cta) {
+      return {
+        mode:
+          Array.isArray(obj.widgets) && obj.widgets.length > 0
+            ? "custom"
+            : "auto",
+        widgets: Array.isArray(obj.widgets) ? obj.widgets : [],
+        cta: obj.cta && typeof obj.cta === "object" ? obj.cta : undefined,
+      };
+    }
+  }
+
+  return null;
+}

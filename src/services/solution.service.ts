@@ -12,6 +12,7 @@ import type {
   ContentBlock,
   SectionChildBlock,
 } from "@/types";
+import { parseSidebarConfig } from "@/types/sidebar-config";
 
 export type { SolutionItem };
 export { ALL_MOCK_SOLUTIONS };
@@ -320,8 +321,9 @@ export async function fetchSolutionBySlugFromApi(
         updatedAt: data.updatedAt || new Date().toISOString(),
         content: contentDoc,
         sidebarConfig:
-          data.sidebarConfig ??
-          (data.content as Record<string, unknown> | null)?.sidebarConfig ??
+          parseSidebarConfig(data.sidebarConfig) ??
+          parseSidebarConfig(contentDoc) ??
+          parseSidebarConfig(data.content) ??
           null,
         relatedArticles: data.relatedArticles || [],
       } as SolutionDetail;
