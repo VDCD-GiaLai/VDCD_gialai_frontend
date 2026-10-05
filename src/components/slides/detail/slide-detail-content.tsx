@@ -15,6 +15,8 @@ import {
 import { BlogDetailRenderer } from "./blog-detail-renderer";
 import { formatDate, copyToClipboard } from "@/lib/utils";
 import type { SlideDetailBlog } from "@/types";
+import { DynamicDetailSidebar } from "@/components/detail-sidebar/dynamic-detail-sidebar";
+import { SidebarCtaWidget } from "@/components/detail-sidebar/detail-sidebar-widgets";
 import "./slide-detail.css";
 
 interface SlideDetailContentProps {
@@ -91,128 +93,183 @@ export function SlideDetailContent({
   };
 
   return (
-    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
+    <div className="w-full min-h-screen bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 pt-24 pb-12">
       {/* ── 1. Reading Progress Bar ── */}
       <motion.div className="reading-progress-bar" style={{ scaleX }} />
 
-      {/* ── 2. Header Container ── */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-6">
-        {/* Breadcrumb & Navigation */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-[#ca2a30] transition-colors duration-200"
-          >
-            <ArrowLeft className="w-4 h-4" weight="thin" />
-            Quay lại Trang chủ
-          </Link>
-
-          <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
-            {blog.createdAt && (
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" weight="thin" />
-                {formatDate(blog.createdAt)}
-              </span>
-            )}
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" weight="thin" />
-              {readingTimeMinutes} phút đọc
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 3. Visual Content Renderer ── */}
-      <main className="w-full pb-12">
-        <BlogDetailRenderer blog={blog} />
-      </main>
-
-      {/* ── 4. Social Sharing Bar ── */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="flex items-center justify-between flex-wrap gap-4 py-6 border-t border-b border-whisper-border dark:border-zinc-800">
-          <div className="flex items-center gap-3">
-            <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
-              Chia sẻ bài viết:
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleShareFacebook}
-                className="share-button"
-                aria-label="Chia sẻ trên Facebook"
-              >
-                <ShareNetwork className="w-4 h-4" weight="thin" />
-              </button>
-              <button
-                type="button"
-                onClick={handleShareTwitter}
-                className="share-button"
-                aria-label="Chia sẻ trên Twitter / X"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-3.5 h-3.5"
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="share-button"
-                aria-label="Sao chép liên kết bài viết"
-              >
-                {isCopied ? (
-                  <Check className="w-4 h-4 text-emerald-500" weight="bold" />
-                ) : (
-                  <Copy className="w-4 h-4" weight="thin" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
-          >
-            Xem tất cả dự án & giải pháp
-            <ArrowRight className="w-3.5 h-3.5" weight="bold" />
-          </Link>
-        </div>
-      </div>
-
-      {/* ── 5. Related / Next Slides ── */}
-      {relatedBlogs.length > 0 && (
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-20">
-          <h3 className="text-xl font-bold font-heading text-[#011A42] dark:text-white mb-6">
-            Dự án & Chuyên đề khác
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {relatedBlogs.map((rel) => (
+      {/* ── 2. Flex wrapper for content + sidebar on xl+ ── */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          {/* Main content column */}
+          <div className="flex-1 min-w-0 max-w-4xl">
+            {/* Breadcrumb & Navigation */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-whisper-border dark:border-zinc-800">
               <Link
-                key={rel.id}
-                href={`/slides/${rel.slug}`}
-                className="group block p-5 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300"
+                href="/"
+                className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-secondary dark:text-zinc-400 uppercase tracking-widest hover:text-[#ca2a30] transition-colors duration-200"
               >
-                {rel.subtitle && (
-                  <p className="text-[11px] font-semibold uppercase text-[#ca2a30] tracking-wider mb-1.5">
-                    {rel.subtitle}
-                  </p>
-                )}
-                <h4 className="text-base font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2">
-                  {rel.title}
-                </h4>
-                {rel.excerpt && (
-                  <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed">
-                    {rel.excerpt}
-                  </p>
-                )}
+                <ArrowLeft className="w-4 h-4" weight="thin" />
+                Quay lại Trang chủ
               </Link>
-            ))}
+
+              <div className="flex items-center gap-4 text-xs text-secondary dark:text-zinc-400">
+                {blog.createdAt && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" weight="thin" />
+                    {formatDate(blog.createdAt)}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" weight="thin" />
+                  {readingTimeMinutes} phút đọc
+                </span>
+              </div>
+            </div>
+
+            {/* Visual Content Renderer */}
+            <main className="w-full pb-8">
+              <BlogDetailRenderer blog={blog} />
+            </main>
+
+            {/* Social Sharing Bar */}
+            <div className="py-6 border-t border-b border-whisper-border dark:border-zinc-800 mb-8">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono-label text-xs font-bold uppercase tracking-widest text-[#011A42] dark:text-zinc-300">
+                    Chia sẻ bài viết:
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleShareFacebook}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Facebook"
+                    >
+                      <ShareNetwork className="w-4 h-4" weight="thin" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleShareTwitter}
+                      className="share-button"
+                      aria-label="Chia sẻ trên Twitter / X"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                      >
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCopyLink}
+                      className="share-button"
+                      aria-label="Sao chép liên kết bài viết"
+                    >
+                      {isCopied ? (
+                        <Check
+                          className="w-4 h-4 text-emerald-500"
+                          weight="bold"
+                        />
+                      ) : (
+                        <Copy className="w-4 h-4" weight="thin" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2 text-xs font-mono-label font-bold text-[#ca2a30] uppercase tracking-wider hover:underline underline-offset-4"
+                >
+                  Xem tất cả dự án & giải pháp
+                  <ArrowRight className="w-3.5 h-3.5" weight="bold" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Related / Next Slides */}
+            {relatedBlogs.length > 0 && (
+              <section className="pb-8">
+                <h3 className="text-xl font-bold font-heading text-[#011A42] dark:text-white mb-6">
+                  Dự án & Chuyên đề khác
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {relatedBlogs.map((rel) => (
+                    <Link
+                      key={rel.id}
+                      href={`/slides/${rel.slug}`}
+                      className="group block p-5 rounded-xl border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-all duration-300"
+                    >
+                      {rel.subtitle && (
+                        <p className="text-[11px] font-semibold uppercase text-[#ca2a30] tracking-wider mb-1.5">
+                          {rel.subtitle}
+                        </p>
+                      )}
+                      <h4 className="text-base font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors duration-200 mb-2 line-clamp-2">
+                        {rel.title}
+                      </h4>
+                      {rel.excerpt && (
+                        <p className="text-xs text-[#6C7E96] dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                          {rel.excerpt}
+                        </p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
-        </section>
-      )}
+
+          {/* Sidebar */}
+          <DynamicDetailSidebar
+            sidebarConfig={
+              blog.sidebarConfig ??
+              (typeof blog.content === "object"
+                ? blog.content?.sidebarConfig
+                : null)
+            }
+            defaultMobileTitle="Có thể bạn quan tâm"
+            defaultCta={
+              <SidebarCtaWidget
+                title="Nhận tư vấn chuyên sâu"
+                description="Kết nối với đội ngũ chuyên gia VDCD để được hỗ trợ giải pháp và hợp tác chiến lược."
+              />
+            }
+            defaultWidgets={
+              relatedBlogs.length > 0 ? (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-whisper-border dark:border-zinc-800">
+                    <span className="w-1.5 h-4 bg-[#ca2a30] rounded-full" />
+                    <h4 className="font-mono-label text-xs font-bold uppercase tracking-wider text-[#011A42] dark:text-zinc-200">
+                      Chuyên đề liên quan
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {relatedBlogs.map((rel) => (
+                      <Link
+                        key={rel.id}
+                        href={`/slides/${rel.slug}`}
+                        className="group block p-3 rounded-lg border border-whisper-border dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-[#ca2a30] transition-colors"
+                      >
+                        <h5 className="text-xs font-bold text-[#011A42] dark:text-white group-hover:text-[#ca2a30] transition-colors line-clamp-2">
+                          {rel.title}
+                        </h5>
+                        {rel.excerpt && (
+                          <p className="text-[11px] text-[#6C7E96] dark:text-zinc-400 line-clamp-2 mt-1">
+                            {rel.excerpt}
+                          </p>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : undefined
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 }
