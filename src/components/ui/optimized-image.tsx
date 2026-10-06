@@ -3,6 +3,7 @@
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import { buildSrc, buildTransformationString } from "@imagekit/next";
 import type { Transformation } from "@imagekit/next";
+import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 /* ─────────────────────────────────────────────────────────────
    Constants
@@ -117,6 +118,11 @@ export function OptimizedImage({
 }: OptimizedImageProps) {
   if (!src) {
     return null;
+  }
+
+  const mappedSrc = getOptimizedImageUrl(src);
+  if (mappedSrc !== src) {
+    return <NextImage src={mappedSrc} alt={alt} unoptimized {...rest} />;
   }
 
   // ── Route 1: ImageKit URL (full URL or relative path) ─────────

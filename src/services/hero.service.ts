@@ -13,6 +13,7 @@ import {
   type OrganizationCtaSection,
 } from "@/data/hero.data";
 import { fetchWithFallback } from "@/lib/client-cache";
+import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 export type {
   HeroSlideItem,
@@ -61,7 +62,10 @@ export const fetchHeroSlidesFromApi = cache(
             description: slide.description || "",
             tag: slide.tag || "DỰ ÁN TRỌNG ĐIỂM",
             location: slide.subtitle || "",
-            image: slide.imageUrl || slide.image || "",
+            image: getOptimizedImageUrl(slide.imageUrl || slide.image || "", {
+              width: 1200,
+              quality: 85,
+            }),
             statValue: slide.statValue || "100%",
             statLabel: slide.statLabel || "Tiến độ",
             ctaText: slide.ctaText || "Tìm hiểu thêm",

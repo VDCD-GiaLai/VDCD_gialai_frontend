@@ -957,13 +957,15 @@ export function useGsapHero(
         if (descEl) descEl.textContent = activeSlide.desc;
 
         gsap.set(activeEl, {
-          opacity: 0,
-          x: -100,
+          opacity: 1,
+          x: 0,
           zIndex: 22,
           pointerEvents: "auto",
         });
-        gsap.set([textEl, title1El, title2El], { yPercent: 100 });
-        gsap.set(descEl, { yPercent: 50 });
+        if (textEl) gsap.set(textEl, { yPercent: 0 });
+        if (title1El) gsap.set(title1El, { yPercent: 0 });
+        if (title2El) gsap.set(title2El, { yPercent: 0 });
+        if (descEl) gsap.set(descEl, { yPercent: 0 });
         const inactiveEl = container.querySelector("#details-odd");
         if (inactiveEl) {
           gsap.set(inactiveEl, {
@@ -974,128 +976,7 @@ export function useGsapHero(
         }
       }
 
-      const rest = orderRef.current.slice(1);
-      rest.forEach((i, index) => {
-        const isVisible = index < getMaxVisibleThumbs();
-        const card = getCard(i);
-        const content = getCardContent(i);
-        if (card) {
-          gsap.set(card, {
-            x:
-              offsetLeftVal.current +
-              400 +
-              index * (cardWidthVal.current + gapVal.current),
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-          });
-        }
-        if (content) {
-          gsap.set(content, {
-            x:
-              offsetLeftVal.current +
-              400 +
-              index * (cardWidthVal.current + gapVal.current),
-            width: cardWidthVal.current,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-          });
-        }
-      });
-
-      // Animate details and cards in on load
-      const startDelay = 0.5;
-
-      gsap.to(".cover", {
-        x: window.innerWidth + 400,
-        duration: 1.2,
-        ease: "sine.inOut",
-        onComplete: () => {
-          gsap.set(".cover", { display: "none" });
-          startAutoplayLoop();
-        },
-      });
-
-      rest.forEach((i, index) => {
-        const isVisible = index < getMaxVisibleThumbs();
-        const card = getCard(i);
-        const content = getCardContent(i);
-        const posX =
-          offsetLeftVal.current +
-          index * (cardWidthVal.current + gapVal.current);
-
-        if (card) {
-          gsap.to(card, {
-            x: posX,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-            duration: 1.0,
-            ease: "sine.inOut",
-            delay: startDelay + 0.05 * index,
-          });
-        }
-        if (content) {
-          gsap.to(content, {
-            x: posX,
-            width: cardWidthVal.current,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-            duration: 1.0,
-            ease: "sine.inOut",
-            delay: startDelay + 0.05 * index,
-          });
-        }
-      });
-
-      if (activeEl) {
-        const textEl = activeEl.querySelector(".text");
-        const title1El = activeEl.querySelector(".title-1");
-        const title2El = activeEl.querySelector(".title-2");
-        const descEl = activeEl.querySelector(".desc");
-
-        gsap.to(activeEl, {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay,
-        });
-        gsap.to(textEl, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.1,
-        });
-        gsap.to(title1El, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.15,
-        });
-        gsap.to(title2El, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.15,
-        });
-        gsap.to(descEl, {
-          yPercent: 0,
-          duration: 0.7,
-          ease: "sine.inOut",
-          delay: startDelay + 0.3,
-        });
-      }
-
-      gsap.fromTo(
-        "#pagination",
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay,
-        },
-      );
+      startAutoplayLoop();
     }, containerRef);
 
     // Touch Swipe Gestures
