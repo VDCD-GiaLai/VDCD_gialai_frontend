@@ -33,7 +33,8 @@ const CATEGORIES: Category[] = [
     items: [
       {
         title: "Ươm tạo khởi nghiệp sáng tạo",
-        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG?tr=w-800,q-85,f-auto",
         description:
           "Hỗ trợ ý tưởng từ giai đoạn hình thành đến thương mại hóa.",
         href: "/programs/uom-tao-khoi-nghiep-sang-tao",
@@ -41,21 +42,23 @@ const CATEGORIES: Category[] = [
       {
         title: "Đào tạo",
         image:
-          "https://ik.imagekit.io/huy01040104/vdcd/images/gen-h-hoat-dong-dau-tu-xay-dung.avif",
+          "https://ik.imagekit.io/huy01040104/vdcd/images/gen-h-hoat-dong-dau-tu-xay-dung.avif?tr=w-800,q-85,f-auto",
         description:
           "Nâng cao kỹ năng số, quản trị dữ liệu cho cán bộ địa phương.",
         href: "/programs/dao-tao-cong-nghe-va-chuyen-doi-so",
       },
       {
         title: "Kết nối chuyên gia",
-        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9666.JPG?tr=w-800,q-85,f-auto",
         description:
           "Xây dựng mạng lưới liên kết đa bên, chuyển giao công nghệ.",
         href: "/programs/ket-noi-chuyen-gia-va-he-sinh-thai",
       },
       {
         title: "Tư vấn chuyển đổi số",
-        image: "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9155.jpg",
+        image:
+          "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9155.jpg?tr=w-800,q-85,f-auto",
         description:
           "Đánh giá hiện trạng, lộ trình và triển khai giải pháp số.",
         href: "/programs/tu-van-chuyen-doi-so-cap-tinh",

@@ -24,7 +24,6 @@ export const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
         src={project.coverImage}
         alt={project.title}
         fill
-        priority
         sizes="(max-width: 1024px) 100vw, 50vw"
         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
       />

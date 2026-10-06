@@ -10,8 +10,11 @@ import {
   fetchHeroSlidesFromApi,
   getCachedHeroSlides,
 } from "@/services/hero.service";
+import { getOptimizedImageUrl } from "@/lib/image-utils";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
+
+const emptySubscribe = () => () => {};
 
 export function GsapHero({
   initialSlides,
@@ -19,6 +22,11 @@ export function GsapHero({
   initialSlides?: HeroSlideItem[];
 } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isClient = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const splitTitle = (raw: string): [string, string] => {
     if (raw.includes("\n")) {
       const [line1, ...rest] = raw.split("\n");
@@ -93,39 +101,51 @@ export function GsapHero({
       className="gsap-hero-container w-full min-h-[100dvh] relative bg-zinc-950 text-white select-none overflow-hidden"
     >
       {/* Slide Cards */}
-      {slides.map((slide, idx) => (
-        <React.Fragment key={idx}>
-          <div
-            className={`card cursor-pointer ${activeIdx === idx ? "active-bg" : ""}`}
-            id={`card-${idx}`}
-            onClick={() => {
-              if (activeIdx !== idx) {
-                selectSlide(idx);
-              }
-            }}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title + " " + slide.title2}
-              fill
-              sizes="100vw"
-              className="object-cover"
-              priority={idx === 0}
-              fetchPriority={idx === 0 ? "high" : "low"}
-              quality={85}
-              unoptimized={true}
-            />
-          </div>
-          {/* Card Content Overlay */}
-          <div className="card-content" id={`card-content-${idx}`}>
-            <div className="content-start bg-accent-red mb-1.5" />
-            <div className="content-title-wrapper">
-              <span className="content-title-1">{slide.title}</span>{" "}
-              <span className="content-title-2">{slide.title2}</span>
+      {slides.map((slide, idx) => {
+        const isHero = idx === 0;
+        const imageUrl = getOptimizedImageUrl(slide.image, {
+          width: isHero ? 1200 : 320,
+          quality: isHero ? 85 : 80,
+          isThumbnail: !isHero,
+        });
+
+        return (
+          <React.Fragment key={idx}>
+            <div
+              className={`card cursor-pointer ${activeIdx === idx ? "active-bg" : ""}`}
+              id={`card-${idx}`}
+              onClick={() => {
+                if (activeIdx !== idx) {
+                  selectSlide(idx);
+                }
+              }}
+            >
+              {(isHero || isClient) && (
+                <Image
+                  src={imageUrl}
+                  alt={slide.title + " " + slide.title2}
+                  fill
+                  sizes={isHero ? "100vw" : "(max-width: 768px) 145px, 200px"}
+                  className="object-cover"
+                  priority={isHero}
+                  fetchPriority={isHero ? "high" : "low"}
+                  loading={isHero ? "eager" : "lazy"}
+                  quality={isHero ? 85 : 80}
+                  unoptimized={true}
+                />
+              )}
             </div>
-          </div>
-        </React.Fragment>
-      ))}
+            {/* Card Content Overlay */}
+            <div className="card-content" id={`card-content-${idx}`}>
+              <div className="content-start bg-accent-red mb-1.5" />
+              <div className="content-title-wrapper">
+                <span className="content-title-1">{slide.title}</span>{" "}
+                <span className="content-title-2">{slide.title2}</span>
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      })}
       {/* Details Box - Twin Buffers for text animations, wrapped in layout container */}
       <div className="absolute inset-0 z-22 pointer-events-none flex items-center">
         <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
