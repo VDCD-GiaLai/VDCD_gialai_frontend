@@ -53,7 +53,7 @@ export function FeaturedProjectsSection() {
   }, []);
 
   useEffect(() => {
-    if (!sectionRef.current || projects.length === 0) return;
+    if (!sectionRef.current || projects.length === 0 || !isNearViewport) return;
 
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth < 768;
@@ -84,7 +84,7 @@ export function FeaturedProjectsSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [projects]);
+  }, [projects, isNearViewport]);
 
   const mainProject = projects[0];
   const sideProjects = projects.slice(1, 3);
