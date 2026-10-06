@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useRef } from "react";
-import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
 import type { HeroSlideItem } from "@/data/hero.data";
@@ -96,10 +95,6 @@ export function GsapHero({
       {/* Slide Cards */}
       {slides.map((slide, idx) => {
         const isHero = idx === 0;
-        const imageUrl = getOptimizedImageUrl(slide.image, {
-          width: 1920,
-          quality: 90,
-        });
 
         return (
           <React.Fragment key={idx}>
@@ -110,18 +105,28 @@ export function GsapHero({
                 selectSlide(idx);
               }}
             >
-              <Image
-                src={imageUrl}
-                alt={slide.title + " " + slide.title2}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                priority={isHero}
-                fetchPriority={isHero ? "high" : "low"}
-                loading={isHero ? "eager" : "lazy"}
-                quality={90}
-                unoptimized={true}
-              />
+              <picture className="absolute inset-0 w-full h-full pointer-events-none">
+                <source
+                  media="(max-width: 768px)"
+                  srcSet={getOptimizedImageUrl(slide.image, {
+                    width: 828,
+                    quality: 90,
+                  })}
+                />
+                {}
+                <img
+                  src={getOptimizedImageUrl(slide.image, {
+                    width: 1920,
+                    quality: 90,
+                  })}
+                  alt={slide.title + " " + slide.title2}
+                  className="object-cover w-full h-full select-none pointer-events-none"
+                  fetchPriority={isHero ? "high" : "low"}
+                  loading={isHero ? "eager" : "lazy"}
+                  decoding={isHero ? "sync" : "async"}
+                  draggable={false}
+                />
+              </picture>
             </div>
             {/* Card Content Overlay */}
             <div className="card-content" id={`card-content-${idx}`}>
@@ -238,9 +243,6 @@ export function GsapHero({
           </svg>
         </div>
       </div>
-
-      {/* Cover Screen for page intro slide-wipe */}
-      <div className="cover" />
     </div>
   );
 }

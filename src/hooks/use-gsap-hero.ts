@@ -244,11 +244,11 @@ export function useGsapHero(
     }
   };
 
-  const startAutoplayLoop = () => {
+  const startAutoplayLoop = (delay = 25) => {
     if (autoplayTweenRef.current) {
       autoplayTweenRef.current.kill();
     }
-    autoplayTweenRef.current = gsap.delayedCall(15, () => {
+    autoplayTweenRef.current = gsap.delayedCall(delay, () => {
       nextSlide(true);
     });
   };
@@ -906,7 +906,7 @@ export function useGsapHero(
     stopAutoplayLoop();
     await jumpTo(targetIdx);
     isAnimatingRef.current = false;
-    startAutoplayLoop();
+    startAutoplayLoop(15);
   };
 
   const nextSlide = async (isAutoplay = false) => {
@@ -919,7 +919,7 @@ export function useGsapHero(
 
     await stepNext();
     isAnimatingRef.current = false;
-    startAutoplayLoop();
+    startAutoplayLoop(15);
   };
 
   const prevSlide = async () => {
@@ -929,7 +929,7 @@ export function useGsapHero(
     stopAutoplayLoop();
     await stepPrev();
     isAnimatingRef.current = false;
-    startAutoplayLoop();
+    startAutoplayLoop(15);
   };
 
   useEffect(() => {
@@ -1004,16 +1004,7 @@ export function useGsapHero(
 
       // Animate details and cards in on load
       const startDelay = 0.5;
-
-      gsap.to(".cover", {
-        x: window.innerWidth + 400,
-        duration: 1.2,
-        ease: "sine.inOut",
-        onComplete: () => {
-          gsap.set(".cover", { display: "none" });
-          startAutoplayLoop();
-        },
-      });
+      startAutoplayLoop(25);
 
       rest.forEach((i, index) => {
         const isVisible = index < getMaxVisibleThumbs();
