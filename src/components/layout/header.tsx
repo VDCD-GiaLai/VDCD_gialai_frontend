@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -67,43 +67,6 @@ export function Header() {
     }, 50);
     return () => clearTimeout(timer);
   }, [pathname]);
-
-  /* ── Mobile menu GSAP animation ── */
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuTlRef = useRef<gsap.core.Timeline | null>(null);
-
-  useEffect(() => {
-    if (!menuRef.current) return;
-
-    // Build a timeline but keep it paused
-    const tl = gsap.timeline({ paused: true });
-    tl.fromTo(
-      menuRef.current,
-      { height: 0, display: "none" },
-      {
-        height: "auto",
-        display: "flex",
-        duration: 0.25,
-        ease: "power2.inOut",
-      },
-    );
-
-    menuTlRef.current = tl;
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!menuTlRef.current) return;
-
-    if (isMobileMenuOpen) {
-      menuTlRef.current.play();
-    } else {
-      menuTlRef.current.reverse();
-    }
-  }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -278,11 +241,13 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Panel — GSAP animated (replaces AnimatePresence) */}
+      {/* Mobile Menu Panel — pure CSS transition */}
       <div
-        ref={menuRef}
-        style={{ height: 0, display: "none" }}
-        className="xl:hidden absolute top-20 left-0 right-0 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md overflow-hidden flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50"
+        className={`xl:hidden absolute top-20 left-0 right-0 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 shadow-md flex-col font-mono-label text-xs uppercase tracking-wider divide-y divide-zinc-100 dark:divide-zinc-900/50 transition-all duration-300 ease-in-out overflow-hidden ${
+          isMobileMenuOpen
+            ? "max-h-[600px] opacity-100 flex pointer-events-auto"
+            : "max-h-0 opacity-0 hidden pointer-events-none"
+        }`}
       >
         <Link
           href="/about-us"
