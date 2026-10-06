@@ -44,12 +44,12 @@ export function getOptimizedImageUrl(
 
     // Path-based transforms for all other ImageKit endpoints (e.g. eo8dcxsjx8)
     if (url.includes("/tr:")) {
-      return url.replace(/\/tr:[^/]+\//, `/tr:w-${w},q-${q}/`);
+      return url.replace(/\/tr:[^/]+\//, `/tr:w-${w},q-${q},f-auto/`);
     }
 
     const match = url.match(/(https?:\/\/ik\.imagekit\.io\/[^/]+\/)(.*)/);
     if (match) {
-      return `${match[1]}tr:w-${w},q-${q}/${match[2]}`;
+      return `${match[1]}tr:w-${w},q-${q},f-auto/${match[2]}`;
     }
   }
 
