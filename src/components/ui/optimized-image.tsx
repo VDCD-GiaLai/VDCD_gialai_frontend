@@ -45,7 +45,7 @@ export function parseImageKitUrl(
   url: string,
 ): { endpoint: string; path: string } | null {
   const match = url.match(IK_URL_RE);
-  return match ? { endpoint: match[1], path: match[2] } : null;
+  return match ? { endpoint: match[1], path: match[2].split("?")[0] } : null;
 }
 
 /** Extract ImageKit path from a full URL, or return null */
