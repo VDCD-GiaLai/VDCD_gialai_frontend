@@ -244,11 +244,11 @@ export function useGsapHero(
     }
   };
 
-  const startAutoplayLoop = () => {
+  const startAutoplayLoop = (delay = 15) => {
     if (autoplayTweenRef.current) {
       autoplayTweenRef.current.kill();
     }
-    autoplayTweenRef.current = gsap.delayedCall(15, () => {
+    autoplayTweenRef.current = gsap.delayedCall(delay, () => {
       nextSlide(true);
     });
   };
@@ -976,7 +976,7 @@ export function useGsapHero(
         }
       }
 
-      startAutoplayLoop();
+      startAutoplayLoop(25);
     }, containerRef);
 
     // Touch Swipe Gestures

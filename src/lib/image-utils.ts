@@ -45,9 +45,10 @@ export function getOptimizedImageUrl(
       url.includes("eo8dcxsjx8") &&
       (url.includes("so-hoa-du-lieu-dat-dai") || url.includes("updatedAt"))
     ) {
-      if (!url.includes("/tr:")) {
-        return url.replace("/eo8dcxsjx8/", `/eo8dcxsjx8/tr:w-${w},q-${q}/`);
+      if (url.includes("/tr:")) {
+        return url.replace(/\/tr:[^/]+\//, `/tr:w-${w},q-${q}/`);
       }
+      return url.replace("/eo8dcxsjx8/", `/eo8dcxsjx8/tr:w-${w},q-${q}/`);
     }
   }
 
