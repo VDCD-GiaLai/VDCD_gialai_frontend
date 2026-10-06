@@ -35,10 +35,20 @@ export default async function LandingPage() {
             rel="preload"
             as="image"
             href={getOptimizedImageUrl(firstSlideImage, {
-              width: 828,
-              quality: 90,
+              width: 640,
+              quality: 85,
             })}
-            media="(max-width: 768px)"
+            media="(max-width: 640px)"
+            fetchPriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            href={getOptimizedImageUrl(firstSlideImage, {
+              width: 828,
+              quality: 85,
+            })}
+            media="(min-width: 641px) and (max-width: 768px)"
             fetchPriority="high"
           />
           <link
@@ -59,32 +69,6 @@ export default async function LandingPage() {
               quality: 90,
             })}
             media="(min-width: 1281px)"
-            fetchPriority="high"
-          />
-        </>
-      )}
-      {activeSlides[1]?.image && (
-        <>
-          <link
-            rel="preload"
-            as="image"
-            href={getOptimizedImageUrl(activeSlides[1].image, {
-              width: 320,
-              quality: 85,
-              isThumbnail: true,
-            })}
-            media="(max-width: 768px)"
-            fetchPriority="high"
-          />
-          <link
-            rel="preload"
-            as="image"
-            href={getOptimizedImageUrl(activeSlides[1].image, {
-              width: 480,
-              quality: 85,
-              isThumbnail: true,
-            })}
-            media="(min-width: 769px)"
             fetchPriority="high"
           />
         </>

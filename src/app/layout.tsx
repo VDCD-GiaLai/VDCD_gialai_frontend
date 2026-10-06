@@ -9,7 +9,7 @@ import "./globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
-  subsets: ["vietnamese"],
+  subsets: ["latin", "vietnamese"],
   weight: ["600", "700"],
   display: "swap",
   preload: true,
@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
-  subsets: ["vietnamese"],
+  subsets: ["latin", "vietnamese"],
   weight: ["400", "600"],
   display: "swap",
   preload: true,
@@ -190,10 +190,9 @@ export default function RootLayout({
     <html
       lang="vi"
       className={`${beVietnamPro.variable} ${montserrat.variable}`}
-      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <head>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         {/* Preconnect & DNS Prefetch */}
         <link rel="dns-prefetch" href="//ik.imagekit.io" />
         <link
@@ -216,8 +215,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
-      </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
         <GoogleTagManagerNoscript />
         <AppProviders>{children}</AppProviders>
         <GoogleTrackingScripts />

@@ -110,10 +110,17 @@ export function GsapHero({
                 {isHighRes ? (
                   <>
                     <source
+                      media="(max-width: 640px)"
+                      srcSet={getOptimizedImageUrl(slide.image, {
+                        width: 640,
+                        quality: 85,
+                      })}
+                    />
+                    <source
                       media="(max-width: 768px)"
                       srcSet={getOptimizedImageUrl(slide.image, {
                         width: 828,
-                        quality: 90,
+                        quality: 85,
                       })}
                     />
                     <source
@@ -158,9 +165,7 @@ export function GsapHero({
                       width={480}
                       height={640}
                       className="object-cover w-full h-full select-none pointer-events-none block"
-                      fetchPriority={
-                        idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
-                      }
+                      fetchPriority={idx <= 3 ? "auto" : "low"}
                       loading={idx <= 3 ? "eager" : "lazy"}
                       decoding="async"
                       draggable={false}
