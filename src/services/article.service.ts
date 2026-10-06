@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { MOCK_ARTICLES, getMockArticleBySlug } from "@/data/news.data";
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 import { fetchWithFallback } from "@/lib/client-cache";
@@ -40,7 +41,7 @@ function parseArticleContent(
 
 /* ── Fetch paginated articles ──────────────────────────── */
 
-export async function fetchArticlesFromApi(
+export const fetchArticlesFromApi = cache(async function fetchArticlesFromApi(
   params: ArticleListParams = {},
 ): Promise<PaginatedResponse<Article>> {
   const { page = 1, limit = 10, category, tags } = params;
@@ -78,7 +79,7 @@ export async function fetchArticlesFromApi(
       if (tags) qs.set("tags", tags);
 
       const res = await fetch(`${API_BASE_URL}/articles?${qs.toString()}`, {
-        cache: "no-store",
+        next: { revalidate: 60 },
       });
 
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
@@ -101,82 +102,86 @@ export async function fetchArticlesFromApi(
       };
     },
   });
-}
+});
 
 /* ── Fetch single article by slug ──────────────────────── */
 
-export async function fetchArticleBySlugFromApi(
-  slug: string,
-): Promise<ArticleDetail | null> {
-  const getMockDetail = (): ArticleDetail | null => {
-    const article = getMockArticleBySlug(slug);
-    if (!article || !article.isPublished) return null;
+export const fetchArticleBySlugFromApi = cache(
+  async function fetchArticleBySlugFromApi(
+    slug: string,
+  ): Promise<ArticleDetail | null> {
+    const getMockDetail = (): ArticleDetail | null => {
+      const article = getMockArticleBySlug(slug);
+      if (!article || !article.isPublished) return null;
 
-    const relatedArticles = MOCK_ARTICLES.filter(
-      (a) =>
-        a.isPublished && a.id !== article.id && a.category === article.category,
-    )
-      .slice(0, 3)
-      .map((a) => ({
-        id: a.id,
-        title: a.title,
-        slug: a.slug,
-        thumbnail: a.thumbnail,
-        publishedAt: a.publishedAt,
-      }));
-
-    return {
-      ...article,
-      content: parseArticleContent(article.content),
-      relatedArticles,
-    };
-  };
-
-  return fetchWithFallback<ArticleDetail | null>({
-    key: `article_slug_${slug}`,
-    useMock: USE_MOCK_DATA,
-    fallback: getMockDetail,
-    fetcher: async () => {
-      const res = await fetch(`${API_BASE_URL}/articles/${slug}`, {
-        cache: "no-store",
-      });
-
-      if (!res.ok) {
-        if (res.status === 404) return null;
-        throw new Error(`HTTP error ${res.status}`);
-      }
-
-      const body = await res.json();
-      const data = body.data ?? body;
-      if (!data) return null;
-
-      // Ensure unpublished draft articles return null (404)
-      const isPublished =
-        data.isPublished !== undefined
-          ? Boolean(data.isPublished)
-          : Boolean(data.publishedAt);
-
-      if (!isPublished) {
-        return null;
-      }
-
-      const parsedContent = parseArticleContent(data.content);
-      const sidebarConfig =
-        parseSidebarConfig(data.sidebarConfig) ??
-        parseSidebarConfig(parsedContent) ??
-        parseSidebarConfig(data.content) ??
-        null;
+      const relatedArticles = MOCK_ARTICLES.filter(
+        (a) =>
+          a.isPublished &&
+          a.id !== article.id &&
+          a.category === article.category,
+      )
+        .slice(0, 3)
+        .map((a) => ({
+          id: a.id,
+          title: a.title,
+          slug: a.slug,
+          thumbnail: a.thumbnail,
+          publishedAt: a.publishedAt,
+        }));
 
       return {
-        ...data,
-        isPublished: true,
-        content: parsedContent,
-        sidebarConfig,
-        relatedArticles: data.relatedArticles ?? [],
-      } as ArticleDetail;
-    },
-  });
-}
+        ...article,
+        content: parseArticleContent(article.content),
+        relatedArticles,
+      };
+    };
+
+    return fetchWithFallback<ArticleDetail | null>({
+      key: `article_slug_${slug}`,
+      useMock: USE_MOCK_DATA,
+      fallback: getMockDetail,
+      fetcher: async () => {
+        const res = await fetch(`${API_BASE_URL}/articles/${slug}`, {
+          next: { revalidate: 60 },
+        });
+
+        if (!res.ok) {
+          if (res.status === 404) return null;
+          throw new Error(`HTTP error ${res.status}`);
+        }
+
+        const body = await res.json();
+        const data = body.data ?? body;
+        if (!data) return null;
+
+        // Ensure unpublished draft articles return null (404)
+        const isPublished =
+          data.isPublished !== undefined
+            ? Boolean(data.isPublished)
+            : Boolean(data.publishedAt);
+
+        if (!isPublished) {
+          return null;
+        }
+
+        const parsedContent = parseArticleContent(data.content);
+        const sidebarConfig =
+          parseSidebarConfig(data.sidebarConfig) ??
+          parseSidebarConfig(parsedContent) ??
+          parseSidebarConfig(data.content) ??
+          null;
+
+        return {
+          ...data,
+          isPublished: true,
+          content: parsedContent,
+          sidebarConfig,
+          relatedArticles: data.relatedArticles ?? [],
+        } as ArticleDetail;
+      },
+    });
+  },
+);
 
 /* ── Fetch featured / latest articles (shortcut) ──────── */
 

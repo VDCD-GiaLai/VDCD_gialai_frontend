@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 import { ALL_MOCK_SOLUTIONS, type SolutionItem } from "@/data/solutions.data";
 import {
@@ -187,7 +188,7 @@ export function convertSolutionDetailsToDocument(
  *  API FETCHERS
  * ────────────────────────────────────────────────────────── */
 
-export async function fetchSolutionsFromApi(
+export const fetchSolutionsFromApi = cache(async function fetchSolutionsFromApi(
   limit = 50,
 ): Promise<SolutionItem[]> {
   return fetchWithFallback<SolutionItem[]>({
@@ -196,7 +197,7 @@ export async function fetchSolutionsFromApi(
     fallback: () => ALL_MOCK_SOLUTIONS.slice(0, limit),
     fetcher: async () => {
       const res = await fetch(`${API_BASE_URL}/solutions?limit=${limit}`, {
-        cache: "no-store",
+        next: { revalidate: 60 },
       });
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
@@ -239,136 +240,144 @@ export async function fetchSolutionsFromApi(
       throw new Error("No solutions returned");
     },
   });
-}
+});
 
-export async function fetchSolutionBySlugFromApi(
-  slug: string,
-): Promise<SolutionDetail | null> {
-  const getMockDetail = (): SolutionDetail | null => {
-    const mockItem = ALL_MOCK_SOLUTIONS.find((s) => s.slug === slug);
-    const richDetail = SOLUTION_DETAILS[slug];
+export const fetchSolutionBySlugFromApi = cache(
+  async function fetchSolutionBySlugFromApi(
+    slug: string,
+  ): Promise<SolutionDetail | null> {
+    const getMockDetail = (): SolutionDetail | null => {
+      const mockItem = ALL_MOCK_SOLUTIONS.find((s) => s.slug === slug);
+      const richDetail = SOLUTION_DETAILS[slug];
 
-    if (!mockItem && !richDetail) return null;
+      if (!mockItem && !richDetail) return null;
 
-    const contentDoc = richDetail
-      ? convertSolutionDetailsToDocument(richDetail)
-      : convertSolutionContentToDocument(mockItem?.description);
-
-    return {
-      id: mockItem?.id || `sol-${slug}`,
-      title: richDetail?.title || mockItem?.title || slug,
-      slug: mockItem?.slug || slug,
-      shortDescription: richDetail?.introText || mockItem?.description || null,
-      thumbnail: richDetail?.imageUrl || mockItem?.thumbnail || null,
-      thumbnailFileId: null,
-      websiteUrl: mockItem?.websiteUrl || `/solution/${slug}`,
-      fieldId: null,
-      field: {
-        id: "fld-tech",
-        name: "Giải pháp Công nghệ Số",
-        slug: "cong-nghe-so",
-      },
-      metaTitle: richDetail?.title || mockItem?.title || null,
-      metaDescription: richDetail?.introText || mockItem?.description || null,
-      isPublished: mockItem?.isPublished !== false,
-      publishedAt: "2025-01-15T00:00:00.000Z",
-      createdAt: "2025-01-15T00:00:00.000Z",
-      updatedAt: "2025-01-15T00:00:00.000Z",
-      content: contentDoc,
-      relatedArticles: [],
-    };
-  };
-
-  return fetchWithFallback<SolutionDetail | null>({
-    key: `solution_${slug}`,
-    useMock: USE_MOCK_DATA,
-    fallback: getMockDetail,
-    fetcher: async () => {
-      const res = await fetch(`${API_BASE_URL}/solutions/${slug}`, {
-        cache: "no-store",
-      });
-      if (!res.ok) {
-        if (res.status === 404) return null;
-        throw new Error(`HTTP error ${res.status}`);
-      }
-      const body = await res.json();
-      const data = body.data || body;
-      if (!data || (data.isPublished === false && !USE_MOCK_DATA)) {
-        return null;
-      }
-
-      let contentDoc = convertSolutionContentToDocument(data.content);
-      // Fallback sang cấu trúc phong phú nếu DB chỉ chứa chuỗi text 1 đoạn
-      if (contentDoc.blocks.length <= 1 && SOLUTION_DETAILS[slug]) {
-        contentDoc = convertSolutionDetailsToDocument(SOLUTION_DETAILS[slug]);
-      }
+      const contentDoc = richDetail
+        ? convertSolutionDetailsToDocument(richDetail)
+        : convertSolutionContentToDocument(mockItem?.description);
 
       return {
-        id: data.id || `sol-${slug}`,
-        title: data.title,
-        slug: data.slug || slug,
-        shortDescription: data.shortDescription || data.description || null,
-        thumbnail: data.thumbnail || null,
-        thumbnailFileId: data.thumbnailFileId || null,
-        websiteUrl: data.websiteUrl || `/solution/${slug}`,
-        fieldId: data.fieldId || null,
-        field: data.field || null,
-        metaTitle: data.metaTitle || null,
-        metaDescription: data.metaDescription || null,
-        isPublished: data.isPublished !== false,
-        publishedAt: data.publishedAt || null,
-        createdAt: data.createdAt || new Date().toISOString(),
-        updatedAt: data.updatedAt || new Date().toISOString(),
-        content: contentDoc,
-        sidebarConfig:
-          parseSidebarConfig(data.sidebarConfig) ??
-          parseSidebarConfig(contentDoc) ??
-          parseSidebarConfig(data.content) ??
-          null,
-        relatedArticles: data.relatedArticles || [],
-      } as SolutionDetail;
-    },
-  });
-}
-
-export async function fetchRelatedSolutionsFromApi(
-  currentSlug: string,
-  fieldId?: string,
-  limit = 2,
-): Promise<SolutionEntityContract[]> {
-  try {
-    const res = await fetchSolutionsFromApi(20);
-    return res
-      .filter((s) => s.slug !== currentSlug && s.isPublished !== false)
-      .slice(0, limit)
-      .map((s) => ({
-        id: s.id,
-        title: s.title,
-        slug: s.slug,
-        shortDescription: s.shortDescription || s.description || null,
-        thumbnail:
-          s.thumbnail || (s as any).imageUrl || (s as any).thumbnailUrl || null,
-        thumbnailFileId: (s as any).thumbnailFileId || null,
-        websiteUrl: s.websiteUrl || `/solution/${s.slug}`,
-        fieldId: (s as any).fieldId || null,
-        field: (s as any).field || {
+        id: mockItem?.id || `sol-${slug}`,
+        title: richDetail?.title || mockItem?.title || slug,
+        slug: mockItem?.slug || slug,
+        shortDescription:
+          richDetail?.introText || mockItem?.description || null,
+        thumbnail: richDetail?.imageUrl || mockItem?.thumbnail || null,
+        thumbnailFileId: null,
+        websiteUrl: mockItem?.websiteUrl || `/solution/${slug}`,
+        fieldId: null,
+        field: {
           id: "fld-tech",
-          name: "Giải pháp Công nghệ",
+          name: "Giải pháp Công nghệ Số",
           slug: "cong-nghe-so",
         },
-        metaTitle: (s as any).metaTitle || s.title,
-        metaDescription:
-          (s as any).metaDescription ||
-          s.shortDescription ||
-          s.description ||
-          null,
-        isPublished: true,
-        publishedAt: (s as any).publishedAt || null,
-        createdAt: (s as any).createdAt || new Date().toISOString(),
-        updatedAt: (s as any).updatedAt || new Date().toISOString(),
-        content: { version: 1, blocks: [] },
-      }));
-  } catch {
-    return [];
-  }
-}
+        metaTitle: richDetail?.title || mockItem?.title || null,
+        metaDescription: richDetail?.introText || mockItem?.description || null,
+        isPublished: mockItem?.isPublished !== false,
+        publishedAt: "2025-01-15T00:00:00.000Z",
+        createdAt: "2025-01-15T00:00:00.000Z",
+        updatedAt: "2025-01-15T00:00:00.000Z",
+        content: contentDoc,
+        relatedArticles: [],
+      };
+    };
+
+    return fetchWithFallback<SolutionDetail | null>({
+      key: `solution_${slug}`,
+      useMock: USE_MOCK_DATA,
+      fallback: getMockDetail,
+      fetcher: async () => {
+        const res = await fetch(`${API_BASE_URL}/solutions/${slug}`, {
+          next: { revalidate: 60 },
+        });
+        if (!res.ok) {
+          if (res.status === 404) return null;
+          throw new Error(`HTTP error ${res.status}`);
+        }
+        const body = await res.json();
+        const data = body.data || body;
+        if (!data || (data.isPublished === false && !USE_MOCK_DATA)) {
+          return null;
+        }
+
+        let contentDoc = convertSolutionContentToDocument(data.content);
+        // Fallback sang cấu trúc phong phú nếu DB chỉ chứa chuỗi text 1 đoạn
+        if (contentDoc.blocks.length <= 1 && SOLUTION_DETAILS[slug]) {
+          contentDoc = convertSolutionDetailsToDocument(SOLUTION_DETAILS[slug]);
+        }
+
+        return {
+          id: data.id || `sol-${slug}`,
+          title: data.title,
+          slug: data.slug || slug,
+          shortDescription: data.shortDescription || data.description || null,
+          thumbnail: data.thumbnail || null,
+          thumbnailFileId: data.thumbnailFileId || null,
+          websiteUrl: data.websiteUrl || `/solution/${slug}`,
+          fieldId: data.fieldId || null,
+          field: data.field || null,
+          metaTitle: data.metaTitle || null,
+          metaDescription: data.metaDescription || null,
+          isPublished: data.isPublished !== false,
+          publishedAt: data.publishedAt || null,
+          createdAt: data.createdAt || new Date().toISOString(),
+          updatedAt: data.updatedAt || new Date().toISOString(),
+          content: contentDoc,
+          sidebarConfig:
+            parseSidebarConfig(data.sidebarConfig) ??
+            parseSidebarConfig(contentDoc) ??
+            parseSidebarConfig(data.content) ??
+            null,
+          relatedArticles: data.relatedArticles || [],
+        } as SolutionDetail;
+      },
+    });
+  },
+);
+
+export const fetchRelatedSolutionsFromApi = cache(
+  async function fetchRelatedSolutionsFromApi(
+    currentSlug: string,
+    fieldId?: string,
+    limit = 2,
+  ): Promise<SolutionEntityContract[]> {
+    try {
+      const res = await fetchSolutionsFromApi(20);
+      return res
+        .filter((s) => s.slug !== currentSlug && s.isPublished !== false)
+        .slice(0, limit)
+        .map((s) => ({
+          id: s.id,
+          title: s.title,
+          slug: s.slug,
+          shortDescription: s.shortDescription || s.description || null,
+          thumbnail:
+            s.thumbnail ||
+            (s as any).imageUrl ||
+            (s as any).thumbnailUrl ||
+            null,
+          thumbnailFileId: (s as any).thumbnailFileId || null,
+          websiteUrl: s.websiteUrl || `/solution/${s.slug}`,
+          fieldId: (s as any).fieldId || null,
+          field: (s as any).field || {
+            id: "fld-tech",
+            name: "Giải pháp Công nghệ",
+            slug: "cong-nghe-so",
+          },
+          metaTitle: (s as any).metaTitle || s.title,
+          metaDescription:
+            (s as any).metaDescription ||
+            s.shortDescription ||
+            s.description ||
+            null,
+          isPublished: true,
+          publishedAt: (s as any).publishedAt || null,
+          createdAt: (s as any).createdAt || new Date().toISOString(),
+          updatedAt: (s as any).updatedAt || new Date().toISOString(),
+          content: { version: 1, blocks: [] },
+        }));
+    } catch {
+      return [];
+    }
+  },
+);

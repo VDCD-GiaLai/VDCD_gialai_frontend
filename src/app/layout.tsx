@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
   subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -248,17 +248,6 @@ export default function RootLayout({
           rel="preconnect"
           href="https://vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net"
           crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-
-        {/* Preload LCP hero image for fast mobile paint */}
-        <link
-          rel="preload"
-          as="image"
-          type="image/webp"
-          href="/images/home/kientaotuonglai.webp"
-          fetchPriority="high"
         />
 
         {/* Organization & WebSite Structured Data */}

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import {
   PROJECTS_DATA,
   getProjectById as getLocalProjectById,
@@ -317,45 +318,16 @@ export interface ProjectListParams {
   limit?: number;
 }
 
-export async function fetchProjectsPaginatedFromApi(
-  params: ProjectListParams = {},
-): Promise<PaginatedResponse<ProjectEntry>> {
-  const { page = 1, limit = 10 } = params;
-  const cacheKey = `projects_paginated_page_${page}_limit_${limit}`;
+export const fetchProjectsPaginatedFromApi = cache(
+  async function fetchProjectsPaginatedFromApi(
+    params: ProjectListParams = {},
+  ): Promise<PaginatedResponse<ProjectEntry>> {
+    const { page = 1, limit = 10 } = params;
+    const cacheKey = `projects_paginated_page_${page}_limit_${limit}`;
 
-  const getMockPaginated = (): PaginatedResponse<ProjectEntry> => {
-    const total = PROJECTS_DATA.length;
-    const items = PROJECTS_DATA.slice((page - 1) * limit, page * limit);
-    return {
-      items,
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    };
-  };
-
-  return fetchWithFallback<PaginatedResponse<ProjectEntry>>({
-    key: cacheKey,
-    useMock: USE_MOCK_DATA,
-    fallback: getMockPaginated,
-    fetcher: async () => {
-      const res = await fetch(
-        `${API_BASE_URL}/projects?page=${page}&limit=${limit}`,
-        {
-          cache: "no-store",
-        },
-      );
-      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-      const body = await res.json();
-      const payload = body.data ?? body;
-      const rawItems: BackendProject[] =
-        payload.data ??
-        payload.items ??
-        (Array.isArray(payload) ? payload : []);
-      const items = rawItems.map((p) => mapBackendProjectToEntry(p));
-      const total: number = payload.total ?? items.length;
-
+    const getMockPaginated = (): PaginatedResponse<ProjectEntry> => {
+      const total = PROJECTS_DATA.length;
+      const items = PROJECTS_DATA.slice((page - 1) * limit, page * limit);
       return {
         items,
         total,
@@ -363,11 +335,42 @@ export async function fetchProjectsPaginatedFromApi(
         limit,
         totalPages: Math.ceil(total / limit),
       };
-    },
-  });
-}
+    };
 
-export async function fetchProjectsFromApi(
+    return fetchWithFallback<PaginatedResponse<ProjectEntry>>({
+      key: cacheKey,
+      useMock: USE_MOCK_DATA,
+      fallback: getMockPaginated,
+      fetcher: async () => {
+        const res = await fetch(
+          `${API_BASE_URL}/projects?page=${page}&limit=${limit}`,
+          {
+            next: { revalidate: 60 },
+          },
+        );
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const body = await res.json();
+        const payload = body.data ?? body;
+        const rawItems: BackendProject[] =
+          payload.data ??
+          payload.items ??
+          (Array.isArray(payload) ? payload : []);
+        const items = rawItems.map((p) => mapBackendProjectToEntry(p));
+        const total: number = payload.total ?? items.length;
+
+        return {
+          items,
+          total,
+          page,
+          limit,
+          totalPages: Math.ceil(total / limit),
+        };
+      },
+    });
+  },
+);
+
+export const fetchProjectsFromApi = cache(async function fetchProjectsFromApi(
   limit = 50,
 ): Promise<ProjectEntry[]> {
   return fetchWithFallback<ProjectEntry[]>({
@@ -376,7 +379,7 @@ export async function fetchProjectsFromApi(
     fallback: () => PROJECTS_DATA.slice(0, limit),
     fetcher: async () => {
       const res = await fetch(`${API_BASE_URL}/projects?limit=${limit}`, {
-        cache: "no-store",
+        next: { revalidate: 60 },
       });
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const body = await res.json();
@@ -390,7 +393,7 @@ export async function fetchProjectsFromApi(
       throw new Error("No projects returned");
     },
   });
-}
+});
 
 export async function fetchFeaturedProjectsFromApi(
   limit = 6,
@@ -398,27 +401,29 @@ export async function fetchFeaturedProjectsFromApi(
   return fetchProjectsFromApi(limit);
 }
 
-export async function fetchProjectBySlugFromApi(
-  slug: string,
-): Promise<ProjectEntry | null> {
-  return fetchWithFallback<ProjectEntry | null>({
-    key: `project_${slug}`,
-    useMock: USE_MOCK_DATA,
-    fallback: () => getLocalProjectById(slug) || null,
-    fetcher: async () => {
-      const res = await fetch(`${API_BASE_URL}/projects/${slug}`, {
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-      const body = await res.json();
-      const bp: BackendProject = body.data || body;
-      if (bp && bp.slug) {
-        return mapBackendProjectToEntry(bp);
-      }
-      throw new Error(`Project ${slug} not found`);
-    },
-  });
-}
+export const fetchProjectBySlugFromApi = cache(
+  async function fetchProjectBySlugFromApi(
+    slug: string,
+  ): Promise<ProjectEntry | null> {
+    return fetchWithFallback<ProjectEntry | null>({
+      key: `project_${slug}`,
+      useMock: USE_MOCK_DATA,
+      fallback: () => getLocalProjectById(slug) || null,
+      fetcher: async () => {
+        const res = await fetch(`${API_BASE_URL}/projects/${slug}`, {
+          next: { revalidate: 60 },
+        });
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const body = await res.json();
+        const bp: BackendProject = body.data || body;
+        if (bp && bp.slug) {
+          return mapBackendProjectToEntry(bp);
+        }
+        throw new Error(`Project ${slug} not found`);
+      },
+    });
+  },
+);
 
 export interface ProjectHeroSlide {
   id: string;

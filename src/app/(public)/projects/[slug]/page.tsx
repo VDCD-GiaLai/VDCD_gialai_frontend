@@ -75,6 +75,8 @@ export async function generateMetadata({
   };
 }
 
+export const revalidate = 60;
+
 /* ────────────────────────────────────────────────────────
    Static params for all known projects
    ──────────────────────────────────────────────────────── */

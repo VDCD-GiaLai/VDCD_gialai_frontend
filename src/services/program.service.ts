@@ -1,3 +1,4 @@
+import { cache } from "react";
 import {
   MOCK_PROGRAMS,
   MOCK_OPERATION_FIELDS,
@@ -45,7 +46,7 @@ export function parseProgramContent(
 
 /* ── Fetch paginated programs ─────────────────────────── */
 
-export async function fetchProgramsFromApi(
+export const fetchProgramsFromApi = cache(async function fetchProgramsFromApi(
   params: ProgramListParams = {},
 ): Promise<PaginatedResponse<Program>> {
   const { page = 1, limit = 10, fieldId } = params;
@@ -70,7 +71,7 @@ export async function fetchProgramsFromApi(
       if (fieldId) qs.set("fieldId", fieldId);
 
       const res = await fetch(`${API_BASE_URL}/programs?${qs.toString()}`, {
-        cache: "no-store",
+        next: { revalidate: 60 },
       });
 
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
@@ -94,7 +95,7 @@ export async function fetchProgramsFromApi(
       };
     },
   });
-}
+});
 
 /* ── Fetch featured programs (for landing section) ────── */
 
@@ -107,74 +108,78 @@ export async function fetchFeaturedProgramsFromApi(
 
 /* ── Fetch single program by slug ─────────────────────── */
 
-export async function fetchProgramBySlugFromApi(
-  slug: string,
-): Promise<ProgramDetail | null> {
-  const getMockDetail = (): ProgramDetail | null => {
-    const program = getMockProgramBySlug(slug);
-    if (!program || program.isPublished === false) return null;
-    return { ...program, relatedArticles: [] };
-  };
+export const fetchProgramBySlugFromApi = cache(
+  async function fetchProgramBySlugFromApi(
+    slug: string,
+  ): Promise<ProgramDetail | null> {
+    const getMockDetail = (): ProgramDetail | null => {
+      const program = getMockProgramBySlug(slug);
+      if (!program || program.isPublished === false) return null;
+      return { ...program, relatedArticles: [] };
+    };
 
-  return fetchWithFallback<ProgramDetail | null>({
-    key: `program_${slug}`,
-    useMock: USE_MOCK_DATA,
-    fallback: getMockDetail,
-    fetcher: async () => {
-      const res = await fetch(`${API_BASE_URL}/programs/${slug}`, {
-        cache: "no-store",
-      });
+    return fetchWithFallback<ProgramDetail | null>({
+      key: `program_${slug}`,
+      useMock: USE_MOCK_DATA,
+      fallback: getMockDetail,
+      fetcher: async () => {
+        const res = await fetch(`${API_BASE_URL}/programs/${slug}`, {
+          next: { revalidate: 60 },
+        });
 
-      if (!res.ok) {
-        if (res.status === 404) return null;
-        throw new Error(`HTTP error ${res.status}`);
-      }
+        if (!res.ok) {
+          if (res.status === 404) return null;
+          throw new Error(`HTTP error ${res.status}`);
+        }
 
-      const body = await res.json();
-      const data = body.data ?? body;
+        const body = await res.json();
+        const data = body.data ?? body;
 
-      // Do not return unpublished programs on public routes
-      if (!data || (data.isPublished === false && !USE_MOCK_DATA)) {
-        return null;
-      }
+        // Do not return unpublished programs on public routes
+        if (!data || (data.isPublished === false && !USE_MOCK_DATA)) {
+          return null;
+        }
 
-      const parsedContent = parseProgramContent(data.content);
-      const sidebarConfig =
-        parseSidebarConfig(data.sidebarConfig) ??
-        parseSidebarConfig(parsedContent) ??
-        parseSidebarConfig(data.content) ??
-        null;
+        const parsedContent = parseProgramContent(data.content);
+        const sidebarConfig =
+          parseSidebarConfig(data.sidebarConfig) ??
+          parseSidebarConfig(parsedContent) ??
+          parseSidebarConfig(data.content) ??
+          null;
 
-      return {
-        ...data,
-        content: parsedContent,
-        sidebarConfig,
-        relatedArticles: data.relatedArticles ?? [],
-      } as ProgramDetail;
-    },
-  });
-}
+        return {
+          ...data,
+          content: parsedContent,
+          sidebarConfig,
+          relatedArticles: data.relatedArticles ?? [],
+        } as ProgramDetail;
+      },
+    });
+  },
+);
 
 /* ── Fetch related programs ───────────────────────────── */
 
-export async function fetchRelatedProgramsFromApi(
-  currentSlug: string,
-  fieldId?: string,
-  limit = 2,
-): Promise<Program[]> {
-  try {
-    const res = await fetchProgramsFromApi({
-      page: 1,
-      limit: 6,
-      fieldId,
-    });
-    return res.items
-      .filter((p) => p.slug !== currentSlug && p.isPublished !== false)
-      .slice(0, limit);
-  } catch {
-    return [];
-  }
-}
+export const fetchRelatedProgramsFromApi = cache(
+  async function fetchRelatedProgramsFromApi(
+    currentSlug: string,
+    fieldId?: string,
+    limit = 2,
+  ): Promise<Program[]> {
+    try {
+      const res = await fetchProgramsFromApi({
+        page: 1,
+        limit: 6,
+        fieldId,
+      });
+      return res.items
+        .filter((p) => p.slug !== currentSlug && p.isPublished !== false)
+        .slice(0, limit);
+    } catch {
+      return [];
+    }
+  },
+);
 
 // Aliases for seamless usage across components
 export const getProgramBySlug = fetchProgramBySlugFromApi;
@@ -182,33 +187,37 @@ export const getPrograms = fetchProgramsFromApi;
 
 /* ── Fetch operation fields (for filter chips) ────────── */
 
-export async function fetchOperationFieldsFromApi(): Promise<OperationField[]> {
-  return fetchWithFallback<OperationField[]>({
-    key: "operation_fields_programs",
-    useMock: USE_MOCK_DATA,
-    fallback: MOCK_OPERATION_FIELDS,
-    fetcher: async () => {
-      const res = await fetch(`${API_BASE_URL}/operation-fields`, {
-        cache: "no-store",
-      });
+export const fetchOperationFieldsFromApi = cache(
+  async function fetchOperationFieldsFromApi(): Promise<OperationField[]> {
+    return fetchWithFallback<OperationField[]>({
+      key: "operation_fields_programs",
+      useMock: USE_MOCK_DATA,
+      fallback: MOCK_OPERATION_FIELDS,
+      fetcher: async () => {
+        const res = await fetch(`${API_BASE_URL}/operation-fields`, {
+          next: { revalidate: 60 },
+        });
 
-      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
-      const body = await res.json();
-      const items: OperationField[] = body.data ?? body;
+        const body = await res.json();
+        const items: OperationField[] = body.data ?? body;
 
-      if (Array.isArray(items) && items.length > 0) {
-        const programSlugs = new Set(MOCK_OPERATION_FIELDS.map((f) => f.slug));
-        const filtered = items.filter(
-          (f) =>
-            programSlugs.has(f.slug) ||
-            (f.order !== undefined && f.order >= 10),
-        );
-        return (filtered.length > 0 ? filtered : items).sort(
-          (a, b) => (a.order || 0) - (b.order || 0),
-        );
-      }
-      throw new Error("No operation fields returned");
-    },
-  });
-}
+        if (Array.isArray(items) && items.length > 0) {
+          const programSlugs = new Set(
+            MOCK_OPERATION_FIELDS.map((f) => f.slug),
+          );
+          const filtered = items.filter(
+            (f) =>
+              programSlugs.has(f.slug) ||
+              (f.order !== undefined && f.order >= 10),
+          );
+          return (filtered.length > 0 ? filtered : items).sort(
+            (a, b) => (a.order || 0) - (b.order || 0),
+          );
+        }
+        throw new Error("No operation fields returned");
+      },
+    });
+  },
+);

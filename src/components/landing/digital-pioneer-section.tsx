@@ -10,12 +10,19 @@ import {
   type OrganizationInfo,
 } from "@/services/hero.service";
 
-export function DigitalPioneerSection() {
-  const [orgInfo, setOrgInfo] = React.useState<OrganizationInfo | null>(null);
+export function DigitalPioneerSection({
+  initialOrgInfo,
+}: {
+  initialOrgInfo?: OrganizationInfo | null;
+} = {}) {
+  const [orgInfo, setOrgInfo] = React.useState<OrganizationInfo | null>(
+    initialOrgInfo ?? null,
+  );
 
   React.useEffect(() => {
+    if (initialOrgInfo) return;
     fetchOrganizationInfoFromApi().then(setOrgInfo);
-  }, []);
+  }, [initialOrgInfo]);
 
   const containerRef = useScrollReveal({
     targets: ".pioneer-reveal",

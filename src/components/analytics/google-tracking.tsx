@@ -12,12 +12,12 @@ export function GoogleTrackingScripts() {
     <>
       {/* Google Analytics (gtag.js) */}
       <Script
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
       <Script
         id="google-analytics-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
@@ -31,7 +31,7 @@ export function GoogleTrackingScripts() {
       {/* Google Tag Manager */}
       <Script
         id="google-tag-manager-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
