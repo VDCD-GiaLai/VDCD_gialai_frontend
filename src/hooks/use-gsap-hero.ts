@@ -950,9 +950,10 @@ export function useGsapHero(
     const animId = requestAnimationFrame(() => {
       if (!containerRef.current) return;
       ctx = gsap.context(() => {
-        // Set up responsive values and initial positioning of thumbnail tray cards
+        // Set up responsive values and autoplay
         updateDimensions();
-        setCardPositions(false);
+        // Skip setCardPositions(false) on initial mount: CSS already positions cards 0..4 pixel-perfectly.
+        // Mutating inline style transforms on mount forces Chrome to delay LCP paint candidate.
         startAutoplayLoop(25);
         isMountedRef.current = true;
       }, containerRef);

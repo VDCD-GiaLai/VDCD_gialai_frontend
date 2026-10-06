@@ -133,6 +133,7 @@ export function Header() {
         >
           <Link
             href="/about-us"
+            prefetch={false}
             className={`hover:text-primary transition-colors ${
               pathname === "/about-us" ? "text-primary font-semibold" : ""
             }`}
@@ -142,6 +143,7 @@ export function Header() {
           {megaMenu.desktop}
           <Link
             href="/projects"
+            prefetch={false}
             className={`hover:text-primary transition-colors ${
               pathname === "/projects" || pathname.startsWith("/projects/")
                 ? "text-primary font-semibold"
@@ -152,6 +154,7 @@ export function Header() {
           </Link>
           <Link
             href="/news"
+            prefetch={false}
             className={`hover:text-primary transition-colors ${
               pathname === "/news" || pathname.startsWith("/news/")
                 ? "text-primary font-semibold"
@@ -162,6 +165,7 @@ export function Header() {
           </Link>
           <Link
             href="/careers"
+            prefetch={false}
             className={`hover:text-primary transition-colors ${
               pathname === "/careers" ? "text-primary font-semibold" : ""
             }`}
@@ -170,6 +174,7 @@ export function Header() {
           </Link>
           <Link
             href="/contact"
+            prefetch={false}
             className={`hover:text-primary transition-colors ${
               pathname === "/contact" ? "text-primary font-semibold" : ""
             }`}
@@ -251,6 +256,7 @@ export function Header() {
       >
         <Link
           href="/about-us"
+          prefetch={false}
           onClick={() => setIsMobileMenuOpen(false)}
           className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
             pathname === "/about-us"
@@ -263,6 +269,7 @@ export function Header() {
         {megaMenu.mobile}
         <Link
           href="/projects"
+          prefetch={false}
           onClick={() => setIsMobileMenuOpen(false)}
           className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
             pathname === "/projects" || pathname.startsWith("/projects/")
@@ -274,6 +281,7 @@ export function Header() {
         </Link>
         <Link
           href="/news"
+          prefetch={false}
           onClick={() => setIsMobileMenuOpen(false)}
           className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
             pathname === "/news" || pathname.startsWith("/news/")
@@ -285,6 +293,7 @@ export function Header() {
         </Link>
         <Link
           href="/careers"
+          prefetch={false}
           onClick={() => setIsMobileMenuOpen(false)}
           className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
             pathname === "/careers" || pathname.startsWith("/careers/")
@@ -296,6 +305,7 @@ export function Header() {
         </Link>
         <Link
           href="/contact"
+          prefetch={false}
           onClick={() => setIsMobileMenuOpen(false)}
           className={`px-6 py-3.5 hover:text-accent-red hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors ${
             pathname === "/contact"
