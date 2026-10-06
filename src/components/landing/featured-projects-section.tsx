@@ -20,11 +20,34 @@ export function FeaturedProjectsSection() {
   );
 
   React.useEffect(() => {
-    fetchFeaturedProjectsFromApi(3).then((data) => {
-      if (data && data.length > 0) {
-        setProjects(data);
+    let cancelId: any = null;
+    const fetchAction = () => {
+      fetchFeaturedProjectsFromApi(3).then((data) => {
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      });
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      cancelId = (window as any).requestIdleCallback(fetchAction, {
+        timeout: 3500,
+      });
+    } else {
+      cancelId = setTimeout(fetchAction, 1500);
+    }
+
+    return () => {
+      if (
+        typeof window !== "undefined" &&
+        "cancelIdleCallback" in window &&
+        typeof cancelId === "number"
+      ) {
+        (window as any).cancelIdleCallback(cancelId);
+      } else if (cancelId) {
+        clearTimeout(cancelId);
       }
-    });
+    };
   }, []);
 
   useEffect(() => {

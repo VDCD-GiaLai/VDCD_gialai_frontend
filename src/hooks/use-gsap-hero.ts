@@ -15,6 +15,7 @@ export function useGsapHero(
   const detailsEvenRef = useRef(true);
   const isAnimatingRef = useRef(false);
   const autoplayTweenRef = useRef<any>(null);
+  const isMountedRef = useRef(false);
 
   // React state to reflect the active slide in the UI (specifically for class toggle like active-bg)
   const [activeIdx, setActiveIdx] = useState(0);
@@ -24,6 +25,12 @@ export function useGsapHero(
     if (orderRef.current.length !== slides.length) {
       orderRef.current = slides.map((_, i) => i);
     }
+    // Skip mutating text on initial mount: SSR already rendered slide 0 text perfectly.
+    // Mutating on mount triggers Chrome LCP re-paint invalidation.
+    if (!isMountedRef.current) {
+      return;
+    }
+
     const currentActiveSlide = slides[orderRef.current[0]];
     if (currentActiveSlide && containerRef.current) {
       const detailsActive = detailsEvenRef.current
@@ -124,15 +131,17 @@ export function useGsapHero(
     const cardActive = getCard(active);
     if (cardActive) {
       gsap.killTweensOf(cardActive);
-      gsap.set(cardActive, {
-        x: 0,
-        y: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        zIndex: 20,
-        borderRadius: 0,
-        scale: 1,
-      });
+      if (isMountedRef.current || active !== 0) {
+        gsap.set(cardActive, {
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          zIndex: 20,
+          borderRadius: 0,
+          scale: 1,
+        });
+      }
     }
 
     // Active Card content overlay hidden
@@ -937,117 +946,11 @@ export function useGsapHero(
     if (!container) return;
 
     const ctx = gsap.context(() => {
-      // Set up responsive values and initial positioning
+      // Set up responsive values and initial positioning of thumbnail tray cards
       updateDimensions();
       setCardPositions(false);
-
-      // Initial load animations
-      const activeEl = container.querySelector("#details-even");
-      const activeSlide = slidesRef.current[orderRef.current[0]];
-
-      if (activeEl) {
-        const textEl = activeEl.querySelector(".text");
-        const title1El = activeEl.querySelector(".title-1");
-        const title2El = activeEl.querySelector(".title-2");
-        const descEl = activeEl.querySelector(".desc");
-
-        if (textEl) textEl.textContent = activeSlide.place;
-        if (title1El) title1El.textContent = activeSlide.title;
-        if (title2El) title2El.textContent = activeSlide.title2;
-        if (descEl) descEl.textContent = activeSlide.desc;
-
-        gsap.set(activeEl, {
-          opacity: 1,
-          x: 0,
-          zIndex: 22,
-          pointerEvents: "auto",
-        });
-        gsap.set([textEl, title1El, title2El], { yPercent: 0 });
-        gsap.set(descEl, { yPercent: 0 });
-        const inactiveEl = container.querySelector("#details-odd");
-        if (inactiveEl) {
-          gsap.set(inactiveEl, {
-            opacity: 0,
-            zIndex: 12,
-            pointerEvents: "none",
-          });
-        }
-      }
-
-      const rest = orderRef.current.slice(1);
-      rest.forEach((i, index) => {
-        const isVisible = index < getMaxVisibleThumbs();
-        const card = getCard(i);
-        const content = getCardContent(i);
-        if (card) {
-          gsap.set(card, {
-            x:
-              offsetLeftVal.current +
-              400 +
-              index * (cardWidthVal.current + gapVal.current),
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-          });
-        }
-        if (content) {
-          gsap.set(content, {
-            x:
-              offsetLeftVal.current +
-              400 +
-              index * (cardWidthVal.current + gapVal.current),
-            width: cardWidthVal.current,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-          });
-        }
-      });
-
-      // Animate thumbnail cards in on load
-      const startDelay = 0.3;
       startAutoplayLoop(25);
-
-      rest.forEach((i, index) => {
-        const isVisible = index < getMaxVisibleThumbs();
-        const card = getCard(i);
-        const content = getCardContent(i);
-        const posX =
-          offsetLeftVal.current +
-          index * (cardWidthVal.current + gapVal.current);
-
-        if (card) {
-          gsap.to(card, {
-            x: posX,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-            duration: 0.8,
-            ease: "sine.inOut",
-            delay: startDelay + 0.05 * index,
-          });
-        }
-        if (content) {
-          gsap.to(content, {
-            x: posX,
-            width: cardWidthVal.current,
-            opacity: isVisible ? 1 : 0,
-            pointerEvents: isVisible ? "auto" : "none",
-            duration: 0.8,
-            ease: "sine.inOut",
-            delay: startDelay + 0.05 * index,
-          });
-        }
-      });
-
-      gsap.fromTo(
-        "#pagination",
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay,
-        },
-      );
+      isMountedRef.current = true;
     }, containerRef);
 
     // Touch Swipe Gestures

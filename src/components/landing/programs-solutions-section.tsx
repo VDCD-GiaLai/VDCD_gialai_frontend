@@ -132,124 +132,146 @@ export function ProgramsSolutionsSection() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      fetchFeaturedProgramsFromApi(4).catch(() => []),
-      fetchSolutionsFromApi(20).catch(() => []),
-    ]).then(([progs, sols]) => {
-      if (cancelled) return;
-      if ((progs && progs.length > 0) || (sols && sols.length > 0)) {
-        setCategories((prev) => {
-          const updated = [...prev];
-          if (progs && progs.length > 0) {
-            updated[0] = {
-              id: "programs",
-              label: "Hoạt động",
-              items: progs.map((p) => ({
-                title: p.title,
-                image:
-                  p.thumbnail ||
-                  (p as unknown as Record<string, string>).imageUrl ||
-                  (p as unknown as Record<string, string>).coverImage ||
-                  CATEGORIES[0].items.find((c) => c.href?.includes(p.slug))
-                    ?.image ||
-                  "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
-                description: p.shortDescription || p.title,
-                href: `/programs/${p.slug}`,
-              })),
-            };
-          }
-          if (sols && sols.length > 0) {
-            // Keep the exact 6 core solutions in canonical order
-            const coreSlugs = [
-              "uav",
-              "ai",
-              "autotimelapse",
-              "smartscale",
-              "vr360",
-              "data-center",
-            ];
+    let cancelId: any = null;
 
-            let displaySols = coreSlugs
-              .map((cs) =>
-                sols.find(
-                  (s) =>
-                    s.slug?.toLowerCase() === cs ||
-                    s.slug?.toLowerCase().includes(cs),
-                ),
-              )
-              .filter(Boolean) as typeof sols;
-
-            // If not all 6 found via coreSlugs, supplement with any remaining solutions from API
-            if (displaySols.length < 6) {
-              const remaining = sols.filter(
-                (s) => !displaySols.some((d) => d.slug === s.slug),
-              );
-              displaySols = [...displaySols, ...remaining].slice(0, 6);
-            }
-
-            if (displaySols.length > 0) {
-              updated[1] = {
-                id: "solutions",
-                label: "Giải pháp công nghệ",
-                items: displaySols.map((s) => {
-                  let shortTitle = s.title;
-                  const lower = s.slug?.toLowerCase() || "";
-                  if (lower.includes("uav")) shortTitle = "UAV";
-                  else if (lower.includes("ai")) shortTitle = "AI";
-                  else if (
-                    lower.includes("autotimelapse") ||
-                    lower.includes("timelapse")
-                  )
-                    shortTitle = "Autotimelapse";
-                  else if (
-                    lower.includes("smartscale") ||
-                    lower.includes("scale")
-                  )
-                    shortTitle = "SmartScale";
-                  else if (
-                    lower.includes("vr360") ||
-                    lower.includes("vr") ||
-                    lower.includes("scan")
-                  )
-                    shortTitle = "VR360";
-                  else if (
-                    lower.includes("data-center") ||
-                    lower.includes("datacenter")
-                  )
-                    shortTitle = "Data Center";
-
-                  const apiThumb =
-                    s.thumbnail ||
-                    (s as unknown as Record<string, string>).imageUrl ||
-                    (s as unknown as Record<string, string>).thumbnailUrl ||
-                    (s as unknown as Record<string, string>).coverImage;
-
-                  return {
-                    title: shortTitle,
-                    image:
-                      apiThumb ||
-                      CATEGORIES[1].items.find(
-                        (c) =>
-                          c.href === `/solution/${s.slug}` ||
-                          c.title.toLowerCase() === shortTitle.toLowerCase(),
-                      )?.image ||
-                      "/images/home/sol_ai.webp",
-                    description:
-                      s.shortDescription ||
-                      (s as unknown as Record<string, string>).description ||
-                      s.title,
-                    href: s.websiteUrl || `/solution/${s.slug}`,
-                  };
-                }),
+    const fetchAction = () => {
+      Promise.all([
+        fetchFeaturedProgramsFromApi(4).catch(() => []),
+        fetchSolutionsFromApi(20).catch(() => []),
+      ]).then(([progs, sols]) => {
+        if (cancelled) return;
+        if ((progs && progs.length > 0) || (sols && sols.length > 0)) {
+          setCategories((prev) => {
+            const updated = [...prev];
+            if (progs && progs.length > 0) {
+              updated[0] = {
+                id: "programs",
+                label: "Hoạt động",
+                items: progs.map((p) => ({
+                  title: p.title,
+                  image:
+                    p.thumbnail ||
+                    (p as unknown as Record<string, string>).imageUrl ||
+                    (p as unknown as Record<string, string>).coverImage ||
+                    CATEGORIES[0].items.find((c) => c.href?.includes(p.slug))
+                      ?.image ||
+                    "https://ik.imagekit.io/huy01040104/vdcd/images/IMG_9242.JPG",
+                  description: p.shortDescription || p.title,
+                  href: `/programs/${p.slug}`,
+                })),
               };
             }
-          }
-          return updated;
-        });
-      }
-    });
+            if (sols && sols.length > 0) {
+              // Keep the exact 6 core solutions in canonical order
+              const coreSlugs = [
+                "uav",
+                "ai",
+                "autotimelapse",
+                "smartscale",
+                "vr360",
+                "data-center",
+              ];
+
+              let displaySols = coreSlugs
+                .map((cs) =>
+                  sols.find(
+                    (s) =>
+                      s.slug?.toLowerCase() === cs ||
+                      s.slug?.toLowerCase().includes(cs),
+                  ),
+                )
+                .filter(Boolean) as typeof sols;
+
+              // If not all 6 found via coreSlugs, supplement with any remaining solutions from API
+              if (displaySols.length < 6) {
+                const remaining = sols.filter(
+                  (s) => !displaySols.some((d) => d.slug === s.slug),
+                );
+                displaySols = [...displaySols, ...remaining].slice(0, 6);
+              }
+
+              if (displaySols.length > 0) {
+                updated[1] = {
+                  id: "solutions",
+                  label: "Giải pháp công nghệ",
+                  items: displaySols.map((s) => {
+                    let shortTitle = s.title;
+                    const lower = s.slug?.toLowerCase() || "";
+                    if (lower.includes("uav")) shortTitle = "UAV";
+                    else if (lower.includes("ai")) shortTitle = "AI";
+                    else if (
+                      lower.includes("autotimelapse") ||
+                      lower.includes("timelapse")
+                    )
+                      shortTitle = "Autotimelapse";
+                    else if (
+                      lower.includes("smartscale") ||
+                      lower.includes("scale")
+                    )
+                      shortTitle = "SmartScale";
+                    else if (
+                      lower.includes("vr360") ||
+                      lower.includes("vr") ||
+                      lower.includes("scan")
+                    )
+                      shortTitle = "VR360";
+                    else if (
+                      lower.includes("data-center") ||
+                      lower.includes("datacenter")
+                    )
+                      shortTitle = "Data Center";
+
+                    const apiThumb =
+                      s.thumbnail ||
+                      (s as unknown as Record<string, string>).imageUrl ||
+                      (s as unknown as Record<string, string>).thumbnailUrl ||
+                      (s as unknown as Record<string, string>).coverImage;
+
+                    return {
+                      title: shortTitle,
+                      image:
+                        apiThumb ||
+                        CATEGORIES[1].items.find(
+                          (c) =>
+                            c.href === `/solution/${s.slug}` ||
+                            c.title.toLowerCase() === shortTitle.toLowerCase(),
+                        )?.image ||
+                        "/images/home/sol_ai.webp",
+                      description:
+                        s.shortDescription ||
+                        (s as unknown as Record<string, string>).description ||
+                        s.title,
+                      href: s.websiteUrl || `/solution/${s.slug}`,
+                    };
+                  }),
+                };
+              }
+            }
+            return updated;
+          });
+        }
+      });
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      cancelId = (window as any).requestIdleCallback(fetchAction, {
+        timeout: 3500,
+      });
+    } else {
+      cancelId = setTimeout(fetchAction, 1500);
+    }
+
     return () => {
       cancelled = true;
+      if (
+        typeof window !== "undefined" &&
+        "cancelIdleCallback" in window &&
+        typeof cancelId === "number"
+      ) {
+        (window as any).cancelIdleCallback(cancelId);
+      } else if (cancelId) {
+        clearTimeout(cancelId);
+      }
     };
   }, []);
 
