@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ProgramsPageContent } from "@/components/programs/programs-page-content";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Chương trình Đổi mới Sáng tạo | VDCD Gia Lai",
   description:

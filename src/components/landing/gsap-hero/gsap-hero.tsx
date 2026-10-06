@@ -5,6 +5,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight } from "@phosphor-icons/react";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
+import type { HeroSlideItem } from "@/data/hero.data";
 import {
   fetchHeroSlidesFromApi,
   getCachedHeroSlides,
@@ -12,7 +13,11 @@ import {
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
 
-export function GsapHero() {
+export function GsapHero({
+  initialSlides,
+}: {
+  initialSlides?: HeroSlideItem[];
+} = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const splitTitle = (raw: string): [string, string] => {
     if (raw.includes("\n")) {
@@ -58,6 +63,9 @@ export function GsapHero() {
   };
 
   const [slides, setSlides] = React.useState<GsapHeroSlide[]>(() => {
+    if (initialSlides && initialSlides.length > 0) {
+      return initialSlides.map(mapSlide);
+    }
     const cached = getCachedHeroSlides();
     if (cached && cached.length > 0) {
       return cached.map(mapSlide);
@@ -66,12 +74,13 @@ export function GsapHero() {
   });
 
   React.useEffect(() => {
+    if (initialSlides && initialSlides.length > 0) return;
     fetchHeroSlidesFromApi().then((apiSlides) => {
       if (apiSlides && apiSlides.length > 0) {
         setSlides(apiSlides.map(mapSlide));
       }
     });
-  }, []);
+  }, [initialSlides]);
 
   const { activeIdx, nextSlide, prevSlide, selectSlide } = useGsapHero(
     containerRef,
@@ -102,9 +111,8 @@ export function GsapHero() {
               sizes="100vw"
               className="object-cover"
               priority={idx === 0}
-              fetchPriority={idx === 0 ? "high" : "auto"}
-              loading={idx === 0 ? "eager" : "lazy"}
-              quality={idx === 0 ? 85 : 75}
+              fetchPriority={idx === 0 ? "high" : "low"}
+              quality={85}
               unoptimized={true}
             />
           </div>

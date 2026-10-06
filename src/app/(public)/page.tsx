@@ -2,6 +2,12 @@ import { Suspense, lazy } from "react";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
 import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
 import { LandingContactSection } from "@/components/landing/landing-contact-section";
+import {
+  fetchHeroSlidesFromApi,
+  fetchOrganizationInfoFromApi,
+} from "@/services/hero.service";
+
+export const revalidate = 60;
 
 /* ── Lazy-loaded below-fold sections (code-split) ── */
 const ProgramsSolutionsSection = lazy(() =>
@@ -35,13 +41,18 @@ const PartnersSection = lazy(() =>
   })),
 );
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const [heroSlides, orgInfo] = await Promise.all([
+    fetchHeroSlidesFromApi().catch(() => null),
+    fetchOrganizationInfoFromApi().catch(() => null),
+  ]);
+
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
-      <GsapHero />
+      <GsapHero initialSlides={heroSlides ?? undefined} />
 
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
-      <DigitalPioneerSection />
+      <DigitalPioneerSection initialOrgInfo={orgInfo} />
 
       {/* Anchor for About section */}
       <div id="about" />

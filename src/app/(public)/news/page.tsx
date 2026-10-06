@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { NewsPageContent } from "@/components/news/news-page-content";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Tin tức & Bài viết | VDCD Gia Lai — Đổi mới sáng tạo",
   description:

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ProjectsPageContent } from "@/components/projects/projects-page-content";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Dự án tiêu biểu | VDCD Group – Giám sát & Chuyển đổi số công trình",
   description:
