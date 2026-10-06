@@ -10,27 +10,6 @@ import { queryClient } from "@/lib/query-client";
 const emptySubscribe = () => () => {};
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
-  const mounted = React.useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
-
-  // Avoid Hydration mismatch
-  if (!mounted) {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <NextThemesProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
-          {children}
-        </NextThemesProvider>
-      </QueryClientProvider>
-    );
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>

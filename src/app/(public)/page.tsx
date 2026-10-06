@@ -1,7 +1,5 @@
-import { Suspense, lazy } from "react";
+import dynamic from "next/dynamic";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
-import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
-import { LandingContactSection } from "@/components/landing/landing-contact-section";
 import {
   fetchHeroSlidesFromApi,
   fetchOrganizationInfoFromApi,
@@ -12,36 +10,64 @@ import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 export const revalidate = 60;
 
-/* ── Lazy-loaded below-fold sections (code-split) ── */
-const ProgramsSolutionsSection = lazy(() =>
-  import("@/components/landing/programs-solutions-section").then((m) => ({
-    default: m.ProgramsSolutionsSection,
-  })),
+/* ── Code-split below-the-fold sections via next/dynamic ── */
+const DigitalPioneerSection = dynamic(
+  () =>
+    import("@/components/landing/digital-pioneer-section").then(
+      (m) => m.DigitalPioneerSection,
+    ),
+  { ssr: true },
 );
-const FeaturedProjectsSection = lazy(() =>
-  import("@/components/landing/featured-projects-section").then((m) => ({
-    default: m.FeaturedProjectsSection,
-  })),
+const LandingContactSection = dynamic(
+  () =>
+    import("@/components/landing/landing-contact-section").then(
+      (m) => m.LandingContactSection,
+    ),
+  { ssr: true },
 );
-const EcosystemCollaborationSection = lazy(() =>
-  import("@/components/landing/ecosystem-collaboration-section").then((m) => ({
-    default: m.EcosystemCollaborationSection,
-  })),
+
+/* ── Code-split below-the-fold sections via next/dynamic ── */
+const ProgramsSolutionsSection = dynamic(
+  () =>
+    import("@/components/landing/programs-solutions-section").then(
+      (m) => m.ProgramsSolutionsSection,
+    ),
+  { ssr: true },
 );
-const EcosystemSection = lazy(() =>
-  import("@/components/landing/ecosystem-section").then((m) => ({
-    default: m.EcosystemSection,
-  })),
+const FeaturedProjectsSection = dynamic(
+  () =>
+    import("@/components/landing/featured-projects-section").then(
+      (m) => m.FeaturedProjectsSection,
+    ),
+  { ssr: true },
 );
-const LatestNewsSection = lazy(() =>
-  import("@/components/landing/latest-news-section").then((m) => ({
-    default: m.LatestNewsSection,
-  })),
+const EcosystemCollaborationSection = dynamic(
+  () =>
+    import("@/components/landing/ecosystem-collaboration-section").then(
+      (m) => m.EcosystemCollaborationSection,
+    ),
+  { ssr: true },
 );
-const PartnersSection = lazy(() =>
-  import("@/components/landing/partners-section").then((m) => ({
-    default: m.PartnersSection,
-  })),
+const EcosystemSection = dynamic(
+  () =>
+    import("@/components/landing/ecosystem-section").then(
+      (m) => m.EcosystemSection,
+    ),
+  { ssr: true },
+);
+const LatestNewsSection = dynamic(
+  () =>
+    import("@/components/landing/latest-news-section").then(
+      (m) => m.LatestNewsSection,
+    ),
+  { ssr: true },
+);
+const PartnersSection = dynamic(
+  () =>
+    import("@/components/landing/partners-section").then(
+      (m) => m.PartnersSection,
+    ),
+  { ssr: true },
 );
 
 export default async function LandingPage() {
@@ -125,34 +151,22 @@ export default async function LandingPage() {
       <div id="about" />
 
       {/* Khối 4: Hoạt động và giải pháp */}
-      <Suspense>
-        <ProgramsSolutionsSection />
-      </Suspense>
+      <ProgramsSolutionsSection />
 
       {/* Featured Projects */}
-      <Suspense>
-        <FeaturedProjectsSection />
-      </Suspense>
+      <FeaturedProjectsSection />
 
       {/* Khối 6: Đồng hành cùng hệ sinh thái đổi mới sáng tạo */}
-      <Suspense>
-        <EcosystemCollaborationSection />
-      </Suspense>
+      <EcosystemCollaborationSection />
 
       {/* Hệ sinh thái VDCD Group — FR-HOME-05 */}
-      <Suspense>
-        <EcosystemSection />
-      </Suspense>
+      <EcosystemSection />
 
       {/* Khối 8: Tin tức và sự kiện */}
-      <Suspense>
-        <LatestNewsSection />
-      </Suspense>
+      <LatestNewsSection />
 
       {/* Partners */}
-      <Suspense>
-        <PartnersSection />
-      </Suspense>
+      <PartnersSection />
 
       {/* Contact */}
       <LandingContactSection />

@@ -16,7 +16,7 @@ export const SOLUTIONS: SolutionItem[] = [
     slug: "vien-thiet-ke-so",
     href: "/solution/vien-thiet-ke-so",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
     iconUrl: "/icons/cpu.svg",
     description:
       "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",

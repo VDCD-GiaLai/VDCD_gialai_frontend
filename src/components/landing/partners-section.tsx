@@ -115,6 +115,7 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
  *  immediately and endlessly with 60-120fps GPU acceleration.
  *  ──────────────────────────────────────────────── */
 export function PartnersSection() {
+  const sectionRef = React.useRef<HTMLElement>(null);
   const [partnerList, setPartnerList] = React.useState<PartnerItem[]>(
     PARTNERS.map((p, idx) => ({
       id: String(idx + 1),
@@ -124,44 +125,40 @@ export function PartnersSection() {
   );
 
   React.useEffect(() => {
-    let cancelId: any = null;
-    const fetchAction = () => {
-      fetchPartnersFromApi().then((items) => {
-        if (items && items.length > 0) {
-          setPartnerList((prev) => {
-            if (
-              prev.length === items.length &&
-              prev.every(
-                (p, i) => p.name === items[i].name && p.logo === items[i].logo,
-              )
-            ) {
-              return prev;
-            }
-            return items;
-          });
-        }
-      });
-    };
-
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      cancelId = (window as any).requestIdleCallback(fetchAction, {
-        timeout: 3500,
-      });
-    } else {
-      cancelId = setTimeout(fetchAction, 1500);
+    if (
+      typeof window !== "undefined" &&
+      "IntersectionObserver" in window &&
+      sectionRef.current
+    ) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            fetchPartnersFromApi().then((items) => {
+              if (items && items.length > 0) {
+                setPartnerList((prev) => {
+                  if (
+                    prev.length === items.length &&
+                    prev.every(
+                      (p, i) =>
+                        p.name === items[i].name && p.logo === items[i].logo,
+                    )
+                  ) {
+                    return prev;
+                  }
+                  return items;
+                });
+              }
+            });
+            observer.disconnect();
+          }
+        },
+        { rootMargin: "300px" },
+      );
+      observer.observe(sectionRef.current);
+      return () => {
+        observer.disconnect();
+      };
     }
-
-    return () => {
-      if (
-        typeof window !== "undefined" &&
-        "cancelIdleCallback" in window &&
-        typeof cancelId === "number"
-      ) {
-        (window as any).cancelIdleCallback(cancelId);
-      } else if (cancelId) {
-        clearTimeout(cancelId);
-      }
-    };
   }, []);
 
   const half = Math.ceil(partnerList.length / 2);
@@ -170,6 +167,7 @@ export function PartnersSection() {
 
   return (
     <section
+      ref={sectionRef}
       id="partners"
       className="relative border-t border-whisper-border/30 bg-canvas-white dark:bg-zinc-950 transition-colors duration-300 overflow-hidden"
     >

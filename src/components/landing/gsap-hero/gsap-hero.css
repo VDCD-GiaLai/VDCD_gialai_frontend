@@ -1,3 +1,12 @@
+.gsap-hero-container {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background-color: #09090b;
+  overflow: hidden;
+  user-select: none;
+}
+
 .gsap-hero-container .card {
   position: absolute;
   left: 0;
@@ -7,10 +16,323 @@
   transition: border-radius 0.3s ease;
 }
 
+.gsap-hero-container .card picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.gsap-hero-container .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .gsap-hero-container .card.active-bg {
   width: 100%;
   height: 100%;
   z-index: 20;
+}
+
+/* Card 0: Fullscreen hero background */
+.gsap-hero-container #card-0 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  border-radius: 0;
+}
+
+.gsap-hero-container #card-content-0 {
+  display: none;
+}
+
+/* Default initial layout for cards 1, 2, 3, 4 before GSAP attaches */
+@media (max-width: 767px) {
+  .gsap-hero-container #card-1 {
+    width: 145px;
+    height: 170px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(16px, calc(100dvh - 195px), 0px);
+  }
+  .gsap-hero-container #card-2 {
+    width: 145px;
+    height: 170px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(16px + 145px + 10px),
+      calc(100dvh - 195px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-3 {
+    width: 145px;
+    height: 170px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(16px + 2 * (145px + 10px)),
+      calc(100dvh - 195px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-4 {
+    width: 145px;
+    height: 170px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(16px + 3 * (145px + 10px)),
+      calc(100dvh - 195px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-1 {
+    width: 145px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(16px, calc(100dvh - 95px), 0px);
+  }
+  .gsap-hero-container #card-content-2 {
+    width: 145px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(calc(16px + 145px + 10px), calc(100dvh - 95px), 0px);
+  }
+  .gsap-hero-container #card-content-3 {
+    width: 145px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(16px + 2 * (145px + 10px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-4 {
+    width: 145px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(16px + 3 * (145px + 10px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+  .gsap-hero-container
+    .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3):not(#card-4) {
+    width: 145px;
+    height: 170px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate3d(
+      calc(16px + 4 * (145px + 10px)),
+      calc(100dvh - 195px),
+      0px
+    );
+  }
+  .gsap-hero-container
+    .card-content:not(#card-content-0):not(#card-content-1):not(
+      #card-content-2
+    ):not(#card-content-3):not(#card-content-4) {
+    width: 145px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate3d(
+      calc(16px + 4 * (145px + 10px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .gsap-hero-container #card-1 {
+    width: 160px;
+    height: 175px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(76px, calc(100dvh - 210px), 0px);
+  }
+  .gsap-hero-container #card-2 {
+    width: 160px;
+    height: 175px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(76px + 160px + 12px),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-3 {
+    width: 160px;
+    height: 175px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(76px + 2 * (160px + 12px)),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-4 {
+    width: 160px;
+    height: 175px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(76px + 3 * (160px + 12px)),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-1 {
+    width: 160px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(76px, calc(100dvh - 95px), 0px);
+  }
+  .gsap-hero-container #card-content-2 {
+    width: 160px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(calc(76px + 160px + 12px), calc(100dvh - 95px), 0px);
+  }
+  .gsap-hero-container #card-content-3 {
+    width: 160px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(76px + 2 * (160px + 12px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-4 {
+    width: 160px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(76px + 3 * (160px + 12px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+  .gsap-hero-container
+    .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3):not(#card-4) {
+    width: 160px;
+    height: 175px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate3d(
+      calc(76px + 4 * (160px + 12px)),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container
+    .card-content:not(#card-content-0):not(#card-content-1):not(
+      #card-content-2
+    ):not(#card-content-3):not(#card-content-4) {
+    width: 160px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate3d(
+      calc(76px + 4 * (160px + 12px)),
+      calc(100dvh - 95px),
+      0px
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .gsap-hero-container #card-1 {
+    width: 175px;
+    height: 255px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      max(calc(100vw - 640px), 500px),
+      calc(100dvh - 390px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-2 {
+    width: 175px;
+    height: 255px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(max(calc(100vw - 640px), 500px) + 175px + 28px),
+      calc(100dvh - 390px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-3 {
+    width: 175px;
+    height: 255px;
+    border-radius: 12px;
+    z-index: 30;
+    transform: translate3d(
+      calc(max(calc(100vw - 640px), 500px) + 2 * (175px + 28px)),
+      calc(100dvh - 390px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-1 {
+    width: 175px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      max(calc(100vw - 640px), 500px),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-2 {
+    width: 175px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(max(calc(100vw - 640px), 500px) + 175px + 28px),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container #card-content-3 {
+    width: 175px;
+    z-index: 40;
+    opacity: 1;
+    transform: translate3d(
+      calc(max(calc(100vw - 640px), 500px) + 2 * (175px + 28px)),
+      calc(100dvh - 210px),
+      0px
+    );
+  }
+  .gsap-hero-container
+    .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3),
+  .gsap-hero-container
+    .card-content:not(#card-content-1):not(#card-content-2):not(
+      #card-content-3
+    ) {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
 }
 
 .gsap-hero-container .card::after {
@@ -249,8 +571,16 @@
 .gsap-hero-container .pagination {
   position: absolute;
   z-index: 45;
-  display: inline-flex;
+  display: none;
   align-items: center;
+  top: calc(100dvh - 100px);
+  left: 20px;
+}
+
+@media (min-width: 1280px) {
+  .gsap-hero-container .pagination {
+    display: inline-flex !important;
+  }
 }
 
 .gsap-hero-container .pagination > .arrow {
@@ -288,11 +618,6 @@
 }
 
 @media (max-width: 767px) {
-  .gsap-hero-container .card:not(.active-bg) {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
   .gsap-hero-container .card-content {
     display: block !important;
     padding-left: 10px !important;

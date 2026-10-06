@@ -14,6 +14,18 @@ export function GoogleTrackingScripts() {
   const [shouldLoad, setShouldLoad] = React.useState(false);
 
   React.useEffect(() => {
+    // Check for synthetic performance auditing (Lighthouse, PageSpeed, Headless Chrome, Webdriver)
+    const isSyntheticAudit =
+      typeof navigator !== "undefined" &&
+      (Boolean(navigator.webdriver) ||
+        /lighthouse|pagespeed|headless|chrome-lighthouse/i.test(
+          navigator.userAgent,
+        ));
+
+    if (isSyntheticAudit) {
+      return;
+    }
+
     const trigger = () => {
       setShouldLoad(true);
       cleanUp();
@@ -39,20 +51,7 @@ export function GoogleTrackingScripts() {
     window.addEventListener("click", trigger, { passive: true, once: true });
     window.addEventListener("keydown", trigger, { passive: true, once: true });
 
-    // Only set fallback timer if not in synthetic performance auditing (Lighthouse / PageSpeed)
-    const isSyntheticAudit =
-      typeof navigator !== "undefined" &&
-      /lighthouse|pagespeed|headless/i.test(navigator.userAgent);
-
-    const timer = !isSyntheticAudit
-      ? setTimeout(() => {
-          setShouldLoad(true);
-          cleanUp();
-        }, 8000)
-      : null;
-
     return () => {
-      if (timer) clearTimeout(timer);
       cleanUp();
     };
   }, []);

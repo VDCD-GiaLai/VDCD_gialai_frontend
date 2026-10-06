@@ -10,6 +10,7 @@ import {
   CaretRight,
 } from "@phosphor-icons/react";
 import { fetchFeaturedArticlesFromApi } from "@/services/article.service";
+import { MOCK_ARTICLES } from "@/data/news.data";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import type { Article } from "@/types";
 
@@ -38,7 +39,9 @@ function categoryLabel(c?: string | null) {
    ──────────────────────────────────────────────────────── */
 
 export function LatestNewsSection() {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Article[]>(() =>
+    MOCK_ARTICLES.slice(0, 8),
+  );
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -52,31 +55,29 @@ export function LatestNewsSection() {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    let cancelId: any = null;
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      cancelId = (window as any).requestIdleCallback(
-        () => {
-          fetchFeaturedArticlesFromApi(8).then(setArticles);
+    if (
+      typeof window !== "undefined" &&
+      "IntersectionObserver" in window &&
+      sliderRef.current
+    ) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            fetchFeaturedArticlesFromApi(8).then((data) => {
+              if (data && data.length > 0) {
+                setArticles(data);
+              }
+            });
+            observer.disconnect();
+          }
         },
-        { timeout: 3000 },
+        { rootMargin: "300px" },
       );
-    } else {
-      cancelId = setTimeout(() => {
-        fetchFeaturedArticlesFromApi(8).then(setArticles);
-      }, 1500);
+      observer.observe(sliderRef.current);
+      return () => {
+        observer.disconnect();
+      };
     }
-
-    return () => {
-      if (
-        typeof window !== "undefined" &&
-        "cancelIdleCallback" in window &&
-        typeof cancelId === "number"
-      ) {
-        (window as any).cancelIdleCallback(cancelId);
-      } else if (cancelId) {
-        clearTimeout(cancelId);
-      }
-    };
   }, []);
 
   const containerRef = useScrollReveal({

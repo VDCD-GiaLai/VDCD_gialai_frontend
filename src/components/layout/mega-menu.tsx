@@ -11,7 +11,6 @@ import {
 } from "@/data/mega-menu.data";
 import type { MegaMenuSolution } from "@/data/mega-menu.data";
 import { gsap } from "@/lib/animations/register-gsap";
-import "./mega-menu.css";
 
 /* ── Types ────────────────────────────────────────────── */
 

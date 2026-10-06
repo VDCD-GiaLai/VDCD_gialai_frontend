@@ -10,14 +10,17 @@ import "./globals.css";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin", "vietnamese"],
-  display: "optional",
+  weight: ["600", "700", "800"],
+  display: "swap",
+  preload: false,
 });
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700"],
-  display: "optional",
+  weight: ["400", "600"],
+  display: "swap",
+  preload: false,
 });
 
 export const viewport: Viewport = {
