@@ -9,7 +9,6 @@ import { useTheme } from "next-themes";
 import { Sun, Moon, List, X, FileText } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
-import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useMegaMenu } from "@/components/layout/mega-menu";
 import { FiFileText } from "react-icons/fi";
 
@@ -49,26 +48,22 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }
 
-  /* ── GSAP-powered scroll detection (replaces raw scroll listener) ── */
+  /* ── Lightweight passive scroll detection ── */
   useEffect(() => {
-    const st = ScrollTrigger.create({
-      start: "50px top",
-      end: 99999,
-      onUpdate: (self) => {
-        setIsScrolled(self.progress > 0);
-      },
-    });
-
-    return () => st.kill();
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* ── Sync and refresh scroll state when route changes ── */
+  /* ── Sync scroll state when route changes ── */
   useEffect(() => {
     const timer = setTimeout(() => {
       if (typeof window !== "undefined") {
         setIsScrolled(window.scrollY > 50);
       }
-      ScrollTrigger.refresh();
     }, 50);
     return () => clearTimeout(timer);
   }, [pathname]);
