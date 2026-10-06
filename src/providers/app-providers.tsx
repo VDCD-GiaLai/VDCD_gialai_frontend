@@ -12,7 +12,12 @@ const emptySubscribe = () => () => {};
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        enableColorScheme={false}
+      >
         <HeroUIProvider>
           {children}
           {process.env.NODE_ENV === "development" && (

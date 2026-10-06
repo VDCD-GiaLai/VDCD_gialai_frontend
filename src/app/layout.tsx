@@ -259,7 +259,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <GoogleTagManagerNoscript />
         <AppProviders>{children}</AppProviders>
         <GoogleTrackingScripts />
