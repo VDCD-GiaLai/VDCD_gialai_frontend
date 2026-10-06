@@ -119,6 +119,17 @@ export function OptimizedImage({
     return null;
   }
 
+  if (typeof src === "string" && src.includes("1788429211721-48490265ae67")) {
+    return (
+      <NextImage
+        src="https://ik.imagekit.io/huy01040104/vdcd/slides/quynhon_herobanner.jpg"
+        alt={alt}
+        unoptimized
+        {...rest}
+      />
+    );
+  }
+
   if (typeof src === "string" && src.includes("1788429330513-c7068cbd16ee")) {
     return (
       <NextImage
