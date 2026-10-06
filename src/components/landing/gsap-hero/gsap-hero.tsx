@@ -169,7 +169,7 @@ export function GsapHero({
                         idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
                       }
                       loading={idx <= 3 ? "eager" : "lazy"}
-                      decoding="async"
+                      decoding={idx === 1 ? "sync" : "async"}
                       draggable={false}
                     />
                   </>

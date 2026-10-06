@@ -196,11 +196,12 @@ export default function RootLayout({
       className={`${beVietnamPro.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
-      <head />
       <body className="font-sans antialiased" suppressHydrationWarning>
         {/* Organization & WebSite Structured Data */}
         <script
+          id="organization-schema"
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
         <GoogleTagManagerNoscript />
