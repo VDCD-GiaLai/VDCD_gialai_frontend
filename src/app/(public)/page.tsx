@@ -73,6 +73,19 @@ export default async function LandingPage() {
           />
         </>
       )}
+      {activeSlides[1]?.image && (
+        <link
+          rel="preload"
+          as="image"
+          href={getOptimizedImageUrl(activeSlides[1].image, {
+            width: 320,
+            quality: 85,
+            isThumbnail: true,
+          })}
+          media="(max-width: 768px)"
+          fetchPriority="high"
+        />
+      )}
       <GsapHero initialSlides={activeSlides} />
 
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}

@@ -165,7 +165,9 @@ export function GsapHero({
                       width={480}
                       height={640}
                       className="object-cover w-full h-full select-none pointer-events-none block"
-                      fetchPriority={idx <= 3 ? "auto" : "low"}
+                      fetchPriority={
+                        idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
+                      }
                       loading={idx <= 3 ? "eager" : "lazy"}
                       decoding="async"
                       draggable={false}

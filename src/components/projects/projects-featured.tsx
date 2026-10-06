@@ -26,17 +26,15 @@ export const FeaturedBigCard = ({
     className="group relative block w-full h-[450px] sm:h-[520px] lg:h-full min-h-[480px] lg:min-h-[560px] overflow-hidden rounded-none bg-zinc-950 select-none transition-all duration-500"
   >
     <div className="absolute inset-0 bg-zinc-950">
-      {isNearViewport && (
-        <OptimizedImage
-          src={project.thumbnail || project.coverImage}
-          alt={project.title}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          loading="lazy"
-          decoding="async"
-          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-      )}
+      <OptimizedImage
+        src={project.thumbnail || project.coverImage}
+        alt={project.title}
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        loading="lazy"
+        decoding="async"
+        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+      />
     </div>
     {/* Dark Gradient Overlay */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
@@ -105,17 +103,15 @@ export const FeaturedSmallCard = ({
     className="group relative block w-full h-[220px] sm:h-[260px] lg:h-1/2 overflow-hidden rounded-none bg-zinc-950 select-none flex-1 transition-all duration-500"
   >
     <div className="absolute inset-0 bg-zinc-950">
-      {isNearViewport && (
-        <OptimizedImage
-          src={project.thumbnail || project.coverImage}
-          alt={project.title}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          loading="lazy"
-          decoding="async"
-          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-      )}
+      <OptimizedImage
+        src={project.thumbnail || project.coverImage}
+        alt={project.title}
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        loading="lazy"
+        decoding="async"
+        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+      />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
 
