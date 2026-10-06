@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import ReactDOM from "react-dom";
 import { Montserrat, Be_Vietnam_Pro } from "next/font/google";
 import { AppProviders } from "@/providers/app-providers";
 import {
@@ -186,6 +187,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ReactDOM.prefetchDNS("//ik.imagekit.io");
+  ReactDOM.preconnect("https://ik.imagekit.io", { crossOrigin: "anonymous" });
+  ReactDOM.prefetchDNS(
+    "//vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net",
+  );
+  ReactDOM.preconnect(
+    "https://vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net",
+    { crossOrigin: "anonymous" },
+  );
+
   return (
     <html
       lang="vi"
@@ -193,23 +204,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased" suppressHydrationWarning>
-        {/* Preconnect & DNS Prefetch */}
-        <link rel="dns-prefetch" href="//ik.imagekit.io" />
-        <link
-          rel="preconnect"
-          href="https://ik.imagekit.io"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="dns-prefetch"
-          href="//vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net"
-        />
-        <link
-          rel="preconnect"
-          href="https://vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net"
-          crossOrigin="anonymous"
-        />
-
         {/* Organization & WebSite Structured Data */}
         <script
           type="application/ld+json"
