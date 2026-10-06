@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import ReactDOM from "react-dom";
 import { Montserrat, Be_Vietnam_Pro } from "next/font/google";
 import { AppProviders } from "@/providers/app-providers";
 import {
@@ -187,23 +186,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  ReactDOM.prefetchDNS("//ik.imagekit.io");
-  ReactDOM.preconnect("https://ik.imagekit.io", { crossOrigin: "anonymous" });
-
   return (
     <html
       lang="vi"
       className={`${beVietnamPro.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased" suppressHydrationWarning>
-        {/* Organization & WebSite Structured Data */}
-        <script
-          id="organization-schema"
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+      <head>
+        <link
+          rel="preconnect"
+          href="https://ik.imagekit.io"
+          crossOrigin="anonymous"
         />
+        <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+        <script id="organization-schema" type="application/ld+json">
+          {JSON.stringify(jsonLdSchema)}
+        </script>
+      </head>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <GoogleTagManagerNoscript />
         <AppProviders>{children}</AppProviders>
         <GoogleTrackingScripts />
