@@ -3,7 +3,6 @@
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import { buildSrc, buildTransformationString } from "@imagekit/next";
 import type { Transformation } from "@imagekit/next";
-import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 /* ─────────────────────────────────────────────────────────────
    Constants
@@ -120,9 +119,15 @@ export function OptimizedImage({
     return null;
   }
 
-  const mappedSrc = getOptimizedImageUrl(src);
-  if (mappedSrc !== src) {
-    return <NextImage src={mappedSrc} alt={alt} unoptimized {...rest} />;
+  if (typeof src === "string" && src.includes("1788429330513-c7068cbd16ee")) {
+    return (
+      <NextImage
+        src="/images/slides/data-center-1920.webp"
+        alt={alt}
+        unoptimized
+        {...rest}
+      />
+    );
   }
 
   // ── Route 1: ImageKit URL (full URL or relative path) ─────────

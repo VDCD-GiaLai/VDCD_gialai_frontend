@@ -24,7 +24,7 @@ export function getOptimizedImageUrl(
 
   // 1. Specific local optimization for known bloated 5.8MB ImageKit upload
   if (url.includes("1788429330513-c7068cbd16ee")) {
-    if (options?.isThumbnail && w <= 828) {
+    if (w <= 828) {
       return "/images/slides/data-center-828.webp";
     }
     return "/images/slides/data-center-1920.webp";
@@ -37,15 +37,14 @@ export function getOptimizedImageUrl(
       return `${baseUrl}?tr=w-${w},q-${q},f-auto`;
     }
 
-    // eo8dcxsjx8 paths with subfolders or updatedAt query
-    if (
-      url.includes("eo8dcxsjx8") &&
-      (url.includes("so-hoa-du-lieu-dat-dai") || url.includes("updatedAt"))
-    ) {
-      if (url.includes("/tr:")) {
-        return url.replace(/\/tr:[^/]+\//, `/tr:w-${w},q-${q}/`);
-      }
-      return url.replace("/eo8dcxsjx8/", `/eo8dcxsjx8/tr:w-${w},q-${q}/`);
+    // Path-based transforms for all other ImageKit endpoints (e.g. eo8dcxsjx8)
+    if (url.includes("/tr:")) {
+      return url.replace(/\/tr:[^/]+\//, `/tr:w-${w},q-${q}/`);
+    }
+
+    const match = url.match(/(https?:\/\/ik\.imagekit\.io\/[^/]+\/)(.*)/);
+    if (match) {
+      return `${match[1]}tr:w-${w},q-${q}/${match[2]}`;
     }
   }
 

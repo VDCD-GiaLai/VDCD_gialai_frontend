@@ -6,6 +6,7 @@ import {
   fetchHeroSlidesFromApi,
   fetchOrganizationInfoFromApi,
 } from "@/services/hero.service";
+import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 export const revalidate = 60;
 
@@ -47,8 +48,34 @@ export default async function LandingPage() {
     fetchOrganizationInfoFromApi().catch(() => null),
   ]);
 
+  const firstSlideImage = heroSlides?.[0]?.image;
+
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
+      {firstSlideImage && (
+        <>
+          <link
+            rel="preload"
+            as="image"
+            href={getOptimizedImageUrl(firstSlideImage, {
+              width: 828,
+              quality: 90,
+            })}
+            media="(max-width: 768px)"
+            fetchPriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            href={getOptimizedImageUrl(firstSlideImage, {
+              width: 1920,
+              quality: 90,
+            })}
+            media="(min-width: 769px)"
+            fetchPriority="high"
+          />
+        </>
+      )}
       <GsapHero initialSlides={heroSlides ?? undefined} />
 
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
