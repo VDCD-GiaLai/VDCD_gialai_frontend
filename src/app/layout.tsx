@@ -204,8 +204,8 @@ export default function RootLayout({
         </script>
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <GoogleTagManagerNoscript />
         <AppProviders>{children}</AppProviders>
+        <GoogleTagManagerNoscript />
         <GoogleTrackingScripts />
       </body>
     </html>
