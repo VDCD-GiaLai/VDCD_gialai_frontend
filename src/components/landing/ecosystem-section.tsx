@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import { SOLUTIONS } from "@/data/solution/solutions";
 import { gsap, ScrollTrigger } from "@/lib/animations/register-gsap";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 /* ────────────────────────────────────────────────────────
    TYPES
@@ -54,11 +55,15 @@ function EcosystemCard({ item, index }: { item: EcoItem; index: number }) {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={item.imageUrl}
+          src={getOptimizedImageUrl(item.imageUrl, {
+            width: 640,
+            quality: 80,
+          })}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover group-hover:scale-105 transition-transform duration-700"
+          loading="lazy"
           unoptimized={true}
         />
       </div>

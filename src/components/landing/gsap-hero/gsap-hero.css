@@ -7,6 +7,13 @@
   transition: border-radius 0.3s ease;
 }
 
+.gsap-hero-container .card.active-bg {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 20 !important;
+  border-radius: 0 !important;
+}
+
 .gsap-hero-container .card::after {
   content: "";
   position: absolute;
@@ -282,14 +289,7 @@
 }
 
 .gsap-hero-container .cover {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #09090b;
-  z-index: 100;
-  pointer-events: none;
+  display: none !important;
 }
 
 @media (max-width: 767px) {
