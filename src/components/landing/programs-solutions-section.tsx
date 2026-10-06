@@ -363,9 +363,11 @@ export function ProgramsSolutionsSection() {
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                      loading="lazy"
+                      decoding="async"
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                       transformation={[
-                        { width: 1200, quality: 90, format: "auto" },
+                        { width: 640, quality: 85, format: "auto" },
                       ]}
                     />
                   </div>

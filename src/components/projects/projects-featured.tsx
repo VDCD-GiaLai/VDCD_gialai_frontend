@@ -21,7 +21,7 @@ export const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
   >
     <div className="absolute inset-0">
       <OptimizedImage
-        src={project.coverImage}
+        src={project.thumbnail || project.coverImage}
         alt={project.title}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
@@ -92,7 +92,7 @@ export const FeaturedSmallCard = ({ project }: { project: ProjectEntry }) => (
   >
     <div className="absolute inset-0">
       <OptimizedImage
-        src={project.coverImage}
+        src={project.thumbnail || project.coverImage}
         alt={project.title}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
