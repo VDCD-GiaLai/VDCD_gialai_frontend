@@ -957,13 +957,13 @@ export function useGsapHero(
         if (descEl) descEl.textContent = activeSlide.desc;
 
         gsap.set(activeEl, {
-          opacity: 0,
-          x: -100,
+          opacity: 1,
+          x: 0,
           zIndex: 22,
           pointerEvents: "auto",
         });
-        gsap.set([textEl, title1El, title2El], { yPercent: 100 });
-        gsap.set(descEl, { yPercent: 50 });
+        gsap.set([textEl, title1El, title2El], { yPercent: 0 });
+        gsap.set(descEl, { yPercent: 0 });
         const inactiveEl = container.querySelector("#details-odd");
         if (inactiveEl) {
           gsap.set(inactiveEl, {
@@ -1002,8 +1002,8 @@ export function useGsapHero(
         }
       });
 
-      // Animate details and cards in on load
-      const startDelay = 0.5;
+      // Animate thumbnail cards in on load
+      const startDelay = 0.3;
       startAutoplayLoop(25);
 
       rest.forEach((i, index) => {
@@ -1019,7 +1019,7 @@ export function useGsapHero(
             x: posX,
             opacity: isVisible ? 1 : 0,
             pointerEvents: isVisible ? "auto" : "none",
-            duration: 1.0,
+            duration: 0.8,
             ease: "sine.inOut",
             delay: startDelay + 0.05 * index,
           });
@@ -1030,51 +1030,12 @@ export function useGsapHero(
             width: cardWidthVal.current,
             opacity: isVisible ? 1 : 0,
             pointerEvents: isVisible ? "auto" : "none",
-            duration: 1.0,
+            duration: 0.8,
             ease: "sine.inOut",
             delay: startDelay + 0.05 * index,
           });
         }
       });
-
-      if (activeEl) {
-        const textEl = activeEl.querySelector(".text");
-        const title1El = activeEl.querySelector(".title-1");
-        const title2El = activeEl.querySelector(".title-2");
-        const descEl = activeEl.querySelector(".desc");
-
-        gsap.to(activeEl, {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay,
-        });
-        gsap.to(textEl, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.1,
-        });
-        gsap.to(title1El, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.15,
-        });
-        gsap.to(title2El, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: "sine.inOut",
-          delay: startDelay + 0.15,
-        });
-        gsap.to(descEl, {
-          yPercent: 0,
-          duration: 0.7,
-          ease: "sine.inOut",
-          delay: startDelay + 0.3,
-        });
-      }
 
       gsap.fromTo(
         "#pagination",

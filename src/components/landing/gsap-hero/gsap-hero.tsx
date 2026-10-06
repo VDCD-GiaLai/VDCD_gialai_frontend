@@ -180,15 +180,23 @@ export function GsapHero({
         <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
           <div className="details" id="details-even">
             <div className="place-box">
-              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
+              <div className="text font-bold text-accent-red uppercase tracking-wider">
+                {slides[0]?.place}
+              </div>
             </div>
             <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
+              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
+                {slides[0]?.title}
+              </div>
             </div>
             <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
+              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
+                {slides[0]?.title2}
+              </div>
             </div>
-            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed">
+              {slides[0]?.desc}
+            </div>
             <div className="cta flex gap-4 mt-6">
               <a
                 href={slides[0]?.ctaUrl || "/#"}
