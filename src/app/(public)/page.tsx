@@ -5,6 +5,8 @@ import { LandingContactSection } from "@/components/landing/landing-contact-sect
 import {
   fetchHeroSlidesFromApi,
   fetchOrganizationInfoFromApi,
+  MOCK_HERO_SLIDES,
+  DEFAULT_ORGANIZATION_INFO,
 } from "@/services/hero.service";
 import { getOptimizedImageUrl } from "@/lib/image-utils";
 
@@ -48,7 +50,9 @@ export default async function LandingPage() {
     fetchOrganizationInfoFromApi().catch(() => null),
   ]);
 
-  const firstSlideImage = heroSlides?.[0]?.image;
+  const activeSlides = heroSlides?.length ? heroSlides : MOCK_HERO_SLIDES;
+  const activeOrgInfo = orgInfo || DEFAULT_ORGANIZATION_INFO;
+  const firstSlideImage = activeSlides[0]?.image;
 
   return (
     <div className="w-full bg-canvas-white dark:bg-zinc-950 transition-colors duration-300">
@@ -86,10 +90,10 @@ export default async function LandingPage() {
           />
         </>
       )}
-      <GsapHero initialSlides={heroSlides ?? undefined} />
+      <GsapHero initialSlides={activeSlides} />
 
       {/* Khối 2: Tiên phong công nghệ số - Làm chủ hiện trường trong tầm tay */}
-      <DigitalPioneerSection initialOrgInfo={orgInfo} />
+      <DigitalPioneerSection initialOrgInfo={activeOrgInfo} />
 
       {/* Anchor for About section */}
       <div id="about" />
