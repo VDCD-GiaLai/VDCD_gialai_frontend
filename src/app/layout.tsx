@@ -9,18 +9,18 @@ import "./globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
-  subsets: ["latin", "vietnamese"],
-  weight: ["600", "700", "800"],
+  subsets: ["vietnamese"],
+  weight: ["600", "700"],
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
-  subsets: ["latin", "vietnamese"],
+  subsets: ["vietnamese"],
   weight: ["400", "600"],
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -63,16 +63,31 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  manifest: "/favicons/manifest.json",
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicons/favicon.ico" },
+      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      {
+        url: "/favicons/apple-icon-180x180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-icon-152x152.png",
+        sizes: "152x152",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-icon-120x120.png",
+        sizes: "120x120",
+        type: "image/png",
+      },
     ],
   },
   openGraph: {
@@ -102,7 +117,16 @@ export const metadata: Metadata = {
     ],
   },
   verification: {
-    google: "ExpqV1anfeq31VR4P_Sy7ZOaIP3qFTGSkzQvHWSc-OA",
+    google: [
+      "ExpqV1anfeq31VR4P_Sy7ZOaIP3qFTGSkzQvHWSc-OA",
+      "OHDk64-l82grYN7qxgpHNqvavI8LupO3hDA6gd-zeeA",
+    ],
+  },
+  other: {
+    "webmcp:search": "https://doimoisangtaogialai.vn/news?search={query}",
+    "mcp-server": "https://doimoisangtaogialai.vn/api/mcp",
+    "msapplication-TileColor": "#C8102E",
+    "msapplication-TileImage": "/favicons/ms-icon-144x144.png",
   },
 };
 
@@ -170,72 +194,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Google Search Console Verification */}
-        <meta
-          name="google-site-verification"
-          content="ExpqV1anfeq31VR4P_Sy7ZOaIP3qFTGSkzQvHWSc-OA"
-        />
-        <meta
-          name="google-site-verification"
-          content="OHDk64-l82grYN7qxgpHNqvavI8LupO3hDA6gd-zeeA"
-        />
-
-        {/* Favicon Declarations */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicons/favicon.ico" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicons/favicon-16x16.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicons/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="96x96"
-          href="/favicons/favicon-96x96.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicons/apple-icon-180x180.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href="/favicons/apple-icon-152x152.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="120x120"
-          href="/favicons/apple-icon-120x120.png"
-        />
-        <meta
-          name="msapplication-TileImage"
-          content="/favicons/ms-icon-144x144.png"
-        />
-        <meta name="msapplication-TileColor" content="#C8102E" />
-        <link rel="manifest" href="/favicons/manifest.json" />
-
-        {/* Canonical Link */}
-        <link rel="canonical" href="https://doimoisangtaogialai.vn/" />
-
-        {/* WebMCP & AI Agent Search Integration */}
-        <meta
-          name="webmcp:search"
-          content="https://doimoisangtaogialai.vn/news?search={query}"
-        />
-        <meta
-          name="mcp-server"
-          content="https://doimoisangtaogialai.vn/api/mcp"
-        />
-
         {/* Preconnect & DNS Prefetch */}
         <link rel="dns-prefetch" href="//ik.imagekit.io" />
         <link
