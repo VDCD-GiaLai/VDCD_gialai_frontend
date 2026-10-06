@@ -22,7 +22,12 @@ export function getOptimizedImageUrl(
   const w = options?.width ?? (options?.isThumbnail ? 400 : 1920);
   const q = options?.quality ?? (options?.isThumbnail ? 85 : 90);
 
-  // 1. Specific local optimization for known bloated 5.8MB ImageKit upload
+  // 1. Fallback for broken/deleted ImageKit slide asset (Slide 0)
+  if (url.includes("1788429211721-48490265ae67")) {
+    return `https://ik.imagekit.io/huy01040104/vdcd/slides/quynhon_herobanner.jpg?tr=w-${w},q-${q},f-auto`;
+  }
+
+  // 2. Specific local optimization for known bloated 5.8MB ImageKit upload
   if (url.includes("1788429330513-c7068cbd16ee")) {
     if (w <= 828) {
       return "/images/slides/data-center-828.webp";
