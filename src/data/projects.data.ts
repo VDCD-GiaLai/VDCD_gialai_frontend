@@ -116,6 +116,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     description:
       "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – giải pháp giám sát công trình cao tầng hiện đại, nền tảng cho đô thị thông minh.",
     coverImage: "/images/projects/becamex-binh-duong.webp",
+    thumbnail: "/images/projects/becamex-binh-duong-640.webp",
     layout: "landscape-full",
     overview:
       "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – giải pháp giám sát công trình cao tầng hiện đại, nền tảng cho đô thị thông minh.",
@@ -174,6 +175,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     description:
       "AutoTimelapse triển khai tại khu đô thị Sun Marina Hạ Long – giải pháp giám sát toàn diện cho đô thị ven biển hiện đại.",
     coverImage: "/images/projects/sun-marina-ha-long.webp",
+    thumbnail: "/images/projects/sun-marina-ha-long-640.webp",
     layout: "landscape-full",
     overview:
       "AutoTimelapse triển khai tại khu đô thị Sun Marina Hạ Long – giải pháp giám sát toàn diện cho đô thị ven biển hiện đại.",
@@ -232,6 +234,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     description:
       "Khảo sát địa hình và ứng dụng công nghệ LiDAR Scan tại Sân bay Vân Đồn. Trọn gói sản phẩm trắc địa gồm bản vẽ 2D, 3D, VR360.",
     coverImage: "/images/projects/san-bay-van-don.webp",
+    thumbnail: "/images/projects/san-bay-van-don-640.webp",
     layout: "landscape-full",
     overview:
       "Khảo sát địa hình và ứng dụng công nghệ LiDAR Scan tại Sân bay Vân Đồn. Trọn gói sản phẩm trắc địa gồm bản vẽ 2D, 3D, VR360.",

@@ -61,14 +61,18 @@ body {
 }
 
 /* Skip rendering of below-fold sections until they scroll into view */
+#digital-pioneer,
 #about,
 #highlights,
 #programs-solutions,
-.featured-projects,
-.ecosystem-section,
-.partners-section {
+#projects,
+#ecosystem-collaboration,
+#ecosystem,
+#latest-news,
+#partners,
+#contact {
   content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
+  contain-intrinsic-size: auto 600px;
 }
 
 /* Custom Scrollbar */

@@ -1,5 +1,12 @@
-import dynamic from "next/dynamic";
 import { GsapHero } from "@/components/landing/gsap-hero/gsap-hero";
+import { DigitalPioneerSection } from "@/components/landing/digital-pioneer-section";
+import { LandingContactSection } from "@/components/landing/landing-contact-section";
+import { ProgramsSolutionsSection } from "@/components/landing/programs-solutions-section";
+import { FeaturedProjectsSection } from "@/components/landing/featured-projects-section";
+import { EcosystemCollaborationSection } from "@/components/landing/ecosystem-collaboration-section";
+import { EcosystemSection } from "@/components/landing/ecosystem-section";
+import { LatestNewsSection } from "@/components/landing/latest-news-section";
+import { PartnersSection } from "@/components/landing/partners-section";
 import {
   fetchHeroSlidesFromApi,
   fetchOrganizationInfoFromApi,
@@ -9,66 +16,6 @@ import {
 import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 export const revalidate = 60;
-
-/* ── Code-split below-the-fold sections via next/dynamic ── */
-const DigitalPioneerSection = dynamic(
-  () =>
-    import("@/components/landing/digital-pioneer-section").then(
-      (m) => m.DigitalPioneerSection,
-    ),
-  { ssr: true },
-);
-const LandingContactSection = dynamic(
-  () =>
-    import("@/components/landing/landing-contact-section").then(
-      (m) => m.LandingContactSection,
-    ),
-  { ssr: true },
-);
-
-/* ── Code-split below-the-fold sections via next/dynamic ── */
-const ProgramsSolutionsSection = dynamic(
-  () =>
-    import("@/components/landing/programs-solutions-section").then(
-      (m) => m.ProgramsSolutionsSection,
-    ),
-  { ssr: true },
-);
-const FeaturedProjectsSection = dynamic(
-  () =>
-    import("@/components/landing/featured-projects-section").then(
-      (m) => m.FeaturedProjectsSection,
-    ),
-  { ssr: true },
-);
-const EcosystemCollaborationSection = dynamic(
-  () =>
-    import("@/components/landing/ecosystem-collaboration-section").then(
-      (m) => m.EcosystemCollaborationSection,
-    ),
-  { ssr: true },
-);
-const EcosystemSection = dynamic(
-  () =>
-    import("@/components/landing/ecosystem-section").then(
-      (m) => m.EcosystemSection,
-    ),
-  { ssr: true },
-);
-const LatestNewsSection = dynamic(
-  () =>
-    import("@/components/landing/latest-news-section").then(
-      (m) => m.LatestNewsSection,
-    ),
-  { ssr: true },
-);
-const PartnersSection = dynamic(
-  () =>
-    import("@/components/landing/partners-section").then(
-      (m) => m.PartnersSection,
-    ),
-  { ssr: true },
-);
 
 export default async function LandingPage() {
   const [heroSlides, orgInfo] = await Promise.all([
