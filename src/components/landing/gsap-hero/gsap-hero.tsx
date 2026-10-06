@@ -95,6 +95,8 @@ export function GsapHero({
       {/* Slide Cards */}
       {slides.map((slide, idx) => {
         const isHero = idx === 0;
+        const isActive = order[0] === idx;
+        const isHighRes = isHero || isActive;
 
         return (
           <React.Fragment key={idx}>
@@ -106,32 +108,60 @@ export function GsapHero({
               }}
             >
               <picture className="absolute inset-0 w-full h-full pointer-events-none">
-                <source
-                  media="(max-width: 768px)"
-                  srcSet={getOptimizedImageUrl(slide.image, {
-                    width: 828,
-                    quality: 90,
-                  })}
-                />
-                <source
-                  media="(max-width: 1280px)"
-                  srcSet={getOptimizedImageUrl(slide.image, {
-                    width: 1280,
-                    quality: 90,
-                  })}
-                />
-                <img
-                  src={getOptimizedImageUrl(slide.image, {
-                    width: 1920,
-                    quality: 90,
-                  })}
-                  alt={slide.title + " " + slide.title2}
-                  className="object-cover w-full h-full select-none pointer-events-none"
-                  fetchPriority={isHero ? "high" : "low"}
-                  loading={isHero ? "eager" : "lazy"}
-                  decoding={isHero ? "sync" : "async"}
-                  draggable={false}
-                />
+                {isHighRes ? (
+                  <>
+                    <source
+                      media="(max-width: 768px)"
+                      srcSet={getOptimizedImageUrl(slide.image, {
+                        width: 828,
+                        quality: 90,
+                      })}
+                    />
+                    <source
+                      media="(max-width: 1280px)"
+                      srcSet={getOptimizedImageUrl(slide.image, {
+                        width: 1280,
+                        quality: 90,
+                      })}
+                    />
+                    <img
+                      src={getOptimizedImageUrl(slide.image, {
+                        width: 1920,
+                        quality: 90,
+                      })}
+                      alt={slide.title + " " + slide.title2}
+                      className="object-cover w-full h-full select-none pointer-events-none"
+                      fetchPriority={isHero ? "high" : "low"}
+                      loading={isHero ? "eager" : "lazy"}
+                      decoding={isHero ? "sync" : "async"}
+                      draggable={false}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <source
+                      media="(max-width: 768px)"
+                      srcSet={getOptimizedImageUrl(slide.image, {
+                        width: 320,
+                        quality: 85,
+                        isThumbnail: true,
+                      })}
+                    />
+                    <img
+                      src={getOptimizedImageUrl(slide.image, {
+                        width: 480,
+                        quality: 85,
+                        isThumbnail: true,
+                      })}
+                      alt={slide.title + " " + slide.title2}
+                      className="object-cover w-full h-full select-none pointer-events-none"
+                      fetchPriority="low"
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                    />
+                  </>
+                )}
               </picture>
             </div>
             {/* Card Content Overlay */}

@@ -29,8 +29,17 @@ export function getOptimizedImageUrl(
 
   // 2. Specific local optimization for known bloated 5.8MB ImageKit upload
   if (url.includes("1788429330513-c7068cbd16ee")) {
+    if (w <= 320) {
+      return "/images/slides/data-center-320.webp";
+    }
+    if (w <= 480) {
+      return "/images/slides/data-center-480.webp";
+    }
     if (w <= 828) {
       return "/images/slides/data-center-828.webp";
+    }
+    if (w <= 1280) {
+      return "/images/slides/data-center-1200.webp";
     }
     return "/images/slides/data-center-1920.webp";
   }
