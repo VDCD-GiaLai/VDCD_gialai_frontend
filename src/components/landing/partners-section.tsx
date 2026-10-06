@@ -102,7 +102,8 @@ function PartnerLogo({ name, logo }: { name: string; logo: string }) {
         height={48}
         className="max-h-[46px] max-w-[130px] sm:max-h-[50px] sm:max-w-[145px] w-auto h-auto object-contain pointer-events-none select-none transition-transform duration-300 group-hover/logo:scale-105"
         priority={false}
-        loading="eager"
+        loading="lazy"
+        decoding="async"
       />
     </span>
   );
