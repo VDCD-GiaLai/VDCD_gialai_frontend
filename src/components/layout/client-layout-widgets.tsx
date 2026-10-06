@@ -20,6 +20,24 @@ const PageTransitionOverlay = dynamic(
 );
 
 export function ClientLayoutWidgets() {
+  const [ready, setReady] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(() => setReady(true), {
+        timeout: 4000,
+      });
+      return () => window.cancelIdleCallback(id);
+    } else {
+      const timer = setTimeout(() => setReady(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  if (!ready) return null;
+
   return (
     <>
       <FloatingContactWidget />

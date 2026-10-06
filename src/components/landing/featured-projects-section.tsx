@@ -18,6 +18,7 @@ export function FeaturedProjectsSection() {
   const [projects, setProjects] = React.useState<ProjectEntry[]>(() =>
     PROJECTS_DATA.slice(0, 3),
   );
+  const [isNearViewport, setIsNearViewport] = React.useState(false);
 
   React.useEffect(() => {
     const cancelId: any = null;
@@ -37,6 +38,7 @@ export function FeaturedProjectsSection() {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
+            setIsNearViewport(true);
             fetchAction();
             observer.disconnect();
           }
@@ -135,12 +137,21 @@ export function FeaturedProjectsSection() {
       <div className="max-w-[1800px] mx-auto px-4 md:px-6">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
           {/* Left Side: 1 Big Card (50%) */}
-          {mainProject && <FeaturedBigCard project={mainProject} />}
+          {mainProject && (
+            <FeaturedBigCard
+              project={mainProject}
+              isNearViewport={isNearViewport}
+            />
+          )}
 
           {/* Right Side: 2 Small Cards Stacked (50%) */}
           <div className="flex flex-col gap-0 h-full">
             {sideProjects.map((proj) => (
-              <FeaturedSmallCard key={proj.id} project={proj} />
+              <FeaturedSmallCard
+                key={proj.id}
+                project={proj}
+                isNearViewport={isNearViewport}
+              />
             ))}
           </div>
         </div>
