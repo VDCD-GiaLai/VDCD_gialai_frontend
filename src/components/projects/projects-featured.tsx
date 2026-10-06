@@ -25,6 +25,8 @@ export const FeaturedBigCard = ({ project }: { project: ProjectEntry }) => (
         alt={project.title}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
+        loading="lazy"
+        decoding="async"
         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
       />
     </div>
@@ -94,6 +96,8 @@ export const FeaturedSmallCard = ({ project }: { project: ProjectEntry }) => (
         alt={project.title}
         fill
         sizes="(max-width: 1024px) 100vw, 50vw"
+        loading="lazy"
+        decoding="async"
         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
       />
     </div>
