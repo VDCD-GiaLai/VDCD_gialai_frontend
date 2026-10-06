@@ -129,6 +129,28 @@ export function ProgramsSolutionsSection() {
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [activeId, setActiveId] = useState<string>(CATEGORIES[0].id);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(
+    () => typeof window === "undefined" || !("IntersectionObserver" in window),
+  );
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || isNearViewport) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isNearViewport]);
 
   const containerRef = useScrollReveal({
     targets: ".ps-reveal",
@@ -298,6 +320,7 @@ export function ProgramsSolutionsSection() {
 
   return (
     <section
+      ref={sectionRef}
       id="programs-solutions"
       className="border-t border-whisper-border/30 bg-pure-surface dark:bg-zinc-950 transition-colors duration-300 py-16 md:py-24"
     >
@@ -357,19 +380,21 @@ export function ProgramsSolutionsSection() {
                   }`}
                 >
                   {/* Background Image */}
-                  <div className="absolute inset-0">
-                    <OptimizedImage
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                      loading="lazy"
-                      decoding="async"
-                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                      transformation={[
-                        { width: 640, quality: 85, format: "auto" },
-                      ]}
-                    />
+                  <div className="absolute inset-0 bg-zinc-900">
+                    {isNearViewport && (
+                      <OptimizedImage
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                        loading="lazy"
+                        decoding="async"
+                        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                        transformation={[
+                          { width: 640, quality: 85, format: "auto" },
+                        ]}
+                      />
+                    )}
                   </div>
 
                   {/* Gradient Overlay: Deep at bottom for crisp text readability, clear at top & center */}
