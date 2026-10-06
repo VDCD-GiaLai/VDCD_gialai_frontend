@@ -14,19 +14,12 @@ import { getOptimizedImageUrl } from "@/lib/image-utils";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
 
-const emptySubscribe = () => () => {};
-
 export function GsapHero({
   initialSlides,
 }: {
   initialSlides?: HeroSlideItem[];
 } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isClient = React.useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
   const splitTitle = (raw: string): [string, string] => {
     if (raw.includes("\n")) {
       const [line1, ...rest] = raw.split("\n");
@@ -63,10 +56,7 @@ export function GsapHero({
       title2,
       desc:
         s.description || "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
-      image: getOptimizedImageUrl(s.image || s.imageUrl || "", {
-        width: 1200,
-        quality: 85,
-      }),
+      image: s.image || s.imageUrl || "",
       place: s.subtitle || s.location || "",
       ctaText: s.ctaText || "Tìm hiểu thêm",
       ctaUrl: s.ctaUrl || "/#",
@@ -93,7 +83,7 @@ export function GsapHero({
     });
   }, [initialSlides]);
 
-  const { activeIdx, nextSlide, prevSlide, selectSlide } = useGsapHero(
+  const { order, nextSlide, prevSlide, selectSlide } = useGsapHero(
     containerRef,
     slides,
   );
@@ -107,42 +97,34 @@ export function GsapHero({
       {slides.map((slide, idx) => {
         const isHero = idx === 0;
         const imageUrl = getOptimizedImageUrl(slide.image, {
-          width: isHero ? 1200 : 320,
-          quality: isHero ? 85 : 80,
-          isThumbnail: !isHero,
+          width: 1920,
+          quality: 90,
         });
 
         return (
           <React.Fragment key={idx}>
             <div
-              className={`card cursor-pointer ${activeIdx === idx ? "active-bg" : ""}`}
+              className={`card cursor-pointer ${order[0] === idx ? "active-bg" : ""}`}
               id={`card-${idx}`}
               onClick={() => {
-                if (activeIdx !== idx) {
-                  selectSlide(idx);
-                }
+                selectSlide(idx);
               }}
             >
-              {(isHero || isClient) && (
-                <Image
-                  src={imageUrl}
-                  alt={slide.title + " " + slide.title2}
-                  fill
-                  sizes={isHero ? "100vw" : "(max-width: 768px) 145px, 200px"}
-                  className="object-cover"
-                  priority={isHero}
-                  fetchPriority={isHero ? "high" : "low"}
-                  loading={isHero ? "eager" : "lazy"}
-                  quality={isHero ? 85 : 80}
-                  unoptimized={true}
-                />
-              )}
+              <Image
+                src={imageUrl}
+                alt={slide.title + " " + slide.title2}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={isHero}
+                fetchPriority={isHero ? "high" : "low"}
+                loading={isHero ? "eager" : "lazy"}
+                quality={90}
+                unoptimized={true}
+              />
             </div>
             {/* Card Content Overlay */}
-            <div
-              className={`card-content ${activeIdx === idx ? "opacity-0 pointer-events-none" : ""}`}
-              id={`card-content-${idx}`}
-            >
+            <div className="card-content" id={`card-content-${idx}`}>
               <div className="content-start bg-accent-red mb-1.5" />
               <div className="content-title-wrapper">
                 <span className="content-title-1">{slide.title}</span>{" "}
@@ -157,23 +139,15 @@ export function GsapHero({
         <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 relative h-full">
           <div className="details" id="details-even">
             <div className="place-box">
-              <div className="text font-bold text-accent-red uppercase tracking-wider">
-                {slides[0]?.place}
-              </div>
+              <div className="text font-bold text-accent-red uppercase tracking-wider"></div>
             </div>
             <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
-                {slides[0]?.title}
-              </div>
+              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
             <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
-                {slides[0]?.title2}
-              </div>
+              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap"></div>
             </div>
-            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed">
-              {slides[0]?.desc}
-            </div>
+            <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed"></div>
             <div className="cta flex gap-4 mt-6">
               <a
                 href={slides[0]?.ctaUrl || "/#"}
@@ -264,6 +238,9 @@ export function GsapHero({
           </svg>
         </div>
       </div>
+
+      {/* Cover Screen for page intro slide-wipe */}
+      <div className="cover" />
     </div>
   );
 }

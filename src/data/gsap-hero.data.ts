@@ -1,5 +1,4 @@
 import { MOCK_HERO_SLIDES } from "@/data/hero.data";
-import { getOptimizedImageUrl } from "@/lib/image-utils";
 
 export interface GsapHeroSlide {
   place: string;
@@ -38,7 +37,7 @@ export const GSAP_HERO_SLIDES: GsapHeroSlide[] = MOCK_HERO_SLIDES.map((s) => {
     title2,
     desc:
       s.description || "Tập đoàn VDCD - Giám sát công trình & Chuyển đổi số",
-    image: getOptimizedImageUrl(s.image || "", { width: 1200, quality: 85 }),
+    image: s.image || "",
     place: s.subtitle || s.location || "",
     ctaText: s.ctaText || "Tìm hiểu thêm",
     ctaUrl: s.ctaUrl || "/#",
