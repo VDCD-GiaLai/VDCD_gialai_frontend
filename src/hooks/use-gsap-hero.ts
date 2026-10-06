@@ -228,6 +228,7 @@ export function useGsapHero(
       if (width < 768) {
         // Mobile: hide arrows entirely
         gsap.set(pagination, {
+          display: "none",
           opacity: 0,
           pointerEvents: "none",
         });
@@ -945,13 +946,17 @@ export function useGsapHero(
     const container = containerRef.current;
     if (!container) return;
 
-    const ctx = gsap.context(() => {
-      // Set up responsive values and initial positioning of thumbnail tray cards
-      updateDimensions();
-      setCardPositions(false);
-      startAutoplayLoop(25);
-      isMountedRef.current = true;
-    }, containerRef);
+    let ctx: gsap.Context | null = null;
+    const animId = requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      ctx = gsap.context(() => {
+        // Set up responsive values and initial positioning of thumbnail tray cards
+        updateDimensions();
+        setCardPositions(false);
+        startAutoplayLoop(25);
+        isMountedRef.current = true;
+      }, containerRef);
+    });
 
     // Touch Swipe Gestures
     let touchStartX = 0;
@@ -994,10 +999,11 @@ export function useGsapHero(
     window.addEventListener("resize", handleResize);
 
     return () => {
+      cancelAnimationFrame(animId);
       window.removeEventListener("resize", handleResize);
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchend", handleTouchEnd);
-      ctx.revert();
+      ctx?.revert();
       stopAutoplayLoop();
     };
   }, []);

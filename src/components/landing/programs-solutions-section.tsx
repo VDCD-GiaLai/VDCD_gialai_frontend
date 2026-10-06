@@ -130,9 +130,19 @@ export function ProgramsSolutionsSection() {
   const [activeId, setActiveId] = useState<string>(CATEGORIES[0].id);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
+  const containerRef = useScrollReveal({
+    targets: ".ps-reveal",
+    options: {
+      y: 24,
+      blur: 4,
+      duration: 0.8,
+      ease: "power3.out",
+    },
+  });
+
   useEffect(() => {
     let cancelled = false;
-    let cancelId: any = null;
+    const cancelId: any = null;
 
     const fetchAction = () => {
       Promise.all([
@@ -253,39 +263,33 @@ export function ProgramsSolutionsSection() {
       });
     };
 
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      cancelId = (window as any).requestIdleCallback(fetchAction, {
-        timeout: 3500,
-      });
-    } else {
-      cancelId = setTimeout(fetchAction, 1500);
+    if (
+      typeof window !== "undefined" &&
+      "IntersectionObserver" in window &&
+      containerRef.current
+    ) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            fetchAction();
+            observer.disconnect();
+          }
+        },
+        { rootMargin: "300px" },
+      );
+      observer.observe(containerRef.current);
+      return () => {
+        cancelled = true;
+        observer.disconnect();
+      };
     }
 
     return () => {
       cancelled = true;
-      if (
-        typeof window !== "undefined" &&
-        "cancelIdleCallback" in window &&
-        typeof cancelId === "number"
-      ) {
-        (window as any).cancelIdleCallback(cancelId);
-      } else if (cancelId) {
-        clearTimeout(cancelId);
-      }
     };
   }, []);
 
   const active = categories.find((c) => c.id === activeId) ?? categories[0];
-
-  const containerRef = useScrollReveal({
-    targets: ".ps-reveal",
-    options: {
-      y: 24,
-      blur: 4,
-      duration: 0.8,
-      ease: "power3.out",
-    },
-  });
 
   const handleSwitch = useCallback((id: string) => {
     setActiveId(id);

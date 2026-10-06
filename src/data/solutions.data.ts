@@ -102,7 +102,7 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     description:
       "Nghiên cứu, phát triển ứng dụng mô hình thông tin công trình (BIM) và các giải pháp thiết kế số trong lĩnh vực xây dựng, kiến trúc.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-768x768.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/vien-thiet-ke-so",
     isPublished: true,
   },
@@ -135,7 +135,7 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     description:
       "Nghiên cứu và ứng dụng các công nghệ tiên tiến trong không gian vũ trụ và thám hiểm, đo đạc môi trường dưới nước.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2025/10/Vien-khong-gian-va-duoi-nuoc-BK-768x499.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/uav_khao_sat_dia_hinh_bang_flycam.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/vien-nghien-cuu-cong-nghe-khong-gian-va-duoi-nuoc",
     isPublished: true,
   },
@@ -146,7 +146,7 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     description:
       "Phát triển các phần mềm quản lý doanh nghiệp, giải pháp chuyển đổi số chuyên sâu phục vụ hệ sinh thái kinh tế vùng và cả nước.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/Untitled-1-01-1-768x768.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/data_center_viet_nam.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/trung-tam-phan-mem-vdcd-soft",
     isPublished: true,
   },
@@ -156,7 +156,8 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     slug: "trung-tam-doi-moi-sang-tao-tinh",
     description:
       "Hỗ trợ ươm tạo khởi nghiệp, phát triển ý tưởng sáng tạo và thúc đẩy chuyển giao công nghệ tại địa phương.",
-    thumbnail: "https://vdcd.vn/wp-content/uploads/2025/11/S3-1-1-768x590.jpg",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/smart_scale_can_dien_tu.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/trung-tam-doi-moi-sang-tao-tinh",
     isPublished: true,
   },
@@ -167,7 +168,7 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     description:
       "Cầu nối chuyển giao các công nghệ tiên tiến từ viện nghiên cứu, trường đại học đến các doanh nghiệp địa phương ứng dụng thực tiễn.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2025/10/BOT06612-768x512.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/auto_timelapse_camera.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/trung-tam-chuyen-giao-cong-nghe",
     isPublished: true,
   },
@@ -199,7 +200,8 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     slug: "trung-tam-san-xuat-phim",
     description:
       "Sản xuất video clip giới thiệu dự án, quay phim khảo sát, flycam sự kiện chuyên nghiệp với trang thiết bị hiện đại hàng đầu.",
-    thumbnail: "https://vdcd.vn/wp-content/uploads/2025/10/75474-768x576.jpg",
+    thumbnail:
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/quet_3d.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/trung-tam-san-xuat-phim",
     isPublished: true,
   },
@@ -210,7 +212,7 @@ export const ALL_MOCK_SOLUTIONS: SolutionItem[] = [
     description:
       "Đội ngũ chuyên gia chuyên nghiên cứu phát triển các sản phẩm phần cứng và giải pháp công nghệ mới bắt kịp xu hướng thế giới.",
     thumbnail:
-      "https://vdcd.vn/wp-content/uploads/2024/03/64576458-768x512.jpg",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/ai_thong_minh.png?tr=w-800,q-85,f-auto",
     websiteUrl: "/solution/trung-tam-nghien-cuu-va-phat-trien-san-pham",
     isPublished: true,
   },

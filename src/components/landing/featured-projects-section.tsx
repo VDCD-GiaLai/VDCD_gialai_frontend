@@ -20,7 +20,7 @@ export function FeaturedProjectsSection() {
   );
 
   React.useEffect(() => {
-    let cancelId: any = null;
+    const cancelId: any = null;
     const fetchAction = () => {
       fetchFeaturedProjectsFromApi(3).then((data) => {
         if (data && data.length > 0) {
@@ -29,25 +29,25 @@ export function FeaturedProjectsSection() {
       });
     };
 
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      cancelId = (window as any).requestIdleCallback(fetchAction, {
-        timeout: 3500,
-      });
-    } else {
-      cancelId = setTimeout(fetchAction, 1500);
+    if (
+      typeof window !== "undefined" &&
+      "IntersectionObserver" in window &&
+      sectionRef.current
+    ) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            fetchAction();
+            observer.disconnect();
+          }
+        },
+        { rootMargin: "300px" },
+      );
+      observer.observe(sectionRef.current);
+      return () => {
+        observer.disconnect();
+      };
     }
-
-    return () => {
-      if (
-        typeof window !== "undefined" &&
-        "cancelIdleCallback" in window &&
-        typeof cancelId === "number"
-      ) {
-        (window as any).cancelIdleCallback(cancelId);
-      } else if (cancelId) {
-        clearTimeout(cancelId);
-      }
-    };
   }, []);
 
   useEffect(() => {

@@ -11,7 +11,6 @@ import {
 } from "@/services/hero.service";
 import { getOptimizedImageUrl } from "@/lib/image-utils";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
-import "./gsap-hero.css";
 
 export function GsapHero({
   initialSlides,
@@ -101,13 +100,13 @@ export function GsapHero({
         return (
           <React.Fragment key={idx}>
             <div
-              className={`card cursor-pointer ${order[0] === idx ? "active-bg" : ""}`}
+              className={`card cursor-pointer absolute ${isHero ? "inset-0 w-full h-full" : "top-0 left-0"} ${order[0] === idx ? "active-bg" : ""}`}
               id={`card-${idx}`}
               onClick={() => {
                 selectSlide(idx);
               }}
             >
-              <picture className="absolute inset-0 w-full h-full pointer-events-none">
+              <picture className="absolute inset-0 w-full h-full pointer-events-none block">
                 {isHighRes ? (
                   <>
                     <source
@@ -130,7 +129,9 @@ export function GsapHero({
                         quality: 90,
                       })}
                       alt={slide.title + " " + slide.title2}
-                      className="object-cover w-full h-full select-none pointer-events-none"
+                      width={1920}
+                      height={1080}
+                      className="object-cover w-full h-full select-none pointer-events-none block"
                       fetchPriority={isHero ? "high" : "low"}
                       loading={isHero ? "eager" : "lazy"}
                       decoding={isHero ? "sync" : "async"}
@@ -154,7 +155,9 @@ export function GsapHero({
                         isThumbnail: true,
                       })}
                       alt={slide.title + " " + slide.title2}
-                      className="object-cover w-full h-full select-none pointer-events-none"
+                      width={480}
+                      height={640}
+                      className="object-cover w-full h-full select-none pointer-events-none block"
                       fetchPriority={
                         idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
                       }
@@ -167,7 +170,10 @@ export function GsapHero({
               </picture>
             </div>
             {/* Card Content Overlay */}
-            <div className="card-content" id={`card-content-${idx}`}>
+            <div
+              className="card-content absolute top-0 left-0"
+              id={`card-content-${idx}`}
+            >
               <div className="content-start bg-accent-red mb-1.5" />
               <div className="content-title-wrapper">
                 <span className="content-title-1">{slide.title}</span>{" "}
@@ -245,7 +251,10 @@ export function GsapHero({
       </div>
 
       {/* Pagination Controls */}
-      <div className="pagination" id="pagination">
+      <div
+        className="pagination absolute hidden md:inline-flex"
+        id="pagination"
+      >
         <div
           className="arrow arrow-left"
           onClick={(e) => {

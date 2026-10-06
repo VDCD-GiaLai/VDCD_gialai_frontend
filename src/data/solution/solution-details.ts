@@ -1721,12 +1721,12 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
     subtitle:
       "Ứng dụng đồng bộ công nghệ BIM, GIS và AI trong quy hoạch, kiến trúc & Digital Twin",
     imageUrl:
-      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
     introText:
       "Viện Thiết kế Số (Digital Design Institute) quy tụ các kiến trúc sư, kỹ sư kết cấu và chuyên gia công nghệ nhằm ứng dụng mô hình thông tin công trình BIM, GIS và trí tuệ nhân tạo AI vào toàn bộ vòng đời dự án. Từ khảo sát ý tưởng, thiết kế kỹ thuật, kiểm soát xung đột đến mô hình bản sao số Digital Twin, viện mang lại giải pháp số hóa toàn diện cho các chủ đầu tư và cơ quan quản lý.",
     accentColor: "#2563eb",
     galleryImages: [
-      "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+      "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
       "https://vdcd.vn/wp-content/uploads/2024/03/z7156928098828_33a2c8c3a9e6e31e609ecae587efa5ea.jpg",
     ],
     sections: [
@@ -1735,7 +1735,7 @@ export const SOLUTION_DETAILS: Record<string, SolutionDetail> = {
         description:
           "Chuyển đổi hoàn toàn từ bản vẽ 2D rời rạc sang mô hình dữ liệu 3D tham số thông minh:",
         imageUrl:
-          "https://vdcd.vn/wp-content/uploads/2024/03/picture1_8463e044ab0c465da2d031f6af1a4c5f_master-1181x720.png",
+          "https://ik.imagekit.io/po0s6zxoj/vdcd/solutions/hd_images/scan_3d.png?tr=w-800,q-85,f-auto",
         layout: "split-image",
         points: [
           "Phát hiện và triệt tiêu xung đột giữa kiến trúc, kết cấu và hệ thống cơ điện (MEP) trước khi ra hiện trường.",

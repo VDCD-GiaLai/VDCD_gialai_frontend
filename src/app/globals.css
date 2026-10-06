@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "../components/landing/gsap-hero/gsap-hero.css";
+@import "../components/layout/mega-menu.css";
 @plugin '../../hero.ts';
 
 @source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
