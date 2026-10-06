@@ -14,19 +14,12 @@ import { getOptimizedImageUrl } from "@/lib/image-utils";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
 import "./gsap-hero.css";
 
-const emptySubscribe = () => () => {};
-
 export function GsapHero({
   initialSlides,
 }: {
   initialSlides?: HeroSlideItem[];
 } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isClient = React.useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
   const splitTitle = (raw: string): [string, string] => {
     if (raw.includes("\n")) {
       const [line1, ...rest] = raw.split("\n");
@@ -123,20 +116,18 @@ export function GsapHero({
                 }
               }}
             >
-              {(isHero || isClient) && (
-                <Image
-                  src={imageUrl}
-                  alt={slide.title + " " + slide.title2}
-                  fill
-                  sizes={isHero ? "100vw" : "(max-width: 768px) 145px, 200px"}
-                  className="object-cover"
-                  priority={isHero}
-                  fetchPriority={isHero ? "high" : "low"}
-                  loading={isHero ? "eager" : "lazy"}
-                  quality={isHero ? 85 : 80}
-                  unoptimized={true}
-                />
-              )}
+              <Image
+                src={imageUrl}
+                alt={slide.title + " " + slide.title2}
+                fill
+                sizes={isHero ? "100vw" : "(max-width: 768px) 145px, 200px"}
+                className="object-cover"
+                priority={isHero}
+                fetchPriority={isHero ? "high" : "low"}
+                loading={isHero ? "eager" : "lazy"}
+                quality={isHero ? 85 : 80}
+                unoptimized={true}
+              />
             </div>
             {/* Card Content Overlay */}
             <div
