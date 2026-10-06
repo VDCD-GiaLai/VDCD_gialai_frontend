@@ -53,9 +53,14 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    handleScroll();
+    const rId = requestAnimationFrame(() => {
+      if (window.scrollY > 50) setIsScrolled(true);
+    });
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      cancelAnimationFrame(rId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   /* ── Sync scroll state when route changes ── */

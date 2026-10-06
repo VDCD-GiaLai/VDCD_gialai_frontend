@@ -46,7 +46,7 @@ export async function Footer() {
               sizes="208px"
               className="object-contain object-center dark:hidden transition-all duration-300"
               src="/GL_NOBGArtboard 4.webp"
-              priority
+              loading="lazy"
             />
             {/* Dark Mode Logo */}
             <Image
@@ -55,7 +55,7 @@ export async function Footer() {
               sizes="208px"
               className="object-contain object-center hidden dark:block transition-all duration-300"
               src="/GL_NOBGArtboard 4_white.webp"
-              priority
+              loading="lazy"
             />
           </div>
           <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed max-w-[260px] -mt-4 text-center">
