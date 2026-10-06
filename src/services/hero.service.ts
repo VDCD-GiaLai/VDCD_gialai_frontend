@@ -49,6 +49,7 @@ export const fetchHeroSlidesFromApi = cache(
       fetcher: async () => {
         const res = await fetch(`${API_BASE_URL}/slides`, {
           next: { revalidate: 60 },
+          signal: AbortSignal.timeout(2000),
         });
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         const body = await res.json();
@@ -92,7 +93,7 @@ export const fetchOrganizationInfoFromApi = cache(
       fetcher: async () => {
         const res = await fetch(`${API_BASE_URL}/organization`, {
           next: { revalidate: 60 },
-          signal: AbortSignal.timeout(5000),
+          signal: AbortSignal.timeout(2000),
         });
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         const body = await res.json();

@@ -189,13 +189,6 @@ export default function RootLayout({
 }>) {
   ReactDOM.prefetchDNS("//ik.imagekit.io");
   ReactDOM.preconnect("https://ik.imagekit.io", { crossOrigin: "anonymous" });
-  ReactDOM.prefetchDNS(
-    "//vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net",
-  );
-  ReactDOM.preconnect(
-    "https://vdcd-backend-app-e2cafqd8cebafycx.eastasia-01.azurewebsites.net",
-    { crossOrigin: "anonymous" },
-  );
 
   return (
     <html
@@ -203,6 +196,7 @@ export default function RootLayout({
       className={`${beVietnamPro.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
+      <head />
       <body className="font-sans antialiased" suppressHydrationWarning>
         {/* Organization & WebSite Structured Data */}
         <script
