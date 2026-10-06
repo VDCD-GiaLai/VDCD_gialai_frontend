@@ -155,8 +155,10 @@ export function GsapHero({
                       })}
                       alt={slide.title + " " + slide.title2}
                       className="object-cover w-full h-full select-none pointer-events-none"
-                      fetchPriority="low"
-                      loading="lazy"
+                      fetchPriority={
+                        idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
+                      }
+                      loading={idx <= 3 ? "eager" : "lazy"}
                       decoding="async"
                       draggable={false}
                     />
