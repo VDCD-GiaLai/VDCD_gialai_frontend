@@ -19,18 +19,15 @@ export function getOptimizedImageUrl(
   // Sanitize trailing backslashes or spaces
   const url = rawUrl.trim().replace(/\\+$/, "");
 
-  const w = options?.width ?? (options?.isThumbnail ? 320 : 1200);
-  const q = options?.quality ?? (options?.isThumbnail ? 80 : 85);
+  const w = options?.width ?? (options?.isThumbnail ? 400 : 1920);
+  const q = options?.quality ?? (options?.isThumbnail ? 85 : 90);
 
   // 1. Specific local optimization for known bloated 5.8MB ImageKit upload
   if (url.includes("1788429330513-c7068cbd16ee")) {
-    if (w <= 828) {
+    if (options?.isThumbnail && w <= 828) {
       return "/images/slides/data-center-828.webp";
     }
-    if (w <= 1200) {
-      return "/images/slides/data-center-1200.webp";
-    }
-    return "/images/slides/data-center.webp";
+    return "/images/slides/data-center-1920.webp";
   }
 
   // 2. ImageKit URLs with standard query transformation support
