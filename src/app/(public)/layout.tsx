@@ -1,22 +1,7 @@
 import * as React from "react";
-import dynamic from "next/dynamic";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-
-const FloatingContactWidget = dynamic(
-  () =>
-    import("@/components/layout/floating-contact-widget").then(
-      (m) => m.FloatingContactWidget,
-    ),
-  { ssr: true },
-);
-const PageTransitionOverlay = dynamic(
-  () =>
-    import("@/components/layout/page-transition-overlay").then(
-      (m) => m.PageTransitionOverlay,
-    ),
-  { ssr: true },
-);
+import { ClientLayoutWidgets } from "@/components/layout/client-layout-widgets";
 
 export default function PublicLayout({
   children,
@@ -28,8 +13,7 @@ export default function PublicLayout({
       <Header />
       <main className="flex-grow">{children}</main>
       <Footer />
-      <FloatingContactWidget />
-      <PageTransitionOverlay />
+      <ClientLayoutWidgets />
     </div>
   );
 }
