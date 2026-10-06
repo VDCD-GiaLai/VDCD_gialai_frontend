@@ -124,21 +124,44 @@ export function PartnersSection() {
   );
 
   React.useEffect(() => {
-    fetchPartnersFromApi().then((items) => {
-      if (items && items.length > 0) {
-        setPartnerList((prev) => {
-          if (
-            prev.length === items.length &&
-            prev.every(
-              (p, i) => p.name === items[i].name && p.logo === items[i].logo,
-            )
-          ) {
-            return prev;
-          }
-          return items;
-        });
+    let cancelId: any = null;
+    const fetchAction = () => {
+      fetchPartnersFromApi().then((items) => {
+        if (items && items.length > 0) {
+          setPartnerList((prev) => {
+            if (
+              prev.length === items.length &&
+              prev.every(
+                (p, i) => p.name === items[i].name && p.logo === items[i].logo,
+              )
+            ) {
+              return prev;
+            }
+            return items;
+          });
+        }
+      });
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      cancelId = (window as any).requestIdleCallback(fetchAction, {
+        timeout: 3500,
+      });
+    } else {
+      cancelId = setTimeout(fetchAction, 1500);
+    }
+
+    return () => {
+      if (
+        typeof window !== "undefined" &&
+        "cancelIdleCallback" in window &&
+        typeof cancelId === "number"
+      ) {
+        (window as any).cancelIdleCallback(cancelId);
+      } else if (cancelId) {
+        clearTimeout(cancelId);
       }
-    });
+    };
   }, []);
 
   const half = Math.ceil(partnerList.length / 2);

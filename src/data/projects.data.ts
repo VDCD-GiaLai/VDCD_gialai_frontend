@@ -115,8 +115,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     year: "2023",
     description:
       "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – giải pháp giám sát công trình cao tầng hiện đại, nền tảng cho đô thị thông minh.",
-    coverImage:
-      "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+    coverImage: "/images/projects/becamex-binh-duong.webp",
     layout: "landscape-full",
     overview:
       "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – giải pháp giám sát công trình cao tầng hiện đại, nền tảng cho đô thị thông minh.",
@@ -131,7 +130,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     discipline: "Giám sát cao tầng",
     galleryImages: [
       {
-        src: "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+        src: "/images/projects/becamex-binh-duong.webp",
         caption: "Tòa nhà Becamex Bình Dương",
         size: "large",
       },
@@ -162,10 +161,8 @@ export const PROJECTS_DATA: ProjectEntry[] = [
         value: "Becamex IDC",
       },
     ],
-    transformationBefore:
-      "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
-    transformationAfter:
-      "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+    transformationBefore: "/images/projects/becamex-binh-duong.webp",
+    transformationAfter: "/images/projects/becamex-binh-duong.webp",
     nextProjectSlug: "the-terra-an-hung",
   },
   {
@@ -176,8 +173,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     year: "2024",
     description:
       "AutoTimelapse triển khai tại khu đô thị Sun Marina Hạ Long – giải pháp giám sát toàn diện cho đô thị ven biển hiện đại.",
-    coverImage:
-      "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+    coverImage: "/images/projects/sun-marina-ha-long.webp",
     layout: "landscape-full",
     overview:
       "AutoTimelapse triển khai tại khu đô thị Sun Marina Hạ Long – giải pháp giám sát toàn diện cho đô thị ven biển hiện đại.",
@@ -192,7 +188,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     discipline: "Giám sát công trình ven biển",
     galleryImages: [
       {
-        src: "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+        src: "/images/projects/sun-marina-ha-long.webp",
         caption: "Sun Marina Hạ Long",
         size: "large",
       },
@@ -223,10 +219,8 @@ export const PROJECTS_DATA: ProjectEntry[] = [
         value: "Ven biển",
       },
     ],
-    transformationBefore:
-      "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
-    transformationAfter:
-      "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+    transformationBefore: "/images/projects/sun-marina-ha-long.webp",
+    transformationAfter: "/images/projects/sun-marina-ha-long.webp",
     nextProjectSlug: "son-tra-da-nang",
   },
   {
@@ -237,8 +231,7 @@ export const PROJECTS_DATA: ProjectEntry[] = [
     year: "2023",
     description:
       "Khảo sát địa hình và ứng dụng công nghệ LiDAR Scan tại Sân bay Vân Đồn. Trọn gói sản phẩm trắc địa gồm bản vẽ 2D, 3D, VR360.",
-    coverImage:
-      "https://vdcd.vn/wp-content/uploads/2025/11/467741379_1104256805040992_4651998732288142886_n-1024x512-1.jpg",
+    coverImage: "/images/projects/san-bay-van-don.webp",
     layout: "landscape-full",
     overview:
       "Khảo sát địa hình và ứng dụng công nghệ LiDAR Scan tại Sân bay Vân Đồn. Trọn gói sản phẩm trắc địa gồm bản vẽ 2D, 3D, VR360.",

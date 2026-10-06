@@ -174,7 +174,7 @@
       "title": "Tòa nhà Becamex Bình Dương",
       "slug": "becamex-binh-duong",
       "overview": "AutoTimelapse đồng hành cùng Becamex Tower Bình Dương – giải pháp giám sát công trình cao tầng hiện đại, nền tảng cho đô thị thông minh.",
-      "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+      "thumbnail": "/images/projects/becamex-binh-duong.webp",
       "field": {
         "id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
         "name": "Nông nghiệp công nghệ cao",
@@ -202,9 +202,9 @@
         "Báo cáo so sánh kế hoạch – thực tế"
       ],
       "discipline": "Giám sát cao tầng",
-      "transformationBefore": "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+      "transformationBefore": "/images/projects/becamex-binh-duong.webp",
       "transformationBeforeFileId": null,
-      "transformationAfter": "https://vdcd.vn/wp-content/uploads/2024/03/hinh-anh-du-an-becamex2-atl-1024x683-1.jpeg",
+      "transformationAfter": "/images/projects/becamex-binh-duong.webp",
       "transformationAfterFileId": null,
       "technicalHighlights": [
         {
@@ -244,7 +244,7 @@
       "title": "Sun Marina Hạ Long",
       "slug": "sun-marina-ha-long",
       "overview": "AutoTimelapse triển khai tại khu đô thị Sun Marina Hạ Long – giải pháp giám sát toàn diện cho đô thị ven biển hiện đại.",
-      "thumbnail": "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+      "thumbnail": "/images/projects/sun-marina-ha-long.webp",
       "field": {
         "id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
         "name": "Nông nghiệp công nghệ cao",
@@ -272,9 +272,9 @@
         "Báo cáo tiến độ trực tuyến"
       ],
       "discipline": "Giám sát công trình ven biển",
-      "transformationBefore": "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+      "transformationBefore": "/images/projects/sun-marina-ha-long.webp",
       "transformationBeforeFileId": null,
-      "transformationAfter": "https://vdcd.vn/wp-content/uploads/2024/03/13632_12-11-2025-11-30-00-1-1-scaled.jpg",
+      "transformationAfter": "/images/projects/sun-marina-ha-long.webp",
       "transformationAfterFileId": null,
       "technicalHighlights": [
         {
@@ -314,7 +314,7 @@
       "title": "Sân bay Vân Đồn",
       "slug": "san-bay-van-don",
       "overview": "Khảo sát địa hình và ứng dụng công nghệ LiDAR Scan tại Sân bay Vân Đồn. Trọn gói sản phẩm trắc địa gồm bản vẽ 2D, 3D, VR360.",
-      "thumbnail": "https://vdcd.vn/wp-content/uploads/2025/11/467741379_1104256805040992_4651998732288142886_n-1024x512-1.jpg",
+      "thumbnail": "/images/projects/san-bay-van-don.webp",
       "field": {
         "id": "e20f8cfa-92dd-4302-a746-fe50562e19b4",
         "name": "Nông nghiệp công nghệ cao",

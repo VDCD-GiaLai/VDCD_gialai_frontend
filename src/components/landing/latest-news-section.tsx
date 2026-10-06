@@ -52,7 +52,31 @@ export function LatestNewsSection() {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    fetchFeaturedArticlesFromApi(8).then(setArticles);
+    let cancelId: any = null;
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      cancelId = (window as any).requestIdleCallback(
+        () => {
+          fetchFeaturedArticlesFromApi(8).then(setArticles);
+        },
+        { timeout: 3000 },
+      );
+    } else {
+      cancelId = setTimeout(() => {
+        fetchFeaturedArticlesFromApi(8).then(setArticles);
+      }, 1500);
+    }
+
+    return () => {
+      if (
+        typeof window !== "undefined" &&
+        "cancelIdleCallback" in window &&
+        typeof cancelId === "number"
+      ) {
+        (window as any).cancelIdleCallback(cancelId);
+      } else if (cancelId) {
+        clearTimeout(cancelId);
+      }
+    };
   }, []);
 
   const containerRef = useScrollReveal({
