@@ -364,9 +364,9 @@ export function LatestNewsSection() {
                     {/* --txt */}
                     <div className="--txt flex-1 min-w-0 flex flex-col justify-between py-0.5">
                       <div className="--top">
-                        <h6 className="--link text-xs sm:text-sm font-bold font-heading text-black dark:text-white group-hover:text-[#e80002] transition-colors duration-300 leading-snug line-clamp-2 mb-1">
+                        <h3 className="--link text-xs sm:text-sm font-bold font-heading text-black dark:text-white group-hover:text-[#e80002] transition-colors duration-300 leading-snug line-clamp-2 mb-1">
                           {a.title}
-                        </h6>
+                        </h3>
                         {a.metaDescription && (
                           <article className="hidden sm:block text-[11px] sm:text-xs text-secondary dark:text-zinc-400 line-clamp-2 lg:line-clamp-3 leading-relaxed">
                             {a.metaDescription}
