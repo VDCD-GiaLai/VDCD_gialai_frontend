@@ -113,7 +113,13 @@ export function GsapHero({
                     quality: 90,
                   })}
                 />
-                {}
+                <source
+                  media="(max-width: 1280px)"
+                  srcSet={getOptimizedImageUrl(slide.image, {
+                    width: 1280,
+                    quality: 90,
+                  })}
+                />
                 <img
                   src={getOptimizedImageUrl(slide.image, {
                     width: 1920,

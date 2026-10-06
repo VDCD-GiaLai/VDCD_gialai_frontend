@@ -68,10 +68,20 @@ export default async function LandingPage() {
             rel="preload"
             as="image"
             href={getOptimizedImageUrl(firstSlideImage, {
+              width: 1280,
+              quality: 90,
+            })}
+            media="(min-width: 769px) and (max-width: 1280px)"
+            fetchPriority="high"
+          />
+          <link
+            rel="preload"
+            as="image"
+            href={getOptimizedImageUrl(firstSlideImage, {
               width: 1920,
               quality: 90,
             })}
-            media="(min-width: 769px)"
+            media="(min-width: 1281px)"
             fetchPriority="high"
           />
         </>

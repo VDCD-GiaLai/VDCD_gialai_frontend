@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import Script from "next/script";
 
 export const GA_MEASUREMENT_ID = "G-1GW0S2MJ04";
@@ -5,19 +8,63 @@ export const GTM_ID = "GTM-5G2FT7X4";
 
 /**
  * Google Tracking Scripts (Google Analytics 4 & Google Tag Manager)
- * Uses Next.js Script component with afterInteractive strategy to prevent render-blocking.
+ * Defers execution until first user interaction or idle timer to eliminate Main Thread Blocking (TBT).
  */
 export function GoogleTrackingScripts() {
+  const [shouldLoad, setShouldLoad] = React.useState(false);
+
+  React.useEffect(() => {
+    const trigger = () => {
+      setShouldLoad(true);
+      cleanUp();
+    };
+
+    const cleanUp = () => {
+      window.removeEventListener("scroll", trigger);
+      window.removeEventListener("touchstart", trigger);
+      window.removeEventListener("mousemove", trigger);
+      window.removeEventListener("click", trigger);
+      window.removeEventListener("keydown", trigger);
+    };
+
+    window.addEventListener("scroll", trigger, { passive: true, once: true });
+    window.addEventListener("touchstart", trigger, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("mousemove", trigger, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("click", trigger, { passive: true, once: true });
+    window.addEventListener("keydown", trigger, { passive: true, once: true });
+
+    // Fallback timer: load after 4 seconds of idle time if no user interaction occurs
+    const timer = setTimeout(() => {
+      setShouldLoad(true);
+      cleanUp();
+    }, 4000);
+
+    return () => {
+      clearTimeout(timer);
+      cleanUp();
+    };
+  }, []);
+
+  if (!shouldLoad) {
+    return null;
+  }
+
   return (
     <>
       {/* Google Analytics (gtag.js) */}
       <Script
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
       <Script
         id="google-analytics-init"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
@@ -31,7 +78,7 @@ export function GoogleTrackingScripts() {
       {/* Google Tag Manager */}
       <Script
         id="google-tag-manager-init"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
