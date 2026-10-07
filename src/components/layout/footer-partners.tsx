@@ -3,30 +3,32 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import {
-  fetchPartnersFromApi,
-  PartnerItem,
-  MOCK_PARTNERS,
-} from "@/services/partner.service";
+import type { PartnerItem } from "@/services/partner.service";
 
 export function FooterPartners() {
   const pathname = usePathname();
-  const [partners, setPartners] = useState<PartnerItem[]>(MOCK_PARTNERS);
+  const [partners, setPartners] = useState<PartnerItem[]>([]);
 
   useEffect(() => {
     if (pathname === "/") return;
     let isMounted = true;
-    fetchPartnersFromApi().then((data) => {
-      if (isMounted && data && data.length > 0) {
-        setPartners(data);
-      }
-    });
+    import("@/services/partner.service").then(
+      ({ fetchPartnersFromApi, MOCK_PARTNERS }) => {
+        if (!isMounted) return;
+        setPartners(MOCK_PARTNERS);
+        fetchPartnersFromApi().then((data) => {
+          if (isMounted && data && data.length > 0) {
+            setPartners(data);
+          }
+        });
+      },
+    );
     return () => {
       isMounted = false;
     };
   }, [pathname]);
 
-  if (pathname === "/") {
+  if (pathname === "/" || partners.length === 0) {
     return null;
   }
 

@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Spinner, Skeleton } from "@heroui/react";
-import { cn } from "@/lib/utils";
-
-export { Skeleton };
+import { cn } from "@/lib/cn";
 
 export interface LoadingSpinnerProps {
   className?: string;
@@ -13,12 +10,33 @@ export interface LoadingSpinnerProps {
   fullscreen?: boolean;
 }
 
+export function Skeleton({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-800",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
 export function LoadingSpinner({
   className,
   size = "md",
   label = "Đang tải dữ liệu...",
   fullscreen = false,
 }: LoadingSpinnerProps) {
+  const sizeClasses = {
+    sm: "w-4 h-4 border-2",
+    md: "w-8 h-8 border-3",
+    lg: "w-12 h-12 border-4",
+  };
+
   const spinnerElement = (
     <div
       className={cn(
@@ -26,7 +44,14 @@ export function LoadingSpinner({
         className,
       )}
     >
-      <Spinner size={size} color="success" />
+      <div
+        className={cn(
+          "rounded-full border-solid border-accent-red border-t-transparent animate-spin",
+          sizeClasses[size] || sizeClasses.md,
+        )}
+        role="status"
+        aria-label="Loading"
+      />
       {label && (
         <p className="text-secondary font-mono-label text-sm">{label}</p>
       )}

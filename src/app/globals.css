@@ -1,15 +1,16 @@
 @import "tailwindcss";
 @import "../components/landing/gsap-hero/gsap-hero.css";
 @import "../components/layout/mega-menu.css";
-@plugin '../../hero.ts';
-
-@source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-be-vietnam-pro), sans-serif;
-  --font-heading: var(--font-montserrat), sans-serif;
+  --font-sans:
+    var(--font-be-vietnam-pro), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading:
+    var(--font-montserrat), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-be-vietnam-pro), monospace;
 
   --color-accent-red: #e80002;

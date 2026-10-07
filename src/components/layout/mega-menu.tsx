@@ -10,7 +10,14 @@ import {
   MEGA_MENU_DEFAULT_SOLUTION_ID,
 } from "@/data/mega-menu.data";
 import type { MegaMenuSolution } from "@/data/mega-menu.data";
-import { gsap } from "@/lib/animations/register-gsap";
+
+let gsapInstance: any = null;
+const loadGsap = async () => {
+  if (gsapInstance) return gsapInstance;
+  const mod = await import("gsap");
+  gsapInstance = mod.default || mod;
+  return gsapInstance;
+};
 
 /* ── Types ────────────────────────────────────────────── */
 
@@ -103,24 +110,31 @@ const DesktopMegaMenu = ({
     if (!panelRef.current) return;
 
     if (isOpen) {
-      gsap.set(panelRef.current, { display: "block" });
-      gsap.fromTo(
-        panelRef.current,
-        { opacity: 0, y: -8 },
-        { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" },
-      );
-    } else {
-      gsap.to(panelRef.current, {
-        opacity: 0,
-        y: -8,
-        duration: 0.15,
-        ease: "power2.in",
-        onComplete: () => {
-          if (panelRef.current) {
-            gsap.set(panelRef.current, { display: "none" });
-          }
-        },
+      loadGsap().then((gsap) => {
+        if (!panelRef.current) return;
+        gsap.set(panelRef.current, { display: "block" });
+        gsap.fromTo(
+          panelRef.current,
+          { opacity: 0, y: -8 },
+          { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" },
+        );
       });
+    } else {
+      if (gsapInstance) {
+        gsapInstance.to(panelRef.current, {
+          opacity: 0,
+          y: -8,
+          duration: 0.15,
+          ease: "power2.in",
+          onComplete: () => {
+            if (panelRef.current && gsapInstance) {
+              gsapInstance.set(panelRef.current, { display: "none" });
+            }
+          },
+        });
+      } else if (panelRef.current) {
+        panelRef.current.style.display = "none";
+      }
     }
   }, [isOpen]);
 
@@ -179,6 +193,7 @@ const DesktopMegaMenu = ({
             <div className="pr-6" role="none">
               <Link
                 href="/programs"
+                prefetch={false}
                 onClick={() => setIsOpen(false)}
                 className="mega-menu-col-header"
               >
@@ -189,6 +204,7 @@ const DesktopMegaMenu = ({
                   <li key={program.label} role="none">
                     <Link
                       href={program.href}
+                      prefetch={false}
                       role="menuitem"
                       tabIndex={0}
                       onClick={() => setIsOpen(false)}
@@ -214,6 +230,7 @@ const DesktopMegaMenu = ({
                   <li key={solution.id} role="none">
                     <Link
                       href={solution.cta.href || `/solution/${solution.slug}`}
+                      prefetch={false}
                       role="menuitem"
                       tabIndex={0}
                       className="mega-menu-solution-item block w-full text-left font-heading text-sm font-medium"
@@ -273,6 +290,7 @@ const SolutionDetail = ({
     >
       <Link
         href={solution.cta.href}
+        prefetch={false}
         onClick={onNavigate}
         className="mega-menu-col-header"
       >
@@ -288,6 +306,7 @@ const SolutionDetail = ({
               {href ? (
                 <Link
                   href={href}
+                  prefetch={false}
                   role="menuitem"
                   tabIndex={0}
                   onClick={onNavigate}
@@ -307,6 +326,7 @@ const SolutionDetail = ({
 
       <Link
         href={solution.cta.href}
+        prefetch={false}
         onClick={onNavigate}
         className="mega-menu-cta"
       >
@@ -335,46 +355,62 @@ const MobileMegaMenu = ({
   useEffect(() => {
     if (!programsContentRef.current) return;
     if (isProgramsOpen) {
-      gsap.fromTo(
-        programsContentRef.current,
-        { height: 0, opacity: 0 },
-        {
-          height: "auto",
-          opacity: 1,
-          duration: 0.25,
-          ease: "power2.inOut",
-        },
-      );
-    } else {
-      gsap.to(programsContentRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.in",
+      loadGsap().then((gsap) => {
+        if (!programsContentRef.current) return;
+        gsap.fromTo(
+          programsContentRef.current,
+          { height: 0, opacity: 0 },
+          {
+            height: "auto",
+            opacity: 1,
+            duration: 0.25,
+            ease: "power2.inOut",
+          },
+        );
       });
+    } else {
+      if (gsapInstance) {
+        gsapInstance.to(programsContentRef.current, {
+          height: 0,
+          opacity: 0,
+          duration: 0.2,
+          ease: "power2.in",
+        });
+      } else if (programsContentRef.current) {
+        programsContentRef.current.style.height = "0px";
+        programsContentRef.current.style.opacity = "0";
+      }
     }
   }, [isProgramsOpen]);
 
   useEffect(() => {
     if (!solutionsContentRef.current) return;
     if (isSolutionsOpen) {
-      gsap.fromTo(
-        solutionsContentRef.current,
-        { height: 0, opacity: 0 },
-        {
-          height: "auto",
-          opacity: 1,
-          duration: 0.25,
-          ease: "power2.inOut",
-        },
-      );
-    } else {
-      gsap.to(solutionsContentRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.in",
+      loadGsap().then((gsap) => {
+        if (!solutionsContentRef.current) return;
+        gsap.fromTo(
+          solutionsContentRef.current,
+          { height: 0, opacity: 0 },
+          {
+            height: "auto",
+            opacity: 1,
+            duration: 0.25,
+            ease: "power2.inOut",
+          },
+        );
       });
+    } else {
+      if (gsapInstance) {
+        gsapInstance.to(solutionsContentRef.current, {
+          height: 0,
+          opacity: 0,
+          duration: 0.2,
+          ease: "power2.in",
+        });
+      } else if (solutionsContentRef.current) {
+        solutionsContentRef.current.style.height = "0px";
+        solutionsContentRef.current.style.opacity = "0";
+      }
     }
   }, [isSolutionsOpen]);
 
@@ -416,6 +452,7 @@ const MobileMegaMenu = ({
             <Link
               key={program.label}
               href={program.href}
+              prefetch={false}
               onClick={onMobileNavigate}
               className="block py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:text-accent-red transition-colors"
             >
@@ -471,6 +508,7 @@ const MobileMegaMenu = ({
                       <Link
                         key={label}
                         href={href}
+                        prefetch={false}
                         onClick={onMobileNavigate}
                         className="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-accent-red py-1 transition-colors"
                       >
@@ -487,6 +525,7 @@ const MobileMegaMenu = ({
                   })}
                   <Link
                     href={solution.cta.href}
+                    prefetch={false}
                     onClick={onMobileNavigate}
                     className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-red mt-1"
                   >

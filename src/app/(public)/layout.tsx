@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { ClientLayoutWidgets } from "@/components/layout/client-layout-widgets";
-
 export default function PublicLayout({
   children,
 }: {
@@ -13,7 +11,6 @@ export default function PublicLayout({
       <Header />
       <main className="flex-grow">{children}</main>
       <Footer />
-      <ClientLayoutWidgets />
     </div>
   );
 }

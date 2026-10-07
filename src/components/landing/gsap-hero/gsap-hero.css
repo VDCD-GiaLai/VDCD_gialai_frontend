@@ -31,37 +31,37 @@
   display: block;
 }
 
-.gsap-hero-container .card.active-bg {
+.gsap-hero-container:not(.gsap-ready) .card.active-bg {
   width: 100%;
   height: 100%;
   z-index: 20;
 }
 
-/* Card 0: Fullscreen hero background */
-.gsap-hero-container #card-0 {
+/* Card 0: Fullscreen hero background (pre-hydration only) */
+.gsap-hero-container:not(.gsap-ready) #card-0 {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 2px);
   left: 0;
   top: 0;
   z-index: 20;
   border-radius: 0;
 }
 
-.gsap-hero-container #card-content-0 {
+.gsap-hero-container:not(.gsap-ready) #card-content-0 {
   display: none;
 }
 
 /* Default initial layout for cards 1, 2, 3, 4 before GSAP attaches */
 @media (max-width: 767px) {
-  .gsap-hero-container #card-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-1 {
     width: 145px;
     height: 170px;
     border-radius: 12px;
     z-index: 30;
     transform: translate3d(16px, calc(100dvh - 195px), 0px);
   }
-  .gsap-hero-container #card-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-2 {
     width: 145px;
     height: 170px;
     border-radius: 12px;
@@ -72,7 +72,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-3 {
     width: 145px;
     height: 170px;
     border-radius: 12px;
@@ -83,7 +83,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-4 {
+  .gsap-hero-container:not(.gsap-ready) #card-4 {
     width: 145px;
     height: 170px;
     border-radius: 12px;
@@ -94,19 +94,19 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-1 {
     width: 145px;
     z-index: 40;
     opacity: 1;
     transform: translate3d(16px, calc(100dvh - 95px), 0px);
   }
-  .gsap-hero-container #card-content-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-2 {
     width: 145px;
     z-index: 40;
     opacity: 1;
     transform: translate3d(calc(16px + 145px + 10px), calc(100dvh - 95px), 0px);
   }
-  .gsap-hero-container #card-content-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-3 {
     width: 145px;
     z-index: 40;
     opacity: 1;
@@ -116,7 +116,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-4 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-4 {
     width: 145px;
     z-index: 40;
     opacity: 1;
@@ -126,7 +126,7 @@
       0px
     );
   }
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3):not(#card-4) {
     width: 145px;
     height: 170px;
@@ -140,7 +140,7 @@
       0px
     );
   }
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card-content:not(#card-content-0):not(#card-content-1):not(
       #card-content-2
     ):not(#card-content-3):not(#card-content-4) {
@@ -157,14 +157,14 @@
 }
 
 @media (min-width: 768px) and (max-width: 1279px) {
-  .gsap-hero-container #card-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-1 {
     width: 160px;
     height: 175px;
     border-radius: 12px;
     z-index: 30;
     transform: translate3d(76px, calc(100dvh - 210px), 0px);
   }
-  .gsap-hero-container #card-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-2 {
     width: 160px;
     height: 175px;
     border-radius: 12px;
@@ -175,7 +175,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-3 {
     width: 160px;
     height: 175px;
     border-radius: 12px;
@@ -186,7 +186,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-4 {
+  .gsap-hero-container:not(.gsap-ready) #card-4 {
     width: 160px;
     height: 175px;
     border-radius: 12px;
@@ -197,19 +197,19 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-1 {
     width: 160px;
     z-index: 40;
     opacity: 1;
     transform: translate3d(76px, calc(100dvh - 95px), 0px);
   }
-  .gsap-hero-container #card-content-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-2 {
     width: 160px;
     z-index: 40;
     opacity: 1;
     transform: translate3d(calc(76px + 160px + 12px), calc(100dvh - 95px), 0px);
   }
-  .gsap-hero-container #card-content-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-3 {
     width: 160px;
     z-index: 40;
     opacity: 1;
@@ -219,7 +219,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-4 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-4 {
     width: 160px;
     z-index: 40;
     opacity: 1;
@@ -229,7 +229,7 @@
       0px
     );
   }
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3):not(#card-4) {
     width: 160px;
     height: 175px;
@@ -243,7 +243,7 @@
       0px
     );
   }
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card-content:not(#card-content-0):not(#card-content-1):not(
       #card-content-2
     ):not(#card-content-3):not(#card-content-4) {
@@ -260,7 +260,7 @@
 }
 
 @media (min-width: 1280px) {
-  .gsap-hero-container #card-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-1 {
     width: 175px;
     height: 255px;
     border-radius: 12px;
@@ -271,7 +271,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-2 {
     width: 175px;
     height: 255px;
     border-radius: 12px;
@@ -282,7 +282,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-3 {
     width: 175px;
     height: 255px;
     border-radius: 12px;
@@ -293,7 +293,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-1 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-1 {
     width: 175px;
     z-index: 40;
     opacity: 1;
@@ -303,7 +303,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-2 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-2 {
     width: 175px;
     z-index: 40;
     opacity: 1;
@@ -313,7 +313,7 @@
       0px
     );
   }
-  .gsap-hero-container #card-content-3 {
+  .gsap-hero-container:not(.gsap-ready) #card-content-3 {
     width: 175px;
     z-index: 40;
     opacity: 1;
@@ -323,9 +323,9 @@
       0px
     );
   }
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card:not(#card-0):not(#card-1):not(#card-2):not(#card-3),
-  .gsap-hero-container
+  .gsap-hero-container:not(.gsap-ready)
     .card-content:not(#card-content-1):not(#card-content-2):not(
       #card-content-3
     ) {
@@ -550,6 +550,7 @@
   border-radius: 99px;
   color: #ffffff;
   padding: 8px 32px;
+  font-family: var(--font-sans), sans-serif;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -574,7 +575,7 @@
   display: none;
   align-items: center;
   top: calc(100dvh - 100px);
-  left: 20px;
+  left: max(calc(100vw - 640px), 500px);
 }
 
 @media (min-width: 1280px) {

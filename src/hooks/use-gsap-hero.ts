@@ -2,8 +2,25 @@
 
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { GsapHeroSlide } from "@/types";
+
+let gsapInstance: any = null;
+const loadGsap = async () => {
+  if (gsapInstance) return gsapInstance;
+  const mod = await import("gsap");
+  gsapInstance = mod.default || mod;
+  return gsapInstance;
+};
+
+// Safe proxy forwarding to dynamic gsap instance once loaded
+const gsap = new Proxy({} as any, {
+  get: (_, prop) => {
+    if (gsapInstance && gsapInstance[prop]) {
+      return gsapInstance[prop];
+    }
+    return () => {};
+  },
+});
 
 export function useGsapHero(
   containerRef: React.RefObject<HTMLDivElement | null>,
@@ -14,7 +31,7 @@ export function useGsapHero(
   const orderRef = useRef(slides.map((_, i) => i));
   const detailsEvenRef = useRef(true);
   const isAnimatingRef = useRef(false);
-  const autoplayTweenRef = useRef<any>(null);
+  const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isMountedRef = useRef(false);
 
   // React state to reflect the active slide in the UI (specifically for class toggle like active-bg)
@@ -72,6 +89,8 @@ export function useGsapHero(
     if (typeof window === "undefined") return 3;
     return window.innerWidth < 1280 ? 4 : 3;
   };
+
+  const isGsapReadyRef = useRef(false);
 
   // Layout parameters refs for resize handling
   const offsetTopVal = useRef(200);
@@ -131,17 +150,15 @@ export function useGsapHero(
     const cardActive = getCard(active);
     if (cardActive) {
       gsap.killTweensOf(cardActive);
-      if (isMountedRef.current || active !== 0) {
-        gsap.set(cardActive, {
-          x: 0,
-          y: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-          zIndex: 20,
-          borderRadius: 0,
-          scale: 1,
-        });
-      }
+      gsap.set(cardActive, {
+        x: 0,
+        y: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        zIndex: 20,
+        borderRadius: 0,
+        scale: 1,
+      });
     }
 
     // Active Card content overlay hidden
@@ -254,19 +271,28 @@ export function useGsapHero(
     }
   };
 
-  const startAutoplayLoop = (delay = 25) => {
-    if (autoplayTweenRef.current) {
-      autoplayTweenRef.current.kill();
+  const ensureGsapReady = async () => {
+    if (isGsapReadyRef.current) return;
+    await loadGsap();
+    isGsapReadyRef.current = true;
+    if (containerRef.current) {
+      containerRef.current.classList.add("gsap-ready");
+      updateDimensions();
+      setCardPositions(false);
     }
-    autoplayTweenRef.current = gsap.delayedCall(delay, () => {
+  };
+
+  const startAutoplayLoop = (delay = 25) => {
+    stopAutoplayLoop();
+    autoplayTimerRef.current = setTimeout(() => {
       nextSlide(true);
-    });
+    }, delay * 1000);
   };
 
   const stopAutoplayLoop = () => {
-    if (autoplayTweenRef.current) {
-      autoplayTweenRef.current.kill();
-      autoplayTweenRef.current = null;
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
     }
   };
 
@@ -578,116 +604,118 @@ export function useGsapHero(
       const cardPrv = getCard(prv);
       const cardActive = getCard(active);
 
-      if (cardPrv) {
-        gsap.killTweensOf(cardPrv);
-        gsap.set(cardPrv, { zIndex: 10 });
-        gsap.to(cardPrv, { scale: 1.3, duration: 1.2, ease: "sine.inOut" });
-      }
-
+      // cardActive (new active) is positioned at fullscreen (0,0), scale 1.2, zIndex 10
       if (cardActive) {
         gsap.killTweensOf(cardActive);
-        gsap.set(cardActive, { zIndex: 20, opacity: 1, scale: 1 });
+        gsap.set(cardActive, {
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          zIndex: 10,
+          opacity: 1,
+          scale: 1.2,
+          borderRadius: 0,
+        });
+        gsap.to(cardActive, {
+          scale: 1,
+          duration: 1.2,
+          ease: "sine.inOut",
+        });
       }
 
       const activeContent = getCardContent(active);
       if (activeContent) {
         gsap.killTweensOf(activeContent);
-        gsap.to(activeContent, {
-          opacity: 0,
-          y: offsetTopVal.current + cardHeightVal.current - 10,
-          duration: 0.3,
-          ease: "sine.inOut",
-        });
+        gsap.set(activeContent, { opacity: 0 });
       }
 
-      if (cardActive) {
-        gsap.to(cardActive, {
-          x: 0,
-          y: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-          borderRadius: 0,
+      const xSlot0 = offsetLeftVal.current;
+
+      // cardPrv (old active) shrinks from fullscreen into slot 0
+      if (cardPrv) {
+        gsap.killTweensOf(cardPrv);
+        gsap.set(cardPrv, { zIndex: 20 });
+        gsap.to(cardPrv, {
+          x: xSlot0,
+          y: offsetTopVal.current,
+          width: cardWidthVal.current,
+          height: cardHeightVal.current,
+          borderRadius: 12,
+          scale: 1,
           duration: 1.2,
           ease: "sine.inOut",
           onComplete: () => {
-            const xNew = offsetLeftVal.current;
-            if (cardPrv) {
-              gsap.set(cardPrv, {
-                x: xNew,
-                y: offsetTopVal.current,
-                width: cardWidthVal.current,
-                height: cardHeightVal.current,
-                zIndex: 30,
-                opacity: 1,
-                pointerEvents: "auto",
-                borderRadius: 12,
-                scale: 1,
-              });
-            }
-
-            const contentPrv = getCardContent(prv);
-            if (contentPrv) {
-              gsap.set(contentPrv, {
-                x: xNew,
-                y:
-                  offsetTopVal.current +
-                  cardHeightVal.current -
-                  getContentYOffset(),
-                width: cardWidthVal.current,
-                opacity: 1,
-                pointerEvents: "auto",
-                zIndex: 40,
-              });
-            }
-
+            gsap.set(cardPrv, { zIndex: 30, pointerEvents: "auto" });
             resolve();
           },
         });
+      } else {
+        resolve();
       }
 
-      // Animating the rest of the thumbnails rightward
-      rest.forEach((i, index) => {
-        if (i !== prv) {
-          const isVisible = index < getMaxVisibleThumbs();
-          const xNew =
-            offsetLeftVal.current +
-            index * (cardWidthVal.current + gapVal.current);
-          const cardI = getCard(i);
-          const contentI = getCardContent(i);
+      // contentPrv fades in at slot 0
+      const contentPrv = getCardContent(prv);
+      if (contentPrv) {
+        gsap.killTweensOf(contentPrv);
+        gsap.set(contentPrv, {
+          x: xSlot0,
+          y: offsetTopVal.current + cardHeightVal.current - getContentYOffset(),
+          width: cardWidthVal.current,
+          opacity: 0,
+          zIndex: 40,
+        });
+        gsap.to(contentPrv, {
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.3,
+          ease: "sine.inOut",
+          pointerEvents: "auto",
+        });
+      }
 
-          if (cardI) {
-            gsap.killTweensOf(cardI);
-            gsap.set(cardI, { zIndex: isVisible ? 30 : 5 });
-            gsap.to(cardI, {
-              x: xNew,
-              y: offsetTopVal.current,
-              width: cardWidthVal.current,
-              height: cardHeightVal.current,
-              opacity: isVisible ? 1 : 0,
-              pointerEvents: isVisible ? "auto" : "none",
-              duration: 1.0,
-              ease: "sine.inOut",
-              delay: 0.05 * index,
-            });
-          }
+      // The rest of the thumbnails (rest.slice(1)) animate rightward
+      rest.slice(1).forEach((i, index) => {
+        const targetSlot = index + 1;
+        const isVisible = targetSlot < getMaxVisibleThumbs();
+        const xNew =
+          offsetLeftVal.current +
+          targetSlot * (cardWidthVal.current + gapVal.current);
+        const cardI = getCard(i);
+        const contentI = getCardContent(i);
 
-          if (contentI) {
-            gsap.killTweensOf(contentI);
-            gsap.to(contentI, {
-              x: xNew,
-              y:
-                offsetTopVal.current +
-                cardHeightVal.current -
-                getContentYOffset(),
-              width: cardWidthVal.current,
-              opacity: isVisible ? 1 : 0,
-              pointerEvents: isVisible ? "auto" : "none",
-              zIndex: isVisible ? 40 : 5,
-              duration: 1.0,
-              ease: "sine.inOut",
-              delay: 0.05 * index,
-            });
-          }
+        if (cardI) {
+          gsap.killTweensOf(cardI);
+          gsap.set(cardI, { zIndex: isVisible ? 30 : 5 });
+          gsap.to(cardI, {
+            x: xNew,
+            y: offsetTopVal.current,
+            width: cardWidthVal.current,
+            height: cardHeightVal.current,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
+            duration: 1.0,
+            ease: "sine.inOut",
+            delay: 0.05 * index,
+          });
+        }
+
+        if (contentI) {
+          gsap.killTweensOf(contentI);
+          gsap.to(contentI, {
+            x: xNew,
+            y:
+              offsetTopVal.current +
+              cardHeightVal.current -
+              getContentYOffset(),
+            width: cardWidthVal.current,
+            opacity: isVisible ? 1 : 0,
+            pointerEvents: isVisible ? "auto" : "none",
+            zIndex: isVisible ? 40 : 5,
+            duration: 1.0,
+            ease: "sine.inOut",
+            delay: 0.05 * index,
+          });
         }
       });
     });
@@ -911,53 +939,81 @@ export function useGsapHero(
 
   const selectSlide = async (targetIdx: number) => {
     if (isAnimatingRef.current) return;
+    if (orderRef.current[0] === targetIdx) return;
+    await ensureGsapReady();
     isAnimatingRef.current = true;
 
     stopAutoplayLoop();
-    await jumpTo(targetIdx);
-    isAnimatingRef.current = false;
-    startAutoplayLoop(15);
+    try {
+      await jumpTo(targetIdx);
+    } finally {
+      isAnimatingRef.current = false;
+      startAutoplayLoop(15);
+    }
   };
 
   const nextSlide = async (isAutoplay = false) => {
     if (isAnimatingRef.current) return;
+    await ensureGsapReady();
     isAnimatingRef.current = true;
 
     if (!isAutoplay) {
       stopAutoplayLoop();
     }
 
-    await stepNext();
-    isAnimatingRef.current = false;
-    startAutoplayLoop(15);
+    try {
+      await stepNext();
+    } finally {
+      isAnimatingRef.current = false;
+      startAutoplayLoop(15);
+    }
   };
 
   const prevSlide = async () => {
     if (isAnimatingRef.current) return;
+    await ensureGsapReady();
     isAnimatingRef.current = true;
 
     stopAutoplayLoop();
-    await stepPrev();
-    isAnimatingRef.current = false;
-    startAutoplayLoop(15);
+    try {
+      await stepPrev();
+    } finally {
+      isAnimatingRef.current = false;
+      startAutoplayLoop(15);
+    }
   };
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    let ctx: gsap.Context | null = null;
-    const animId = requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      ctx = gsap.context(() => {
-        // Set up responsive values and autoplay
-        updateDimensions();
-        // Skip setCardPositions(false) on initial mount: CSS already positions cards 0..4 pixel-perfectly.
-        // Mutating inline style transforms on mount forces Chrome to delay LCP paint candidate.
-        startAutoplayLoop(25);
-        isMountedRef.current = true;
-      }, containerRef);
+    isMountedRef.current = true;
+    startAutoplayLoop(25);
+
+    // Pre-cache GSAP after initial paint or on early user interaction
+    const triggerEarlyGsap = () => {
+      loadGsap();
+      window.removeEventListener("pointerdown", triggerEarlyGsap);
+      window.removeEventListener("keydown", triggerEarlyGsap);
+    };
+    window.addEventListener("pointerdown", triggerEarlyGsap, {
+      once: true,
+      passive: true,
     });
+    window.addEventListener("keydown", triggerEarlyGsap, {
+      once: true,
+      passive: true,
+    });
+
+    const idleTimer = setTimeout(() => {
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        window.requestIdleCallback(() => {
+          loadGsap();
+        });
+      } else {
+        loadGsap();
+      }
+    }, 4000);
 
     // Touch Swipe Gestures
     let touchStartX = 0;
@@ -966,6 +1022,7 @@ export function useGsapHero(
     let touchEndY = 0;
 
     const handleTouchStart = (e: TouchEvent) => {
+      ensureGsapReady();
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     };
@@ -993,18 +1050,22 @@ export function useGsapHero(
 
     // Window Resize handler
     const handleResize = () => {
-      updateDimensions();
-      setCardPositions(false);
+      if (isGsapReadyRef.current) {
+        updateDimensions();
+        setCardPositions(false);
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(animId);
+      clearTimeout(idleTimer);
+      window.removeEventListener("pointerdown", triggerEarlyGsap);
+      window.removeEventListener("keydown", triggerEarlyGsap);
       window.removeEventListener("resize", handleResize);
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchend", handleTouchEnd);
-      ctx?.revert();
+      container.classList.remove("gsap-ready");
       stopAutoplayLoop();
     };
   }, []);
