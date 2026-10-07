@@ -2,15 +2,23 @@
 
 import * as React from "react";
 import { useRef } from "react";
-import { ArrowRight } from "@phosphor-icons/react";
 import { GSAP_HERO_SLIDES, type GsapHeroSlide } from "@/data/gsap-hero.data";
 import type { HeroSlideItem } from "@/data/hero.data";
-import {
-  fetchHeroSlidesFromApi,
-  getCachedHeroSlides,
-} from "@/services/hero.service";
 import { getOptimizedImageUrl } from "@/lib/image-utils";
 import { useGsapHero } from "@/hooks/use-gsap-hero";
+
+function ArrowRightIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 256 256"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+    </svg>
+  );
+}
 
 export function GsapHero({
   initialSlides,
@@ -61,25 +69,40 @@ export function GsapHero({
     };
   };
 
-  const [slides, setSlides] = React.useState<GsapHeroSlide[]>(() => {
+  const [slides] = React.useState<GsapHeroSlide[]>(() => {
     if (initialSlides && initialSlides.length > 0) {
       return initialSlides.map(mapSlide);
-    }
-    const cached = getCachedHeroSlides();
-    if (cached && cached.length > 0) {
-      return cached.map(mapSlide);
     }
     return GSAP_HERO_SLIDES;
   });
 
+  const [thumbsReady, setThumbsReady] = React.useState(false);
+
   React.useEffect(() => {
-    if (initialSlides && initialSlides.length > 0) return;
-    fetchHeroSlidesFromApi().then((apiSlides) => {
-      if (apiSlides && apiSlides.length > 0) {
-        setSlides(apiSlides.map(mapSlide));
-      }
+    const timer = setTimeout(() => {
+      setThumbsReady(true);
+    }, 400);
+
+    const onUserActive = () => {
+      setThumbsReady(true);
+      window.removeEventListener("pointerdown", onUserActive);
+      window.removeEventListener("scroll", onUserActive);
+    };
+    window.addEventListener("pointerdown", onUserActive, {
+      once: true,
+      passive: true,
     });
-  }, [initialSlides]);
+    window.addEventListener("scroll", onUserActive, {
+      once: true,
+      passive: true,
+    });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("pointerdown", onUserActive);
+      window.removeEventListener("scroll", onUserActive);
+    };
+  }, []);
 
   const { order, nextSlide, prevSlide, selectSlide } = useGsapHero(
     containerRef,
@@ -100,81 +123,86 @@ export function GsapHero({
         return (
           <React.Fragment key={idx}>
             <div
-              className={`card cursor-pointer absolute ${isHero ? "inset-0 w-full h-full" : "top-0 left-0"} ${order[0] === idx ? "active-bg" : ""}`}
+              className={`card cursor-pointer absolute top-0 left-0 ${order[0] === idx ? "active-bg" : ""}`}
               id={`card-${idx}`}
               onClick={() => {
-                selectSlide(idx);
+                setThumbsReady(true);
+                if (order[0] !== idx) {
+                  selectSlide(idx);
+                }
               }}
             >
-              <picture className="absolute inset-0 w-full h-full pointer-events-none block">
-                {isHighRes ? (
-                  <>
-                    <source
-                      media="(max-width: 640px)"
-                      srcSet={getOptimizedImageUrl(slide.image, {
-                        width: 640,
-                        quality: 85,
-                      })}
-                    />
-                    <source
-                      media="(max-width: 768px)"
-                      srcSet={getOptimizedImageUrl(slide.image, {
-                        width: 828,
-                        quality: 85,
-                      })}
-                    />
-                    <source
-                      media="(max-width: 1280px)"
-                      srcSet={getOptimizedImageUrl(slide.image, {
-                        width: 1280,
-                        quality: 90,
-                      })}
-                    />
-                    <img
-                      src={getOptimizedImageUrl(slide.image, {
-                        width: 1920,
-                        quality: 90,
-                      })}
-                      alt={slide.title + " " + slide.title2}
-                      width={1920}
-                      height={1080}
-                      className="object-cover w-full h-full select-none pointer-events-none block"
-                      fetchPriority={isHero ? "high" : "low"}
-                      loading={isHero ? "eager" : "lazy"}
-                      decoding={isHero ? "sync" : "async"}
-                      draggable={false}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <source
-                      media="(max-width: 768px)"
-                      srcSet={getOptimizedImageUrl(slide.image, {
-                        width: 320,
-                        quality: 85,
-                        isThumbnail: true,
-                      })}
-                    />
-                    <img
-                      src={getOptimizedImageUrl(slide.image, {
-                        width: 480,
-                        quality: 85,
-                        isThumbnail: true,
-                      })}
-                      alt={slide.title + " " + slide.title2}
-                      width={480}
-                      height={640}
-                      className="object-cover w-full h-full select-none pointer-events-none block"
-                      fetchPriority={
-                        idx === 1 ? "high" : idx <= 3 ? "auto" : "low"
-                      }
-                      loading={idx <= 3 ? "eager" : "lazy"}
-                      decoding={idx === 1 ? "sync" : "async"}
-                      draggable={false}
-                    />
-                  </>
-                )}
-              </picture>
+              {isHero || thumbsReady ? (
+                <picture className="absolute inset-0 w-full h-full pointer-events-none block">
+                  {isHighRes ? (
+                    <>
+                      <source
+                        media="(max-width: 640px)"
+                        srcSet={getOptimizedImageUrl(slide.image, {
+                          width: 640,
+                          quality: 85,
+                        })}
+                      />
+                      <source
+                        media="(max-width: 768px)"
+                        srcSet={getOptimizedImageUrl(slide.image, {
+                          width: 828,
+                          quality: 85,
+                        })}
+                      />
+                      <source
+                        media="(max-width: 1280px)"
+                        srcSet={getOptimizedImageUrl(slide.image, {
+                          width: 1280,
+                          quality: 90,
+                        })}
+                      />
+                      <img
+                        src={getOptimizedImageUrl(slide.image, {
+                          width: 1920,
+                          quality: 90,
+                        })}
+                        alt={slide.title + " " + slide.title2}
+                        width={1920}
+                        height={1080}
+                        className="object-cover w-full h-full select-none pointer-events-none block"
+                        fetchPriority={isHero ? "high" : "low"}
+                        loading={isHero ? "eager" : "lazy"}
+                        decoding="async"
+                        draggable={false}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <source
+                        media="(max-width: 768px)"
+                        srcSet={getOptimizedImageUrl(slide.image, {
+                          width: 320,
+                          quality: 85,
+                          isThumbnail: true,
+                        })}
+                      />
+                      <img
+                        src={getOptimizedImageUrl(slide.image, {
+                          width: 480,
+                          quality: 85,
+                          isThumbnail: true,
+                        })}
+                        alt={slide.title + " " + slide.title2}
+                        width={480}
+                        height={640}
+                        className="object-cover w-full h-full select-none pointer-events-none block"
+                        fetchPriority="low"
+                        loading="lazy"
+                        decoding="async"
+                        draggable={false}
+                      />
+                    </>
+                  )}
+                </picture>
+              ) : (
+                <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-xs pointer-events-none block" />
+              )}
             </div>
             {/* Card Content Overlay */}
             <div
@@ -199,16 +227,18 @@ export function GsapHero({
                 {slides[0]?.place}
               </div>
             </div>
-            <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
-                {slides[0]?.title}
+            <h1 className="contents">
+              <div className="title-box-1 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
+                <div className="title-1 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
+                  {slides[0]?.title}
+                </div>
               </div>
-            </div>
-            <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
-              <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
-                {slides[0]?.title2}
+              <div className="title-box-2 text-2xl min-[380px]:text-3xl md:text-5xl xl:text-6xl font-heading">
+                <div className="title-2 font-bold tracking-tighter leading-none uppercase text-white font-heading whitespace-nowrap">
+                  {slides[0]?.title2}
+                </div>
               </div>
-            </div>
+            </h1>
             <div className="desc text-zinc-300 max-w-lg mt-4 text-sm md:text-base leading-relaxed">
               {slides[0]?.desc}
             </div>
@@ -219,11 +249,7 @@ export function GsapHero({
                 className="discover pointer-events-auto"
               >
                 {slides[0]?.ctaText || "Tìm hiểu thêm"}{" "}
-                <ArrowRight
-                  className="w-4 h-4"
-                  weight="thin"
-                  aria-hidden="true"
-                />
+                <ArrowRightIcon className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -246,11 +272,7 @@ export function GsapHero({
                 className="discover pointer-events-auto"
               >
                 {slides[0]?.ctaText || "Tìm hiểu thêm"}{" "}
-                <ArrowRight
-                  className="w-4 h-4"
-                  weight="thin"
-                  aria-hidden="true"
-                />
+                <ArrowRightIcon className="w-4 h-4" />
               </a>
             </div>
           </div>

@@ -1,11 +1,10 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
 
 /**
- * Merges CSS classes with tailwind-merge and clsx
+ * Fast conditional class names utility using clsx
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return clsx(inputs);
 }
 
 /**

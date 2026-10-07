@@ -1,8 +1,11 @@
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { FooterPartners } from "./footer-partners";
+import dynamic from "next/dynamic";
 import { FooterSolutionsLink } from "./footer-solutions-link";
+
+const FooterPartners = dynamic(() =>
+  import("./footer-partners").then((m) => m.FooterPartners),
+);
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FiMapPin, FiMail, FiPhone, FiMessageCircle } from "react-icons/fi";
 import { FaFacebookF, FaTiktok } from "react-icons/fa";
@@ -40,22 +43,24 @@ export async function Footer() {
         <div className="flex flex-col items-center text-center gap-4 shrink-0 w-full lg:w-auto lg:max-w-[260px]">
           <div className="relative w-52 h-[100px] -mt-4 mb-2 mx-auto">
             {/* Light Mode Logo */}
-            <Image
+            <img
               alt="VDCD Gia Lai Logo"
-              fill
-              sizes="208px"
-              className="object-contain object-center dark:hidden transition-all duration-300"
+              className="object-contain object-center w-full h-full dark:hidden transition-all duration-300"
               src="/GL_NOBGArtboard 4.webp"
+              width={208}
+              height={100}
               loading="lazy"
+              decoding="async"
             />
             {/* Dark Mode Logo */}
-            <Image
+            <img
               alt="VDCD Gia Lai Logo"
-              fill
-              sizes="208px"
-              className="object-contain object-center hidden dark:block transition-all duration-300"
+              className="object-contain object-center w-full h-full hidden dark:block transition-all duration-300"
               src="/GL_NOBGArtboard 4_white.webp"
+              width={208}
+              height={100}
               loading="lazy"
+              decoding="async"
             />
           </div>
           <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed max-w-[260px] -mt-4 text-center">
@@ -189,6 +194,7 @@ export async function Footer() {
             </h3>
             <Link
               href="/about-us#vision"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -197,6 +203,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/about-us#stats"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -222,6 +229,7 @@ export async function Footer() {
             </h3>
             <Link
               href="/programs"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -231,6 +239,7 @@ export async function Footer() {
             <FooterSolutionsLink />
             <Link
               href="/projects"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -246,6 +255,7 @@ export async function Footer() {
             </h3>
             <Link
               href="/policies/dieu-khoan-su-dung"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -254,6 +264,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/chinh-sach-bao-mat"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -262,6 +273,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/hinh-thuc-thanh-toan"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -270,6 +282,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/chinh-sach-gia"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -278,6 +291,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/van-chuyen-giao-nhan-cung-cap-dich-vu"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -286,6 +300,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/chinh-sach-doi-tra"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -294,6 +309,7 @@ export async function Footer() {
             </Link>
             <Link
               href="/policies/tiep-nhan-giai-quyet-khieu-nai"
+              prefetch={false}
               className="group flex items-center text-sm text-slate-600 dark:text-zinc-400 hover:text-accent-red dark:hover:text-accent-red transition-all duration-300 py-0.5"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-1.5">
@@ -315,6 +331,7 @@ export async function Footer() {
           </span>
           <Link
             href="/policies/chinh-sach-bao-mat"
+            prefetch={false}
             className="hover:text-accent-red transition-colors"
           >
             Chính sách bảo mật
@@ -322,6 +339,7 @@ export async function Footer() {
           <span className="text-slate-300 dark:text-zinc-700">•</span>
           <Link
             href="/policies/dieu-khoan-su-dung"
+            prefetch={false}
             className="hover:text-accent-red transition-colors"
           >
             Điều khoản sử dụng
@@ -329,6 +347,7 @@ export async function Footer() {
           <span className="text-slate-300 dark:text-zinc-700">•</span>
           <Link
             href="/policies/hinh-thuc-thanh-toan"
+            prefetch={false}
             className="hover:text-accent-red transition-colors"
           >
             Thanh toán

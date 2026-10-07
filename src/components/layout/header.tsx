@@ -10,7 +10,6 @@ import { Sun, Moon, List, X, FileText } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { APP_ROUTES } from "@/lib/constants";
 import { useMegaMenu } from "@/components/layout/mega-menu";
-import { FiFileText } from "react-icons/fi";
 
 const emptySubscribe = () => () => {};
 
@@ -115,15 +114,20 @@ export function Header() {
       }`}
     >
       <div className="max-w-[1600px] mx-auto flex justify-between items-center h-full px-4 md:px-8">
-        <Link href={APP_ROUTES.HOME} className="flex items-center gap-2">
+        <Link
+          href={APP_ROUTES.HOME}
+          prefetch={false}
+          className="flex items-center gap-2"
+        >
           <div className="relative sm:w-[300px] sm:h-[80px] w-[220px] h-[80px]">
-            <Image
+            <img
               alt="VDCD Logo"
-              fill
-              priority
-              sizes="256px"
-              className="object-contain"
+              className="object-contain w-full h-full"
               src={logoSrc}
+              width={300}
+              height={80}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </Link>
@@ -221,8 +225,14 @@ export function Header() {
             href="/company-profile"
             target="_blank"
             rel="noopener noreferrer"
-            startContent={<FiFileText className="w-4 h-4" aria-hidden="true" />}
-            className="hidden md:inline-flex bg-black dark:bg-white text-white dark:text-black font-mono-label text-xs font-bold uppercase tracking-widest hover:bg-accent-red dark:hover:bg-accent-red dark:hover:text-white hover:text-white transition-all duration-300 rounded-none"
+            startContent={
+              <FileText className="w-4 h-4" weight="bold" aria-hidden="true" />
+            }
+            className={`hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-none font-mono-label text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${
+              showSolidHeader
+                ? "bg-accent-red hover:bg-accent-red-hover text-white border border-accent-red shadow-accent-red/20"
+                : "bg-white/10 hover:bg-accent-red text-white border border-white/60 hover:border-accent-red backdrop-blur-md"
+            }`}
           >
             Hồ sơ năng lực
           </Button>

@@ -10,17 +10,15 @@ import "./globals.css";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin", "vietnamese"],
-  weight: ["600", "700"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
-  preload: true,
 });
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -63,29 +61,15 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  manifest: "/favicons/manifest.json",
   icons: {
     icon: [
-      { url: "/favicons/favicon.ico" },
-      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicons/favicon.ico" },
     ],
     apple: [
       {
         url: "/favicons/apple-icon-180x180.png",
         sizes: "180x180",
-        type: "image/png",
-      },
-      {
-        url: "/favicons/apple-icon-152x152.png",
-        sizes: "152x152",
-        type: "image/png",
-      },
-      {
-        url: "/favicons/apple-icon-120x120.png",
-        sizes: "120x120",
         type: "image/png",
       },
     ],
@@ -126,7 +110,6 @@ export const metadata: Metadata = {
     "webmcp:search": "https://doimoisangtaogialai.vn/news?search={query}",
     "mcp-server": "https://doimoisangtaogialai.vn/api/mcp",
     "msapplication-TileColor": "#C8102E",
-    "msapplication-TileImage": "/favicons/ms-icon-144x144.png",
   },
 };
 
@@ -193,17 +176,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link
-          rel="preconnect"
-          href="https://ik.imagekit.io"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="https://ik.imagekit.io" />
         <script id="organization-schema" type="application/ld+json">
           {JSON.stringify(jsonLdSchema)}
         </script>
       </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body
+        className={`${beVietnamPro.variable} ${montserrat.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <AppProviders>{children}</AppProviders>
         <GoogleTagManagerNoscript />
         <GoogleTrackingScripts />

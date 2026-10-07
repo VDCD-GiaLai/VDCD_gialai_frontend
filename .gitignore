@@ -43,4 +43,8 @@ next-env.d.ts
 # crawl scripts & output
 /scripts/
 lh-*.json
+lighthouse-*.json
+*.trace.json
+*.devtoolslog.json
+
 
