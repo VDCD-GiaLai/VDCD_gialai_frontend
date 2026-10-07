@@ -225,16 +225,18 @@ export function Header() {
             href="/company-profile"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Hồ sơ năng lực"
+            title="Hồ sơ năng lực"
             startContent={
               <FileText className="w-4 h-4" weight="bold" aria-hidden="true" />
             }
-            className={`hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-none font-mono-label text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${
+            className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-none font-mono-label text-[11px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest transition-all duration-300 shadow-sm ${
               showSolidHeader
                 ? "bg-accent-red hover:bg-accent-red-hover text-white border border-accent-red shadow-accent-red/20"
                 : "bg-white/10 hover:bg-accent-red text-white border border-white/60 hover:border-accent-red backdrop-blur-md"
             }`}
           >
-            Hồ sơ năng lực
+            <span className="hidden sm:inline">Hồ sơ năng lực</span>
           </Button>
 
           {/* Hamburger Menu Toggle for Mobile */}
@@ -330,16 +332,21 @@ export function Header() {
         >
           Liên hệ
         </Link>
-        <a
-          href="/company-profile"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="lg:hidden px-6 py-3.5 text-accent-red font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors flex items-center gap-2"
-        >
-          <FileText className="w-4 h-4" weight="thin" />
-          Hồ sơ năng lực
-        </a>
+        <div className="p-4 sm:p-5 bg-zinc-50/60 dark:bg-zinc-900/40 border-t border-zinc-100 dark:border-zinc-900">
+          <Button
+            as="a"
+            href="/company-profile"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMobileMenuOpen(false)}
+            startContent={
+              <FileText className="w-4 h-4" weight="bold" aria-hidden="true" />
+            }
+            className="w-full justify-center py-3 bg-accent-red hover:bg-accent-red-hover text-white rounded-none font-mono-label text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm"
+          >
+            Hồ sơ năng lực
+          </Button>
+        </div>
       </div>
     </header>
   );
