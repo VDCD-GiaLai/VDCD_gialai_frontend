@@ -25,14 +25,30 @@ export function ClientLayoutWidgets() {
   React.useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const trigger = () => setReady(true);
+
+    window.addEventListener("scroll", trigger, { once: true, passive: true });
+    window.addEventListener("pointerdown", trigger, {
+      once: true,
+      passive: true,
+    });
+
     if ("requestIdleCallback" in window) {
-      const id = window.requestIdleCallback(() => setReady(true), {
-        timeout: 4000,
+      const id = window.requestIdleCallback(trigger, {
+        timeout: 2000,
       });
-      return () => window.cancelIdleCallback(id);
+      return () => {
+        window.cancelIdleCallback(id);
+        window.removeEventListener("scroll", trigger);
+        window.removeEventListener("pointerdown", trigger);
+      };
     } else {
-      const timer = setTimeout(() => setReady(true), 3000);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(trigger, 1200);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("scroll", trigger);
+        window.removeEventListener("pointerdown", trigger);
+      };
     }
   }, []);
 
