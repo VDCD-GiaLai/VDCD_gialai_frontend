@@ -68,14 +68,6 @@ const LandingContactSection = dynamic(
   { ssr: false },
 );
 
-const FloatingContactWidget = dynamic(
-  () =>
-    import("@/components/layout/floating-contact-widget").then(
-      (m) => m.FloatingContactWidget,
-    ),
-  { ssr: false },
-);
-
 export function DeferredLandingContent({
   activeOrgInfo,
 }: {
@@ -127,7 +119,6 @@ export function DeferredLandingContent({
           <LatestNewsSection />
           <PartnersSection />
           <LandingContactSection />
-          <FloatingContactWidget />
         </>
       ) : (
         <div className="min-h-[20vh]" />
