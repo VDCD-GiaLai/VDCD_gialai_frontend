@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "@phosphor-icons/react";
 import type { OrganizationLeader } from "@/services/hero.service";
 
 interface ExecutiveLeaderProps {
@@ -26,8 +24,6 @@ export function ExecutiveLeader({ leader }: ExecutiveLeaderProps = {}) {
   const role = leader?.role?.trim() || DEFAULT_LEADER.role;
   const quote = leader?.quote?.trim() || DEFAULT_LEADER.quote;
   const avatarUrl = leader?.avatarUrl?.trim() || DEFAULT_LEADER.avatarUrl;
-  const ctaLink = leader?.ctaLink?.trim() || DEFAULT_LEADER.ctaLink;
-  const ctaText = leader?.ctaText?.trim() || DEFAULT_LEADER.ctaText;
 
   return (
     <motion.section
@@ -89,25 +85,6 @@ export function ExecutiveLeader({ leader }: ExecutiveLeaderProps = {}) {
                 </p>
               </div>
             </div>
-
-            {/* Action Link (Show if ctaLink exists) */}
-            {ctaLink && (
-              <div className="flex justify-end pt-0.5">
-                <Link
-                  href={ctaLink}
-                  className="inline-flex items-center gap-1.5 text-accent-red hover:text-accent-red/80 text-xs sm:text-sm font-semibold transition-colors duration-300 shrink-0 cursor-pointer group"
-                >
-                  <span className="group-hover:underline underline-offset-2">
-                    {ctaText}
-                  </span>
-                  <ArrowRight
-                    size={13}
-                    weight="bold"
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
