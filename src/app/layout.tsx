@@ -26,7 +26,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const SITE_URL = "https://doimoisangtaogialai.vn";
+const SITE_URL = "https://www.doimoisangtaogialai.vn";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

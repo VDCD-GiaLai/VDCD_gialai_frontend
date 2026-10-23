@@ -72,9 +72,13 @@ export async function generateMetadata({
     title,
     description,
     keywords,
+    alternates: {
+      canonical: `/news/${slug}`,
+    },
     openGraph: {
       title,
       description,
+      url: `/news/${slug}`,
       type: "article",
       publishedTime: article.publishedAt || undefined,
       ...(ogImage ? { images: [{ url: ogImage }] } : {}),
