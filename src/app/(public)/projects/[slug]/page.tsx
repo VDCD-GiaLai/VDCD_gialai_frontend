@@ -60,9 +60,13 @@ export async function generateMetadata({
       "Giám sát công trình",
       "Chuyển đổi số",
     ],
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
     openGraph: {
       title,
       description,
+      url: `/projects/${slug}`,
       type: "article",
       ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },

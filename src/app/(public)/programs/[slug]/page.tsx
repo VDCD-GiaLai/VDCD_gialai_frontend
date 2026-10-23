@@ -57,9 +57,13 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: {
+      canonical: `/programs/${slug}`,
+    },
     openGraph: {
       title,
       description,
+      url: `/programs/${slug}`,
       type: "article",
       ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },
