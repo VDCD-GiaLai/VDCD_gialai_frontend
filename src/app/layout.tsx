@@ -130,7 +130,8 @@ const jsonLdSchema = {
         "Trung tâm Đổi mới Sáng tạo Gia Lai kết nối công nghệ, chuyên gia và nguồn lực, đồng hành cùng doanh nghiệp, startup và cơ quan quản lý trong đổi mới sáng tạo và chuyển đổi số.",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Pleiku",
+        streetAddress: "Số 62A Diên Hồng",
+        addressLocality: "Phường Quy Nhơn",
         addressRegion: "Gia Lai",
         addressCountry: "VN",
       },
