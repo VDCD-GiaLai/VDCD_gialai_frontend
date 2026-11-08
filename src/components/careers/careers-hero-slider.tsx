@@ -9,6 +9,7 @@ import {
   fetchPageBannerFromApi,
   getCachedPageBanner,
 } from "@/services/banner.service";
+import type { PageBannerData } from "@/types/banner";
 import "./careers-hero-slider.css";
 
 /* ── Slide data ───────────────────────────────────────── */
@@ -51,6 +52,50 @@ const SLIDES: HeroSlide[] = [
 
 const SLIDE_DURATION = 6000; // ms
 
+const isValidCustomImage = (img?: string) =>
+  Boolean(
+    img &&
+    !img.includes("picsum.photos") &&
+    !img.includes("kientaotuonglai.webp") &&
+    !img.includes("pioneer_field_tech.webp") &&
+    !img.includes("innovation_center.webp") &&
+    !img.includes("digital_command_center.webp") &&
+    !img.includes("programs_incubation.webp") &&
+    !img.includes("sol_"),
+  );
+
+function resolveCareersSlides(data: PageBannerData | null): HeroSlide[] {
+  if (!data) return SLIDES;
+
+  if (Array.isArray(data.slides) && data.slides.length > 0) {
+    const validSlides = data.slides
+      .filter((s) => isValidCustomImage(s.image))
+      .map((s, idx) => ({
+        id: s.id || `slide-${idx + 1}`,
+        tag: s.tag || SLIDES[idx]?.tag || "Tuyển dụng",
+        headline: s.title || SLIDES[idx]?.headline || "",
+        subtitle: s.subtitle || SLIDES[idx]?.subtitle || "",
+        image: s.image,
+      }));
+
+    if (validSlides.length > 0) {
+      return validSlides;
+    }
+  }
+
+  return [
+    {
+      ...SLIDES[0],
+      tag: data.tag || SLIDES[0].tag,
+      headline: data.title || SLIDES[0].headline,
+      subtitle: data.subtitle || SLIDES[0].subtitle,
+      image: isValidCustomImage(data.image) ? data.image : SLIDES[0].image,
+    },
+    SLIDES[1],
+    SLIDES[2],
+  ];
+}
+
 /* ── Framer Motion variants ───────────────────────────── */
 
 const textVariants = {
@@ -90,32 +135,9 @@ const childVariants = {
 /* ── Component ────────────────────────────────────────── */
 
 export function CareersHeroSlider() {
-  const isValidCustomImage = (img?: string) =>
-    Boolean(
-      img &&
-      !img.includes("picsum.photos") &&
-      !img.includes("kientaotuonglai.webp") &&
-      !img.includes("pioneer_field_tech.webp") &&
-      !img.includes("innovation_center.webp") &&
-      !img.includes("digital_command_center.webp") &&
-      !img.includes("programs_incubation.webp") &&
-      !img.includes("sol_"),
-    );
-
-  const [slides, setSlides] = useState<HeroSlide[]>(() => {
-    const cached = getCachedPageBanner("careers");
-    if (cached && isValidCustomImage(cached.image)) {
-      return [
-        {
-          ...SLIDES[0],
-          image: cached.image,
-        },
-        SLIDES[1],
-        SLIDES[2],
-      ];
-    }
-    return SLIDES;
-  });
+  const [slides, setSlides] = useState<HeroSlide[]>(() =>
+    resolveCareersSlides(getCachedPageBanner("careers")),
+  );
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [ringKey, setRingKey] = useState(0); // reset CSS animation
@@ -129,15 +151,8 @@ export function CareersHeroSlider() {
     let cancelled = false;
     fetchPageBannerFromApi("careers")
       .then((data) => {
-        if (!cancelled && data && isValidCustomImage(data.image)) {
-          setSlides([
-            {
-              ...SLIDES[0],
-              image: data.image,
-            },
-            SLIDES[1],
-            SLIDES[2],
-          ]);
+        if (!cancelled && data) {
+          setSlides(resolveCareersSlides(data));
         }
       })
       .catch(() => {});
@@ -148,7 +163,8 @@ export function CareersHeroSlider() {
   }, []);
 
   const totalSlides = slides.length;
-  const currentSlide = slides[activeIndex] || slides[0];
+  const safeActiveIndex = activeIndex < totalSlides ? activeIndex : 0;
+  const currentSlide = slides[safeActiveIndex] || slides[0];
 
   const advanceSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % totalSlides);
@@ -157,14 +173,14 @@ export function CareersHeroSlider() {
 
   // Auto-advance timer
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || totalSlides <= 1) return;
 
     timerRef.current = setTimeout(advanceSlide, SLIDE_DURATION);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [activeIndex, advanceSlide, reducedMotion]);
+  }, [safeActiveIndex, advanceSlide, reducedMotion, totalSlides]);
 
   const handleManualAdvance = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -182,9 +198,9 @@ export function CareersHeroSlider() {
         <div
           key={slide.id}
           className={`careers-hero-slide ${
-            index === activeIndex ? "careers-hero-slide--active" : ""
+            index === safeActiveIndex ? "careers-hero-slide--active" : ""
           }`}
-          aria-hidden={index !== activeIndex}
+          aria-hidden={index !== safeActiveIndex}
         >
           <div className="careers-hero-slide__image">
             <Image
@@ -242,7 +258,7 @@ export function CareersHeroSlider() {
           onClick={handleManualAdvance}
           role="button"
           tabIndex={0}
-          aria-label={`Slide ${activeIndex + 1} / ${totalSlides}. Nhấn để chuyển slide tiếp`}
+          aria-label={`Slide ${safeActiveIndex + 1} / ${totalSlides}. Nhấn để chuyển slide tiếp`}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
@@ -276,7 +292,9 @@ export function CareersHeroSlider() {
 
           {/* Counter (Số đỏ, to & mỏng, không số 0: 1 / 3) */}
           <div className="careers-hero-nav__counter">
-            <span className="careers-hero-nav__current">{activeIndex + 1}</span>
+            <span className="careers-hero-nav__current">
+              {safeActiveIndex + 1}
+            </span>
             <span className="careers-hero-nav__separator">/</span>
             <span className="careers-hero-nav__total">{totalSlides}</span>
           </div>
