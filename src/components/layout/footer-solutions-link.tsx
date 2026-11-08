@@ -1,6 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { usePathname } from "next/navigation";
+
+export function FooterHomeOnly({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  if (pathname !== "/") return null;
+  return <>{children}</>;
+}
 
 export function FooterSolutionsLink() {
   return (

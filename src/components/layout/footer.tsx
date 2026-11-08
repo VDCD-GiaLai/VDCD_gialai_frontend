@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FooterSolutionsLink } from "./footer-solutions-link";
+import { FooterHomeOnly, FooterSolutionsLink } from "./footer-solutions-link";
 
 const FooterPartners = dynamic(() =>
   import("./footer-partners").then((m) => m.FooterPartners),
@@ -167,6 +167,25 @@ export async function Footer() {
                   </span>
                 </a>
               )}
+
+              <FooterHomeOnly>
+                <a
+                  href="tel:0888133335"
+                  aria-label="Gọi điện hotline 0888133335 (VDCD Group)"
+                  className="group flex items-center gap-3 transition-colors duration-300 hover:text-accent-red"
+                >
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100/80 dark:bg-zinc-800/80 text-slate-500 dark:text-zinc-400 group-hover:bg-accent-red/10 group-hover:text-accent-red transition-all duration-300 shrink-0 shadow-sm border border-slate-200/20 dark:border-zinc-800/20">
+                    <FiPhone
+                      className="text-base"
+                      role="none"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <span className="font-semibold text-slate-600 dark:text-zinc-300 group-hover:text-accent-red transition-colors">
+                    0888133335 (VDCD Group)
+                  </span>
+                </a>
+              </FooterHomeOnly>
 
               <a
                 href={`mailto:${email}`}
