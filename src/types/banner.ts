@@ -9,6 +9,15 @@ export interface PageBannerCta {
   ariaLabel?: string;
 }
 
+/** Single slide item for multi-slide page hero banners (e.g. Careers) */
+export interface PageBannerSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  tag?: string;
+  image: string;
+}
+
 /** Data shape for a page hero banner */
 export interface PageBannerData {
   /** Background image URL (absolute or relative) */
@@ -21,6 +30,8 @@ export interface PageBannerData {
   tag?: string;
   /** Optional CTA buttons rendered inside the hero */
   ctaButtons?: PageBannerCta[];
+  /** Optional multi-slide items for carousel banners */
+  slides?: PageBannerSlide[];
   /** Optional business license information */
   businessLicense?: string;
 }

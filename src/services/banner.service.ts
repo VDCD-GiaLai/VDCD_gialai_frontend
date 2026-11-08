@@ -1,11 +1,12 @@
 import { API_BASE_URL, USE_MOCK_DATA } from "@/config/env";
 import { MOCK_PAGE_BANNERS } from "@/data/banners.data";
-import {
-  fetchWithFallback,
-  getClientCache,
-  setClientCache,
-} from "@/lib/client-cache";
-import type { PageBannerData, PageKey } from "@/types/banner";
+import { fetchWithFallback, getClientCache } from "@/lib/client-cache";
+import type {
+  PageBannerCta,
+  PageBannerData,
+  PageBannerSlide,
+  PageKey,
+} from "@/types/banner";
 
 export { MOCK_PAGE_BANNERS };
 
@@ -100,16 +101,57 @@ export const fetchPageBannerFromApi = async (
         const isPlaceholder = (url?: string) =>
           !url || url.includes("picsum.photos");
 
+        const rawCtaButtons: Record<string, unknown>[] = Array.isArray(
+          data.ctaButtons,
+        )
+          ? data.ctaButtons
+          : [];
+
+        const apiSlides: PageBannerSlide[] = Array.isArray(data.slides)
+          ? data.slides
+              .filter((s: Record<string, unknown>) =>
+                Boolean(s && (s.imageUrl || s.image)),
+              )
+              .map((s: Record<string, unknown>, idx: number) => ({
+                id: String(s.id || `slide-${idx + 1}`),
+                title: String(s.title || ""),
+                subtitle: String(s.subtitle || ""),
+                tag: s.tag ? String(s.tag) : undefined,
+                image: String(s.imageUrl || s.image || ""),
+              }))
+          : rawCtaButtons
+              .filter((item) =>
+                Boolean(
+                  item &&
+                  item._type === "slide" &&
+                  (item.imageUrl || item.href),
+                ),
+              )
+              .map((item, idx) => ({
+                id: String(item.id || `slide-${idx + 1}`),
+                title: String(item.title || item.label || ""),
+                subtitle: String(item.subtitle || ""),
+                tag: item.tag ? String(item.tag) : undefined,
+                image: String(item.imageUrl || item.href || ""),
+              }));
+
+        const cleanCtaButtons = rawCtaButtons.filter((item) =>
+          Boolean(item && item._type !== "slide" && item.label && item.href),
+        ) as unknown as PageBannerCta[];
+
         const bannerData: PageBannerData = {
           image: !isPlaceholder(data.imageUrl) ? data.imageUrl : fallback.image,
           title: data.title || fallback.title,
           subtitle: data.subtitle || fallback.subtitle,
           tag: data.tag || fallback.tag,
-          ctaButtons: data.ctaButtons || fallback.ctaButtons,
+          ctaButtons:
+            cleanCtaButtons.length > 0 ? cleanCtaButtons : fallback.ctaButtons,
+          slides: apiSlides.length > 0 ? apiSlides : undefined,
           businessLicense: data.businessLicense || fallback.businessLicense,
         };
         pageBannerCache.set(pageKey, bannerData);
         preloadBannerImage(bannerData.image);
+        apiSlides.forEach((s) => preloadBannerImage(s.image));
         return bannerData;
       }
       throw new Error("Invalid banner data");
