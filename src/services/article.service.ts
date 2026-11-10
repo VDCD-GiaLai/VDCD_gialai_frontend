@@ -12,6 +12,21 @@ import type {
 import { parseSidebarConfig } from "@/types/sidebar-config";
 
 /**
+ * Normalizes article slug by stripping leading/trailing slashes and whitespace.
+ * Fixes 404 issues when database records have trailing slashes (e.g. "slug/").
+ */
+export function normalizeArticleSlug(slug?: string | null): string {
+  if (!slug) return "";
+  try {
+    return decodeURIComponent(slug)
+      .trim()
+      .replace(/^\/+|\/+$/g, "");
+  } catch {
+    return slug.trim().replace(/^\/+|\/+$/g, "");
+  }
+}
+
+/**
  * Parses article content if it is encoded as a JSON string
  */
 function parseArticleContent(
@@ -89,8 +104,22 @@ export const fetchArticlesFromApi = cache(async function fetchArticlesFromApi(
       const rawItems: Article[] = payload.data ?? payload.items ?? [];
       const items = rawItems.map((item) => ({
         ...item,
+        slug: normalizeArticleSlug(item.slug) || item.slug,
         content: parseArticleContent(item.content),
       }));
+      if (items.some((i) => typeof i.order === "number" && i.order > 0)) {
+        items.sort((a, b) => {
+          const orderA =
+            typeof a.order === "number" && a.order > 0
+              ? a.order
+              : Number.MAX_SAFE_INTEGER;
+          const orderB =
+            typeof b.order === "number" && b.order > 0
+              ? b.order
+              : Number.MAX_SAFE_INTEGER;
+          return orderA - orderB;
+        });
+      }
       const total: number = payload.total ?? items.length;
 
       return {
@@ -110,8 +139,11 @@ export const fetchArticleBySlugFromApi = cache(
   async function fetchArticleBySlugFromApi(
     slug: string,
   ): Promise<ArticleDetail | null> {
+    const cleanSlug = normalizeArticleSlug(slug) || slug;
+
     const getMockDetail = (): ArticleDetail | null => {
-      const article = getMockArticleBySlug(slug);
+      const article =
+        getMockArticleBySlug(cleanSlug) ?? getMockArticleBySlug(slug);
       if (!article || !article.isPublished) return null;
 
       const relatedArticles = MOCK_ARTICLES.filter(
@@ -124,26 +156,64 @@ export const fetchArticleBySlugFromApi = cache(
         .map((a) => ({
           id: a.id,
           title: a.title,
-          slug: a.slug,
+          slug: normalizeArticleSlug(a.slug) || a.slug,
           thumbnail: a.thumbnail,
           publishedAt: a.publishedAt,
         }));
 
       return {
         ...article,
+        slug: normalizeArticleSlug(article.slug) || article.slug,
         content: parseArticleContent(article.content),
         relatedArticles,
       };
     };
 
     return fetchWithFallback<ArticleDetail | null>({
-      key: `article_slug_${slug}`,
+      key: `article_slug_${cleanSlug}`,
       useMock: USE_MOCK_DATA,
       fallback: getMockDetail,
       fetcher: async () => {
-        const res = await fetch(`${API_BASE_URL}/articles/${slug}`, {
-          next: { revalidate: 60 },
-        });
+        let res = await fetch(
+          `${API_BASE_URL}/articles/${encodeURIComponent(cleanSlug)}`,
+          {
+            next: { revalidate: 60 },
+          },
+        );
+
+        // Fallback for articles whose DB slug contains a trailing/leading slash
+        // (e.g., "ai-drone-challenge-2026-san-choi-uav-sinh-vien-fpt-quy-nhon/")
+        if (res.status === 404) {
+          try {
+            const listRes = await fetch(
+              `${API_BASE_URL}/articles?page=1&limit=100`,
+              {
+                next: { revalidate: 60 },
+              },
+            );
+            if (listRes.ok) {
+              const listBody = await listRes.json();
+              const listPayload = listBody.data ?? listBody;
+              const rawItems: Article[] =
+                listPayload.data ?? listPayload.items ?? [];
+              const matched = rawItems.find(
+                (item) =>
+                  normalizeArticleSlug(item.slug) === cleanSlug ||
+                  item.id === cleanSlug,
+              );
+              if (matched?.id) {
+                res = await fetch(
+                  `${API_BASE_URL}/articles/${encodeURIComponent(matched.id)}`,
+                  {
+                    next: { revalidate: 60 },
+                  },
+                );
+              }
+            }
+          } catch {
+            // Ignore fallback error and let 404 handle below
+          }
+        }
 
         if (!res.ok) {
           if (res.status === 404) return null;
@@ -171,12 +241,20 @@ export const fetchArticleBySlugFromApi = cache(
           parseSidebarConfig(data.content) ??
           null;
 
+        const relatedArticles = Array.isArray(data.relatedArticles)
+          ? data.relatedArticles.map((rel: Article) => ({
+              ...rel,
+              slug: normalizeArticleSlug(rel.slug) || rel.slug,
+            }))
+          : [];
+
         return {
           ...data,
+          slug: normalizeArticleSlug(data.slug) || data.slug,
           isPublished: true,
           content: parsedContent,
           sidebarConfig,
-          relatedArticles: data.relatedArticles ?? [],
+          relatedArticles,
         } as ArticleDetail;
       },
     });
